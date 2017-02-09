@@ -104,8 +104,8 @@ public class VerifyPhoneFragment extends Fragment {
     }
 
     private void callApi() {
-//        final String deviceEmail = DataUtils.getDeviceEmail(getActivity());
-        final String deviceEmail = "sianworkman80@gmail.com";
+        final String deviceEmail = DataUtils.getDeviceEmail(getActivity());
+//        final String deviceEmail = "sianworkman80@gmail.com";
         if (!(TextUtils.isEmpty(deviceEmail))) {
             final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
             HashMap<String, String> registrationRequest = new HashMap<>();
