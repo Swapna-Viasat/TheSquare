@@ -297,12 +297,12 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                         public void onResponse(Call<ResponseObject<Job>> call,
                                                Response<ResponseObject<Job>> response) {
                             try {
+
+                                DialogBuilder.cancelDialog(dialog);
+
                                 if (response.isSuccessful()) {
                                     unfinished = false;
 
-//                                    Intent intent = new Intent(getActivity(), MainEmployerActivity.class);
-//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                    startActivity(intent);
 
 
                                     TextTools.log(TAG, String.valueOf(response.body().getResponse().id));
@@ -469,7 +469,6 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d(TAG, "on create options menu");
         inflater.inflate(R.menu.menu_create_job_post_step, menu);
         int positionOfMenuItem = 0;
         MenuItem item = menu.getItem(positionOfMenuItem);
