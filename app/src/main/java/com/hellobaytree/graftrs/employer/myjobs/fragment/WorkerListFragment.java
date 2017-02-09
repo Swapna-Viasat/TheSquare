@@ -101,7 +101,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
     }
 
     private void fetchDeclined(int id) {
-        // final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
                 .fetchJobWorkers(id, Application.STATUS_DENIED)
                 .enqueue(new Callback<JobWorkersResponse>() {
@@ -109,7 +109,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     public void onResponse(Call<JobWorkersResponse> call,
                                            Response<JobWorkersResponse> response) {
 
-                        // DialogBuilder.cancelDialog(dialog);
+                        DialogBuilder.cancelDialog(dialog);
                         TextTools.log(TAG, "success");
 
                         if (response.isSuccessful()) {
@@ -120,7 +120,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                             adapter.notifyDataSetChanged();
 
                         } else {
-                            //HandleErrors.parseError(getContext(), dialog, response);
+                            HandleErrors.parseError(getContext(), dialog, response);
                         }
 
                     }
@@ -134,7 +134,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
     }
 
     private void fetchMatches(int id) {
-        //final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
                 .fetchJobWorkerMatches(id)
                 .enqueue(new Callback<JobWorkersResponse>() {
@@ -142,7 +142,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     public void onResponse(Call<JobWorkersResponse> call,
                                            Response<JobWorkersResponse> response) {
 
-                        //DialogBuilder.cancelDialog(dialog);
+                        DialogBuilder.cancelDialog(dialog);
                         TextTools.log(TAG, "success");
 
                         if (response.isSuccessful()) {
@@ -152,7 +152,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                             adapter.notifyDataSetChanged();
 
                         } else {
-                            //HandleErrors.parseError(getContext(), dialog, response);
+                            HandleErrors.parseError(getContext(), dialog, response);
                         }
 
                     }
@@ -160,7 +160,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     @Override
                     public void onFailure(Call<JobWorkersResponse> call, Throwable t) {
                         TextTools.log(TAG, "fail");
-                        //HandleErrors.parseFailureError(getContext(), dialog, t);
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
     }
@@ -174,7 +174,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     public void onResponse(Call<JobWorkersResponse> call,
                                            Response<JobWorkersResponse> response) {
 
-                        //DialogBuilder.cancelDialog(dialog);
+                        DialogBuilder.cancelDialog(dialog);
                         TextTools.log(TAG, "success");
 
                         if (response.isSuccessful()) {
@@ -184,7 +184,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                             adapter.notifyDataSetChanged();
 
                         } else {
-                            //HandleErrors.parseError(getContext(), dialog, response);
+                            HandleErrors.parseError(getContext(), dialog, response);
                         }
 
                     }
@@ -192,13 +192,13 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     @Override
                     public void onFailure(Call<JobWorkersResponse> call, Throwable t) {
                         TextTools.log(TAG, "fail");
-                        //HandleErrors.parseFailureError(getContext(), dialog, t);
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
     }
 
     private void fetchPending(int id) {
-        //final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
                 .fetchJobWorkers(id, Application.STATUS_PENDING)
                 .enqueue(new Callback<JobWorkersResponse>() {
@@ -206,7 +206,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     public void onResponse(Call<JobWorkersResponse> call,
                                            Response<JobWorkersResponse> response) {
 
-                        //DialogBuilder.cancelDialog(dialog);
+                        DialogBuilder.cancelDialog(dialog);
                         TextTools.log(TAG, "success");
 
                         if (response.isSuccessful()) {
@@ -217,7 +217,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                             adapter.notifyDataSetChanged();
 
                         } else {
-                            //HandleErrors.parseError(getContext(), dialog, response);
+                            HandleErrors.parseError(getContext(), dialog, response);
                         }
 
                     }
@@ -225,7 +225,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     @Override
                     public void onFailure(Call<JobWorkersResponse> call, Throwable t) {
                         TextTools.log(TAG, "fail");
-                        //HandleErrors.parseFailureError(getContext(), dialog, t);
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
     }
