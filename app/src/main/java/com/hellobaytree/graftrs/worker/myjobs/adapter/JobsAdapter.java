@@ -44,7 +44,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
     public JobsAdapter.JobHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new JobsAdapter.JobHolder(LayoutInflater
-                .from(parent.getContext()).inflate(R.layout.item_job, parent, false));
+                .from(parent.getContext()).inflate(R.layout.item_job_worker, parent, false));
     }
 
     public void onBindViewHolder(JobsAdapter.JobHolder holder, int position) {
@@ -57,8 +57,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         });
 
         try {
-            holder.salary.setText(String.valueOf(job.budget));
-            holder.salaryPeriod.setText(job.budgetType.name);
+            holder.salary.setText(context.getString(R.string.pound_sterling) +
+                    " " + String.valueOf(job.budget));
+            holder.salaryPeriod.setText("PER " + job.budgetType.name);
 
             if (null != job.company.logo) {
                 Picasso.with(context)
@@ -87,6 +88,10 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                     Toast.makeText(context, "Under Development", Toast.LENGTH_SHORT).show();
                 }
             });
+            //
+            holder.company.setText(job.company.name);
+            holder.id.setText("Job ID: " + String.valueOf(job.id));
+            //
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,6 +116,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         @BindView(R.id.item_job_experience) JosefinSansTextView experience;
         @BindView(R.id.item_job_status) JosefinSansTextView action;
         @BindView(R.id.item_job_action_block) View actionBlock;
+        @BindView(R.id.item_job_company_name) JosefinSansTextView company;
+        @BindView(R.id.item_job_id) JosefinSansTextView id;
         public JobHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
