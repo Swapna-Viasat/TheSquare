@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/redSquareColor"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            app:josefin_style="italic"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:text="Cancel"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/autocomple_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            app:josefin_style="italic"
+            android:text="Title"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:id="@+id/autocomplete_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ProgressBar
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:id="@+id/progress"
+            android:layout_width="22dp"
+            android:layout_height="22dp" />
+
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            app:josefin_style="italic"
+            android:layout_margin="8dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:text="Done"
+            android:layout_alignParentRight="true"
+            android:id="@+id/autocomple_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <View
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <EditText
+        android:focusableInTouchMode="true"
+        android:padding="6dp"
+        android:inputType="textCapWords|textNoSuggestions"
+        android:background="@android:color/transparent"
+        android:id="@+id/autocomplete_search"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"/>
+
+    <View
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <ListView
+        android:id="@+id/autocomplete_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

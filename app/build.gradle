@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "25.0.1"
+
+    defaultConfig {
+        applicationId "com.hellobaytree.graftrs.graftrs"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 14
+        versionName "1.0.13"
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("square_keystore")
+            storePassword "bowie1715"
+            keyAlias "baytree"
+            keyPassword "adsl616net"
+        }
+    }
+    buildTypes {
+        debug {
+            debuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'io.fabric'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
+
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    compile 'com.google.android.gms:play-services-places:10.0.1'
+    compile 'com.google.android.gms:play-services-location:10.0.1'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile 'com.android.support:support-v13:23.4.0'
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'joda-time:joda-time:2.9.4'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.stripe:stripe-android:2.0.2'
+    compile 'com.hbb20:ccp:1.7.1'
+    compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+}

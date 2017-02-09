@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@+id/content_worker_profile"
+        android:id="@+id/content_worker_details_extra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_margin="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/worker_profile_bio_edit"
+                android:src="@drawable/ic_mode_edit_black_24dp"
+                android:tint="@color/redSquareColor"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_profile_bio_title"
+                android:text="@string/employer_worker_details_bio"
+                android:textColor="@color/blackSquareColor"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_profile_bio_text"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/worker_profile_bio_title"
+                android:hint="@string/employer_worker_details_bio_placeholder"
+                android:textSize="14sp"
+                style="@style/caption_gray_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <View android:layout_gravity="bottom"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_margin="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/worker_profile_experience_edit"
+                android:src="@drawable/ic_mode_edit_black_24dp"
+                android:tint="@color/redSquareColor"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_profile_experience_title"
+                android:text="@string/employer_worker_details_qualifications"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_details_bullet_list_experience"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/worker_profile_experience_title"
+                style="@style/caption_gray_text"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <View android:layout_gravity="bottom"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_margin="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/worker_profile_requirements_edit"
+                android:src="@drawable/ic_mode_edit_black_24dp"
+                android:tint="@color/redSquareColor"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_profile_requirements_title"
+                android:text="@string/employer_worker_details_requirements"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_details_bullet_list_requirements"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/worker_profile_requirements_title"
+                style="@style/caption_gray_text"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <View android:layout_gravity="bottom"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_margin="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/worker_profile_skills_edit"
+                android:src="@drawable/ic_mode_edit_black_24dp"
+                android:tint="@color/redSquareColor"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_profile_skills_title"
+                android:text="@string/employer_worker_details_skills"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_details_bullet_list_skills"
+                android:layout_marginTop="8dp"
+                style="@style/caption_gray_text"
+                android:textSize="14sp"
+                android:layout_below="@id/worker_profile_skills_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <View android:layout_gravity="bottom"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_margin="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/worker_profile_companies_edit"
+                android:src="@drawable/ic_mode_edit_black_24dp"
+                android:tint="@color/redSquareColor"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_profile_companies_title"
+                android:text="@string/employer_worker_details_companies"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_details_bullet_list_companies"
+                android:layout_marginTop="8dp"
+                style="@style/caption_gray_text"
+                android:textSize="14sp"
+                android:layout_below="@id/worker_profile_companies_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <View android:layout_gravity="bottom"
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_margin="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/worker_profile_location_edit"
+                android:src="@drawable/ic_mode_edit_black_24dp"
+                android:tint="@color/redSquareColor"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_profile_location_title"
+                android:text="@string/employer_worker_details_location"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_details_preferred_location"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                style="@style/caption_gray_text"
+                android:textSize="14sp"
+                android:layout_below="@id/worker_profile_location_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </LinearLayout>
+</merge>

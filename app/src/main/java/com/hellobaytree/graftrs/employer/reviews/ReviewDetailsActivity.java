@@ -1,0 +1,91 @@
+package com.hellobaytree.graftrs.employer.reviews;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.reviews.Review;
+import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
+import com.hellobaytree.graftrs.shared.view.widget.RatingView;
+import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * Created by Evgheni on 11/11/2016.
+ */
+
+public class ReviewDetailsActivity extends AppCompatActivity {
+
+    public static final String TAG = "ReviewDetailsActivity";
+    @BindView(R.id.rating_view_attitude) RatingView attitude;
+    @BindView(R.id.rating_view_quality) RatingView quality;
+    @BindView(R.id.rating_view_reliability) RatingView reliability;
+    @BindView(R.id.rating_view_safety) RatingView safety;
+    @BindView(R.id.review_details_name) JosefinSansTextView name;
+    @BindView(R.id.review_details_overview) JosefinSansTextView again;
+    @BindView(R.id.review_details_logo) ImageView logo;
+
+    @BindView(R.id.field1) JosefinSansTextView field1;
+    @BindView(R.id.field2) JosefinSansTextView field2;
+    @BindView(R.id.field3) JosefinSansTextView field3;
+    @BindView(R.id.field4) JosefinSansTextView field4;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_review_details);
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        again.setText(getString(R.string.employer_reviews_work_again));
+        name.setText("Worker Name");
+        field1.setText(getString(R.string.employer_reviews_environment));
+        field2.setText(getString(R.string.employer_reviews_team));
+        field3.setText(getString(R.string.employer_reviews_pay));
+        field4.setText(getString(R.string.employer_reviews_induction));
+
+        if (null != getIntent().getExtras()) {
+            if (null != getIntent().getExtras().getSerializable("data")) {
+                Review review = (Review) getIntent().getExtras().getSerializable("data");
+                populate(review);
+            }
+        }
+    }
+
+    private void populate(Review review) {
+        quality.makeStarsRed();
+        quality.setRating(review.environment);
+        attitude.makeStarsRed();
+        attitude.setRating(review.team);
+        reliability.makeStarsRed();
+        reliability.setRating(review.payers);
+        safety.makeStarsRed();
+        safety.setRating(review.induction);
+
+        again.setVisibility(review.wouldHireAgain ? View.VISIBLE : View.GONE);
+
+        if (null != review.worker) {
+            if (null != review.worker.firstName && null != review.worker.lastName) {
+                name.setText(review.worker.firstName + " " + review.worker.lastName);
+            }
+            if (null != review.worker.picture) {
+                Picasso.with(getBaseContext())
+                        .load(review.worker.picture)
+                        .into(logo);
+            }
+        }
+    }
+
+    @OnClick(R.id.close)
+    public void close() {
+        finish();
+    }
+}

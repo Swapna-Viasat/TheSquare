@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="6dp"
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="2dp"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <!-- Top Block -->
+        <FrameLayout
+            android:minHeight="140dp"
+            android:id="@+id/item_match_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Company Logo -->
+            <ImageView
+                android:id="@+id/match_logo"
+                android:layout_margin="14dp"
+                android:layout_width="78dp"
+                android:layout_height="42dp"/>
+
+            <!-- Like Image -->
+            <ImageView
+                android:id="@+id/likeImage"
+                android:layout_gravity="end|right|top"
+                android:src="@drawable/ic_like"
+                android:tint="@color/redSquareColor"
+                android:padding="14dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+            <!-- Occupation + experience -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_margin="14dp"
+                android:layout_gravity="bottom|start|left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_details_occupation"
+                    android:textSize="20sp"
+                    android:text="Bricklayer"
+                    android:textAllCaps="true"
+                    app:josefin_style="light"
+                    android:textColor="@color/redSquareColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_details_experience"
+                    android:textSize="16sp"
+                    app:josefin_style="light"
+                    android:text="6 years experience"
+                    android:textAllCaps="true"
+                    android:textColor="@color/blackSquareColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!-- Salary-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_margin="14dp"
+                android:layout_gravity="bottom|end|right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_details_salary_period"
+                    android:textSize="16sp"
+                    app:josefin_style="light"
+                    android:textAllCaps="true"
+                    android:textColor="@color/redSquareColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_details_salary_number"
+                    android:textSize="22sp"
+                    android:text="\u00A3 165"
+                    app:josefin_style="light"
+                    android:textAllCaps="true"
+                    android:textColor="@color/redSquareColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Location and Start Date -->
+        <FrameLayout
+            android:padding="14dp"
+            android:layout_below="@+id/item_match_job"
+            android:id="@+id/item_match_start_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/redSquareColor"
+                    android:src="@drawable/ic_date_range_black_24dp"/>
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/item_match_start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Starts 18th Feb"
+                    android:gravity="center"
+                    style="@style/caption_gray_text"
+                    app:josefin_style="light"
+                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/redSquareColor"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/ic_place_black_24dp"/>
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/item_match_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    style="@style/caption_gray_text"
+                    app:josefin_style="light"
+                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
+                    android:text="Holborn, London"/>
+            </LinearLayout>
+        </FrameLayout>
+    </RelativeLayout>
+
+    <View android:layout_gravity="bottom"
+        android:background="@color/redSquareColor"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+</android.support.v7.widget.CardView>

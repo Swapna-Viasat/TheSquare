@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hellobaytree.graftrs.employer.createjob.adapter.SquareLayout android:padding="2dp"
+    android:layout_margin="2dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparentSquareColor" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/title"
+                android:textSize="18sp"
+                android:layout_margin="8dp"
+                android:layout_gravity="left"
+                android:textAllCaps="true"
+                android:textAlignment="center"
+                app:josefin_style="light"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- Controls -->
+            <LinearLayout
+                android:layout_gravity="center"
+                android:id="@+id/controls"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_gravity="center"
+                            android:background="@android:color/white"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"/>
+
+                        <View
+                            android:id="@+id/minus"
+                            android:layout_margin="1dp"
+                            android:background="@drawable/ic_minus"
+                            android:layout_width="46dp"
+                            android:layout_height="46dp"/>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_margin="1dp"
+                        android:background="@drawable/ic_blank_circle"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:text="1"
+                            android:id="@+id/num"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_gravity="center"
+                            android:background="@android:color/white"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"/>
+                        <View
+                            android:id="@+id/plus"
+                            android:layout_margin="1dp"
+                            android:background="@drawable/ic_plus"
+                            android:layout_width="46dp"
+                            android:layout_height="46dp"/>
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</com.hellobaytree.graftrs.employer.createjob.adapter.SquareLayout>

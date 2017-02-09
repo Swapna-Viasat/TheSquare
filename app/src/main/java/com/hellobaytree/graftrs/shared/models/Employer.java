@@ -1,0 +1,29 @@
+package com.hellobaytree.graftrs.shared.models;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+/**
+ * Created by gherg on 12/29/2016.
+ */
+
+public class Employer implements Serializable {
+    public int id;
+    public String identifier;
+    @SerializedName("user_type") public int userType;
+    @SerializedName("onboarding_done") public boolean onboardingDone;
+    @SerializedName("valid_company_employer") public boolean validCompanyEmployer;
+    @SerializedName("reviews_amount") public int reviewCount;
+    @SerializedName("reviews_avg") public int reviewInt;
+    @SerializedName("first_name") public String firstName;
+    @SerializedName("last_name") public String lastName;
+    @SerializedName("email_confirmed") public boolean emailConfirmed;
+    @SerializedName("onboarding_skipped") public boolean onboardingSkipped;
+    public String email;
+    @SerializedName("job_title") public String jobTitle;
+    @SerializedName("worker_app_notifications") public boolean workerAppNotifications;
+    @SerializedName("job_notifications") public boolean jobNotifications;
+    @SerializedName("reviews_notifications") public boolean reviewNotifications;
+    public Company company;
+}

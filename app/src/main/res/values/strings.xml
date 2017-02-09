@@ -1,0 +1,740 @@
+<resources>
+    <string name="app_name">The Square</string>
+
+    <string name="phone_verification_first_title">To join The Square we need to verify your mobile number. </string>
+    <string name="phone_verification_second_title">(So you don\'t have to login every time &amp; to
+        give you a better experience on The Square) </string>
+    <string name="phone_verification_third_title">By verifying your phone number you agree with </string>
+    <string name="phone_verification_third_title_bold">The Square Terms and Conditions</string>
+    <string name="phone_verification_button_text">Verify now</string>
+    <string name="phone_verification_country_code_hint">+44</string>
+    <string name="phone_verification_phone_text">Phone Number</string>
+    <string name="phone_verification_thanks">Thanks!</string>
+    <string name="phone_verification_code_sent">We\'re just verifying your number. If this doesn\'t happen within 10 seconds, please enter the code we\'ve just text to %1$s and we\'ll get you started.</string>
+    <string name="phone_verification_did_not_receive_sms">Didn\'t receive SMS?\nResend code.
+    </string>
+    <string name="phone_verification_number_not_right">Number not right?\nEdit number.</string>
+
+    <string name="phone_verification_error_message">Hmmm. Your number doesn\'t look right. Make sure
+        you\'ve entered the correct country code and number </string>
+    <string name="phone_verification_continue">Continue</string>
+    <string name="phone_verification_validate_failed">Please enter a 4 digit code.</string>
+
+    <string name="sign_up_worker_step_personal_information_post_code_hint">Home postcode*</string>
+    <string name="sign_up_worker_step_personal_information_email_hint">Email address</string>
+    <string name="sign_up_worker_step_personal_information_last_name_hint">Last Name*</string>
+    <string name="sign_up_worker_step_personal_information_first_name_hint">First Name*</string>
+    <string name="sign_up_worker_step_personal_information_password_mandatory_hint">Create a Password*</string>
+    <string name="sign_up_worker_step_personal_information_confirmation_password_mandatory_hint">Re-enter a password*</string>
+    <string name="sign_up_worker_step_personal_information_password_not_mandatory_hint">Create a Password</string>
+    <string name="sign_up_worker_step_personal_information_confirmation_password_not_mandatory_hint">Re-enter a password</string>
+
+    <string name="sign_up_worker_step_personal_information_title">OK! We just need\na few details from
+        you&#8230;</string>
+    <string name="sign_up_worker_step_personal_information_title_2">Please enter your name, postcode, password &amp; profile picture</string>
+
+
+    <string name="sign_up_worker_step_roles_title_before_name">OK</string>
+    <string name="sign_up_worker_step_roles_title_after_name">, which one job\nbest describes what you do?</string>
+    <string name="up_to_three">(Select up to 3)</string>
+
+    <string name="sign_up_worker_step_experience_title">More about you...</string>
+
+    <string name="sign_up_worker_step_experience_years_title">Experience in Years</string>
+    <string name="sign_up_worker_step_experience_qualifications">Your Qualifications</string>
+    <string name="sign_up_worker_step_experience_how_good_english">How good is your English</string>
+    <string name="sign_up_worker_step_4_title">Please complete your\nCSCS details.</string>
+    <string name="sign_up_worker_step_skills_title">Please select any specific skills you have</string>
+    <string name="sign_up_worker_step_experience_type_title">What specific experience do you have?</string>
+    <string name="sign_up_worker_step_trades_title_1">What trades is your %s role associated to?</string>
+    <string name="sign_up_worker_step_trades_title_2">What trades are your %s roles associated to?</string>
+    <string name="sign_up_worker_step_qualifications_title">Do you have any qualifications?</string>
+    <string name="sign_up_worker_step_location_title">Work location preferences.</string>
+    <string name="sign_up_worker_step_location_commute_question">How long are you happy to commute for?</string>
+    <string name="sign_up_worker_step_rate_title">Availability \&amp; Rate</string>
+    <string name="sign_up_worker_step_rate_day_rate">Your preferred day rate</string>
+    <string name="sign_up_worker_step_rate_availability_to_work">What\'s your availability to work?
+    </string>
+    <string name="immediatly">Immediately</string>
+    <string name="sign_up_worker_step_rate_immediatly_hint">(I can start tomorrow)</string>
+    <string name="just_looking">I\'m Just Looking</string>
+    <string name="sign_up_worker_step_rate_just_looking_hint">(from next week onwards)</string>
+
+    <string name="sign_up_worker_step_company_title">Add any notable companies you\'ve worked for
+    </string>
+
+
+    <string name="sign_up_employer_step_1_title">OK! We just need a few details\n about you and your
+        company
+    </string>
+    <string name="sign_up_employer_step_1_title_2">All details are for The Square use only</string>
+    <string name="sign_up_employer_step_1_first_name_hint">First Name*</string>
+    <string name="sign_up_employer_step_1_last_name_hint">Last Name*</string>
+    <string name="sign_up_employer_step_1_job_title_hint">Your Job Title*</string>
+    <string name="sign_up_employer_step_1_work_email_hint">Your work email address*</string>
+    <string name="sign_up_employer_step_1_password_hint">Create password*</string>
+    <string name="sign_up_employer_step_1_password2_hint">Re-enter password*</string>
+    <string name="sign_up_employer_step_1_password_not_mandatory_hint">Create a password</string>
+    <string name="sign_up_employer_step_1_password2_not_mandatory_hint">Re-enter password</string>
+    <string name="sign_up_employer_step_1_company_name_hint">Company registration number</string>
+    <string name="sign_up_employer_step_1_upload_image_title">Upload your company image logo from
+    </string>
+    <string name="sign_up_employer_step_1_upload_image_title_2">(optional)</string>
+    <string name="sign_up_employer_step_1_upload_image_title_3">Logo should be png transparent less
+        than 1 MB
+    </string>
+    <string name="sign_up_employer_step_1_upload_image_btn_gallery">GALLERY</string>
+    <string name="sign_up_employer_step_1_upload_image_btn_dropbox">DROPBOX</string>
+    <string name="sign_up_employer_step_1_upload_image_btn_drive">DRIVE</string>
+    <string name="sign_up_employer_step_1_btn_next">CONTINUE</string>
+
+    <string name="sign_up_employer_step_1_validation_first_name">Please enter your first name</string>
+    <string name="sign_up_employer_step_1_validation_last_name">Please enter your last name</string>
+    <string name="sign_up_employer_step_1_validation_job_title">Please enter the job title</string>
+    <string name="sign_up_employer_step_1_validation_email_address">Please enter your email address</string>
+    <string name="sign_up_employer_step_1_validation_password">Please enter a password</string>
+    <string name="sign_up_employer_step_1_validation_password_confirmation">Please re-enter a password</string>
+    <string name="sign_up_employer_step_1_validation_password_match">The password and confirmation password do not match</string>
+
+
+    <string name="validate_first">Please enter your first name</string>
+    <string name="validate_last">Please enter your last name</string>
+    <string name="empty_email">Please enter your email address</string>
+    <string name="validate_password">Please enter a password</string>
+    <string name="validate_password_reenter">Please re-enter a password</string>
+    <string name="validate_password_match">The password and confirmation password do not match</string>
+    <string name="validate_zip">Please enter a valid postal code</string>
+    <string name="validate_email">Please enter a valid email address</string>
+
+
+    <string name="sign_up_employer_step_company_title">Company information</string>
+    <string name="sign_up_employer_step_company_name_hint">Company name*</string>
+    <string name="sign_up_employer_step_company_add_address_label">Add registered company address
+    </string>
+    <string name="sign_up_employer_step_company_add_address_hint">Search by address or postcode*
+    </string>
+    <string name="sign_up_employer_step_company_upload_logo_label">Upload your company logo*
+    </string>
+    <string name="sign_up_employer_step_company_btn_search_address">SEARCH</string>
+    <string name="sign_up_employer_step_company_btn_skip">Complete later</string>
+    <string name="sign_up_employer_step_company_btn_next">CONTINUE</string>
+
+
+    <string name="sign_up_employer_step_2_title">You\'are almost done\!</string>
+    <string name="sign_up_employer_step_2_title_2">Key finance contact information</string>
+    <string name="sign_up_employer_step_2_title_3">The person that receives and pay invoices
+    </string>
+    <string name="sign_up_employer_step_2_contact_first_name_hint">Contact first name*</string>
+    <string name="sign_up_employer_step_2_contact_last_name_hint">Contact last name*</string>
+    <string name="sign_up_employer_step_2_contact_telephone_hint">Contact telephone*</string>
+    <string name="sign_up_employer_step_2_contact_email_hint">Contact e-mail*</string>
+    <string name="sign_up_employer_step_2_registered_address_hint">Company registered address
+    </string>
+    <string name="sign_up_employer_step_2_registration_number_hint">Company registration number
+    </string>
+    <string name="sign_up_employer_step_2_timesheet_title">Timesheet management preferences</string>
+    <string name="sign_up_employer_step_2_timesheet_subtitle">Do you want workers to submit their
+        own invoices for your approval or do you want to complete all invoices on their behalf?
+    </string>
+    <string name="sign_up_employer_step_2_timesheet_option_one">We\'ll complete all invoices
+    </string>
+    <string name="sign_up_employer_step_2_timesheet_option_two">Workers can submit their own
+        invoices for our approval
+    </string>
+    <string name="sign_up_employer_step_2_worker_payments_title">Worker payments</string>
+    <string name="sign_up_employer_step_2_worker_payments_subtitle">The Square automatically handles
+        all worker payments to make it simpler for you. If you\'d like to pay workers directly,
+        please check the button below.
+    </string>
+    <string name="sign_up_employer_step_2_worker_option_one">I want to pay workers directly</string>
+    <string name="sign_up_employer_step_2_worker_option_two">I want The Square to handle all worker
+        payments
+    </string>
+    <string name="done">DONE</string>
+    <string name="ok">OK</string>
+
+    <string name="pop_up_title_great">GREAT\!</string>
+    <string name="pop_up_message_successful_registration">Your mobile has been verified.</string>
+
+
+    <string name="title_activity_main_worker">MainWorkerActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="menu_employer_my_jobs_home">My Jobs</string>
+    <string name="menu_employer_my_graftrs">My Workers</string>
+    <string name="menu_employer_my_messages">My Messages</string>
+    <string name="menu_employer_my_account">My Account</string>
+    <string name="menu_employer_log_out">Log out</string>
+    <string name="menu_employer_edit_profile">Edit Profile</string>
+
+    <string name="menu_worker_my_jobs_matches_home">Job Matches</string>
+    <string name="menu_worker_my_jobs">My Jobs</string>
+    <string name="menu_worker_my_messages">My Messages</string>
+    <string name="menu_worker_my_account">My Account</string>
+    <string name="menu_worker_share">Share The Square</string>
+    <string name="menu_worker_log_out">Log out</string>
+    <string name="menu_worker_edit_profile">Edit Profile</string>
+
+    <string name="menu_coming_soon_my_profile">My Profile</string>
+    <string name="menu_coming_soon_how_it_works">How it Works</string>
+    <string name="menu_coming_soon_share">Share te Square &amp; Earn</string>
+    <string name="menu_coming_soon_log_out">Log out</string>
+
+
+    <string name="create_job_employer_step_roles_title">What kind of worker are you looking for?</string>
+    <string name="create_job_employer_step_roles_filter_hint">Search roles</string>
+    <string name="create_job_employer_step_trades_title">Which trades do you require?</string>
+
+    <string name="create_job_employer_step_2_title">What experience and qualifications are you
+        looking for?
+    </string>
+    <string name="create_job_employer_step2_experience_subtitle">Experience in Years</string>
+    <string name="create_job_employer_step2_qualifications_subtitle">Qualifications needed</string>
+    <string name="create_job_employer_step2_qualifications_cscs_card_up_to_date">Up to date CSCS
+        Card
+    </string>
+    <string name="create_job_employer_step2_qualifications_vocational_qualification">Vocational
+        Qualification NVQ/SVQ
+    </string>
+    <string name="create_job_employer_step2_qualifications_driving_license_up_to_date">Up to date
+        Driving License
+    </string>
+    <string name="create_job_employer_step2_english_level_subtitle">Candidate\'s English Language
+        Proficiency
+    </string>
+    <string name="create_job_employer_step2_english_level_native">Native</string>
+    <string name="create_job_employer_step2_english_level_fluent">Fluent</string>
+    <string name="create_job_employer_step2_english_level_not_mandatory">Not Mandatory</string>
+    <string name="create_job_employer_step_3_title">Are there any specific skills you\'re looking
+        for?
+    </string>
+    <string name="create_job_employer_step_4_title">Where\'s the job location?</string>
+    <string name="create_job_employer_step_5_title">Add job details</string>
+    <string name="create_job_employer_step5_short_description_subtitle">Short Description</string>
+    <string name="create_job_employer_step5_budget_subtitle">Your Budget per</string>
+    <string name="create_job_employer_step5_budget_day">Day</string>
+    <string name="create_job_employer_step5_budget_month">Month</string>
+    <string name="create_job_employer_step5_budget_year">Year</string>
+    <string name="create_job_employer_step5_paying_hours_subtitle">Paying overtime hours?</string>
+    <string name="create_job_employer_step5_reporting_to_subtitle_1">Reporting to</string>
+    <string name="create_job_employer_step5_reporting_to_subtitle_2">All marked information will be
+        provided to the booked candidate
+    </string>
+    <string name="create_job_employer_step5_type_job_subtitle">Type Jop</string>
+    <string name="create_job_employer_step5_type_job_permanent">Permanent</string>
+    <string name="create_job_employer_step5_type_job_contract">Contract</string>
+    <string name="create_job_employer_step5_date_arrive_subtitle">Date and Time to arrive</string>
+    <string name="create_job_employer_step5_note_subtitle">Anything else to note</string>
+
+    <string name="create_job_employer_step_payments_preferences_title">Great! You\' are almost done.\n How do you want to pay?</string>
+    <string name="create_job_employer_step_payments_preferences_subtitle">Try it out or subscribe and get unlimited access...</string>
+    <string name="create_job_employer_step_payments_preferences_option_try">Try it out for 250</string>
+    <string name="create_job_employer_step_payments_preferences_option_try_inf">1 job promotion for up to week.\nUp to 20 suitable candidate matches.</string>
+
+    <string name="create_job_employer_step_payments_preferences_option_subscribe">Subscribe for 500 / month</string>
+    <string name="create_job_employer_step_payments_preferences_option_subscribe_inf">Hire at anytime, from anywhere on any device.\nUnlimited job promotions.\nUnlimited bookings.\nTrack previous candidates &amp; hires\nAccess to one of the fastest growing construction networks in the world.</string>
+    <string name="create_job_employer_step_payments_preferences_discount_text">If you have a special discount code enter at payment stage.</string>
+    <string name="create_job_employer_step_payments_preferences_terms_and_conditions_text">Term &amp; conditions apply.</string>
+
+    <string name="create_job_employer_step_prepay_title">Pre pay information</string>
+
+    <string name="title_activity_main_employer">MainEmployerActivity</string>
+    <string name="drawer_open">Abrir navigation drawer</string>
+    <string name="drawer_close">Cerrar navigation drawer</string>
+    <string name="headlines">Encabezados de</string>
+
+
+    <string name="title_activity_job_detail">Job Description</string>
+
+    <string name="welcome_text">Hey! Welcome to The Square.</string>
+    <string name="register_as_worker">REGISTER AS A WORKER</string>
+    <string name="register_as_employer">REGISTER AS AN EMPLOYER</string>
+    <string name="already_have_account">I ALREADY HAVE AN ACCOUNT</string>
+
+    <string name="get_started">Get started</string>
+
+    <string name="tutorial_employer_one_title">Safe &amp; skilled workers</string>
+    <string name="tutorial_employer_two_title">Quicker &amp; easier hiring</string>
+    <string name="tutorial_employer_three_title">Cheaper &amp; more transparent</string>
+    <string name="tutorial_employer_four_title">The smarter way to hire</string>
+
+    <string name="tutorial_employer_one_text">The Square is building the largest database of safe and skilled construction workers in the world. Once registered you get access to the best workers near you.</string>
+    <string name="tutorial_employer_two_text">Review and book workers immediately knowing their skills and how they\'ve been rated by previous employers.</string>
+    <string name="tutorial_employer_three_text">We automate the recruitment process to save you money and provide a better, more transparent experience.</string>
+    <string name="tutorial_employer_four_text">If you\'re looking for quality skilled workers, create your account now.</string>
+    <!--<string name="tutorial_employer_five_text">You can pay invoices quickly and easily through the
+        app or via BACS or bank transfer.
+    </string>-->
+
+    <string name="tutorial_worker_one_title">Earn more</string>
+    <string name="tutorial_worker_two_title">Save time</string>
+    <string name="tutorial_worker_three_title">Work with the best</string>
+    <string name="tutorial_worker_four_title">Live well</string>
+    <string name="tutorial_worker_five_title">Sleep easy</string>
+
+    <string name="tutorial_worker_one_text">The Square uses clever technology to cut out the middleman. That means more cash in your back pocket.</string>
+    <string name="tutorial_worker_two_text">Once your profile is live, we\'ll notify you as soon as you\'re matched to a job that suits\nyou. We do the hard graft for you 24/7.</string>
+    <string name="tutorial_worker_three_text">As one of the fastest growing networks of skilled construction workers in the world we attract the best companies in the industry.</string>
+    <string name="tutorial_worker_four_text">Working in partnership with Build UK and Trade Associations we\'re driving up Health and Safety standards, creating better working conditions for you.</string>
+    <string name="tutorial_worker_five_text">We take care of your monthly and annual tax returns, so you don\'t have to worry. We\'re making your life easier.</string>
+
+    <string name="search_where_work_hint">Search by postcode or address</string>
+    <string name="twenty_minutes">20min</string>
+    <string name="value_minutes">%1$dmin</string>
+    <string name="plus_two_hours">+2h</string>
+    <string name="skip_this_until_later">Skip this until later</string>
+    <string name="next">NEXT</string>
+
+    <string name="reject">Reject</string>
+    <string name="award">Award</string>
+
+    <string name="update_my_profile">Update my profile</string>
+    <string name="how_it_works">How it works</string>
+
+    <string name="yes">Yes</string>
+    <string name="contact_person">Contact Person</string>
+    <string name="key_contact_mobile_number">Key contact mobile no.</string>
+    <string name="address_turn_up">Address to turn up at</string>
+    <string name="post_job">Post job</string>
+
+    <string name="search">Search</string>
+    <string name="apply">Apply</string>
+    <string name="job_description">Job Description</string>
+    <string name="view_more">View More</string>
+    <string name="skills_required">Skills Required</string>
+    <string name="mandatory_requirements">Mandatory Requirements</string>
+
+    <string name="main_worker_advice">Better profiles get better jobs!\nUpdate yours now.</string>
+    <string name="matching_jobs_profile">You have %1$s %2$s matching your profile</string>
+
+    <string name="filter">Search</string>
+
+    <string name="show_me_jobs">Show me jobs!</string>
+    <string name="finish_edition">Finish edition</string>
+
+    <string name="verify">Verify</string>
+    <string name="surname">Surname</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="individual_id_number">Individual ID/Registration Number</string>
+    <string name="national_insurance_number">National Insurance Number</string>
+
+
+    <string name="coming_soon_workers_main_text">We\'re busy getting The Square\nready for you. Make sure your\nprofile is complete &amp; accurate\nand we\'ll be in touch\nwith some of the best paying jobs\nnear you very soon</string>
+    <string name="coming_soon_employers_main_text">We\'re busy getting The Square\nready for you. Make sure your\nprofile is complete &amp; accurate\nand we\'ll be in touch once we have\nquality workers ready for you</string>
+    <string name="coming_soon_second_text">In the mean time...</string>
+
+    <!-- My Account Worker -->
+    <string name="my_account_worker_title">My Account</string>
+    <string name="profile_completeness">Profile %1$d%% complete</string>
+    <string name="availability">Availability</string>
+    <string name="my_tasks">My Tasks</string>
+    <string name="reviews">Reviews</string>
+    <string name="leaderboards">Leaderboards</string>
+    <string name="timesheets_invoices">Timesheets &amp; Invoices</string>
+
+
+    <!-- My Workers - Employer -->
+    <string name="employer_workers_booked">Booked</string>
+    <string name="employer_workers_applications">Offers &amp;\nApplications</string>
+    <string name="employer_workers_liked">Liked</string>
+    <string name="employer_workers_previous">Previous</string>
+    <string name="employer_workers_cancel">Cancel Booking</string>
+    <string name="employer_workers_invite">Quick Invite</string>
+    <string name="employer_workers_end">End Contract</string>
+    <string name="employer_dialog_quick_invite">Invite %s to a live job or create a private new one?</string>
+    <string name="employer_dialog_quick_invite_title">What do you want to do?</string>
+    <string name="employer_dialog_quick_invite_live">Invite to live job</string>
+    <string name="employer_dialog_quick_invite_new">New private job</string>
+    <string name="employer_dialog_booking_cancel">Cancel booking</string>
+    <string name="employer_dialog_booking_keep">Keep booking</string>
+    <string name="employer_dialog_booking_title">Are you sure you want to cancel this job booking?</string>
+    <string name="employer_dialog_booking">(Cancellation within 48 hours of job start date incur cancellation costs - see T&amp;Cs for details).</string>
+    <string name="employer_dialog_contract_end">End contract</string>
+    <string name="employer_dialog_contract_worked">Worked with %s</string>
+    <string name="employer_dialog_contract_worked_not">Didn\'t work with %s</string>
+    <string name="employer_dialog_contract_next">Next</string>
+    <string name="employer_dialog_contract_end_confirm">End</string>
+    <string name="employer_dialog_contract_cancel">Cancel</string>
+    <string name="employer_dialog_contract_ended">The contract is ended.</string>
+    <string name="employer_dialog_contract_ended_notify">We\'ll notify </string>
+    <string name="employer_dialog_contract_ended_name">[%s.]</string>
+    <string name="employer_dialog_contract_last_day">Select the last working day of %s. (included)</string>
+    <string name="employer_dialog_contract_day_hint">Day</string>
+    <string name="employer_dialog_contract_comments">Comments</string>
+    <string name="employer_dialog_contract_show">They didn\'t show up to work</string>
+
+    <string name="employer_worker_details">View Profile</string>
+    <string name="employer_worker_details_private">This is private job and only %s can see it.
+                \nYou\'re waiting for a response from John.</string>
+    <string name="employer_worker_details_job_view">View more</string>
+    <string name="employer_worker_details_availability">Availability</string>
+    <string name="employer_worker_details_testimonials">%s Testimonials</string>
+    <string name="employer_worker_details_hire_again">%s Would hire again</string>
+    <string name="employer_worker_details_bio">Bio</string>
+    <string name="employer_worker_details_bio_placeholder">Tell us a bit about yourself&#8230; (remember, better profiles get better job matches!)</string>
+
+    <string name="employer_worker_details_qualifications">Qualifications</string>
+    <string name="employer_worker_details_requirements">Requirements</string>
+    <string name="employer_worker_details_skills">Skills</string>
+    <string name="employer_worker_details_companies">Notable companies</string>
+    <string name="employer_worker_details_location">Preferred work location</string>
+    <string name="employer_worker_award">Award</string>
+    <string name="employer_worker_decline">Decline</string>
+    <string name="employer_worker_applied">Applied</string>
+
+    <!-- Worker Matches -->
+    <string name="worker_matches_menu_map">map</string>
+    <string name="worker_matches_menu_tune">tune</string>
+    <string name="item_match_format_experience">%1$d %2$s experience</string>
+    <string name="item_match_format_starts">Starts %s</string>
+
+    <!--Worker Matches Filter-->
+    <string name="matches_filter_title">Filter &amp; Order By</string>
+    <string name="matches_filter_order_by">Order by</string>
+    <string name="matches_filter_best_paid">Best paid</string>
+    <string name="matches_filter_start_date">Start date</string>
+    <string name="matches_filter_nearest_me">Nearest me</string>
+    <string name="matches_filter_best_rated_employers">Best rated employers</string>
+
+    <!-- Worker Jobs -->
+    <string name="worker_jobs_booked">Booked</string>
+    <string name="worker_jobs_offers">Offers</string>
+    <string name="worker_jobs_applications">Applications</string>
+    <string name="worker_jobs_liked">Liked</string>
+    <string name="worker_jobs_completed">Completed</string>
+    <string name="worker_jobs_end_contract">End Contract</string>
+    <string name="worker_jobs_awaiting">Awaiting Response</string>
+    <string name="worker_jobs_declined">Didn\'t get it</string>
+    <string name="worker_job_details">Job Details</string>
+
+    <!-- Job Details -->
+    <string name="job_details_success_message">
+        Boom! You\'ve got the job.
+        \nAll the details about where you need to arrive and what you need to bring are available below.
+        \nGood luck.
+    </string>
+    <string name="job_details_reporting_to">Reporting to</string>
+    <string name="job_details_date_arrival">Date &amp; Time to arrive</string>
+    <string name="job_details_notes">Anything else to note</string>
+    <string name="job_details_experience">Experience: </string>
+    <string name="job_details_mandatory_requirements">Requirements: </string>
+    <string name="job_details_qualifications">Qualifications: </string>
+    <string name="job_details_experience_types">Types of experience: </string>
+    <string name="job_details_availability">Availability: </string>
+    <string name="job_details_booking_canceled">Booking canceled!</string>
+    <string name="job_like">Like</string>
+    <string name="job_unlike">Unlike</string>
+    <string name="job_share">Share</string>
+    <string name="error_input_empty">Input is empty!</string>
+    <string name="job_feedback">Your feedback</string>
+    <string name="job_feedback_hint">Please leave feedback for this job</string>
+    <string name="job_i_can_make_it">I can still make it</string>
+    <string name="job_applied_pending">You applied - Awaiting decision</string>
+    <string name="job_applied_title_1">Cool!\n You\'ve applied for the</string>
+    <string name="job_applied_title_2">job with</string>
+    <string name="job_applied_title_3">starting on</string>
+    <string name="job_applied_subtitle">We\'ll let you know as soon as they have made a decision!</string>
+    <string name="go_back_to_job_matches">Go back to job matches</string>
+    <string name="job_experience_value">%d years</string>
+    <string name="job_availability_immediately">Immediately</string>
+
+    <!-- My Accounts -->
+    <string name="view_profile">View Profile</string>
+    <string name="role_year_experience">/ %1$d %2$s experience</string>
+    <string name="title_activity_my_account_billing">Billing</string>
+    <string name="due_header">Due to be submitted</string>
+    <string name="awaiting_header">Awaiting approval</string>
+    <string name="approved_header">Approved</string>
+    <string name="approved_to_be_paid_header">Approved and due to be paid</string>
+    <string name="paid_header">Paid</string>
+    <string name="days_worked_from_to">Week from %1$s to %2$s</string>
+    <string name="submit_timesheet">Submit Timesheet</string>
+    <string name="sat">SAT</string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="didnt_work">Didn\'t work</string>
+    <string name="hours_worked">Hours worked</string>
+    <string name="overtime">Overtime</string>
+    <string name="youll_get">You\'ll get</string>
+    <string name="submit_for_approval">Submit for approval</string>
+    <string name="submit">SUBMIT</string>
+    <string name="pending">PENDING</string>
+    <string name="timesheets_title">TIMESHEETS</string>
+    <string name="invoices_title">INVOICES</string>
+    <string name="financial_info_title">FINANCIAL INFO</string>
+    <string name="paid">PAID</string>
+
+
+    <!-- Worker Reviews -->
+    <string name="worker_reviews_received">Received</string>
+    <string name="worker_reviews_given">Given</string>
+    <string name="worker_reviews_pending">Pending</string>
+    <string name="worker_reviews_request">Request a reference</string>
+    <string name="worker_reviews_empty">Go ahead and request a reference</string>
+    <string name="worker_reviews_quality">Quality of work</string>
+    <string name="worker_reviews_reliability">Reliability</string>
+    <string name="worker_reviews_attitude">Attitude to work and team</string>
+    <string name="worker_reviews_safety">Safe worker</string>
+    <string name="menu_worker_reviews">Reviews</string>
+    <string name="worker_request_review">Put in the details of the \nemployer you want to get \na reference from.</string>
+    <string name="worker_request_review_first_name">First Name*</string>
+    <string name="worker_request_review_last_name">Last Name*</string>
+    <string name="worker_request_email">Email Address</string>
+    <string name="worker_request_mobile">Mobile Number</string>
+    <string name="worker_request_company">Company*</string>
+    <string name="worker_request_date">Date Worked</string>
+    <string name="worker_request_error">You have to complete at least one</string>
+    <string name="worker_request_field">This field is required</string>
+    <string name="worker_request_sent">Your reference request \nhas been sent.</string>
+    <string name="worker_request_sent_subtitle">We\'ll let you know when it comes in.</string>
+    <string name="worker_review_action">Complete review</string>
+    <string name="worker_review_due">Due: %1$d %2$s left</string>
+    <string name="worker_review_request">Go ahead and \nrequest a reference</string>
+    <string name="worker_reviews_again">Would hire you again</string>
+
+    <!-- Employer Reviews -->
+    <string name="employer_reviews_work_again">Would work for you again</string>
+    <string name="employer_reviews_environment">Good work environment</string>
+    <string name="employer_reviews_team">Good team</string>
+    <string name="employer_reviews_pay">Good pay</string>
+    <string name="employer_reviews_induction">Good induction &amp; training</string>
+    <string name="employer_rate_worker">Please rate %s\'s \nperformance</string>
+    <string name="employer_rate_submit">Done</string>
+    <string name="employer_rate_again">Would you hire %s again?</string>
+
+    <!-- Settings -->
+    <string name="settings_notify_reviews">Reviews</string>
+
+    <!-- Employer Settings -->
+    <string name="settings">Settings</string>
+    <string name="employer_settings_phone">Phone Number:</string>
+    <string name="employer_settings_social">Social Networks</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="employer_settings_terms">Terms &amp; Privacy</string>
+    <string name="employer_settings_about">About &amp; Help</string>
+    <string name="employer_settings_share">Share the Square</string>
+    <string name="employer_settings_logout">Log out</string>
+    <string name="employer_settings_sync_fb">Sync with Facebook</string>
+    <string name="employer_settings_sync_twtr">Sync with Twitter</string>
+    <string name="employer_settings_notify1">Worker &amp; app messages</string>
+    <string name="employer_settings_notify2">Job acceptance &amp; rejection</string>
+    <string name="employer_settings_terms_conditions">Terms &amp; Conditions</string>
+    <string name="employer_settings_privacy">Privacy Policy</string>
+    <string name="employer_settings_about_text">About</string>
+    <string name="employer_settings_faq">FAQ\'s</string>
+    <string name="employer_settings_contact">Contact</string>
+    <string name="employer_settings_describe">Please describe your problem:</string>
+    <string name="employer_settings_message">Your Message</string>
+    <string name="employer_settings_add">Add screenshots:</string>
+    <string name="employer_settings_optional">(Optional)</string>
+    <string name="employer_settings_send">Send</string>
+    <string name="employer_settings_logout_prompt">Are you sure you want to logout of The Square App?</string>
+    <string name="employer_settings_my_subscriptions">My Subscriptions</string>
+
+    <!-- Worker Settings -->
+    <string name="new_job_matches">New job matches</string>
+    <string name="job_offers">Job offers</string>
+    <string name="job_booking_decline">Job booking &amp; declines</string>
+
+    <!-- Link to T&C -->
+    <string name="link_tc">http://www.thesquareapp.com/terms</string>
+
+
+    <!-- Employer create job -->
+    <string name="create_job_5">Oops, you have already selected 5!</string>
+    <string name="create_job_role">What kind of worker are you looking for?</string>
+    <string name="create_job_trade">What trade experience are you looking for from your %s ?</string>
+    <string name="create_job_qualifications">Are there any qualifications you are looking for?</string>
+    <string name="create_job_experience">What specific things are you looking for?</string>
+    <string name="create_job_skills">Are there any specific skills you are looking for?</string>
+    <string name="create_job_types_experience">Are there specific types of experience you are looking for?</string>
+    <string name="create_job_location">Where\'s the job location?</string>
+    <string name="create_job_search_postal">Enter a postal code</string>
+    <string name="create_job_address">Search address</string>
+    <string name="create_job_details">Add job details</string>
+    <string name="create_job_experience_years">%1$d %2$s experience</string>
+    <string name="create_job_experience_header">Experience in years</string>
+    <string name="create_job_cscs">Up to date CSCS Card</string>
+    <string name="create_job_dl">A valid UK Driving License</string>
+    <string name="create_job_vehicle">Own vehicle</string>
+    <string name="create_job_ppe">Own PPE</string>
+    <string name="create_job_tools">Own tools</string>
+    <string name="create_job_english">Spoken English</string>
+    <string name="create_job_english_native">Native</string>
+    <string name="create_job_english_fluent">Fluent</string>
+    <string name="create_job_english_basic">Basic</string>
+    <string name="create_job_english_optional">Not Mandatory</string>
+    <string name="create_job_map">Search address</string>
+    <string name="create_job_limit">(Select up to 5)</string>
+    <string name="create_job_crn">Please enter your company registration number:</string>
+    <string name="create_job_crn_placeholder">12345678</string>
+    <string name="create_job_invalid_crn">Not a valid company registration number</string>
+    <string name="create_job_check">Note: Workers are simply indicating they have these things.
+        Checks should be undertaken to satisfy any corporate or legal requirements.</string>
+    <string name="create_job_preview">Preview Job Post</string>
+    <string name="create_job_card">Registered Cardholder\'s Details</string>
+    <string name="create_job_first">First Name</string>
+    <string name="create_job_last">Surname</string>
+    <string name="create_job_card_number">Card Number</string>
+    <string name="create_job_expiration">Expiration Date</string>
+    <string name="create_job_cvc">CVV/CVC</string>
+    <string name="create_job_confirm">Confirm</string>
+
+    <!-- Misc -->
+    <string name="pound_sterling">£</string>
+    <string name="min_hourly">£3.5</string>
+    <string name="max_hourly">£100</string>
+    <string name="min_daily">£30</string>
+    <string name="max_daily">£1,000</string>
+    <string name="min_yearly">£7,500</string>
+    <string name="max_yearly">£150,000</string>
+
+    <!-- Worker Onboarding -->
+    <string name="onboarding_intro">OK! We just need \na few details from you...</string>
+    <string name="onboarding_info">Please enter your name, address and profile picture</string>
+    <string name="onboarding_location">Where are you looking for work?</string>
+    <string name="onboarding_companies">Add any notable companies \nyou\'ve worked for.</string>
+    <string name="onboarding_roles">OK %s, which jobs \nbest describe what you do?</string>
+    <string name="onboarding_trades">What trades?</string>
+    <string name="onboarding_cscs">Please confirm your \nCSCS details.</string>
+    <string name="onboarding_cscs_surname">Surname</string>
+    <string name="onboarding_cscs_dob">Date of birth</string>
+    <string name="onboarding_cscs_registration">Individual ID/Registration Number</string>
+    <string name="onboarding_cscs_insurance">National Insurance Number</string>
+    <string name="onboarding_experience">More about you...</string>
+    <string name="onboarding_qualifications">Do you have any qualifications?</string>
+    <string name="onboarding_skills">What specific skills do you have? </string>
+    <string name="onboarding_experience_type">What specific experience \ndo you have?</string>
+    <string name="onboarding_availability">Availability</string>
+    <string name="onboarding_proceed">Show me jobs</string>
+    <string name="onboarding_commute">How long are you willing to commute for?</string>
+    <string name="onboarding_add_photo">Add photo!</string>
+    <string name="onboarding_take_photo">Take photo</string>
+    <string name="onboarding_choose_from_gallery">Choose from gallery</string>
+    <string name="onboarding_cancel">Cancel</string>
+    <string name="onboarding_select_image">Select image</string>
+    <string name="onboarding_english_level_error">Oops&#8230;! You need to indicate your English proficiency to be able to move on.</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_selected_max">Oops, you have already selected %d!</string>
+    <string name="onboarding_languagesspoken">Languages spoken</string>
+    <string name="onboarding_nationality">Nationality</string>
+    <string name="onboarding_uploadpic">Please upload photo of your passport</string>
+    <string name="onboarding_nin">Please enter your NIN Number</string>
+    <string name="onboarding_select_language">Select language</string>
+    <string name="save">Save</string>
+    <string name="worker_postcode">Home postcode</string>
+    <string name="worker_password">Change password</string>
+
+    <!-- Worker Account -->
+    <string name="worker_account_completeness">Profile %s Complete</string>
+    <string name="worker_account_availability">Availability</string>
+    <string name="worker_account_immediately">Immediately</string>
+    <string name="worker_account_tasks">My Tasks</string>
+    <string name="worker_account_reviews">Reviews</string>
+    <string name="worker_account_leaderboards">Leaderboards</string>
+    <string name="worker_account_timesheets">Timesheets &amp; Invoices</string>
+
+    <!-- Employer Account -->
+    <string name="company_description">Company description</string>
+    <string name="account_user_management">Account user management</string>
+    <string name="subscription_plan_management">Subscription plan management</string>
+
+
+    <!-- Employer Payments -->
+    <string name="payments_standard_price"><strike>£1999+VAT</strike> \n£999+VAT</string>
+    <string name="payments_basic_price"><strike>£999+VAT</strike> \n£499+VAT</string>
+    <string name="payments_premium_price"><strike>£3498+VAT</strike> \n£1749+VAT</string>
+    <string name="payments_standard_bookings">50 bookings</string>
+    <string name="payments_premium_bookings">100 bookings</string>
+    <string name="payments_basic_bookings">20 bookings</string>
+    <string name="payments_vat">+VAT</string>
+
+    <string name="payments_subscription">Subscription</string>
+    <string name="payments_payment">Payment</string>
+    <string name="payments_finish">Finish</string>
+    <string name="payments_continue">Continue</string>
+    <string name="payments_add">Please Add Payment Method</string>
+    <string name="payments_sale">As one of our early adopters here\'s a
+                        \n50% discount on your subscription!</string>
+    <string name="payments_choose">Choose the monthly plan for you</string>
+    <string name="payments_recommended">Recommended</string>
+    <string name="payments_basic">Basic</string>
+    <string name="payments_standard">Standard</string>
+    <string name="payments_premium">Premium</string>
+    <string name="payments_bookings">Bookings</string>
+    <string name="payments_period">[per user, per month]</string>
+    <string name="payments_period2">per user, per month</string>
+
+    <string name="payments_address1">Address</string>
+    <string name="payments_address2">House No.</string>
+    <string name="payments_city">Town/City</string>
+    <string name="payments_country">Country</string>
+    <string name="payments_postcode">Postcode</string>
+
+    <string name="employer_payments">Subscription plan management</string>
+    <string name="employer_payments_plan">Subscription Plan</string>
+    <string name="employer_payments_card">Credit Card</string>
+    <string name="employer_payments_current">Your current plan</string>
+    <string name="employer_payments_try">Try it out for \u00A3250</string>
+    <string name="employer_payments_try_text">1 job promotion for up to 1 week.
+                            \nUp to 20 suitable candidate matches.</string>
+    <string name="employer_payments_upgrade">Upgrade your plan</string>
+    <string name="employer_payments_upgrade_title">Subscribe for \u00A3500 / month</string>
+    <string name="employer_payments_upgrade_text">
+            Hire at any time, from anywhere on any device.
+            \nUnlimited job promotions.
+            \nUnlimited bookings.
+            \nTrack previous candidates &amp; hires.
+            \nAccess to one of the fastest growing construction networks in the world.
+    </string>
+    <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
+    <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
+    <string name="employer_payments_action">Upgrade</string>
+    <string name="employer_payments_add">Add new</string>
+    <string name="employer_payments_sure">Are you sure you want to delete %s credit card?</string>
+    <string name="employer_payments_yes">Yes</string>
+    <string name="employer_payments_cancel">Cancel</string>
+    <string name="employer_payments_name">Cardholder name</string>
+    <string name="employer_payments_name_hint">John Smith</string>
+    <string name="employer_payments_number">Card number</string>
+    <string name="employer_payments_number_hint">01234567891234567</string>
+    <string name="employer_payments_expiration">Card expiration</string>
+    <string name="employer_payments_month">Month</string>
+    <string name="employer_payments_year">Year</string>
+    <string name="employer_payments_add_go">Add</string>
+    <string name="employer_payments_cvc">Card CVC</string>
+    <string name="employer_payments_cvc_hint">480</string>
+    <string name="employer_payments_name_error">Please enter a name!</string>
+    <string name="employer_payments_number_error">Please enter a number!</string>
+    <string name="employer_payments_cvc_error">Please enter your card\'s CVC!</string>
+    <string name="employer_payments_month_error">Please enter a Month!</string>
+    <string name="employer_payments_year_error">Please enter a Year!</string>
+
+    <!-- Employer jobs -->
+    <string name="employer_create_job_prompt">Go ahead and create \na
+                job to find workers.</string>
+    <string name="employer_jobs_old">Old</string>
+    <string name="employer_jobs_live">Live</string>
+    <string name="employer_jobs_drafts">Drafts</string>
+    <string name="employer_jobs_booked">Booked</string>
+    <string name="employer_jobs_offers">Offered &amp; \nApplied</string>
+    <string name="employer_jobs_matched">Matched</string>
+    <string name="employer_jobs_declined">Declined</string>
+    <string name="employer_jobs_new">New Job</string>
+    <string name="employer_jobs_create">Create a new job</string>
+    <string name="employer_jobs_duplicate">Duplicate &amp; edit a previous job details</string>
+    <string name="employer_jobs_ok">Ok</string>
+    <string name="employer_jobs_cancel">Cancel</string>
+    <string name="employer_jobs_experience">%1$d %2$s experience</string>
+    <string name="employer_jobs_starts">Starts %s</string>
+    <string name="employer_jobs_republish">Republish</string>
+    <string name="employer_jobs_not_posted">Not posted</string>
+    <string name="employer_jobs_awarded">Awarded to %s</string>
+    <string name="title_activity_payments">PaymentsActivity</string>
+
+</resources>

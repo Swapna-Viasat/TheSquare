@@ -1,0 +1,138 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".worker.settings.ui.activity.WorkerSettingsActivity">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="6dp"
+        android:layout_margin="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:padding="12dp"
+                    app:josefin_style="italic"
+                    android:textSize="16sp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/new_job_matches"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:id="@+id/notify_new_job_matches"
+                    android:layout_marginRight="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:padding="12dp"
+                    app:josefin_style="italic"
+                    android:textSize="16sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/job_offers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:id="@+id/notify_job_offers"
+                    android:layout_marginRight="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:padding="12dp"
+                    app:josefin_style="italic"
+                    android:textSize="16sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/job_booking_decline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:id="@+id/notify_job_bookings_declines"
+                    android:layout_marginRight="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:padding="12dp"
+                    app:josefin_style="italic"
+                    android:textSize="16sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/settings_notify_reviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:id="@+id/notify_reviews"
+                    android:layout_marginRight="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
