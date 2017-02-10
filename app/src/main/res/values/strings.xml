@@ -132,6 +132,7 @@
     </string>
     <string name="sign_up_employer_step_2_registration_number_hint">Company registration number
     </string>
+    <string name="sign_up_employer_step_1_company_registration_number_help">We will need this before you can get matched to workers.</string>
     <string name="sign_up_employer_step_2_timesheet_title">Timesheet management preferences</string>
     <string name="sign_up_employer_step_2_timesheet_subtitle">Do you want workers to submit their
         own invoices for your approval or do you want to complete all invoices on their behalf?
