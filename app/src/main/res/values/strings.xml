@@ -554,7 +554,7 @@
     <string name="create_job_experience">What specific things are you looking for?</string>
     <string name="create_job_skills">Are there any specific skills you are looking for?</string>
     <string name="create_job_types_experience">Are there specific types of experience you are looking for?</string>
-    <string name="create_job_location">Where\'s the job location?</string>
+    <string name="create_job_location">What is the job\'s postcode?</string>
     <string name="create_job_search_postal">Enter a postal code</string>
     <string name="create_job_address">Search address</string>
     <string name="create_job_details">Add job details</string>
