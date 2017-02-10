@@ -356,6 +356,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:visibility="gone"
                     android:background="@drawable/ic_message"/>
             </RelativeLayout>
 
@@ -413,7 +414,7 @@
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textAlignment="center"
-            android:text="Publish"
+            android:text="@string/create_job_publish"
             app:josefin_style="semiBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

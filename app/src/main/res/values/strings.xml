@@ -585,6 +585,8 @@
     <string name="create_job_expiration">Expiration Date</string>
     <string name="create_job_cvc">CVV/CVC</string>
     <string name="create_job_confirm">Confirm</string>
+    <string name="create_job_preview2">Preview</string>
+    <string name="create_job_publish">Promote Job</string>
 
     <!-- Misc -->
     <string name="pound_sterling">£</string>
