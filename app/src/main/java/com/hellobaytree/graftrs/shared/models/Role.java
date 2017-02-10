@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Role implements Serializable {
     public int id;
+    @SerializedName("is_apprentice") public boolean isApprentice;
     public String name;
     public String description;
     public String image;

@@ -167,9 +167,14 @@ public class SelectTradeFragment extends Fragment
         roles.add(request.roleObject);
 
         try {
-            title.setText(String.format(getResources()
-                    .getString(R.string.create_job_trade),
-                    request.roleName));
+            if (request.roleObject.isApprentice) {
+                title.setText(String.format(getResources()
+                                .getString(R.string.create_job_apprentice), request.roleName));
+            } else {
+                title.setText(String.format(getResources()
+                                .getString(R.string.create_job_trade),
+                        request.roleName));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
