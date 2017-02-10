@@ -1,10 +1,18 @@
 package com.hellobaytree.graftrs.worker.onboarding.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -16,8 +24,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -39,13 +50,18 @@ import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.MediaTools;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.onboarding.OnLanguagesSelectedListener;
 import com.hellobaytree.graftrs.worker.onboarding.adapter.FluencyAdapter;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,9 +72,15 @@ import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * Created by gherg on 12/6/2016.
@@ -73,6 +95,7 @@ public class SelectExperienceFragment extends Fragment
     private int english;
     private int experience;
     private int id;
+    private int cscsStatus;
     private String lastname = null;
     private String selectLangs = null;
     private List<String> languageId = new ArrayList<>();
@@ -111,6 +134,14 @@ public class SelectExperienceFragment extends Fragment
     @BindViews({R.id.nis_01, R.id.nis_02, R.id.nis_03, R.id.nis_04, R.id.nis_05,
             R.id.nis_06, R.id.nis_07, R.id.nis_08, R.id.nis_09})
     List<JosefinSansEditText> nis;
+    @BindView(R.id.verify_cscs)
+    Button verify;
+    @BindView(R.id.error_message)
+    JosefinSansTextView cscsErrorMsg;
+    @BindView(R.id.passport_photo)
+    ImageView passport_photo;
+    @BindView(R.id.maximize)
+    ImageView maximize;
 
     private ArrayAdapter<CharSequence> monthAdapter;
     private ArrayAdapter<CharSequence> dayAdapter;
@@ -124,6 +155,10 @@ public class SelectExperienceFragment extends Fragment
     private Worker currentWorker;
     private List<ExperienceQualification> selected = new ArrayList<>();
     private Map<String, Integer> countryIds = new HashMap<String, Integer>();
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_IMAGE_SELECTION = 2;
+    static final int REQUEST_PERMISSIONS = 3;
+    static final int REQUEST_PERMISSION_READ_STORAGE = 4;
 
     public static SelectExperienceFragment newInstance(boolean singleEdition) {
         SelectExperienceFragment selectExperienceFragment = new SelectExperienceFragment();
@@ -164,6 +199,8 @@ public class SelectExperienceFragment extends Fragment
 
             }
         });
+        current = reg.get(0);
+        reg.get(0).requestFocus();
         for (EditText e : reg) {
             e.addTextChangedListener(regListener);
         }
@@ -192,9 +229,14 @@ public class SelectExperienceFragment extends Fragment
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         year.setAdapter(yearAdapter);
 
+        if (null != getArguments().getSerializable(Constants.KEY_CURRENT_WORKER)) {
+            currentWorker = (Worker) getArguments().getSerializable(Constants.KEY_CURRENT_WORKER);
+            showPassportImage();
+        }
+
         fetchEnglishLevels();
         fetchQualifications();
-        fetchCscsDetails(workerId);
+        //fetchCscsDetails(workerId);
         fetchCurrentWorker();
         fetchNationality();
         fetchLanguage();
@@ -261,8 +303,6 @@ public class SelectExperienceFragment extends Fragment
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
                             populate(response.body());
-
-
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
@@ -337,6 +377,7 @@ public class SelectExperienceFragment extends Fragment
                             try {
                                 id = response.body().getResponse().id;
                                 lastname = response.body().getResponse().lastName;
+                                populateDetails(response.body().getResponse());
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -352,6 +393,26 @@ public class SelectExperienceFragment extends Fragment
                     }
                 });
 
+    }
+
+    private void populateDetails(Worker worker) {
+        try {
+            currentWorker = worker;
+            if (!worker.passportUpload.isEmpty()) {
+                Picasso.with(getContext()).load(worker.passportUpload).into(passport_photo);
+            } else {
+                passport_photo.setImageResource(R.drawable.passport);
+            }
+            if (worker.nationalityId > 0) {
+                nationality.setSelection(worker.nationalityId.intValue());
+            }else{
+                nationality.setSelection(0);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void processEnglishLevels(List<EnglishLevel> englishLevels) {
@@ -383,10 +444,13 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void populate(ResponseObject<CSCSCardWorker> dataResponse) {
-        surname.setText(dataResponse.getResponse().getSurname());
+        surname.setText(lastname);
+        surname.setEnabled(false);
         String regnum = dataResponse.getResponse().getRegistration_number();
-        final char ca[] = regnum.toCharArray();
-        ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
+        populateCscsStatus(dataResponse.getResponse().getVerification_status());
+       if(!regnum.isEmpty()) {
+           final char ca[] = regnum.toCharArray();
+           ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
             @Override
             public void set(JosefinSansEditText view, Boolean value, int index) {
 
@@ -410,6 +474,8 @@ public class SelectExperienceFragment extends Fragment
                 }
             }
         };
+            ButterKnife.apply(reg, ENABLED, true);
+        }
     }
 
     private void processNationality(List<Nationality> nationalityList) {
@@ -431,7 +497,7 @@ public class SelectExperienceFragment extends Fragment
         }
     }
 
-    @OnClick({R.id.next, R.id.verify_cscs})
+    @OnClick({R.id.next, R.id.verify_cscs, R.id.passport_photo, R.id.maximize})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next:
@@ -442,11 +508,7 @@ public class SelectExperienceFragment extends Fragment
                     }
                 }
                 if (english > 0) {
-                    if (!getNIS().isEmpty())
                         patchWorker();
-                    else
-                        DialogBuilder.showStandardDialog(getContext(), "",
-                                getString(R.string.onboarding_nin));
                     break;
                 } else
                     DialogBuilder.showStandardDialog(getContext(), "",
@@ -455,6 +517,160 @@ public class SelectExperienceFragment extends Fragment
             case R.id.verify_cscs:
                 verify();
                 break;
+            case R.id.passport_photo:
+                showChooserDialog();
+                break;
+            case R.id.maximize:
+                showOrginalImage();
+                break;
+        }
+    }
+
+    private void showChooserDialog() {
+        CharSequence[] options = {getString(R.string.onboarding_take_photo),
+                getString(R.string.onboarding_choose_from_gallery),
+                getString(R.string.onboarding_cancel)};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getString(R.string.onboarding_add_photo));
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        openCamera();
+                        break;
+                    case 1:
+                        openGallery();
+                        break;
+                    case 2:
+                        dialog.cancel();
+                        break;
+                }
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void openCamera() {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            dispatchTakePictureIntent();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSIONS);
+        }
+    }
+
+    private void openGallery() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            dispatchOpenGalleryIntent();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSION_READ_STORAGE);
+        }
+    }
+
+    private void dispatchTakePictureIntent() {
+        try {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void dispatchOpenGalleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, getString(R.string.onboarding_select_image)),
+                REQUEST_IMAGE_SELECTION);
+    }
+
+    private void prepPicture(Context context, Bitmap bitmap) {
+        try {
+            File file = new File(getContext().getCacheDir(),
+                    "temp" + String.valueOf(bitmap.hashCode()));
+            file.createNewFile();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bytes);
+            fos.flush();
+            fos.close();
+            baos.flush();
+            baos.close();
+
+            uploadPicture(context, file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void uploadPicture(Context context, File file) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        RequestBody request = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("passport_upload", file.getName(), request);
+        HttpRestServiceConsumer.getBaseApiClient()
+                .uploadProfileImageWorker(
+                        SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId(), body)
+                .enqueue(new Callback<ResponseObject<Worker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<Worker>> call,
+                                           Response<ResponseObject<Worker>> response) {
+
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+                            currentWorker = response.body().getResponse();
+                            showPassportImage();
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+    }
+
+    private void showPassportImage() {
+        if (currentWorker != null && currentWorker.passportUpload != null) {
+            Picasso.with(getContext())
+                    .load(currentWorker.passportUpload)
+                    .fit()
+                    .centerCrop()
+                    .into(passport_photo);
+        }
+    }
+    private void showOrginalImage() {
+        LayoutInflater layoutInflater
+                = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        Dialog settingsDialog = new Dialog(getContext());
+        if (currentWorker != null && currentWorker.passportUpload != null) {
+            settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            settingsDialog.setContentView(layoutInflater.inflate(R.layout.popup_passport_image
+                    , null));
+            ImageView iv = (ImageView) settingsDialog.findViewById(R.id.original_image);
+            Picasso.with(getContext()).load(currentWorker.passportUpload).into(iv);
+            //settingsDialog.getWindow().setLayout(700, 700);
+            settingsDialog.show();
+        }else {
+            DialogBuilder.showStandardDialog(getContext(), "",
+                    getString(R.string.passport_nophoto));
         }
     }
 
@@ -474,6 +690,8 @@ public class SelectExperienceFragment extends Fragment
                                                Response<ResponseObject<CSCSCardWorker>> response) {
                             if (response.isSuccessful()) {
                                 DialogBuilder.cancelDialog(dialog);
+                                cscsStatus = response.body().getResponse().getVerification_status();
+                                populateCscsStatus(cscsStatus);
                             } else {
                                 HandleErrors.parseError(getContext(), dialog, response);
                             }
@@ -487,6 +705,24 @@ public class SelectExperienceFragment extends Fragment
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void populateCscsStatus(int status){
+        if(status == 4){
+            verify.setText(R.string.verified_cscs_success);
+            cscsErrorMsg.setText("");
+            verify.setEnabled(false);
+        }else if(status == 1){
+            verify.setText(R.string.verified_cscs_failed);
+            cscsErrorMsg.setText(R.string.cscs_status_request_failed);
+        }
+        else if(status == 2){
+            verify.setText(R.string.verified_cscs_failed);
+            cscsErrorMsg.setText(R.string.cscs_status_infrastructure_issue);
+        } else if(status == 3){
+            verify.setText(R.string.verified_cscs_failed);
+            cscsErrorMsg.setText(R.string.cscs_status_carddetails_invalid);
         }
     }
 
@@ -516,7 +752,7 @@ public class SelectExperienceFragment extends Fragment
                                            Response<ResponseObject<Worker>> response) {
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
-                            proceed();
+                             proceed();
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
@@ -565,7 +801,9 @@ public class SelectExperienceFragment extends Fragment
                 //
                 cscs.setVisibility(View.GONE);
             } else {
-                surname.setText(lastname);
+                fetchCscsDetails(workerId);
+               if(cscsStatus > 0)
+                populateCscsStatus(cscsStatus);
                 cscs.setVisibility(View.VISIBLE);
             }
         } else {
@@ -576,27 +814,35 @@ public class SelectExperienceFragment extends Fragment
 
     private String getNIS() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (EditText e : nis) {
-            stringBuilder.append(e.getText().toString());
+        if (!nis.isEmpty()) {
+            for (EditText e : nis) {
+                stringBuilder.append(e.getText().toString());
+            }
         }
         return stringBuilder.toString();
     }
 
     private String getReg() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (EditText e : reg) {
-            stringBuilder.append(e.getText().toString());
+        if (!reg.isEmpty()) {
+            for (EditText e : reg) {
+                stringBuilder.append(e.getText().toString());
+            }
         }
         return stringBuilder.toString();
     }
 
     private String getDateOfBirth() {
+        String birthDate;
         int monthValue = month.getSelectedItemPosition();
-        String birthDate = year.getSelectedItem().toString() + "-" +
-                ((monthValue > 9) ? String.valueOf(monthValue) : "0" +
-                        String.valueOf(monthValue)) + "-" +
-                day.getSelectedItem().toString();
-
+        if(day.getSelectedItemPosition() > 0 & month.getSelectedItemPosition() > 0 & year.getSelectedItemPosition() > 0) {
+            birthDate = year.getSelectedItem().toString() + "-" +
+                    ((monthValue > 9) ? String.valueOf(monthValue) : "0" +
+                            String.valueOf(monthValue)) + "-" +
+                    day.getSelectedItem().toString();
+        }else {
+            birthDate = null;
+        }
         return birthDate;
     }
 
@@ -631,12 +877,19 @@ public class SelectExperienceFragment extends Fragment
         fetchEnglishLevels();
         fetchQualifications();
         populateExperienceYears();
+        populateData();
     }
 
     @Override
     public void onPause() {
         persistProgress();
         super.onPause();
+    }
+
+    private void populateData() {
+        if (currentWorker != null) {
+            populateDetails(currentWorker);
+        }
     }
 
     private void populateExperienceYears() {
@@ -692,7 +945,8 @@ public class SelectExperienceFragment extends Fragment
     private void persistProgress() {
         if (currentWorker != null) {
             currentWorker.yearsExperience = experience;
-
+            currentWorker.nationalityId = nationality.getSelectedItemId();
+            currentWorker.dateOfBirth = getDateOfBirth();
             if (english > 0) {
                 for (EnglishLevel level : levels) {
                     if (level.id == english)
@@ -879,4 +1133,40 @@ public class SelectExperienceFragment extends Fragment
             }
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            passport_photo.setImageBitmap(imageBitmap);
+            prepPicture(getActivity(), imageBitmap);
+        } else if (requestCode == REQUEST_IMAGE_SELECTION && resultCode == RESULT_OK) {
+            Uri imageUri = data.getData();
+            Bitmap imageBitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
+            passport_photo.setImageBitmap(imageBitmap);
+            prepPicture(getActivity(), imageBitmap);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSIONS:
+                if (grantResults.length > 1 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                        grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    dispatchTakePictureIntent();
+                }
+                break;
+            case REQUEST_PERMISSION_READ_STORAGE:
+                if (grantResults.length > 1 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    dispatchOpenGalleryIntent();
+                }
+                break;
+        }
+    }
+
 }
