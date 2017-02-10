@@ -22,6 +22,7 @@ import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.TextTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,6 +87,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
 
     private void fetchWorkers(int id) {
         int tab = getArguments().getInt("type", 0);
+
         if (tab == WORKERS_MATCHED) {
             fetchMatches(id);
         } else if (tab == WORKERS_BOOKED) {
@@ -107,9 +109,11 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     public void onResponse(Call<JobWorkersResponse> call,
                                            Response<JobWorkersResponse> response) {
 
+                        DialogBuilder.cancelDialog(dialog);
+                        TextTools.log(TAG, "success");
+
                         if (response.isSuccessful()) {
 
-                            DialogBuilder.cancelDialog(dialog);
 
                             data.clear();
                             data.addAll(response.body().response);
@@ -123,7 +127,8 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
 
                     @Override
                     public void onFailure(Call<JobWorkersResponse> call, Throwable t) {
-                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                        TextTools.log(TAG, "fail");
+                        //HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
     }
@@ -137,9 +142,11 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     public void onResponse(Call<JobWorkersResponse> call,
                                            Response<JobWorkersResponse> response) {
 
+                        DialogBuilder.cancelDialog(dialog);
+                        TextTools.log(TAG, "success");
+
                         if (response.isSuccessful()) {
 
-                            DialogBuilder.cancelDialog(dialog);
                             data.clear();
                             data.addAll(response.body().response);
                             adapter.notifyDataSetChanged();
@@ -152,6 +159,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
 
                     @Override
                     public void onFailure(Call<JobWorkersResponse> call, Throwable t) {
+                        TextTools.log(TAG, "fail");
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
@@ -166,9 +174,11 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     public void onResponse(Call<JobWorkersResponse> call,
                                            Response<JobWorkersResponse> response) {
 
+                        DialogBuilder.cancelDialog(dialog);
+                        TextTools.log(TAG, "success");
+
                         if (response.isSuccessful()) {
 
-                            DialogBuilder.cancelDialog(dialog);
                             data.clear();
                             data.addAll(response.body().response);
                             adapter.notifyDataSetChanged();
@@ -181,6 +191,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
 
                     @Override
                     public void onFailure(Call<JobWorkersResponse> call, Throwable t) {
+                        TextTools.log(TAG, "fail");
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
@@ -195,9 +206,11 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                     public void onResponse(Call<JobWorkersResponse> call,
                                            Response<JobWorkersResponse> response) {
 
+                        DialogBuilder.cancelDialog(dialog);
+                        TextTools.log(TAG, "success");
+
                         if (response.isSuccessful()) {
 
-                            DialogBuilder.cancelDialog(dialog);
 
                             data.clear();
                             data.addAll(response.body().response);
@@ -211,6 +224,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
 
                     @Override
                     public void onFailure(Call<JobWorkersResponse> call, Throwable t) {
+                        TextTools.log(TAG, "fail");
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });

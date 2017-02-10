@@ -365,6 +365,9 @@ public class PreviewJobFragment extends Fragment {
                         public void onResponse(Call<ResponseObject<Job>> call,
                                                Response<ResponseObject<Job>> response) {
                             try {
+
+                                DialogBuilder.cancelDialog(dialog);
+
                                 if (response.isSuccessful()) {
 
                                     getActivity()
@@ -374,10 +377,7 @@ public class PreviewJobFragment extends Fragment {
                                             .putInt(Constants.KEY_STEP, 0)
                                             .remove(Constants.KEY_REQUEST)
                                             .commit();
-//
-//                                    Intent intent = new Intent(getActivity(), MainEmployerActivity.class);
-//                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                    startActivity(intent);
+
 
                                     TextTools.log(TAG, String.valueOf(response.body().getResponse().id));
 //

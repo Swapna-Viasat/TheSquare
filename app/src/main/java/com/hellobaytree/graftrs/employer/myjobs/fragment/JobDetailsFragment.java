@@ -1,16 +1,31 @@
 package com.hellobaytree.graftrs.employer.myjobs.fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.employer.MainEmployerActivity;
 import com.hellobaytree.graftrs.employer.myjobs.adapter.JobDetailsPagerAdapter;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
@@ -64,6 +79,7 @@ public class JobDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         adapter = new JobDetailsPagerAdapter(getContext(),
                 getChildFragmentManager(),
                 getArguments().getInt(Constants.KEY_JOB_ID));
@@ -83,9 +99,41 @@ public class JobDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_create_job_post_step, menu);
+        int positionOfMenuItem = 0;
+        MenuItem item = menu.getItem(positionOfMenuItem);
+        SpannableString s = new SpannableString("Cancel");
+        s.setSpan(new ForegroundColorSpan(Color.BLACK), 0, s.length(), 0);
+        item.setTitle(s);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.createJobCancel:
+                Intent intent = new Intent(getActivity(), MainEmployerActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar()
+                    .setDisplayHomeAsUpEnabled(false);
+            ((AppCompatActivity) getActivity()).getSupportActionBar()
+                    .setTitle("");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         fetchInfo(getArguments().getInt(Constants.KEY_JOB_ID));
     }
 
@@ -99,6 +147,7 @@ public class JobDetailsFragment extends Fragment {
                                            Response<ResponseObject<Job>> response) {
                         
                         DialogBuilder.cancelDialog(dialog);
+
                         if (response.isSuccessful()) {
 
 
@@ -176,4 +225,5 @@ public class JobDetailsFragment extends Fragment {
             }
         }
     }
+
 }

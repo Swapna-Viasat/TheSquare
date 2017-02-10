@@ -16,7 +16,8 @@
         app:tabIndicatorColor="@color/redSquareColor"
         app:tabSelectedTextColor="@color/redSquareColor"
         app:tabTextColor="@color/redSquareColor"
-        app:tabTextAppearance="@style/Tab"
+
+        app:tabTextAppearance="@style/Tab2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.design.widget.TabLayout>
