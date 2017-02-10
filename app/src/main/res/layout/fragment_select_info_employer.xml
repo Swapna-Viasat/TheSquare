@@ -159,12 +159,24 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_employer_step_1_company_name_hint"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="5dp"
                         android:maxLines="1"
                         style="@style/square_edit_text"
                         android:ems="10"
                         android:inputType="textCapWords"/>
                 </android.support.design.widget.TextInputLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/sign_up_employer_step_1_company_registration_number_help"
+                    style="@style/subheader_gray_text"
+                     />
+                </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
 
