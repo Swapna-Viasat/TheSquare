@@ -88,10 +88,6 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
     public static final int BUDGET_TYPE_DAY = 2;
     public static final int BUDGET_TYPE_YEAR = 3;
 
-    public static final int JOB_STATUS_DRAFT = 1;
-    public static final int JOB_STATUS_LIVE = 2;
-    public static final int JOB_STATUS_OLD = 3;
-
     private int budgetType = 1;
     @BindView(R.id.seek_bar_end) JosefinSansTextView max;
     @BindView(R.id.seek_bar_start) JosefinSansTextView min;
@@ -220,7 +216,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
 
     @OnClick(R.id.post)
     public void post() {
-        callApi(JOB_STATUS_LIVE);
+        callApi(Constants.JOB_STATUS_LIVE);
     }
 
     @OnClick(R.id.description)
@@ -303,10 +299,6 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                                 if (response.isSuccessful()) {
                                     unfinished = false;
 
-
-
-                                    TextTools.log(TAG, String.valueOf(response.body().getResponse().id));
-//
                                     getActivity().getSupportFragmentManager()
                                             .beginTransaction()
                                             .replace(R.id.create_job_content,
@@ -351,7 +343,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                 public void onResult(final boolean success) {
                     Log.d(TAG, "yes");
                     if (success) {
-                        callApi(JOB_STATUS_LIVE);
+                        callApi(Constants.JOB_STATUS_LIVE);
                     } else {
                         new AlertDialog.Builder(getContext())
                                 .setMessage(getString(R.string.create_job_invalid_crn))
@@ -564,7 +556,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
-                                callApi(JOB_STATUS_DRAFT);
+                                callApi(Constants.JOB_STATUS_DRAFT);
                             }
                         })
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {

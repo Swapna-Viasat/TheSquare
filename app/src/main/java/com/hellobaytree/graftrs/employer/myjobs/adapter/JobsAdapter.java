@@ -85,8 +85,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             }
         }
 
-        if (null != job.address) {
-            holder.location.setText(job.address);
+        if (null != job.locationName) {
+            holder.location.setText(job.locationName);
         }
 
         if (null != job.budgetType) {

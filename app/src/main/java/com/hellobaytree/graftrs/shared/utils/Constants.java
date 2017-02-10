@@ -49,4 +49,10 @@ public class Constants {
     public static final int KEY_ONBOARDING_COMPANIES = 9;
     public static final int KEY_ONBOARDING_AVAILABILITY = 10;
     public static final int KEY_STEP_REQUIREMENTS = 11;
+
+
+
+    public static final int JOB_STATUS_DRAFT = 1;
+    public static final int JOB_STATUS_LIVE = 2;
+    public static final int JOB_STATUS_OLD = 3;
 }
