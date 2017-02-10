@@ -738,4 +738,13 @@
     <string name="employer_jobs_awarded">Awarded to %s</string>
     <string name="title_activity_payments">PaymentsActivity</string>
 
+    <!-- CSCS Errorcodes -->
+    <string name="verified_cscs_success">Successfully Verified</string>
+    <string name="verified_cscs_failed">Verification error try again</string>
+    <string name="cscs_status_request_failed">Verification has not been requested yet</string>
+    <string name="cscs_status_infrastructure_issue">Infrastructural issues: cannot verify cards</string>
+    <string name="cscs_status_carddetails_invalid">Supplied card details have been confirmed as invalid</string>
+
+    <!-- Passport upload-->
+    <string name="passport_nophoto">Please upload your passport before previewing</string>
 </resources>

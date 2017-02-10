@@ -46,7 +46,12 @@ public class Worker implements Serializable {
     public int commuteTime;
     @SerializedName("filter_commute_time")
     public int filterCommuteTime;
-
+    @SerializedName("passport_upload")
+    public String passportUpload;
+    @SerializedName("nationality_id")
+    public Long nationalityId;
+    @SerializedName("date_of_birth")
+    public String dateOfBirth;
     public List<Application> applications;
 
     @SerializedName("matched_role") public Role matchedRole;
