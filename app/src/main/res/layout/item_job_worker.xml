@@ -201,6 +201,7 @@
                         android:gravity="center"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
+                        android:layout_marginRight="62dp"
                         android:text="Holborn, London"
                         app:josefin_style="light" />
                 </LinearLayout>

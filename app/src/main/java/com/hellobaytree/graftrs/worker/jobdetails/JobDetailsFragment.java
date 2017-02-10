@@ -44,6 +44,8 @@ import butterknife.OnClick;
 
 public class JobDetailsFragment extends Fragment implements JobDetailsContract {
 
+    @BindView(R.id.company_name) JosefinSansTextView companyName;
+    @BindView(R.id.job_id) JosefinSansTextView jobId;
     @BindView(R.id.companyLogo) ImageView companyLogo;
     @BindView(R.id.job_role) TextView itemRole;
     @BindView(R.id.job_experience_years) TextView experienceYears;
@@ -118,6 +120,9 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 Picasso.with(getActivity())
                         .load(currentJob.company.logo)
                         .fit().centerCrop().into(companyLogo);
+                if (null != currentJob.company.name) {
+                    companyName.setText(currentJob.company.name);
+                }
             }
 
             if (currentJob.role != null) {
@@ -129,7 +134,15 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
 
             workPlace.setText(currentJob.address);
             paymentRate.setText(getString(R.string.pound_sterling) + " " + String.valueOf(currentJob.budget));
-            paymentRatePer.setText(currentJob.getBudgetTypeLabel());
+            //paymentRatePer.setText(currentJob.getBudgetTypeLabel());
+
+            if (null != currentJob.budgetType) {
+                if (null != currentJob.budgetType.name) {
+                    paymentRatePer.setText("PER " + currentJob.budgetType.name);
+                }
+            }
+
+            jobId.setText("Job ID: " + currentJobId);
 
             if (!TextUtils.isEmpty(currentJob.startTime)) {
                 startDate.setText(String.format(getString(R.string.item_match_format_starts),
