@@ -1,6 +1,8 @@
 package com.hellobaytree.graftrs.worker.onboarding.adapter;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,8 +49,12 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
         if (role.selected) {
             holder.itemView.setBackgroundColor(
                     ContextCompat.getColor(holder.itemView.getRootView().getContext(), R.color.redSquareColor));
+            PorterDuffColorFilter redFilter = new PorterDuffColorFilter(
+                    ContextCompat.getColor(holder.itemView.getContext(), R.color.transparentRedSquareColor), PorterDuff.Mode.SRC_ATOP);
+            holder.image.setColorFilter(redFilter);
         } else {
             holder.itemView.setBackgroundColor(Color.WHITE);
+            holder.image.setColorFilter(null);
         }
 
         Picasso.with(holder.itemView.getContext())
@@ -72,8 +78,10 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
 
     public class RoleHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.title) JosefinSansTextView title;
-        @BindView(R.id.image) ImageView image;
+        @BindView(R.id.title)
+        JosefinSansTextView title;
+        @BindView(R.id.image)
+        ImageView image;
 
         public RoleHolder(View view) {
             super(view);
@@ -82,6 +90,7 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
     }
 
     private RolesListener listener;
+
     public void setListener(RolesListener rolesListener) {
         this.listener = rolesListener;
     }

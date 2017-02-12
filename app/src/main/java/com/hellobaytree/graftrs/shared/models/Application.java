@@ -2,11 +2,13 @@ package com.hellobaytree.graftrs.shared.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by gherg on 2/7/17.
  */
 
-public class Application {
+public class Application implements Serializable {
 
     public static final int STATUS_PENDING = 1;
     public static final int STATUS_APPROVED = 2;
@@ -28,7 +30,7 @@ public class Application {
     @SerializedName("worker") public int workerId;
     public Status status;
 
-    public class Status {
+    public class Status implements Serializable {
         public int id;
         public String name;
     }

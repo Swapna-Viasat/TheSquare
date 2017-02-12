@@ -15,6 +15,7 @@
     <!-- Square Guidelines colors -->
     <color name="darkSquareColor">#444444</color>
     <color name="redSquareColor">#EF4D39</color>
+    <color name="transparentRedSquareColor">#B3EF4D39</color>
     <color name="graySquareColor">#B4B4B4</color>
     <color name="lightSquareColor">#F8F8F8</color>
     <color name="whiteSquareColor">#FFFFFF</color>
