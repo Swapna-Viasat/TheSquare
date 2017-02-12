@@ -445,7 +445,7 @@
 
     <!-- My Accounts -->
     <string name="view_profile">View Profile</string>
-    <string name="role_year_experience">/ %1$d %2$s experience</string>
+    <string name="role_year_experience">%1$d %2$s experience</string>
     <string name="title_activity_my_account_billing">Billing</string>
     <string name="due_header">Due to be submitted</string>
     <string name="awaiting_header">Awaiting approval</string>
