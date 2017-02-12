@@ -285,7 +285,7 @@
             android:layout_margin="12dp"
             android:background="@color/redSquareColor"
             android:gravity="center_horizontal"
-            android:padding="12dp"
+            android:padding="14dp"
             android:text="@string/payments_continue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

@@ -679,6 +679,7 @@
     <string name="payments_city">Town/City</string>
     <string name="payments_country">Country</string>
     <string name="payments_postcode">Postcode</string>
+    <string name="payments_voucher">Voucher Code</string>
 
     <string name="employer_payments">Subscription plan management</string>
     <string name="employer_payments_plan">Subscription Plan</string>

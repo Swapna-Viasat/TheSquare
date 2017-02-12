@@ -31,7 +31,6 @@ public class PaymentsActivity extends AppCompatActivity {
     List<TextView> labels;
     private int selection;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +62,7 @@ public class PaymentsActivity extends AppCompatActivity {
                 selection = 1;
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.payments_content, PaymentFragment.newInstance())
+                        .replace(R.id.payments_content, PaymentFragment.newInstance(0))
                         .commit();
                 break;
             case R.id.payments_3:
@@ -81,7 +80,7 @@ public class PaymentsActivity extends AppCompatActivity {
         TextTools.log(TAG, "saving instance");
     }
 
-    private void select(int id) {
+    public void select(int id) {
         for (int i = 0; i < 3; i++) {
             if (i != id) {
                 labels.get(i).setTextColor(ContextCompat

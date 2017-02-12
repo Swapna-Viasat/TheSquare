@@ -139,6 +139,12 @@ public class AccountFragment extends Fragment {
             owner.setText(employer.firstName + " " + employer.lastName);
             rating.setRating(employer.reviewInt);
 
+            if (null != employer.picture) {
+                Picasso.with(getContext())
+                        .load(employer.picture)
+                        .into(logo);
+            }
+
             if (employer.reviewCount > 0) {
                 reviewsCounter.setText(String.valueOf(employer.reviewCount));
                 reviewsCounter.setVisibility(View.VISIBLE);
