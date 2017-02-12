@@ -2,6 +2,7 @@ package com.hellobaytree.graftrs.employer;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.account.AccountFragment;
@@ -110,6 +113,19 @@ public class MainEmployerActivity extends AppCompatActivity {
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarEmployer);
         setSupportActionBar(toolbar);
+        // find the title text view
+        TextView toolbarTitle;
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View child = toolbar.getChildAt(i);
+            if (child instanceof TextView) {
+                toolbarTitle = (TextView) child;
+                // set my custom font
+                Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/JosefinSans-Italic.ttf");
+                toolbarTitle.setTypeface(typeface);
+                break;
+            }
+        }
+
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             final Drawable menu = ContextCompat.getDrawable(this, R.drawable.ic_menu_black_24dp);
