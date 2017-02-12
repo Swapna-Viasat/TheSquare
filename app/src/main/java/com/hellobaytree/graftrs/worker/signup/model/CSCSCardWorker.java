@@ -9,7 +9,7 @@ import android.os.Parcelable;
 public class CSCSCardWorker implements Parcelable {
 
     private int id;
-    private boolean verified;
+    private int verification_status;
     private String surname;
     private String birth_date;
     private String registration_number;
@@ -23,13 +23,10 @@ public class CSCSCardWorker implements Parcelable {
         this.id = id;
     }
 
-    public boolean isVerified() {
-        return verified;
-    }
 
-    public void setVerified(boolean verified) {
-        this.verified = verified;
-    }
+    public int getVerification_status() { return verification_status; }
+
+    public void setVerification_status(int verification_status) { this.verification_status = verification_status; }
 
     public String getSurname() {
         return surname;
@@ -72,7 +69,7 @@ public class CSCSCardWorker implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(id);
-        out.writeByte((byte) (verified ? 1 : 0));
+        out.writeInt(verification_status);
         out.writeString(surname);
         out.writeString(birth_date);
         out.writeString(registration_number);
@@ -81,7 +78,7 @@ public class CSCSCardWorker implements Parcelable {
 
     private CSCSCardWorker(Parcel in) {
         id = in.readInt();
-        verified = in.readByte() != 0;
+        verification_status = in.readInt();;
         surname = in.readString();
         birth_date = in.readString();
         registration_number = in.readString();

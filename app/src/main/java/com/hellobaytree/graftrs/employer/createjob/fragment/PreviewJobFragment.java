@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.MainEmployerActivity;
 import com.hellobaytree.graftrs.employer.createjob.CreateRequest;
+import com.hellobaytree.graftrs.employer.createjob.dialog.CRNDialog;
 import com.hellobaytree.graftrs.employer.myjobs.fragment.JobDetailsFragment;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
@@ -65,9 +67,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class PreviewJobFragment extends Fragment {
 
     public static final String TAG = "PreviewJobFragment";
-
-    public static final int JOB_STATUS_DRAFT = 1;
-    public static final int JOB_STATUS_LIVE = 2;
 
     @BindView(R.id.preview_logo) ImageView logo;
     @BindView(R.id.preview_occupation) JosefinSansTextView role;
@@ -304,7 +303,6 @@ public class PreviewJobFragment extends Fragment {
         return payload;
     }
 
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_create_job_post_step, menu);
@@ -321,14 +319,13 @@ public class PreviewJobFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.createJobCancel:
                 //
-
                 AlertDialog dialog = new AlertDialog.Builder(getContext())
                         .setMessage("Are you sure you want to delete this job?")
                         .setNegativeButton("Save as draft", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
-                                callApi(JOB_STATUS_DRAFT);
+                                callApi(Constants.JOB_STATUS_DRAFT);
                             }
                         })
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
@@ -369,7 +366,7 @@ public class PreviewJobFragment extends Fragment {
 
     @OnClick(R.id.publish)
     public void publish() {
-        callApi(JOB_STATUS_LIVE);
+        callApi(Constants.JOB_STATUS_LIVE);
     }
 
     private void callApi(int status) {
@@ -395,9 +392,6 @@ public class PreviewJobFragment extends Fragment {
                                             .remove(Constants.KEY_REQUEST)
                                             .commit();
 
-
-                                    TextTools.log(TAG, String.valueOf(response.body().getResponse().id));
-//
                                     getActivity().getSupportFragmentManager()
                                             .beginTransaction()
                                             .replace(R.id.frame,
@@ -405,7 +399,7 @@ public class PreviewJobFragment extends Fragment {
                                             .commit();
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
+                                    HandleErrors.parseError(getContext(), dialog, response, showCRNDialog);
                                 }
                             } catch (Exception e) {
                                 //
@@ -435,4 +429,40 @@ public class PreviewJobFragment extends Fragment {
                     .show();
         }
     }
+
+
+    private final DialogInterface.OnClickListener showCRNDialog =
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialogInterface, int id) {
+                    //
+                    if (null != dialogInterface) {
+
+                        Log.d(TAG, String.valueOf(dialogInterface.hashCode()));
+                        //
+                        dialogInterface.dismiss();
+
+                    }
+                    CRNDialog.newInstance(new CRNDialog.CRNListener() {
+                        @Override
+                        public void onResult(final boolean success) {
+                            Log.d(TAG, "yes");
+                            if (success) {
+                                callApi(Constants.JOB_STATUS_LIVE);
+                            } else {
+                                new AlertDialog.Builder(getContext())
+                                        .setMessage(getString(R.string.create_job_invalid_crn))
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        })
+                                        .show();
+                            }
+                        }
+                    }).show(getChildFragmentManager(), "");
+
+                }
+            };
 }

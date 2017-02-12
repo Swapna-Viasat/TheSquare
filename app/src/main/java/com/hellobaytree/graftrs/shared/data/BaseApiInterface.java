@@ -289,4 +289,8 @@ public interface BaseApiInterface {
 
     @POST("/payments/subscribe/")
     Call<ResponseObject> subscribe(@Body HashMap<String, Object> body);
+
+    @POST("/payments/manage/setup/")
+    Call<ResponseObject> setupPayment(@Body HashMap<String, Object> body);
+
 }

@@ -35,6 +35,7 @@ public class SubscriptionFragment extends Fragment {
     public static final String TAG = "SubscriptionFragment";
 
     @BindView(R.id.subscription_pager) ViewPager pager;
+    private int selectedPlan;
 
     @BindViews({R.id.top_basic, R.id.top_standard, R.id.top_premium})
     List<ViewGroup> top;
@@ -63,35 +64,51 @@ public class SubscriptionFragment extends Fragment {
     }
 
     @OnClick(R.id.payments_continue)
-    public void callApi() {
-        //
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        HashMap<String, Object> request = new HashMap<>();
-        // TODO: need further guidance from backend guys
-        request.put("payment_detail", 3);
-        request.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
-        HttpRestServiceConsumer.getBaseApiClient()
-                .subscribe(request)
-                .enqueue(new Callback<ResponseObject>() {
-                    @Override
-                    public void onResponse(Call<ResponseObject> call,
-                                           Response<ResponseObject> response) {
-                        //
-                        if (response.isSuccessful()) {
-                            DialogBuilder.cancelDialog(dialog);
-                            //
-                        } else {
-                            HandleErrors.parseError(getContext(), dialog, response);
-                            //
-                        }
-                    }
+    public void proceed() {
 
-                    @Override
-                    public void onFailure(Call<ResponseObject> call, Throwable t) {
-                        //
-                        HandleErrors.parseFailureError(getContext(), dialog, t);
-                    }
-                });
+        ((TextView) getActivity().findViewById(R.id.payments_subscription_label))
+                .setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
+        ((TextView) getActivity().findViewById(R.id.payments_cards_label))
+                .setTextColor(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
+        ((ImageView) getActivity().findViewById(R.id.payments_subscription))
+                .setColorFilter(ContextCompat.getColor(getContext(), R.color.graySquareColor));
+        ((ImageView) getActivity().findViewById(R.id.payments_cards))
+                .setColorFilter(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
+
+        getActivity().
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.payments_content, PaymentFragment.newInstance(selectedPlan))
+                .commit();
+
+//        //
+//        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+//        HashMap<String, Object> request = new HashMap<>();
+//        // TODO: need further guidance from backend guys
+//        request.put("payment_detail", 3);
+//        request.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
+//        HttpRestServiceConsumer.getBaseApiClient()
+//                .subscribe(request)
+//                .enqueue(new Callback<ResponseObject>() {
+//                    @Override
+//                    public void onResponse(Call<ResponseObject> call,
+//                                           Response<ResponseObject> response) {
+//                        //
+//                        if (response.isSuccessful()) {
+//                            DialogBuilder.cancelDialog(dialog);
+//                            //
+//                        } else {
+//                            HandleErrors.parseError(getContext(), dialog, response);
+//                            //
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResponseObject> call, Throwable t) {
+//                        //
+//                        HandleErrors.parseFailureError(getContext(), dialog, t);
+//                    }
+//                });
     }
 
     @Override
@@ -142,6 +159,7 @@ public class SubscriptionFragment extends Fragment {
     }
 
     private void select(int id) {
+        selectedPlan = id;
         for (int i = 0; i < 3; i++) {
             if (i == id) {
                 top.get(i).setBackgroundColor(ContextCompat
