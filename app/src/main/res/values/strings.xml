@@ -400,8 +400,7 @@
 
     <!-- Worker Jobs -->
     <string name="worker_jobs_booked">Booked</string>
-    <string name="worker_jobs_offers">Offers</string>
-    <string name="worker_jobs_applications">Applications</string>
+    <string name="worker_jobs_offers_applications">Offers &amp; Applications</string>
     <string name="worker_jobs_liked">Liked</string>
     <string name="worker_jobs_completed">Completed</string>
     <string name="worker_jobs_end_contract">End Contract</string>

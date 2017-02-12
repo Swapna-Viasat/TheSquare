@@ -198,7 +198,10 @@ public interface BaseApiInterface {
     Call<ResponseObject<Worker>> loginWorker(@Body HashMap<String, String> loginRequest);
 
     @GET("/workers/{pk}/my_jobs/")
-    Call<JobsResponse> getMyJobs(@Path("pk") int workerId);
+    Call<JobsResponse> getMyJobs(@Path("pk") int workerId,
+                                 @Query("status") Integer status,
+                                 @Query("like") boolean liked,
+                                 @Query("offer") boolean isOffer);
 
     @GET("/data/nationality/")
     Call<ResponseObject<List<com.hellobaytree.graftrs.shared.models.Nationality>>> fetchNationality();

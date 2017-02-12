@@ -15,7 +15,7 @@ import com.hellobaytree.graftrs.worker.myjobs.fragment.JobsListFragment;
 
 public class JobsPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int JOBS_COUNT = 5;
+    private static final int JOBS_COUNT = 4;
     private Context context;
 
     public JobsPagerAdapter(Context context, FragmentManager fragmentManager) {
@@ -29,12 +29,10 @@ public class JobsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return context.getResources().getString(R.string.worker_jobs_booked);
             case 1:
-                return context.getResources().getString(R.string.worker_jobs_offers);
+                return context.getResources().getString(R.string.worker_jobs_offers_applications);
             case 2:
-                return context.getResources().getString(R.string.worker_jobs_applications);
-            case 3:
                 return context.getResources().getString(R.string.worker_jobs_liked);
-            case 4:
+            case 3:
                 return context.getResources().getString(R.string.worker_jobs_completed);
         }
         return null;
@@ -48,10 +46,8 @@ public class JobsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return JobsListFragment.newInstance(Job.TYPE_OFFER);
             case 2:
-                return JobsListFragment.newInstance(Job.TYPE_APP);
-            case 3:
                 return JobsListFragment.newInstance(Job.TYPE_LIKED);
-            case 4:
+            case 3:
                 return JobsListFragment.newInstance(Job.TYPE_COMPLETED);
         }
         return null;
