@@ -85,6 +85,7 @@
 
             <!-- Company description -->
             <LinearLayout
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_margin="14dp"
                 android:layout_width="match_parent"

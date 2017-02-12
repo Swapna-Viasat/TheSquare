@@ -49,7 +49,7 @@ public class AccountFragment extends Fragment {
     @BindView(R.id.employer_account_name) TextView name;
     @BindView(R.id.employer_account_owner) TextView owner;
     @BindView(R.id.employer_account_rating) RatingView rating;
-    @BindView(R.id.employer_company_description) TextView description;
+    // @BindView(R.id.employer_company_description) TextView description;
     @BindView(R.id.employer_account_reviews_counter) TextView reviewsCounter;
     @BindView(R.id.employer_account_task_counter) TextView myTasksCounter;
 
@@ -141,9 +141,9 @@ public class AccountFragment extends Fragment {
                 if (null != employer.company.name) {
                     name.setText(employer.company.name);
                 }
-                if (null != employer.company.description) {
-                    description.setText(employer.company.description);
-                }
+//                if (null != employer.company.description) {
+//                    description.setText(employer.company.description);
+//                }
             }
 
             owner.setText(employer.firstName + " " + employer.lastName);
