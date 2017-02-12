@@ -76,8 +76,6 @@ public class JobAppliedDialog extends DialogFragment implements View.OnClickList
         titleTextView.setText(getString(R.string.job_applied_title_1));
         if (currentJob.role != null && currentJob.role.name != null) {
             spannableString = new SpannableString(currentJob.role.name);
-            spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.redSquareColor)), 0,
-                    spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             titleTextView.append(" ");
             titleTextView.append(spannableString);
         }
@@ -87,9 +85,6 @@ public class JobAppliedDialog extends DialogFragment implements View.OnClickList
 
         if (currentJob.company != null && currentJob.company.name != null) {
             spannableString = new SpannableString(currentJob.company.name);
-            spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.redSquareColor)), 0,
-                    spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
             titleTextView.append(" ");
             titleTextView.append(spannableString);
         }
@@ -99,8 +94,6 @@ public class JobAppliedDialog extends DialogFragment implements View.OnClickList
         titleTextView.append(" ");
         if (!TextUtils.isEmpty(currentJob.startTime)) {
             spannableString = new SpannableString(DateUtils.formatDateDayAndMonth(currentJob.startTime, true));
-            spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.redSquareColor)), 0,
-                    spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             titleTextView.append(spannableString);
         }
     }
