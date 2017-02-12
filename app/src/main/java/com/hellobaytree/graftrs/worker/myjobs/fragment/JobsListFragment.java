@@ -64,6 +64,7 @@ public class JobsListFragment extends Fragment
         jobType = getArguments().getInt("type");
         presenter = new JobsPresenter(getActivity(), this);
         progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getString(R.string.worker_jobs_wait_msg));
         jobsAdapter = new JobsAdapter(jobs, getContext(), this);
     }
 

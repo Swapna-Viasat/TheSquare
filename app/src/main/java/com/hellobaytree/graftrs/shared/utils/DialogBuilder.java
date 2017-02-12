@@ -91,7 +91,7 @@ public class DialogBuilder {
         //builder.show();
     }
 
-    public static void showTwoOptionsStandardDialog(final Context context, String title, String message,
+    public static Dialog showTwoOptionsStandardDialog(final Context context, String title, String message,
                                                     String btnOneText, String btnTwoText, final OnClickTwoOptionsStandardDialog listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
@@ -106,7 +106,7 @@ public class DialogBuilder {
             }
         });
         afterShowSetProperties(builder, context);
-        //builder.show();
+        return builder.create();
     }
 
     public static void showDeleteDraftDialog(final Context context,

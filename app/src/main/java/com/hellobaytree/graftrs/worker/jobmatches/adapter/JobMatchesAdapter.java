@@ -2,12 +2,14 @@ package com.hellobaytree.graftrs.worker.jobmatches.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.squareup.picasso.Picasso;
@@ -77,6 +79,11 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
                     if (listener != null) listener.onLikeJob(job);
                 }
             });
+
+            if (!TextUtils.isEmpty(job.startTime)) {
+                holder.startDateTextView.setText(String.format(context.getString(R.string.item_match_format_starts),
+                        DateUtils.formatDateDayAndMonth(job.startTime, true)));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,6 +112,8 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
         JosefinSansTextView experience;
         @BindView(R.id.likeImage)
         ImageView likeImage;
+        @BindView(R.id.item_match_start_date)
+        JosefinSansTextView startDateTextView;
 
         public JobHolder(View view) {
             super(view);

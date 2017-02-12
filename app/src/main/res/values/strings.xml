@@ -307,6 +307,9 @@
     <string name="mandatory_requirements">Mandatory Requirements</string>
 
     <string name="main_worker_advice">Better profiles get better jobs!\nUpdate yours now.</string>
+    <string name="worker_no_matches">You have no jobs matching your profile right now. Better profiles get better job matches.</string>
+    <string name="worker_myjobs_empty">No jobs in here yet! In the meantime, update your profile.</string>
+    <string name="worker_update_profile">Update yours now</string>
     <string name="matching_jobs_profile">You have %1$s %2$s matching your profile</string>
 
     <string name="filter">Search</string>
@@ -407,6 +410,7 @@
     <string name="worker_jobs_awaiting">Awaiting Response</string>
     <string name="worker_jobs_declined">Didn\'t get it</string>
     <string name="worker_job_details">Job Details</string>
+    <string name="worker_jobs_wait_msg">Hold tight! We\'re working&#8230;</string>
 
     <!-- Job Details -->
     <string name="job_details_success_message">
