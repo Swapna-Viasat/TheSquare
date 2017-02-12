@@ -57,4 +57,6 @@ public class Constants {
     public static final int JOB_STATUS_OLD = 3;
 
     public static final String KEY_SELECTED_PLAN = "selected_plan";
+    public static final String EMPLOYER = "employer";
+    public static final String EMPLOYER_CURRENT_TAB = "employer_current_tab";
 }

@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +44,7 @@ import retrofit2.Response;
 public class AccountFragment extends Fragment {
     private static final String TAG = "AccountFragment";
 
-    @BindView(R.id.employer_account_logo) ImageView logo;
+    @BindView(R.id.employer_account_logo) CircleImageView logo;
     @BindView(R.id.employer_account_name) TextView name;
     @BindView(R.id.employer_account_owner) TextView owner;
     @BindView(R.id.employer_account_rating) RatingView rating;
@@ -76,6 +78,13 @@ public class AccountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         fetchEmployer();
         configureView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity) getActivity()).getSupportActionBar()
+                .setTitle("My Account");
     }
 
     @Override
@@ -121,13 +130,13 @@ public class AccountFragment extends Fragment {
         try {
             if (null != employer) meEmployer = employer;
             if (null != employer.company) {
-                if (null != employer.company.logo) {
-                    if (!TextUtils.isEmpty(employer.company.logo)) {
-                        Picasso.with(getContext())
-                                .load(employer.company.logo)
-                                .into(logo);
-                    }
-                }
+//                if (null != employer.company.logo) {
+//                    if (!TextUtils.isEmpty(employer.company.logo)) {
+//                        Picasso.with(getContext())
+//                                .load(employer.company.logo)
+//                                .into(logo);
+//                    }
+//                }
                 if (null != employer.company.name) {
                     name.setText(employer.company.name);
                 }

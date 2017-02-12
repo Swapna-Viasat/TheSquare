@@ -16,10 +16,12 @@
             android:icon="@drawable/ic_account_circle_black_24dp"
             android:title="@string/menu_employer_my_account" />
         <item
+            android:visible="false"
             android:id="@+id/nav_employer_edit_profile"
             android:icon="@drawable/ic_chat_black_24dp"
             android:title="@string/menu_employer_edit_profile" />
         <item
+            android:visible="false"
             android:id="@+id/nav_employer_share"
             android:icon="@drawable/ic_share_black_24dp"
             android:title="@string/menu_worker_share" />

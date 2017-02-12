@@ -24,6 +24,7 @@ import com.hellobaytree.graftrs.employer.onboarding.OnboardingEmployerActivity;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 import com.hellobaytree.graftrs.shared.utils.Constants;
+import com.hellobaytree.graftrs.shared.utils.TextTools;
 
 import butterknife.ButterKnife;
 
@@ -36,7 +37,10 @@ public class MainEmployerActivity extends AppCompatActivity {
 
     public static final String TAG = "MainEmployer";
 
+    private int lastTab;
+
     private DrawerLayout drawerEmployerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +48,10 @@ public class MainEmployerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_employer);
         ButterKnife.bind(this); setToolbar();
 
+
         // some UI setup from previous dev
         drawerEmployerLayout = (DrawerLayout) findViewById(R.id.drawer_employer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_employer_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_employer_view);
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
@@ -56,6 +61,7 @@ public class MainEmployerActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
         // checking if the employer wasn't in the process of creating a job
         // when last left the app
         if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
@@ -65,17 +71,40 @@ public class MainEmployerActivity extends AppCompatActivity {
             startActivity(new Intent(this, CreateJobActivity.class));
             ///
         } else {
-            selectItem(getString(R.string.menu_employer_my_jobs_home));
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.main_employer_content, JobsFragment.getInstance())
-//                    .commit();
+            int currentTab =
+            getSharedPreferences(Constants.EMPLOYER, MODE_PRIVATE)
+                    .getInt(Constants.EMPLOYER_CURRENT_TAB, 0);
+
+            switch (currentTab) {
+                case 0:
+                    selectItem(getString(R.string.menu_employer_my_jobs_home),
+                            navigationView.getMenu().getItem(0));
+                    break;
+                case 1:
+                    selectItem(getString(R.string.menu_employer_my_graftrs),
+                            navigationView.getMenu().getItem(1));
+                    break;
+                case 2:
+                    selectItem(getString(R.string.menu_employer_my_account),
+                            navigationView.getMenu().getItem(2));
+                    break;
+            }
+
         }
     }
 
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getSharedPreferences(Constants.EMPLOYER, MODE_PRIVATE)
+                .edit()
+                .putInt(Constants.EMPLOYER_CURRENT_TAB, lastTab)
+                .commit();
     }
 
     private void setToolbar() {
@@ -96,7 +125,7 @@ public class MainEmployerActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         String title = menuItem.getTitle().toString();
-                        selectItem(title);
+                        selectItem(title, menuItem);
                         return true;
                     }
                 }
@@ -113,16 +142,24 @@ public class MainEmployerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void selectItem(String title) {
+    private void selectItem(String title, MenuItem menuItem) {
         Fragment fragment = null;
-        if (title.equals(getResources().getString(R.string.menu_employer_my_jobs_home)))
+        menuItem.setChecked(true);
+        if (title.equals(getResources().getString(R.string.menu_employer_my_jobs_home))) {
+            lastTab = 0;
             fragment = new JobsFragment();
-        if (title.equals(getResources().getString(R.string.menu_employer_my_graftrs)))
+        }
+        if (title.equals(getResources().getString(R.string.menu_employer_my_graftrs))) {
+            lastTab = 1;
             fragment = new MyGraftrsEmployerFragment();
-        if (title.equals(getResources().getString(R.string.menu_employer_my_account)))
+        }
+        if (title.equals(getResources().getString(R.string.menu_employer_my_account))) {
+            lastTab = 2;
             fragment = new AccountFragment();
+        }
 
         if (title.equals(getResources().getString(R.string.menu_employer_log_out))) {
+            lastTab = 0;
             fragment = null;
             SharedPreferencesManager.getInstance(this).deleteToken();
             SharedPreferencesManager.getInstance(this).deleteSessionInfoEmployer();
@@ -132,10 +169,10 @@ public class MainEmployerActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if (title.equals(getResources().getString(R.string.menu_employer_edit_profile))) {
-            fragment = null;
-            startActivity(new Intent(this, OnboardingEmployerActivity.class));
-        }
+//        if (title.equals(getResources().getString(R.string.menu_employer_edit_profile))) {
+//            fragment = null;
+//            startActivity(new Intent(this, OnboardingEmployerActivity.class));
+//        }
 
         if (fragment != null) {
             getSupportFragmentManager()
