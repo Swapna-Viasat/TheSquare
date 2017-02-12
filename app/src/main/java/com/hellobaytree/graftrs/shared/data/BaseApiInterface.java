@@ -183,7 +183,7 @@ public interface BaseApiInterface {
     Call<ResponseObject<Worker>> persistWorkerLocation(@Path("pk") int id, @Body HashMap<String, Object> workerLocationRequest);
 
     @GET("/workers/{pk}/")
-    Call<ResponseObject<Worker>> getWorkerProfile(@Path("pk") int id);
+    Call<ResponseObject<com.hellobaytree.graftrs.shared.models.Worker>> getWorkerProfile(@Path("pk") int id);
 
     @GET("/workers/{pk}/cscs_card/")
     Call<ResponseObject<CSCSCardWorker>> getWorkerCSCSCard(@Path("pk") int id);
