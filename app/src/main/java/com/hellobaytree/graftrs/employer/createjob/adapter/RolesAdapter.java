@@ -46,6 +46,7 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
         final Role role = data.get(position);
         holder.title.setText(role.name);
         if (role.selected) {
+            holder.blur.setVisibility(View.VISIBLE);
             holder.itemView.setBackgroundColor(
                     ContextCompat.getColor(holder.itemView.getRootView().getContext(),R.color.redSquareColor));
             holder.controls.setVisibility(View.VISIBLE);
@@ -65,6 +66,7 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
                 }
             });
         } else {
+            holder.blur.setVisibility(View.GONE);
             holder.itemView.setBackgroundColor(Color.WHITE);
             holder.controls.setVisibility(View.GONE);
         }
@@ -72,6 +74,7 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
         Picasso.with(holder.itemView.getContext())
                 .load(role.image)
                 .into(holder.image);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +93,7 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
 
     public class RoleHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.blur) View blur;
         @BindView(R.id.title) JosefinSansTextView title;
         @BindView(R.id.image) ImageView image;
         @BindView(R.id.controls) LinearLayout controls;

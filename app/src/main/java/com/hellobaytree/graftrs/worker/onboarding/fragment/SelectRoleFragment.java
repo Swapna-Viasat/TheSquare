@@ -68,6 +68,7 @@ public class SelectRoleFragment extends Fragment
     private List<Role> tradeRoles = new ArrayList<>();
     private RolesAdapter adapter;
     private Worker currentWorker;
+    private boolean singleEdit;
 
     public static SelectRoleFragment newInstance(boolean singleEdition, Worker worker) {
         SelectRoleFragment selectRoleFragment = new SelectRoleFragment();
@@ -91,8 +92,12 @@ public class SelectRoleFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
         workerId = SharedPreferencesManager.getInstance(getContext()).getWorkerId();
         currentWorker = (Worker) getArguments().getSerializable(Constants.KEY_CURRENT_WORKER);
-        String name = currentWorker.firstName;
-        title.setText(String.format(getString(R.string.onboarding_roles), name));
+        singleEdit = getArguments().getBoolean(Constants.KEY_SINGLE_EDIT);
+
+        if (currentWorker != null) {
+            String name = currentWorker.firstName;
+            title.setText(String.format(getString(R.string.onboarding_roles), name));
+        }
     }
 
     @OnClick(R.id.next)
@@ -107,11 +112,6 @@ public class SelectRoleFragment extends Fragment
     }
 
     private void proceed() {
-        if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
-            getActivity().setResult(Activity.RESULT_OK);
-            getActivity().finish();
-            return;
-        }
 
         tradeRoles.clear();
         for (Role role : data) {
@@ -272,12 +272,18 @@ public class SelectRoleFragment extends Fragment
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                .replace(R.id.onboarding_content, SelectTradeFragment.newInstance(false))
+                .replace(R.id.onboarding_content, SelectTradeFragment.newInstance(singleEdit))
                 .addToBackStack("")
                 .commit();
     }
 
     private void proceedToExperience() {
+        if (getArguments() != null && singleEdit) {
+            getActivity().setResult(Activity.RESULT_OK);
+            getActivity().finish();
+            return;
+        }
+
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)

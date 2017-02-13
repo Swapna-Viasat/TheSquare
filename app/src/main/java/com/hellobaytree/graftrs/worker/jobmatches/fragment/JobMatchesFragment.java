@@ -2,6 +2,7 @@ package com.hellobaytree.graftrs.worker.jobmatches.fragment;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import com.hellobaytree.graftrs.worker.jobmatches.MatchesPresenter;
 import com.hellobaytree.graftrs.worker.jobmatches.adapter.JobMatchesAdapter;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Ordering;
+import com.hellobaytree.graftrs.worker.myaccount.ui.activity.MyAccountViewProfileActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -96,15 +98,11 @@ public class JobMatchesFragment extends Fragment
         super.onOptionsItemSelected(menuItem);
         switch (menuItem.getItemId()) {
             case R.id.worker_map:
-                if (!jobs.isEmpty()) {
-                    Bundle jobsBundle = new Bundle();
-                    jobsBundle.putSerializable("data", (Serializable) jobs);
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, JobMatchesMapFragment.newInstance(jobsBundle))
-                            .commit();
-                } else {
-                    displayError("There are no jobs to display");
-                }
+                Bundle jobsBundle = new Bundle();
+                jobsBundle.putSerializable("data", (Serializable) jobs);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, JobMatchesMapFragment.newInstance(jobsBundle))
+                        .commit();
                 break;
             case R.id.worker_tune:
                 JobMatchesFilterDialog.newInstance(this, mUserActionsListener.getOrdering()
@@ -147,11 +145,14 @@ public class JobMatchesFragment extends Fragment
         mUserActionsListener.onLikeJobClick(getActivity(), job);
     }
 
-    @OnClick({R.id.worker_matches_exit_hint})
+    @OnClick({R.id.worker_matches_exit_hint, R.id.editProfile})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.worker_matches_exit_hint:
                 hint.setVisibility(View.GONE);
+                break;
+            case R.id.editProfile:
+                getActivity().startActivity(new Intent(getContext(), MyAccountViewProfileActivity.class));
                 break;
         }
     }

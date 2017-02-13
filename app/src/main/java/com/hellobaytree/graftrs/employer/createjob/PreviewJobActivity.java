@@ -53,7 +53,7 @@ public class PreviewJobActivity extends AppCompatActivity {
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setHomeAsUpIndicator(getMenuIcon());
-            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setDisplayHomeAsUpEnabled(false);
             ab.setTitle(getString(R.string.create_job_preview));
             ab.setElevation(0);
         }

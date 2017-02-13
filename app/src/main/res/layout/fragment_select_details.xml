@@ -469,7 +469,7 @@
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:background="@color/graySquareColor"
                 android:layout_alignParentBottom="true"
-                android:text="Preview"
+                android:text="@string/create_job_preview2"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:padding="18dp"
@@ -488,7 +488,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:background="@color/redSquareColor"
-                android:text="Post Job"
+                android:text="@string/create_job_publish"
                 android:layout_marginLeft="6dp"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="12dp"

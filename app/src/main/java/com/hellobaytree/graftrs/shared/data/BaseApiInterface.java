@@ -183,7 +183,7 @@ public interface BaseApiInterface {
     Call<ResponseObject<Worker>> persistWorkerLocation(@Path("pk") int id, @Body HashMap<String, Object> workerLocationRequest);
 
     @GET("/workers/{pk}/")
-    Call<ResponseObject<Worker>> getWorkerProfile(@Path("pk") int id);
+    Call<ResponseObject<com.hellobaytree.graftrs.shared.models.Worker>> getWorkerProfile(@Path("pk") int id);
 
     @GET("/workers/{pk}/cscs_card/")
     Call<ResponseObject<CSCSCardWorker>> getWorkerCSCSCard(@Path("pk") int id);
@@ -198,7 +198,10 @@ public interface BaseApiInterface {
     Call<ResponseObject<Worker>> loginWorker(@Body HashMap<String, String> loginRequest);
 
     @GET("/workers/{pk}/my_jobs/")
-    Call<JobsResponse> getMyJobs(@Path("pk") int workerId);
+    Call<JobsResponse> getMyJobs(@Path("pk") int workerId,
+                                 @Query("status") Integer status,
+                                 @Query("like") boolean liked,
+                                 @Query("offer") boolean isOffer);
 
     @GET("/data/nationality/")
     Call<ResponseObject<List<com.hellobaytree.graftrs.shared.models.Nationality>>> fetchNationality();
@@ -286,4 +289,8 @@ public interface BaseApiInterface {
 
     @POST("/payments/subscribe/")
     Call<ResponseObject> subscribe(@Body HashMap<String, Object> body);
+
+    @POST("/payments/manage/setup/")
+    Call<ResponseObject> setupPayment(@Body HashMap<String, Object> body);
+
 }

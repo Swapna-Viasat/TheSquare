@@ -26,4 +26,5 @@ public class Employer implements Serializable {
     @SerializedName("job_notifications") public boolean jobNotifications;
     @SerializedName("reviews_notifications") public boolean reviewNotifications;
     public Company company;
+    public String picture;
 }

@@ -120,9 +120,9 @@ public class VerifyPhoneFragment extends Fragment {
                             @Override
                             public void onResponse(Call<ResponseObject<Worker>> call,
                                                    Response<ResponseObject<Worker>> response) {
+                                DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
                                     //
-                                    DialogBuilder.cancelDialog(dialog);
 
                                     try {
                                         Bundle bundle = new Bundle();
@@ -161,9 +161,9 @@ public class VerifyPhoneFragment extends Fragment {
                             @Override
                             public void onResponse(Call<ResponseObject<Employer>> call,
                                                    Response<ResponseObject<Employer>> response) {
+                                DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
                                     //
-                                    DialogBuilder.cancelDialog(dialog);
 
                                     try {
                                         Bundle bundle = new Bundle();
@@ -201,9 +201,9 @@ public class VerifyPhoneFragment extends Fragment {
                             @Override
                             public void onResponse(Call<ResponseObject<LoginUser>> call,
                                                    Response<ResponseObject<LoginUser>> response) {
+                                DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
                                     ////
-                                    DialogBuilder.cancelDialog(dialog);
 
                                     try {
                                         Bundle bundle = new Bundle();
@@ -231,6 +231,8 @@ public class VerifyPhoneFragment extends Fragment {
                                         e.printStackTrace();
                                     }
                                     ////
+                                } else {
+                                    HandleErrors.parseError(getContext(), dialog, response);
                                 }
                             }
 

@@ -14,6 +14,8 @@ import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.subscription.model.CreateCardRequest;
 import com.hellobaytree.graftrs.employer.subscription.model.CreateCardResponse;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
+import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
@@ -22,6 +24,8 @@ import com.stripe.android.Stripe;
 import com.stripe.android.TokenCallback;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,13 +45,18 @@ public class PaymentFragment extends Fragment {
     @BindView(R.id.year) JosefinSansEditText year;
     @BindView(R.id.cvc) JosefinSansEditText cvc;
     // address fields
+    @BindView(R.id.voucher) JosefinSansEditText voucher;
     @BindView(R.id.address1) JosefinSansEditText address;
     @BindView(R.id.city) JosefinSansEditText city;
     @BindView(R.id.country) JosefinSansEditText country;
     @BindView(R.id.postcode) JosefinSansEditText postcode;
+    private int plan;
 
-    public static PaymentFragment newInstance() {
+    public static PaymentFragment newInstance(int selectedPlan) {
         PaymentFragment fragment = new PaymentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.KEY_SELECTED_PLAN, selectedPlan);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -71,12 +80,31 @@ public class PaymentFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //
-
+        plan = getArguments().getInt(Constants.KEY_SELECTED_PLAN);
     }
 
     @OnClick(R.id.confirm)
     public void submit() {
-        getCard();
+        // getCard();
+
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
+        body.put("stripe_source_token", "dfdfdf");
+        body.put("payment_detail", plan);
+        HttpRestServiceConsumer.getBaseApiClient()
+                .setupPayment(body)
+                .enqueue(new Callback<ResponseObject>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject> call,
+                                           Response<ResponseObject> response) {
+                        //
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject> call, Throwable t) {
+                        //
+                    }
+                });
     }
 
     private Card getCard() {

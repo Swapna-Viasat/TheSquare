@@ -1,13 +1,16 @@
 package com.hellobaytree.graftrs.worker.jobmatches.fragment;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,9 +33,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
+import com.hellobaytree.graftrs.shared.utils.DateUtils;
+import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
+import com.hellobaytree.graftrs.worker.myaccount.ui.activity.MyAccountViewProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,8 +50,7 @@ import butterknife.ButterKnife;
 
 public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallback,
         ConnectionCallbacks,
-        GoogleMap.OnMarkerClickListener,
-        OnConnectionFailedListener {
+        GoogleMap.OnMarkerClickListener {
 
     @BindView(R.id.map_view)
     MapView mapView;
@@ -53,6 +59,8 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
 
     private GoogleMap map;
     private GoogleApiClient mGoogleApiClient;
+    private List<Job> jobs;
+    private Dialog dialog;
 
     public static JobMatchesMapFragment newInstance(Bundle bundle) {
         JobMatchesMapFragment fragment = new JobMatchesMapFragment();
@@ -60,21 +68,48 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         return fragment;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        jobs = (ArrayList<Job>) getArguments().getSerializable("data");
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                     .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
         }
     }
 
+    @Override
     public void onStart() {
         super.onStart();
+        if (CollectionUtils.isEmpty(jobs)) showNoMatchesDialog();
+    }
+
+    private void showNoMatchesDialog() {
+        dialog = DialogBuilder.showTwoOptionsStandardDialog(
+                getContext(), "",
+                getString(R.string.worker_no_matches),
+                getString(R.string.worker_update_profile),
+                getString(R.string.onboarding_cancel),
+                new DialogBuilder.OnClickTwoOptionsStandardDialog() {
+                    @Override
+                    public void onClickOptionOneStandardDialog(Context context) {
+                        getActivity().startActivity(new Intent(getContext(), MyAccountViewProfileActivity.class));
+                    }
+
+                    @Override
+                    public void onClickOptionTwoStandardDialog(Context context) {
+                        DialogBuilder.cancelDialog(dialog);
+                    }
+                });
+    }
+
+    private void destroyDialog() {
+        DialogBuilder.cancelDialog(dialog);
+        dialog = null;
     }
 
     @Override
@@ -140,8 +175,9 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     }
 
     public void onPause() {
-        super.onPause();
+        destroyDialog();
         mapView.onPause();
+        super.onPause();
     }
 
     public void onStop() {
@@ -150,13 +186,13 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     }
 
     public void onDestroy() {
-        super.onDestroy();
         mapView.onDestroy();
+        super.onDestroy();
     }
 
     public void onLowMemory() {
-        super.onLowMemory();
         mapView.onLowMemory();
+        super.onLowMemory();
     }
 
     @SuppressWarnings("unchecked")
@@ -164,8 +200,6 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         TextTools.log(TAG, "on google api client connected");
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            List<Job> jobs = (ArrayList<Job>) getArguments().getSerializable("data");
-
             if (map != null && jobs != null) {
                 try {
                     for (Job job : jobs) {
@@ -189,6 +223,11 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         }
     }
 
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -196,14 +235,6 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         // marker.showInfoWindow();
 
         return false;
-    }
-
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        // TODO: handle a failed connection
-    }
-
-    public void onConnectionSuspended(int info) {
-        //
     }
 
     class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
@@ -238,8 +269,12 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
                     ((JosefinSansTextView) view.findViewById(R.id.experience))
                             .setText(String.format(context.getString(R.string.item_match_format_experience),
                                     job.experience, context.getResources().getQuantityString(R.plurals.year_plural, job.experience)));
-                    ((JosefinSansTextView) view.findViewById(R.id.start_date))
-                            .setText("Starts 12th Jan");
+
+                    if (!TextUtils.isEmpty(job.startTime)) {
+                        ((JosefinSansTextView) view.findViewById(R.id.start_date)).setText(String.format(getString(R.string.item_match_format_starts),
+                                DateUtils.formatDateDayAndMonth(job.startTime, true)));
+                    }
+
                     ((JosefinSansTextView) view.findViewById(R.id.location))
                             .setText(job.address);
                     ((JosefinSansTextView) view.findViewById(R.id.period))

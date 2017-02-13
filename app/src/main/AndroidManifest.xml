@@ -200,8 +200,13 @@
         <activity
             android:name=".employer.payments.PaymentsActivity"
             android:label="@string/title_activity_payments"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".employer.myjobs.activity.ViewWorkerProfileActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarMain" />
     </application>
 
 </manifest>

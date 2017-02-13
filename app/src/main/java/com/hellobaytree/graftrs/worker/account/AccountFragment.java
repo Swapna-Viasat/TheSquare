@@ -123,8 +123,13 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        fetchWorker();
         configureView();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fetchWorker();
     }
 
     @OnClick({R.id.worker_account_edit, R.id.worker_account_profile,
@@ -138,9 +143,7 @@ public class AccountFragment extends Fragment {
                 break;
             case R.id.worker_account_profile:
                 // view profile
-                Bundle bundle = new Bundle();
                 Intent viewProfileIntent = new Intent(getActivity(), MyAccountViewProfileActivity.class);
-                viewProfileIntent.putExtras(bundle);
                 startActivity(viewProfileIntent);
                 break;
             case R.id.worker_account_availability:

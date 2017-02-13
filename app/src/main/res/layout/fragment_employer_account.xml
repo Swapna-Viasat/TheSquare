@@ -25,10 +25,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/employer_account_logo"
-                    android:layout_width="120dp"
-                    android:layout_height="65dp" />
+                    android:layout_width="82dp"
+                    android:layout_height="82dp" />
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/employer_account_name"
@@ -56,6 +56,7 @@
             </LinearLayout>
 
             <View
+                android:visibility="gone"
                 android:id="@+id/worker_account_edit"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -66,6 +67,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:layout_marginTop="4dp"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
@@ -83,6 +85,7 @@
 
             <!-- Company description -->
             <LinearLayout
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_margin="14dp"
                 android:layout_width="match_parent"

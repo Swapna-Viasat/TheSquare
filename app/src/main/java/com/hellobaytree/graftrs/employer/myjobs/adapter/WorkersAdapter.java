@@ -43,6 +43,7 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
 
     public interface WorkersActionListener {
         void onInvite(Worker worker);
+        void onViewWorkerProfile(Worker worker);
     }
 
     @Override
@@ -88,6 +89,13 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
                 if (null != listener) {
                     listener.onInvite(worker);
                 }
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) listener.onViewWorkerProfile(worker);
             }
         });
 
@@ -149,12 +157,18 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
 
     public static class WorkerHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.worker_rating) RatingView workerRating;
-        @BindView(R.id.worker_name) JosefinSansTextView workerName;
-        @BindView(R.id.worker_occupation) JosefinSansTextView workerOccupation;
-        @BindView(R.id.worker_label) ImageView workerLabel;
-        @BindView(R.id.worker_action_button) TextView workerAction;
-        @BindView(R.id.worker_additional_info) View availableNow;
+        @BindView(R.id.worker_rating)
+        RatingView workerRating;
+        @BindView(R.id.worker_name)
+        JosefinSansTextView workerName;
+        @BindView(R.id.worker_occupation)
+        JosefinSansTextView workerOccupation;
+        @BindView(R.id.worker_label)
+        ImageView workerLabel;
+        @BindView(R.id.worker_action_button)
+        TextView workerAction;
+        @BindView(R.id.worker_additional_info)
+        View availableNow;
         @BindView(R.id.worker_avatar)
         CircleImageView avatar;
 
