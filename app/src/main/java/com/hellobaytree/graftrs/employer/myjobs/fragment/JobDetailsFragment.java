@@ -65,6 +65,8 @@ public class JobDetailsFragment extends Fragment {
     @BindView(R.id.item_job_occupation) JosefinSansTextView occupation;
     @BindView(R.id.item_job_experience) JosefinSansTextView experience;
     @BindView(R.id.item_job_logo) ImageView logo;
+    @BindView(R.id.item_job_company_name) JosefinSansTextView name;
+    @BindView(R.id.item_job_id) JosefinSansTextView id;
 
     private JobDetailsPagerAdapter adapter;
 
@@ -150,7 +152,6 @@ public class JobDetailsFragment extends Fragment {
 
                         if (response.isSuccessful()) {
 
-
                             populate(response.body().getResponse());
 
                         } else {
@@ -184,10 +185,10 @@ public class JobDetailsFragment extends Fragment {
             location.setText(job.address);
         }
 
-        payNumber.setText(String.valueOf(job.budget));
+        payNumber.setText("£ " + String.valueOf(job.budget));
 
         if (null != job.budgetType) {
-            payPeriod.setText(job.budgetType.name);
+            payPeriod.setText("PER " + job.budgetType.name);
         }
 
         experience.setText(String
@@ -197,14 +198,22 @@ public class JobDetailsFragment extends Fragment {
                                 .getQuantityString(R.plurals.year_plural,
                                         job.experience)));
 
-        if (null != job.company) {
-            if (null != job.company.logo) {
+        if (null != job.owner) {
+            if (null != job.owner.picture) {
                 logo.setVisibility(View.VISIBLE);
                 Picasso.with(getContext())
                         .load(job.company.logo)
                         .into(logo);
             }
         }
+
+        if (null != job.company) {
+            if (null != job.company.name) {
+                name.setText(job.company.name);
+            }
+        }
+
+        id.setText("Job ID: " + String.valueOf(job.id));
 
         if (null != job.start) {
             try {
