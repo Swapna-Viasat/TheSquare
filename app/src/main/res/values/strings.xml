@@ -590,7 +590,7 @@
     <string name="create_job_confirm">Confirm</string>
     <string name="create_job_preview2">Preview</string>
     <string name="create_job_publish">Promote Job</string>
-    <string name="create_job_apprentice">What type of %s is it?</string>
+    <string name="create_job_apprentice">What type of %s are you looking for?</string>
 
     <!-- Misc -->
     <string name="pound_sterling">£</string>

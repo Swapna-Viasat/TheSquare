@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 /**
  * Created by juanmaggi on 10/6/16.
  *
- * Refactored by Evgheni Gherghelejiu throughout January 2017
+ * Refactored by Evgheni Gherghelejiu throughout January and February 2017
  */
 public class MainEmployerActivity extends AppCompatActivity {
 
