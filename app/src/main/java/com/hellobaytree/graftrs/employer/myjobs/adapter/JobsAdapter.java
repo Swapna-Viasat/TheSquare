@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.models.Job;
 import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
+import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -63,6 +65,14 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             holder.occupation.setText(job.role.name);
         }
 
+        if (null != job.owner) {
+            if (null != job.owner.picture) {
+                Picasso.with(holder.itemView.getContext())
+                        .load(job.owner.picture)
+                        .into(holder.logo);
+            }
+        }
+
         holder.experience.setText(String.format(holder.itemView.getResources()
                         .getString(R.string.employer_jobs_experience), job.experience,
                 holder.itemView.getResources()
@@ -90,12 +100,12 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         }
 
         if (null != job.budgetType) {
-            holder.salaryPeriod.setText(job.budgetType.name);
+            holder.salaryPeriod.setText("PER " + job.budgetType.name);
         }
 
         String temp = String.valueOf(NumberFormat
                 .getInstance(Locale.UK).format(Double.valueOf(job.budget)));
-        holder.salaryNumber.setText(temp);
+        holder.salaryNumber.setText("£ " + temp);
 
         // statuses
         if (job.status.id == Job.TAB_LIVE) {
@@ -105,6 +115,13 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         } else {
             bindDraft(holder, job);
         }
+
+        if (null != job.company) {
+            if (null != job.company.name) {
+                holder.companyName.setText(job.company.name);
+            }
+        }
+        holder.jobId.setText("Job ID: " + String.valueOf(job.id));
     }
 
     @Override
@@ -122,6 +139,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         @BindView(R.id.item_job_start_date) JosefinSansTextView starts;
         @BindView(R.id.item_job_salary_period) JosefinSansTextView salaryPeriod;
         @BindView(R.id.item_job_salary_number) JosefinSansTextView salaryNumber;
+        @BindView(R.id.item_job_id) JosefinSansTextView jobId;
+        @BindView(R.id.item_job_company_name) JosefinSansTextView companyName;
+        @BindView(R.id.item_job_logo) ImageView logo;
 
         @BindView(R.id.delete_draft) View remove;
         @BindView(R.id.awarded) JosefinSansTextView awarded;

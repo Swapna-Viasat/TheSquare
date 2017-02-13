@@ -39,14 +39,12 @@ public class Job implements Serializable {
     @SerializedName("cscs_required") public boolean cscsRequired;
     @SerializedName("private") public boolean privateJob;
     @SerializedName("is_apprenticeship") public boolean isApprenticeship;
-
+    public Owner owner;
 
     public List<Skill> skills;
     public List<Qualification> qualifications;
     @SerializedName("experience_type") public List<ExperienceType> experienceTypes;
     public List<Trade> trades;
-
-
 
     public int worker;
     public String description;
@@ -64,6 +62,11 @@ public class Job implements Serializable {
 
     public class Company implements Serializable {
         public String logo;
+        public String name;
+    }
+
+    public class Owner implements Serializable {
+        public String picture;
     }
 
     public Location location;
