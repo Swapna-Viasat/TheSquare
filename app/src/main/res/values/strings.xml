@@ -6,6 +6,8 @@
         give you a better experience on The Square) </string>
     <string name="phone_verification_third_title">By verifying your phone number you agree with </string>
     <string name="phone_verification_third_title_bold">The Square Terms and Conditions</string>
+    <string name="phone_verification_first_title_welcome_back">Welcome Back</string>
+    <string name="phone_verification_second_title_reconfirm">(Please reconfirm your mobile number) </string>
     <string name="phone_verification_button_text">Verify now</string>
     <string name="phone_verification_country_code_hint">+44</string>
     <string name="phone_verification_phone_text">Phone Number</string>
