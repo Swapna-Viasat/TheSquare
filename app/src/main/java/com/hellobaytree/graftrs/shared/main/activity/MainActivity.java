@@ -11,12 +11,12 @@ import com.hellobaytree.graftrs.employer.signup.model.Employer;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
+import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.start.activity.StartActivity;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.worker.main.ui.MainWorkerActivity;
 import com.hellobaytree.graftrs.worker.onboarding.OnboardingWorkerActivity;
-import com.hellobaytree.graftrs.worker.signup.model.Worker;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
                                            Response<ResponseObject<Worker>> response) {
                         
                         if (response.isSuccessful()) {
-                            if (!response.body().getResponse().isOnboarding_skipped() &&
+                            if (!response.body().getResponse().onboardingSkipped &&
                                     !isWorkerOnboardingSkipped()) {
                                 //
                                 Intent intent = new Intent(MainActivity.this, MainWorkerActivity.class);

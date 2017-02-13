@@ -33,6 +33,7 @@ public class JobsListFragment extends Fragment
         JobsAdapter.JobsActionListener {
 
     public static final String TAG = "JobListFragment";
+    private int jobType;
     private JobsPresenter presenter;
     private ProgressDialog progressDialog;
     private JobsAdapter jobsAdapter;
@@ -60,8 +61,10 @@ public class JobsListFragment extends Fragment
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        jobType = getArguments().getInt("type");
         presenter = new JobsPresenter(getActivity(), this);
         progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getString(R.string.worker_jobs_wait_msg));
         jobsAdapter = new JobsAdapter(jobs, getContext(), this);
     }
 
@@ -81,20 +84,12 @@ public class JobsListFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        if (null != presenter) presenter.init();
+        if (null != presenter) presenter.init(jobType);
     }
 
     public void displayJobs(List<Job> data) {
         if (!jobs.isEmpty()) jobs.clear();
-
-        if (getArguments().getInt("type") == Job.TYPE_LIKED) {
-            for (Job job : data) {
-                if (job.liked) jobs.add(job);
-            }
-        } else {
-            // TODO: switch by state
-            jobs.addAll(data);
-        }
+        jobs.addAll(data);
         jobsAdapter.notifyDataSetChanged();
     }
 

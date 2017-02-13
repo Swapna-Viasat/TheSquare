@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/worker_view_profile_position"
@@ -78,7 +78,6 @@
                         android:id="@+id/worker_view_profile_experience"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
                         android:paddingLeft="5dp"
                         android:paddingTop="6dp"
                         android:textAllCaps="true"

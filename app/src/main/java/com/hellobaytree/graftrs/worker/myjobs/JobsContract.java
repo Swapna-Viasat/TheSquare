@@ -18,6 +18,6 @@ public interface JobsContract {
 
     interface UserActionsListener {
         void onShowDetails(Job job);
-        void init();
+        void init(int jobType);
     }
 }

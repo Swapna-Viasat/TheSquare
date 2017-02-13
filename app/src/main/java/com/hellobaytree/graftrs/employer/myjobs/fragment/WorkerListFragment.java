@@ -2,6 +2,7 @@ package com.hellobaytree.graftrs.employer.myjobs.fragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -10,9 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.employer.myjobs.activity.ViewWorkerProfileActivity;
 import com.hellobaytree.graftrs.employer.myjobs.adapter.WorkersAdapter;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.response.JobWorkersResponse;
@@ -47,8 +48,10 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
     public static final int WORKERS_DECLINED = 85;
     public static final int WORKERS_BOOKED = 86;
 
-    @BindView(R.id.rv) RecyclerView rv;
-    @BindView(R.id.no_matches) View noMatches;
+    @BindView(R.id.rv)
+    RecyclerView rv;
+    @BindView(R.id.no_matches)
+    View noMatches;
     private List<Worker> data = new ArrayList<>();
     private WorkersAdapter adapter;
 
@@ -230,6 +233,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                 });
     }
 
+    //TODO move strings into resources
     public void onInvite(final Worker worker) {
         new AlertDialog.Builder(getContext(), R.style.DialogTheme)
                 .setMessage("Are you sure you'd like to offer this job to "
@@ -247,6 +251,15 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
                         dialogInterface.dismiss();
                     }
                 }).show();
+    }
+
+    @Override
+    public void onViewWorkerProfile(Worker worker) {
+        if (worker != null) {
+            Intent viewWorkerProfileIntent = new Intent(getContext(), ViewWorkerProfileActivity.class);
+            viewWorkerProfileIntent.putExtra(ViewWorkerProfileActivity.WORKER_ID, worker.id);
+            getActivity().startActivity(viewWorkerProfileIntent);
+        }
     }
 
     private void inviteWorker(int workerId, int jobId) {

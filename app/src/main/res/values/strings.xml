@@ -307,6 +307,9 @@
     <string name="mandatory_requirements">Mandatory Requirements</string>
 
     <string name="main_worker_advice">Better profiles get better jobs!\nUpdate yours now.</string>
+    <string name="worker_no_matches">You have no jobs matching your profile right now. Better profiles get better job matches.</string>
+    <string name="worker_myjobs_empty">No jobs in here yet! In the meantime, update your profile.</string>
+    <string name="worker_update_profile">Update yours now</string>
     <string name="matching_jobs_profile">You have %1$s %2$s matching your profile</string>
 
     <string name="filter">Search</string>
@@ -400,14 +403,14 @@
 
     <!-- Worker Jobs -->
     <string name="worker_jobs_booked">Booked</string>
-    <string name="worker_jobs_offers">Offers</string>
-    <string name="worker_jobs_applications">Applications</string>
+    <string name="worker_jobs_offers_applications">Offers &amp; Applications</string>
     <string name="worker_jobs_liked">Liked</string>
     <string name="worker_jobs_completed">Completed</string>
     <string name="worker_jobs_end_contract">End Contract</string>
     <string name="worker_jobs_awaiting">Awaiting Response</string>
     <string name="worker_jobs_declined">Didn\'t get it</string>
     <string name="worker_job_details">Job Details</string>
+    <string name="worker_jobs_wait_msg">Hold tight! We\'re working&#8230;</string>
 
     <!-- Job Details -->
     <string name="job_details_success_message">
@@ -432,7 +435,7 @@
     <string name="job_feedback_hint">Please leave feedback for this job</string>
     <string name="job_i_can_make_it">I can still make it</string>
     <string name="job_applied_pending">You applied - Awaiting decision</string>
-    <string name="job_applied_title_1">Cool!\n You\'ve applied for the</string>
+    <string name="job_applied_title_1">Cool!\n\n You\'ve applied for the</string>
     <string name="job_applied_title_2">job with</string>
     <string name="job_applied_title_3">starting on</string>
     <string name="job_applied_subtitle">We\'ll let you know as soon as they have made a decision!</string>
@@ -442,7 +445,7 @@
 
     <!-- My Accounts -->
     <string name="view_profile">View Profile</string>
-    <string name="role_year_experience">/ %1$d %2$s experience</string>
+    <string name="role_year_experience">%1$d %2$s experience</string>
     <string name="title_activity_my_account_billing">Billing</string>
     <string name="due_header">Due to be submitted</string>
     <string name="awaiting_header">Awaiting approval</string>
