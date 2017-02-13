@@ -442,7 +442,7 @@ public class SelectWorkerInfoFragment extends Fragment {
                 .commit();
     }
 
-    private CountDownTimer resetInputErrors = new CountDownTimer(2000, 2000) {
+    private CountDownTimer resetInputErrors = new CountDownTimer(10000, 10000) {
         @Override
         public void onTick(long l) {
             //
