@@ -199,15 +199,15 @@
             android:visibility="gone"
             android:id="@+id/item_job_action_block"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            android:layout_height="wrap_content">
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/item_job_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|right"
-                android:layout_margin="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
                 android:text="end contract"
                 android:textAllCaps="true"
                 android:textColor="@color/redSquareColor" />

@@ -161,7 +161,11 @@ public class JobsFragment extends Fragment
             result.contactPhoneNumber = job.contactPhoneNumber;
             result.address = job.address;
 
-            result.logo = job.company.logo;
+            if (null != job.owner) {
+                if (null != job.owner.picture) {
+                    result.logo = job.owner.picture;
+                }
+            }
 
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

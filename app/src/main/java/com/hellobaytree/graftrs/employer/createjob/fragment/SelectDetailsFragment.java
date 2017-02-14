@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.hbb20.CountryCodePicker;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.MainEmployerActivity;
+import com.hellobaytree.graftrs.employer.createjob.CreateJobActivity;
 import com.hellobaytree.graftrs.employer.createjob.CreateRequest;
 import com.hellobaytree.graftrs.employer.createjob.PreviewJobActivity;
 import com.hellobaytree.graftrs.employer.createjob.dialog.CRNDialog;
@@ -299,11 +300,19 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                                 if (response.isSuccessful()) {
                                     unfinished = false;
 
-                                    getActivity().getSupportFragmentManager()
-                                            .beginTransaction()
-                                            .replace(R.id.create_job_content,
-                                                    JobDetailsFragment.newInstance(response.body().getResponse().id))
-                                            .commit();
+                                    if (getActivity() instanceof PreviewJobActivity) {
+                                        getActivity().getSupportFragmentManager()
+                                                .beginTransaction()
+                                                .replace(R.id.frame,
+                                                        JobDetailsFragment.newInstance(response.body().getResponse().id))
+                                                .commit();
+                                    } else if (getActivity() instanceof CreateJobActivity) {
+                                        getActivity().getSupportFragmentManager()
+                                                .beginTransaction()
+                                                .replace(R.id.create_job_content,
+                                                        JobDetailsFragment.newInstance(response.body().getResponse().id))
+                                                .commit();
+                                    }
 
                                 } else {
                                     HandleErrors.parseError(getContext(),
