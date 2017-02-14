@@ -579,7 +579,7 @@
     <string name="create_job_limit">(Select up to 5)</string>
     <string name="create_job_crn">Please enter your company registration number:</string>
     <string name="create_job_crn_placeholder">12345678</string>
-    <string name="create_job_invalid_crn">Not a valid company registration number</string>
+    <string name="create_job_invalid_crn">Something went wrong.</string>
     <string name="create_job_check">Note: Workers are simply indicating they have these things.
         Checks should be undertaken to satisfy any corporate or legal requirements.</string>
     <string name="create_job_preview">Preview Job Post</string>
@@ -592,7 +592,7 @@
     <string name="create_job_confirm">Confirm</string>
     <string name="create_job_preview2">Preview</string>
     <string name="create_job_publish">Promote Job</string>
-    <string name="create_job_apprentice">What type of %s is it?</string>
+    <string name="create_job_apprentice">What type of %s are you looking for?</string>
 
     <!-- Misc -->
     <string name="pound_sterling">£</string>
