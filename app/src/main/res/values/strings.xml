@@ -6,7 +6,7 @@
         give you a better experience on The Square) </string>
     <string name="phone_verification_third_title">By verifying your phone number you agree with </string>
     <string name="phone_verification_third_title_bold">The Square Terms and Conditions</string>
-    <string name="phone_verification_first_title_welcome_back">Welcome Back</string>
+    <string name="phone_verification_first_title_welcome_back">Welcome Back!</string>
     <string name="phone_verification_second_title_reconfirm">(Please reconfirm your mobile number) </string>
     <string name="phone_verification_button_text">Verify now</string>
     <string name="phone_verification_country_code_hint">+44</string>
@@ -421,6 +421,7 @@
         \nGood luck.
     </string>
     <string name="job_details_reporting_to">Reporting to</string>
+    <string name="job_details_turn_up_address">Address to turn up at</string>
     <string name="job_details_date_arrival">Date &amp; Time to arrive</string>
     <string name="job_details_notes">Anything else to note</string>
     <string name="job_details_experience">Experience: </string>
@@ -751,8 +752,8 @@
     <string name="verified_cscs_success">Successfully Verified</string>
     <string name="verified_cscs_failed">Verification error try again</string>
     <string name="cscs_status_request_failed">Verification has not been requested yet</string>
-    <string name="cscs_status_infrastructure_issue">Infrastructural issues: cannot verify cards</string>
-    <string name="cscs_status_carddetails_invalid">Supplied card details have been confirmed as invalid</string>
+    <string name="cscs_status_infrastructure_issue">Sorry we\'re struggling to connect with CSCS right now, please try again later</string>
+    <string name="cscs_status_carddetails_invalid">Sorry, something\'s not right, please check your CSCS ID number and try again</string>
 
     <!-- Passport upload-->
     <string name="passport_nophoto">Please upload your passport before previewing</string>

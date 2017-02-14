@@ -202,7 +202,7 @@ public class JobDetailsFragment extends Fragment {
             if (null != job.owner.picture) {
                 logo.setVisibility(View.VISIBLE);
                 Picasso.with(getContext())
-                        .load(job.company.logo)
+                        .load(job.owner.picture)
                         .into(logo);
             }
         }
@@ -213,7 +213,7 @@ public class JobDetailsFragment extends Fragment {
             }
         }
 
-        id.setText("Job ID: " + String.valueOf(job.id));
+        id.setText("Job ref ID: " + job.jobRef);
 
         if (null != job.start) {
             try {

@@ -83,6 +83,8 @@ public class PreviewJobFragment extends Fragment {
     @BindView(R.id.job_details_qualifications2) JosefinSansTextView qualifications2;
     @BindView(R.id.job_details_experience_types) JosefinSansTextView experienceTypes;
     @BindView(R.id.job_details_owner) JosefinSansTextView owner;
+    @BindView(R.id.job_details_owner_phone) JosefinSansTextView ownerPhone;
+    @BindView(R.id.job_details_owner_address) JosefinSansTextView ownerAddress;
     @BindView(R.id.job_details_notes) JosefinSansTextView notes;
     @BindView(R.id.job_details_date) JosefinSansTextView date;
 
@@ -210,11 +212,20 @@ public class PreviewJobFragment extends Fragment {
                             getResources().getQuantityString(R.plurals.year_plural,
                                     createRequest.experience)));
 
-            owner.setText(createRequest.contactName + "\n"
-                    + "+ "
-                    + String.valueOf(createRequest.contactCountryCode) + " "
-                    + String.valueOf(createRequest.contactPhoneNumber)
-                    + "\n" + createRequest.address);
+            /**
+             * Reporting to!
+             */
+            if (null != createRequest.contactName) {
+                owner.setText(createRequest.contactName);
+            }
+            ownerPhone.setText("+ " + createRequest.contactCountryCode
+                    + " " + createRequest.contactPhoneNumber);
+            if (null != createRequest.address) {
+                ownerAddress.setText(createRequest.address);
+            }
+            //
+            date.setText(createRequest.date + " - " + createRequest.time);
+            //
             notes.setText(createRequest.notes);
 
             description.setText(createRequest.description);
@@ -237,7 +248,6 @@ public class PreviewJobFragment extends Fragment {
                     salaryPeriod.setText("per year");
             }
 
-            date.setText(createRequest.date + " - " + createRequest.time);
 
             startDate.setText(createRequest.date);
 
