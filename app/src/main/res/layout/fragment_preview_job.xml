@@ -364,7 +364,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_owner"
-                android:textColor="@color/redSquareColor"
+                android:textColor="@color/graySquareColor"
                 android:textSize="16dp"
                 app:josefin_style="italic"
                 android:text="Sam White\n01632 318220"
@@ -378,6 +378,18 @@
                 app:josefin_style="italic"
                 android:layout_marginTop="2dp"
                 android:text="Sam White\n01632 318220"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:text="@string/job_details_turn_up_address"
+                android:textColor="@android:color/white"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="12dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -397,7 +409,7 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="6dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="12dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
@@ -405,7 +417,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_date"
-                android:textColor="@color/redSquareColor"
+                android:textColor="@color/graySquareColor"
                 android:textSize="16dp"
                 app:josefin_style="italic"
                 android:layout_width="wrap_content"
@@ -417,7 +429,7 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="6dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="12dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
