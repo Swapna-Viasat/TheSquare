@@ -360,8 +360,8 @@
                     android:orientation="vertical"
                     android:gravity="start"
                     android:background="@color/lightgraySquareColor"
-                    android:padding="20dp">
-                    <LinearLayout
+                    android:padding="15dp">
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -374,18 +374,19 @@
                     <ImageView
                         android:id="@+id/maximize"
                         android:layout_alignParentRight="true"
+                        android:paddingBottom="5dp"
                         android:layout_height="30dp"
                         android:layout_width="30dp"
                         android:scaleType="center"
                         android:adjustViewBounds="true"
                         android:src="@drawable/maximize" />
-                    </LinearLayout>
+                    </RelativeLayout>
                     <ImageView
                         android:id="@+id/passport_photo"
                         android:layout_gravity="center"
                         android:background="@color/lightgraySquareColor"
                         android:layout_width="300dp"
-                        android:layout_height="130dp"
+                        android:layout_height="140dp"
                         android:layout_margin="5dp"
                         android:scaleType="center"
                         android:adjustViewBounds="true"
