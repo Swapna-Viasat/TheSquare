@@ -328,7 +328,7 @@
         <LinearLayout
             android:id="@+id/job_details_reporting_to"
             android:orientation="vertical"
-            android:background="@color/black_overlay"
+            android:background="@color/darkSquareColor"
             android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -339,9 +339,10 @@
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:text="@string/job_details_reporting_to"
+                    android:layout_marginBottom="6dp"
                     android:id="@+id/preview_reporting_to"
                     android:textColor="@android:color/white"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="bold"
                     android:drawableRight="@drawable/ic_mode_edit_black_24dp"
                     android:drawableTint="@color/redSquareColor"
@@ -351,6 +352,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
+                <!-- Message Icon for v2 -->
                 <View
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
@@ -362,8 +364,29 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_owner"
+                android:textColor="@color/redSquareColor"
+                android:textSize="16dp"
+                app:josefin_style="italic"
+                android:text="Sam White\n01632 318220"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/job_details_owner_phone"
                 android:textColor="@color/graySquareColor"
-                android:textSize="14dp"
+                android:textSize="16dp"
+                app:josefin_style="italic"
+                android:layout_marginTop="2dp"
+                android:text="Sam White\n01632 318220"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/job_details_owner_address"
+                android:textColor="@color/graySquareColor"
+                android:textSize="16dp"
+                app:josefin_style="italic"
+                android:layout_marginTop="2dp"
                 android:text="Sam White\n01632 318220"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -371,8 +394,10 @@
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_date_arrival"
                 android:textColor="@android:color/white"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
@@ -380,16 +405,19 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_date"
-                android:textColor="@color/graySquareColor"
-                android:textSize="14dp"
+                android:textColor="@color/redSquareColor"
+                android:textSize="16dp"
+                app:josefin_style="italic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_notes"
                 android:textColor="@android:color/white"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
@@ -398,7 +426,8 @@
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_notes"
                 android:textColor="@color/graySquareColor"
-                android:textSize="14dp"
+                android:textSize="16dp"
+                app:josefin_style="italic"
                 android:text="@string/employer_worker_details_bio_placeholder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
