@@ -28,6 +28,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -659,11 +660,20 @@ public class SelectExperienceFragment extends Fragment
     private void showOrginalImage() {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        Dialog settingsDialog = new Dialog(getContext());
+        final Dialog settingsDialog = new Dialog(getContext());
         if (currentWorker != null && currentWorker.passportUpload != null) {
             settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
             settingsDialog.setContentView(layoutInflater.inflate(R.layout.popup_passport_image
                     , null));
+            ImageButton close = (ImageButton) settingsDialog.findViewById(R.id.passport_preview_close);
+            close.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    settingsDialog.dismiss();
+                }
+            });
             ImageView iv = (ImageView) settingsDialog.findViewById(R.id.original_image);
             Picasso.with(getContext()).load(currentWorker.passportUpload).into(iv);
             //settingsDialog.getWindow().setLayout(700, 700);
@@ -713,16 +723,15 @@ public class SelectExperienceFragment extends Fragment
             verify.setText(R.string.verified_cscs_success);
             cscsErrorMsg.setText("");
             verify.setEnabled(false);
-        }else if(status == 1){
-            verify.setText(R.string.verified_cscs_failed);
-            cscsErrorMsg.setText(R.string.cscs_status_request_failed);
         }
         else if(status == 2){
             verify.setText(R.string.verified_cscs_failed);
             cscsErrorMsg.setText(R.string.cscs_status_infrastructure_issue);
+            cscsErrorMsg.setLineSpacing(1,1.5f);
         } else if(status == 3){
             verify.setText(R.string.verified_cscs_failed);
             cscsErrorMsg.setText(R.string.cscs_status_carddetails_invalid);
+            cscsErrorMsg.setLineSpacing(1,1.5f);
         }
     }
 
