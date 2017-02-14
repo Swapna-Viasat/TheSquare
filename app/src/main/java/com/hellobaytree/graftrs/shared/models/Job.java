@@ -23,6 +23,7 @@ public class Job implements Serializable {
     public float budget;
     public Role role;
     public String address;
+    @SerializedName("job_ref") public String jobRef;
     @SerializedName("start_datetime") public String start;
     @SerializedName("budget_type") public BudgetType budgetType;
     @SerializedName("pay_overtime") public boolean payOvertime;

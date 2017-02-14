@@ -24,10 +24,12 @@ import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.response.EmployerJobResponse;
 import com.hellobaytree.graftrs.shared.models.DataResponse;
 import com.hellobaytree.graftrs.shared.models.Job;
+import com.hellobaytree.graftrs.shared.models.Skill;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -161,7 +163,78 @@ public class JobsFragment extends Fragment
             result.contactPhoneNumber = job.contactPhoneNumber;
             result.address = job.address;
 
-            result.logo = job.company.logo;
+            /**
+             * Loading Trades!
+             */
+            if (null != job.trades) {
+                if (!job.trades.isEmpty()) {
+                    result.tradeObjects = job.trades;
+                    int[] tradeIds = new int[job.trades.size()];
+                    List<String> tradeStrings = new ArrayList<>();
+                    for (int i = 0; i < job.trades.size(); i++) {
+                        tradeIds[i] = job.trades.get(i).id;
+                        tradeStrings.add(job.trades.get(i).name);
+                    }
+                    result.trades = tradeIds;
+                    result.tradeStrings = tradeStrings;
+                }
+            }
+
+            /**
+             * Loading qualifications!
+             */
+            if (null != job.qualifications) {
+                if (!job.qualifications.isEmpty()) {
+                    result.qualificationObjects = job.qualifications;
+                    int[] qualificationIds = new int[job.qualifications.size()];
+                    List<String> qualificationStrings = new ArrayList<>();
+                    for (int i = 0; i < job.qualifications.size(); i++) {
+                        qualificationIds[i] = job.qualifications.get(i).id;
+                        qualificationStrings.add(job.qualifications.get(i).name);
+                    }
+                    result.qualifications = qualificationIds;
+                    result.qualificationStrings = qualificationStrings;
+                }
+            }
+
+            /**
+             * Loading skills!
+             */
+            if (null != job.skills) {
+                if (!job.skills.isEmpty()) {
+                    int[] skillIds = new int[job.skills.size()];
+                    List<String> skillNames = new ArrayList<>();
+                    for (int i = 0; i < job.skills.size(); i++) {
+                        skillIds[i] = job.skills.get(i).id;
+                        skillNames.add(job.skills.get(i).name);
+                    }
+                    result.skills = skillIds;
+                    result.skillStrings = skillNames;
+                }
+            }
+
+            /**
+             * Loading experience types!
+             */
+            if (null != job.experienceTypes) {
+                if (!job.experienceTypes.isEmpty()) {
+                    result.experienceTypeObjects = job.experienceTypes;
+                    int[] experienceTypeIds = new int[job.experienceTypes.size()];
+                    List<String> experienceTypeNames = new ArrayList<>();
+                    for (int i = 0; i < job.experienceTypes.size(); i++) {
+                        experienceTypeIds[i] = job.experienceTypes.get(i).id;
+                        experienceTypeNames.add(job.experienceTypes.get(i).name);
+                    }
+                    result.experienceTypes = experienceTypeIds;
+                    result.experienceTypeStrings = experienceTypeNames;
+                }
+            }
+
+            if (null != job.owner) {
+                if (null != job.owner.picture) {
+                    result.logo = job.owner.picture;
+                }
+            }
 
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
