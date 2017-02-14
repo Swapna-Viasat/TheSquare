@@ -121,7 +121,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                 holder.companyName.setText(job.company.name);
             }
         }
-        holder.jobId.setText("Job ID: " + String.valueOf(job.id));
+        holder.jobId.setText("Job ref ID: " + job.jobRef);
     }
 
     @Override
