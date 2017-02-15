@@ -490,7 +490,7 @@
     <string name="worker_request_review">Put in the details of the \nemployer you want to get \na reference from.</string>
     <string name="worker_request_review_first_name">First Name*</string>
     <string name="worker_request_review_last_name">Last Name*</string>
-    <string name="worker_request_email">Email Address</string>
+    <string name="worker_request_email">Email Address*</string>
     <string name="worker_request_mobile">Mobile Number</string>
     <string name="worker_request_company">Company*</string>
     <string name="worker_request_date">Date Worked</string>
