@@ -58,19 +58,12 @@ public class Job implements Serializable {
     public Role role;
     public Location location;
     public List<Application> application;
+    @SerializedName("job_ref")
+    public String jobRef;
+    public Owner owner;
+    public Status status;
 
-    public String getSkillsList() {
-        List<String> result = new ArrayList<>();
-        if (skills != null) {
-            for (Job.Skill skill : skills) {
-                result.add(skill.name);
-            }
-        }
-        if (result.isEmpty()) return "";
-        return "• " + android.text.TextUtils.join("\n• ", result);
-    }
-
-    public List<String> getSkillsList2() {
+    public List<String> getSkillsList() {
         List<String> result = new ArrayList<>();
         if (skills != null) {
             for (Job.Skill skill : skills) {
@@ -90,18 +83,7 @@ public class Job implements Serializable {
         return result;
     }
 
-    public String getQualificationsList() {
-        List<String> result = new ArrayList<>();
-        if (qualifications != null) {
-            for (Job.Qualification qualification : qualifications) {
-                result.add(qualification.name);
-            }
-        }
-        if (result.isEmpty()) return "";
-        return android.text.TextUtils.join(", ", result);
-    }
-
-    public List<String> getQualificationsList2() {
+    public List<String> getQualificationsList() {
         List<String> result = new ArrayList<>();
         if (qualifications != null) {
             for (Job.Qualification qualification : qualifications) {
@@ -109,12 +91,6 @@ public class Job implements Serializable {
             }
         }
         return result;
-    }
-
-    public String getBudgetTypeLabel() {
-        if (budgetType == null)
-            return "";
-        else return "P/" + budgetType.name.substring(0, 1);
     }
 
     public class Qualification implements Serializable {
@@ -153,5 +129,14 @@ public class Job implements Serializable {
         public String description;
         public String image;
         public int id;
+    }
+
+    public class Owner implements Serializable {
+        public String picture;
+    }
+
+    public class Status implements Serializable {
+        public int id;
+        public String name;
     }
 }

@@ -117,12 +117,15 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     private void populateData() {
         if (currentJob != null) {
             if (currentJob.company != null) {
-                Picasso.with(getActivity())
-                        .load(currentJob.company.logo)
-                        .fit().centerCrop().into(companyLogo);
                 if (null != currentJob.company.name) {
                     companyName.setText(currentJob.company.name);
                 }
+            }
+
+            if (currentJob.owner != null) {
+                Picasso.with(getActivity())
+                        .load(currentJob.owner.picture)
+                        .fit().centerCrop().into(companyLogo);
             }
 
             if (currentJob.role != null) {
@@ -134,7 +137,6 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
 
             workPlace.setText(currentJob.address);
             paymentRate.setText(getString(R.string.pound_sterling) + " " + String.valueOf(currentJob.budget));
-            //paymentRatePer.setText(currentJob.getBudgetTypeLabel());
 
             if (null != currentJob.budgetType) {
                 if (null != currentJob.budgetType.name) {
@@ -142,32 +144,21 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 }
             }
 
-            jobId.setText("Job ID: " + currentJobId);
+            jobId.setText("Job ID: " + currentJob.jobRef);
 
             if (!TextUtils.isEmpty(currentJob.startTime)) {
                 startDate.setText(String.format(getString(R.string.item_match_format_starts),
                         DateUtils.formatDateDayAndMonth(currentJob.startTime, true)));
             }
 
-
-//            qualificationsTextView.setText(currentJob.getQualificationsList());
-
             try {
                 description.setText(currentJob.description);
-                skills.setText(TextTools.toBulletList(currentJob.getSkillsList2(), true));
-                qualifications.setText(TextTools.toBulletList(currentJob.getQualificationsList2(), true));
+                skills.setText(TextTools.toBulletList(currentJob.getSkillsList(), true));
+                qualifications.setText(TextTools.toBulletList(currentJob.getQualificationsList(), true));
                 experienceTypes.setText(TextTools.toBulletList(currentJob.getExperienceTypesList(), true));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-//            experienceTextView.setText(getString(R.string.job_experience_value, currentJob.experience));
-
-
-//            availabilityTextView.setText(currentJob.availableNow
-//                    ? getString(R.string.job_availability_immediately)
-//                    : DateUtils.formatDateDayAndMonth(currentJob.startTime, true));
-
 
             if (getCurrentAppStatus() == ApplicationStatus.STATUS_APPROVED) {
                 elseToNoteTextView.setText(currentJob.extraNotes);
@@ -180,6 +171,13 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 if (currentJob.company != null) {
                     reportingToTextView.append("\n");
                     reportingToTextView.append(currentJob.company.addressFirstLine);
+                }
+            }
+
+            if (currentJob.status != null) {
+                if (TextUtils.equals(currentJob.status.name, "Old")) {
+                    likeJobMenuItem.setVisible(false);
+                    unlikeJobMenuItem.setVisible(false);
                 }
             }
         }
@@ -363,9 +361,9 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     }
 
     private void updateViews() {
+        setupMenuIconsVisibility();
         populateData();
         setupApplicationData();
-        setupMenuIconsVisibility();
     }
 
     @Override
