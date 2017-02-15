@@ -2,6 +2,7 @@ package com.hellobaytree.graftrs.worker.myjobs.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
     public interface JobsActionListener {
         void onViewDetails(Job job);
+        void onLikeJob(Job job);
     }
 
     public JobsAdapter.JobHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,9 +63,11 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                     " " + String.valueOf(job.budget));
             holder.salaryPeriod.setText("PER " + job.budgetType.name);
 
-            if (null != job.company.logo) {
+            if (null != job.owner.picture) {
                 Picasso.with(context)
-                        .load(job.company.logo)
+                        .load(job.owner.picture)
+                        .fit()
+                        .centerCrop()
                         .into(holder.logo);
             }
 
@@ -90,7 +94,15 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             });
             //
             holder.company.setText(job.company.name);
-            holder.id.setText("Job ID: " + String.valueOf(job.id));
+            holder.id.setText("Job ID: " + String.valueOf(job.jobRef));
+            holder.liked.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) listener.onLikeJob(job);
+                }
+            });
+            if (TextUtils.equals(job.status.name, "Old")) holder.liked.setVisibility(View.GONE);
+            else holder.liked.setVisibility(View.VISIBLE);
             //
         } catch (Exception e) {
             e.printStackTrace();

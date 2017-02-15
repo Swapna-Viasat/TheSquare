@@ -60,11 +60,13 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
         });
 
         try {
-            holder.salary.setText(String.valueOf(job.budget));
-            holder.salaryPeriod.setText(job.budgetType.name);
+            holder.salary.setText(String.valueOf("£ " + job.budget));
+            holder.salaryPeriod.setText("PER " + job.budgetType.name);
 
             Picasso.with(context)
-                    .load(job.company.logo)
+                    .load(job.owner.picture)
+                    .fit()
+                    .centerCrop()
                     .into(holder.logo);
 
             holder.occupation.setText(job.role.name);
@@ -84,6 +86,8 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
                 holder.startDateTextView.setText(String.format(context.getString(R.string.item_match_format_starts),
                         DateUtils.formatDateDayAndMonth(job.startTime, true)));
             }
+            holder.companyName.setText(job.company.name);
+            holder.jobId.setText(context.getString(R.string.job_id, job.jobRef));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,6 +118,10 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
         ImageView likeImage;
         @BindView(R.id.item_match_start_date)
         JosefinSansTextView startDateTextView;
+        @BindView(R.id.item_job_company_name)
+        JosefinSansTextView companyName;
+        @BindView(R.id.job_id)
+        JosefinSansTextView jobId;
 
         public JobHolder(View view) {
             super(view);

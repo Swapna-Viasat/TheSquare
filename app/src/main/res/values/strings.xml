@@ -445,6 +445,7 @@
     <string name="go_back_to_job_matches">Go back to job matches</string>
     <string name="job_experience_value">%d years</string>
     <string name="job_availability_immediately">Immediately</string>
+    <string name="job_id">Job ID: %s</string>
 
     <!-- My Accounts -->
     <string name="view_profile">View Profile</string>
