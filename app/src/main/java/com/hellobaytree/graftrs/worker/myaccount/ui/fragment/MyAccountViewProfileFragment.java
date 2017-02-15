@@ -48,6 +48,7 @@ import com.hellobaytree.graftrs.shared.utils.MediaTools;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
 import com.hellobaytree.graftrs.worker.onboarding.SingleEditActivity;
+import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -102,6 +103,18 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             R.id.worker_profile_location_edit,
             R.id.worker_profile_requirements_edit})
     List<ImageView> editList;
+
+    @BindViews({R.id.cscs1, R.id.cscs2, R.id.cscs3, R.id.cscs4, R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8})
+    List<TextView> cscsNumbers;
+
+    @BindView(R.id.workerImage)
+    ImageView cscsImage;
+
+    @BindView(R.id.cscs_status)
+    TextView cscsStatus;
+
+    @BindView(R.id.cscsContent)
+    View cscsContent;
 
     @BindView(R.id.worker_profile_bio_text)
     TextView bioView;
@@ -306,6 +319,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
                             worker = response.body().getResponse();
+                            if (worker != null) fetchCscsDetails(worker.id);
                             initComponents();
                         } else
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -316,6 +330,81 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
+    }
+
+    private void fetchCscsDetails(int currentWorkerId) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .getWorkerCSCSCard(currentWorkerId)
+                .enqueue(new Callback<ResponseObject<CSCSCardWorker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<CSCSCardWorker>> call,
+                                           Response<ResponseObject<CSCSCardWorker>> response) {
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+                            populateCscs(response.body());
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<CSCSCardWorker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+
+    }
+
+    private void populateCscs(ResponseObject<CSCSCardWorker> dataResponse) {
+        if (dataResponse != null) {
+
+            String regnum = dataResponse.getResponse().getRegistration_number();
+            populateCscsStatus(dataResponse.getResponse().getVerification_status());
+            if (dataResponse.getResponse().getVerification_status() == 4 && !regnum.isEmpty()) {
+                final char ca[] = regnum.toCharArray();
+                ButterKnife.Setter<TextView, Boolean> ENABLED = new ButterKnife.Setter<TextView, Boolean>() {
+                    @Override
+                    public void set(TextView view, Boolean value, int index) {
+
+                        switch (view.getId()) {
+                            case R.id.cscs1:
+                                cscsNumbers.get(0).setText(Character.toString(ca[0]));
+                            case R.id.cscs2:
+                                cscsNumbers.get(1).setText(Character.toString(ca[1]));
+                            case R.id.cscs3:
+                                cscsNumbers.get(2).setText(Character.toString(ca[2]));
+                            case R.id.cscs4:
+                                cscsNumbers.get(3).setText(Character.toString(ca[3]));
+                            case R.id.cscs5:
+                                cscsNumbers.get(4).setText(Character.toString(ca[4]));
+                            case R.id.cscs6:
+                                cscsNumbers.get(5).setText(Character.toString(ca[5]));
+                            case R.id.cscs7:
+                                cscsNumbers.get(6).setText(Character.toString(ca[6]));
+                            case R.id.cscs8:
+                                cscsNumbers.get(7).setText(Character.toString(ca[7]));
+                        }
+                    }
+                };
+                ButterKnife.apply(cscsNumbers, ENABLED, true);
+            }
+
+            if (dataResponse.getResponse().cardPicture != null)
+                Picasso.with(getContext())
+                        .load(HttpRestServiceConsumer.getApiRoot() + dataResponse.getResponse().cardPicture)
+                        .fit().centerCrop().into(cscsImage);
+        }
+    }
+
+    private void populateCscsStatus(int status) {
+        if (status == 4) {
+            cscsStatus.setText("VERIFIED");
+            cscsContent.setVisibility(View.VISIBLE);
+        } else {
+            cscsStatus.setText("NOT VERIFIED");
+            cscsContent.setVisibility(View.GONE);
+        }
     }
 
     @Override

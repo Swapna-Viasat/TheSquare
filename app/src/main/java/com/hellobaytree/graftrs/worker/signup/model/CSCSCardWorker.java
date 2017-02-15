@@ -3,6 +3,8 @@ package com.hellobaytree.graftrs.worker.signup.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by juanmaggi on 3/9/16.
  */
@@ -14,6 +16,8 @@ public class CSCSCardWorker implements Parcelable {
     private String birth_date;
     private String registration_number;
     private String insurance_number;
+    @SerializedName("card_picture")
+    public String cardPicture;
 
     public int getId() {
         return id;
