@@ -96,6 +96,12 @@ public class JobsListFragment extends Fragment
         if (null != presenter) presenter.init(jobType);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        onFragmentBecameVisible();
+    }
+
     public void displayJobs(List<Job> data) {
         if (!jobs.isEmpty()) jobs.clear();
         jobs.addAll(data);
