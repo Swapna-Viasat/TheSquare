@@ -203,6 +203,7 @@ public class JobDetailsFragment extends Fragment {
                 logo.setVisibility(View.VISIBLE);
                 Picasso.with(getContext())
                         .load(job.owner.picture)
+                        .fit()
                         .into(logo);
             }
         }

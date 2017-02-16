@@ -25,13 +25,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:id="@+id/employer_account_logo"
-                    android:layout_width="82dp"
+                    android:layout_width="142dp"
                     android:layout_height="82dp" />
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/employer_account_name"
+                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/medium_padding"
