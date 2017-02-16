@@ -134,4 +134,8 @@ public class HttpRestServiceConsumer {
     public static String[] getEnvironments() {
         return environments;
     }
+
+    public static String getApiRoot() {
+        return environments[CURRENT_URL_INDEX];
+    }
 }

@@ -31,32 +31,27 @@ public class EmployerSettingsFragment extends SettingsFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, view);
-
-        ButterKnife.findById(view, R.id.my_subscriptions).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), PaymentsActivity.class));
-            }
-        });
-        ButterKnife.findById(view, R.id.notify).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frame, EmployerSettingsNotifyFragment.newInstance())
-                        .addToBackStack("notifications")
-                        .commit();
-            }
-        });
-
+        ButterKnife.bind(this, view); 
         return view;
     }
 
     @OnClick({R.id.my_subscriptions, R.id.notify})
     public void onAction(View view) {
         switch (view.getId()) {
-            //
+            case R.id.my_subscriptions:
+                startActivity(new Intent(getActivity(), PaymentsActivity.class));
+                break;
+            case R.id.notify:
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, EmployerSettingsNotifyFragment.newInstance())
+                        .addToBackStack("notifications")
+                        .commit();
+                break;
+            default:
+                //
+                break;
+
         }
     }
 }

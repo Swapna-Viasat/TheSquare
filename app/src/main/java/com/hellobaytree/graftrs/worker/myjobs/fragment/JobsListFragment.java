@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.worker.jobdetails.JobDetailActivity;
+import com.hellobaytree.graftrs.worker.jobdetails.LikeJobConnector;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.hellobaytree.graftrs.worker.myjobs.JobsContract;
 import com.hellobaytree.graftrs.worker.myjobs.JobsPresenter;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
 
 public class JobsListFragment extends Fragment
         implements JobsContract.View,
-        JobsAdapter.JobsActionListener {
+        JobsAdapter.JobsActionListener, LikeJobConnector.Callback {
 
     public static final String TAG = "JobListFragment";
     private int jobType;
@@ -38,6 +39,7 @@ public class JobsListFragment extends Fragment
     private ProgressDialog progressDialog;
     private JobsAdapter jobsAdapter;
     private List<Job> jobs = new ArrayList<>();
+    private LikeJobConnector likeJobConnector;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.no_matches)
@@ -59,6 +61,14 @@ public class JobsListFragment extends Fragment
         startActivity(intent);
     }
 
+    @Override
+    public void onLikeJob(Job job) {
+        if (job == null) return;
+
+        if (job.liked) likeJobConnector.unlikeJob(getContext(), job.id);
+        else likeJobConnector.likeJob(getContext(), job.id);
+    }
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         jobType = getArguments().getInt("type");
@@ -66,10 +76,11 @@ public class JobsListFragment extends Fragment
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage(getString(R.string.worker_jobs_wait_msg));
         jobsAdapter = new JobsAdapter(jobs, getContext(), this);
+        likeJobConnector = new LikeJobConnector(this);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_worker_myjobs_list, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -118,4 +129,9 @@ public class JobsListFragment extends Fragment
             }
         }
     };
+
+    @Override
+    public void onConnectorSuccess() {
+        if (null != presenter) presenter.init(jobType);
+    }
 }

@@ -55,4 +55,8 @@ public class Worker implements Serializable {
     public List<Application> applications;
 
     @SerializedName("matched_role") public Role matchedRole;
+    public Nationality nationality;
+    @SerializedName("ni_number")
+    public String niNumber;
+    public List<Language> languages;
 }

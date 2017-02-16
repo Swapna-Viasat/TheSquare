@@ -37,22 +37,28 @@ import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.models.Company;
+import com.hellobaytree.graftrs.shared.models.Language;
 import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.models.Skill;
 import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
+import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.MediaTools;
+import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
+import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditCscsDetailsDialog;
 import com.hellobaytree.graftrs.worker.onboarding.SingleEditActivity;
+import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -73,7 +79,8 @@ import retrofit2.Response;
  * Created by maizaga on 30/10/16.
  */
 
-public class MyAccountViewProfileFragment extends Fragment implements EditAccountDetailsDialog.InputFinishedListener {
+public class MyAccountViewProfileFragment extends Fragment implements EditAccountDetailsDialog.InputFinishedListener,
+        EditCscsDetailsDialog.OnCscsDetailsUpdatedListener, View.OnClickListener {
 
     private static final int REQUEST_EDIT_PROFILE = 100;
 
@@ -100,8 +107,26 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             R.id.worker_profile_skills_edit,
             R.id.worker_profile_companies_edit,
             R.id.worker_profile_location_edit,
-            R.id.worker_profile_requirements_edit})
+            R.id.worker_profile_requirements_edit,
+            R.id.worker_profile_nationality_edit,
+            R.id.worker_profile_birthday_edit,
+            R.id.worker_profile_languages_edit,
+            R.id.worker_profile_nis_edit,
+            R.id.worker_profile_passport_edit
+    })
     List<ImageView> editList;
+
+    @BindViews({R.id.cscs1, R.id.cscs2, R.id.cscs3, R.id.cscs4, R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8})
+    List<TextView> cscsNumbers;
+
+    @BindView(R.id.workerImage)
+    ImageView cscsImage;
+
+    @BindView(R.id.cscs_status)
+    TextView cscsStatus;
+
+    @BindView(R.id.cscsContent)
+    View cscsContent;
 
     @BindView(R.id.worker_profile_bio_text)
     TextView bioView;
@@ -124,10 +149,32 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     @BindView(R.id.mapView)
     MapView mapView;
 
+    @BindView(R.id.worker_profile_nationality_value)
+    TextView nationalityView;
+
+    @BindView(R.id.worker_profile_birthday_value)
+    TextView dateOfBirthView;
+
+    @BindView(R.id.worker_profile_languages_value)
+    TextView languagesView;
+
+    @BindView(R.id.worker_profile_nis_value)
+    TextView nisView;
+
+    @BindView(R.id.worker_profile_passport_value)
+    ImageView passportImage;
+
+    //nationality, date of birth, languages spoken, nis, photo of passport
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_SELECTION = 2;
     private static final int REQUEST_PERMISSIONS = 3;
     private static final int REQUEST_PERMISSION_READ_STORAGE = 4;
+
+    private static final int VERIFICATION_NONE = 1;     // Verification hasn't been requested yet.
+    private static final int VERIFICATION_FAILED = 2;   // Infrastructural issues: cannot verify cards (e.g. failed to connect to citb website).
+    private static final int VERIFICATION_INVALID = 3;  // Supplied card details have been confirmed as invalid.
+    private static final int VERIFICATION_VALID = 4;    // Supplied card details are valid.
+
     private Worker worker;
     private GoogleApiClient googleApiClient;
     private GoogleMap googleMap;
@@ -197,6 +244,21 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             fillWorkerBio();
             fillLocationName();
             initMap();
+            if (worker.nationality != null)
+                nationalityView.setText(worker.nationality.name);
+            dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
+            nisView.setText(worker.niNumber);
+
+            if (worker.passportUpload != null)
+                Picasso.with(getContext())
+                        .load(worker.passportUpload)
+                        .fit().centerCrop().into(passportImage);
+
+            if (!CollectionUtils.isEmpty(worker.languages)) {
+                List<String> languageNames = new ArrayList<>();
+                for (Language l : worker.languages) languageNames.add(l.name);
+                languagesView.setText(TextTools.toBulletList(languageNames, true));
+            }
         }
     }
 
@@ -306,6 +368,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
                             worker = response.body().getResponse();
+                            if (worker != null) fetchCscsDetails(worker.id);
                             initComponents();
                         } else
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -316,6 +379,83 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
+    }
+
+    private void fetchCscsDetails(int currentWorkerId) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .getWorkerCSCSCard(currentWorkerId)
+                .enqueue(new Callback<ResponseObject<CSCSCardWorker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<CSCSCardWorker>> call,
+                                           Response<ResponseObject<CSCSCardWorker>> response) {
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+                            populateCscs(response.body());
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<CSCSCardWorker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+
+    }
+
+    private void populateCscs(ResponseObject<CSCSCardWorker> dataResponse) {
+        if (dataResponse != null) {
+
+            String regnum = dataResponse.getResponse().getRegistration_number();
+            populateCscsStatus(dataResponse.getResponse().getVerification_status());
+            if (dataResponse.getResponse().getVerification_status() == 4 && !regnum.isEmpty()) {
+                final char ca[] = regnum.toCharArray();
+                ButterKnife.Setter<TextView, Boolean> ENABLED = new ButterKnife.Setter<TextView, Boolean>() {
+                    @Override
+                    public void set(TextView view, Boolean value, int index) {
+
+                        switch (view.getId()) {
+                            case R.id.cscs1:
+                                cscsNumbers.get(0).setText(Character.toString(ca[0]));
+                            case R.id.cscs2:
+                                cscsNumbers.get(1).setText(Character.toString(ca[1]));
+                            case R.id.cscs3:
+                                cscsNumbers.get(2).setText(Character.toString(ca[2]));
+                            case R.id.cscs4:
+                                cscsNumbers.get(3).setText(Character.toString(ca[3]));
+                            case R.id.cscs5:
+                                cscsNumbers.get(4).setText(Character.toString(ca[4]));
+                            case R.id.cscs6:
+                                cscsNumbers.get(5).setText(Character.toString(ca[5]));
+                            case R.id.cscs7:
+                                cscsNumbers.get(6).setText(Character.toString(ca[6]));
+                            case R.id.cscs8:
+                                cscsNumbers.get(7).setText(Character.toString(ca[7]));
+                        }
+                    }
+                };
+                ButterKnife.apply(cscsNumbers, ENABLED, true);
+            }
+
+            if (dataResponse.getResponse().cardPicture != null)
+                Picasso.with(getContext())
+                        .load(HttpRestServiceConsumer.getApiRoot() + dataResponse.getResponse().cardPicture)
+                        .fit().centerCrop().into(cscsImage);
+        }
+    }
+
+    private void populateCscsStatus(int status) {
+        if (status == VERIFICATION_VALID) {
+            cscsStatus.setText("VERIFIED");
+            cscsContent.setVisibility(View.VISIBLE);
+            cscsStatus.setOnClickListener(null);
+        } else {
+            cscsStatus.setText("NOT VERIFIED");
+            cscsContent.setVisibility(View.GONE);
+            cscsStatus.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -350,6 +490,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                             if (response.isSuccessful()) {
                                 worker = response.body().getResponse();
                                 initComponents();
+                                if (worker != null) fetchCscsDetails(worker.id);
                             } else HandleErrors.parseError(getContext(), dialog, response);
                         }
 
@@ -413,6 +554,15 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     @OnClick(R.id.worker_profile_requirements_edit)
     void editRequirements() {
         editProfile(Constants.KEY_STEP_REQUIREMENTS);
+    }
+
+    @OnClick({R.id.worker_profile_nationality_edit,
+            R.id.worker_profile_birthday_edit,
+            R.id.worker_profile_languages_edit,
+            R.id.worker_profile_nis_edit,
+            R.id.worker_profile_passport_edit})
+    void openExperienceFragment() {
+        editProfile(Constants.KEY_ONBOARDING_EXPERIENCE);
     }
 
     @Override
@@ -601,5 +751,22 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     public void onDestroy() {
         mapView.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void onCscsUpdated(int status) {
+        switch (status) {
+            case VERIFICATION_VALID:
+                if (worker != null) fetchCscsDetails(worker.id);
+                break;
+            default:
+                DialogBuilder.showStandardDialog(getContext(), "", getString(R.string.verified_cscs_failed));
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.cscs_status)
+            EditCscsDetailsDialog.newInstance(worker.lastName, this).show(getActivity().getSupportFragmentManager(), "");
     }
 }

@@ -15,7 +15,7 @@ import retrofit2.Response;
 
 /**
  * Created by Vadim Goroshevsky
- * Copyright (c) 2016 FusionWorks. All rights reserved.
+ * Copyright (c) 2016 The Square Tech. All rights reserved.
  */
 
 public class ApplicationsConnector {

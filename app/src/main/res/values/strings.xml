@@ -421,6 +421,7 @@
         \nGood luck.
     </string>
     <string name="job_details_reporting_to">Reporting to</string>
+    <string name="job_details_turn_up_address">Address to turn up at</string>
     <string name="job_details_date_arrival">Date &amp; Time to arrive</string>
     <string name="job_details_notes">Anything else to note</string>
     <string name="job_details_experience">Experience: </string>
@@ -444,6 +445,7 @@
     <string name="go_back_to_job_matches">Go back to job matches</string>
     <string name="job_experience_value">%d years</string>
     <string name="job_availability_immediately">Immediately</string>
+    <string name="job_id">Job ID: %s</string>
 
     <!-- My Accounts -->
     <string name="view_profile">View Profile</string>
@@ -647,6 +649,7 @@
     <string name="worker_account_reviews">Reviews</string>
     <string name="worker_account_leaderboards">Leaderboards</string>
     <string name="worker_account_timesheets">Timesheets &amp; Invoices</string>
+    <string name="worker_passport_photo">Photo of passport</string>
 
     <!-- Employer Account -->
     <string name="company_description">Company description</string>
