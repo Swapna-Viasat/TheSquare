@@ -92,9 +92,7 @@ public class JobsListFragment extends Fragment
         rv.setAdapter(jobsAdapter);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void onFragmentBecameVisible() {
         if (null != presenter) presenter.init(jobType);
     }
 

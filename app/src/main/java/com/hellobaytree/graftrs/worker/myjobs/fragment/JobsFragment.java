@@ -26,6 +26,8 @@ public class JobsFragment extends Fragment {
     @BindView(R.id.worker_jobs_pager)
     ViewPager viewPager;
 
+    private JobsPagerAdapter jobsPagerAdapter;
+
     public static JobsFragment newInstance() {
         return new JobsFragment();
     }
@@ -33,6 +35,7 @@ public class JobsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        jobsPagerAdapter = new JobsPagerAdapter(getActivity(), getChildFragmentManager());
     }
 
     @Override
@@ -45,8 +48,31 @@ public class JobsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewPager.setAdapter(new JobsPagerAdapter(getActivity(), getChildFragmentManager()));
+        viewPager.setAdapter(jobsPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setOffscreenPageLimit(4);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                notifyFragmentVisible(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void notifyFragmentVisible(int position) {
+        if (jobsPagerAdapter != null && jobsPagerAdapter.getCount() > 0) {
+            JobsListFragment fragment = ((JobsListFragment) jobsPagerAdapter.getItem(position));
+            if (fragment != null) fragment.onFragmentBecameVisible();
+        }
     }
 }
