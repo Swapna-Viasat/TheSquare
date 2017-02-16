@@ -543,6 +543,8 @@
     <string name="employer_settings_send">Send</string>
     <string name="employer_settings_logout_prompt">Are you sure you want to logout of The Square App?</string>
     <string name="employer_settings_my_subscriptions">My Subscriptions</string>
+    <string name="employer_settings_security">Security</string>
+    <string name="employer_security_save">Save</string>
 
     <!-- Worker Settings -->
     <string name="new_job_matches">New job matches</string>
@@ -759,4 +761,7 @@
 
     <!-- Passport upload-->
     <string name="passport_nophoto">Please upload your passport before previewing</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

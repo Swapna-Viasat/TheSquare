@@ -164,6 +164,7 @@
                         android:ems="10"
                         android:inputType="textCapWords"/>
                 </android.support.design.widget.TextInputLayout>
+                
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
