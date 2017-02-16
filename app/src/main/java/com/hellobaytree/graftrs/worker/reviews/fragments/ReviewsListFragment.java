@@ -19,6 +19,7 @@ import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.worker.reviews.ReviewsContract;
 import com.hellobaytree.graftrs.worker.reviews.ReviewsPresenter;
 import com.hellobaytree.graftrs.worker.reviews.activity.ReviewDetailsActivity;
+import com.hellobaytree.graftrs.worker.reviews.activity.ReviewRequestActivity;
 import com.hellobaytree.graftrs.worker.reviews.adapter.ReviewsAdapter;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Evgheni on 11/11/2016.
@@ -55,7 +57,7 @@ public class ReviewsListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUserActionListener = new ReviewsPresenter(this);
-        progressDialog = new ProgressDialog.Builder(getActivity()).setMessage("Please wait").create();
+       // progressDialog = new ProgressDialog.Builder(getActivity()).setMessage("Please wait").create();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,8 +83,8 @@ public class ReviewsListFragment extends Fragment
 
     @Override
     public void displayProgress(boolean show) {
-        if (show) progressDialog.show();
-        else progressDialog.dismiss();
+        /*if (show) progressDialog.show();
+        else progressDialog.dismiss();*/
     }
 
     @Override
@@ -146,4 +148,15 @@ public class ReviewsListFragment extends Fragment
             else noData.setVisibility(View.GONE);
         }
     };
+
+
+    @OnClick(R.id.no_matches)
+    void onRequestReferenceClicked() {
+        openCreateRequest();
+    }
+
+    private void openCreateRequest() {
+        Intent intent = new Intent(getActivity(), ReviewRequestActivity.class);
+        startActivity(intent);
+    }
 }
