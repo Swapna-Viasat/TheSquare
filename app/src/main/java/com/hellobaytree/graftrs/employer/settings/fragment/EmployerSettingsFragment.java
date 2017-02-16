@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.payments.PaymentsActivity;
@@ -32,31 +33,30 @@ public class EmployerSettingsFragment extends SettingsFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, view);
+        return view;
+    }
 
-        ButterKnife.findById(view, R.id.my_subscriptions).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), PaymentsActivity.class));
-            }
-        });
-        ButterKnife.findById(view, R.id.notify).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @OnClick({R.id.my_security, R.id.notify})
+    public void onAction(View view) {
+        switch (view.getId()) {
+            case R.id.my_security:
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, EmployerSecurityFragment.newInstance())
+                        .addToBackStack("security")
+                        .commit();
+                break;
+            case R.id.notify:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frame, EmployerSettingsNotifyFragment.newInstance())
                         .addToBackStack("notifications")
                         .commit();
-            }
-        });
+                break;
+            default:
+                //
+                break;
 
-        return view;
-    }
-
-    @OnClick({R.id.my_subscriptions, R.id.notify})
-    public void onAction(View view) {
-        switch (view.getId()) {
-            //
         }
     }
 }

@@ -69,6 +69,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             if (null != job.owner.picture) {
                 Picasso.with(holder.itemView.getContext())
                         .load(job.owner.picture)
+                        .fit()
                         .into(holder.logo);
             }
         }
