@@ -131,7 +131,7 @@ public class SelectAvailabilityFragment extends Fragment {
             return;
         }
         Intent intent = new Intent(getActivity(), MainWorkerActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
