@@ -1,10 +1,13 @@
 package com.hellobaytree.graftrs.shared.utils;
 
+import android.text.TextUtils;
+
 import com.hellobaytree.graftrs.GraftrsApplication;
 import com.hellobaytree.graftrs.R;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.text.ParseException;
@@ -164,5 +167,16 @@ public class DateUtils {
         stringBuilder.append("T");
         stringBuilder.append(time(calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)));
         return stringBuilder.toString();
+    }
+
+    public static String getParsedBirthDate(String birthDate) {
+        if (TextUtils.isEmpty(birthDate)) return null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+            return formatter.parseLocalDate(birthDate).toString("d MMMM yyyy");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

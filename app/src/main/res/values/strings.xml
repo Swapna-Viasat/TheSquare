@@ -649,6 +649,7 @@
     <string name="worker_account_reviews">Reviews</string>
     <string name="worker_account_leaderboards">Leaderboards</string>
     <string name="worker_account_timesheets">Timesheets &amp; Invoices</string>
+    <string name="worker_passport_photo">Photo of passport</string>
 
     <!-- Employer Account -->
     <string name="company_description">Company description</string>
