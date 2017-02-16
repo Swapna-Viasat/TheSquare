@@ -37,14 +37,17 @@ import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.models.Company;
+import com.hellobaytree.graftrs.shared.models.Language;
 import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.models.Skill;
 import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
+import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.MediaTools;
+import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditCscsDetailsDialog;
@@ -55,6 +58,7 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -103,7 +107,13 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             R.id.worker_profile_skills_edit,
             R.id.worker_profile_companies_edit,
             R.id.worker_profile_location_edit,
-            R.id.worker_profile_requirements_edit})
+            R.id.worker_profile_requirements_edit,
+            R.id.worker_profile_nationality_edit,
+            R.id.worker_profile_birthday_edit,
+            R.id.worker_profile_languages_edit,
+            R.id.worker_profile_nis_edit,
+            R.id.worker_profile_passport_edit
+    })
     List<ImageView> editList;
 
     @BindViews({R.id.cscs1, R.id.cscs2, R.id.cscs3, R.id.cscs4, R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8})
@@ -139,6 +149,22 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     @BindView(R.id.mapView)
     MapView mapView;
 
+    @BindView(R.id.worker_profile_nationality_value)
+    TextView nationalityView;
+
+    @BindView(R.id.worker_profile_birthday_value)
+    TextView dateOfBirthView;
+
+    @BindView(R.id.worker_profile_languages_value)
+    TextView languagesView;
+
+    @BindView(R.id.worker_profile_nis_value)
+    TextView nisView;
+
+    @BindView(R.id.worker_profile_passport_value)
+    ImageView passportImage;
+
+    //nationality, date of birth, languages spoken, nis, photo of passport
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_SELECTION = 2;
     private static final int REQUEST_PERMISSIONS = 3;
@@ -218,6 +244,21 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             fillWorkerBio();
             fillLocationName();
             initMap();
+            if (worker.nationality != null)
+                nationalityView.setText(worker.nationality.name);
+            dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
+            nisView.setText(worker.niNumber);
+
+            if (worker.passportUpload != null)
+                Picasso.with(getContext())
+                        .load(worker.passportUpload)
+                        .fit().centerCrop().into(passportImage);
+
+            if (!CollectionUtils.isEmpty(worker.languages)) {
+                List<String> languageNames = new ArrayList<>();
+                for (Language l : worker.languages) languageNames.add(l.name);
+                languagesView.setText(TextTools.toBulletList(languageNames, true));
+            }
         }
     }
 
@@ -513,6 +554,15 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     @OnClick(R.id.worker_profile_requirements_edit)
     void editRequirements() {
         editProfile(Constants.KEY_STEP_REQUIREMENTS);
+    }
+
+    @OnClick({R.id.worker_profile_nationality_edit,
+            R.id.worker_profile_birthday_edit,
+            R.id.worker_profile_languages_edit,
+            R.id.worker_profile_nis_edit,
+            R.id.worker_profile_passport_edit})
+    void openExperienceFragment() {
+        editProfile(Constants.KEY_ONBOARDING_EXPERIENCE);
     }
 
     @Override
