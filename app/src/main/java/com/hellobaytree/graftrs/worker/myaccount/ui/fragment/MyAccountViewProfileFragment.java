@@ -47,6 +47,7 @@ import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.MediaTools;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
+import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditCscsDetailsDialog;
 import com.hellobaytree.graftrs.worker.onboarding.SingleEditActivity;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
@@ -74,7 +75,8 @@ import retrofit2.Response;
  * Created by maizaga on 30/10/16.
  */
 
-public class MyAccountViewProfileFragment extends Fragment implements EditAccountDetailsDialog.InputFinishedListener {
+public class MyAccountViewProfileFragment extends Fragment implements EditAccountDetailsDialog.InputFinishedListener,
+        EditCscsDetailsDialog.OnCscsDetailsUpdatedListener, View.OnClickListener {
 
     private static final int REQUEST_EDIT_PROFILE = 100;
 
@@ -141,6 +143,12 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     private static final int REQUEST_IMAGE_SELECTION = 2;
     private static final int REQUEST_PERMISSIONS = 3;
     private static final int REQUEST_PERMISSION_READ_STORAGE = 4;
+
+    private static final int VERIFICATION_NONE = 1;     // Verification hasn't been requested yet.
+    private static final int VERIFICATION_FAILED = 2;   // Infrastructural issues: cannot verify cards (e.g. failed to connect to citb website).
+    private static final int VERIFICATION_INVALID = 3;  // Supplied card details have been confirmed as invalid.
+    private static final int VERIFICATION_VALID = 4;    // Supplied card details are valid.
+
     private Worker worker;
     private GoogleApiClient googleApiClient;
     private GoogleMap googleMap;
@@ -398,12 +406,14 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     }
 
     private void populateCscsStatus(int status) {
-        if (status == 4) {
+        if (status == VERIFICATION_VALID) {
             cscsStatus.setText("VERIFIED");
             cscsContent.setVisibility(View.VISIBLE);
+            cscsStatus.setOnClickListener(null);
         } else {
             cscsStatus.setText("NOT VERIFIED");
             cscsContent.setVisibility(View.GONE);
+            cscsStatus.setOnClickListener(this);
         }
     }
 
@@ -439,6 +449,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                             if (response.isSuccessful()) {
                                 worker = response.body().getResponse();
                                 initComponents();
+                                if (worker != null) fetchCscsDetails(worker.id);
                             } else HandleErrors.parseError(getContext(), dialog, response);
                         }
 
@@ -690,5 +701,22 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     public void onDestroy() {
         mapView.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void onCscsUpdated(int status) {
+        switch (status) {
+            case VERIFICATION_VALID:
+                if (worker != null) fetchCscsDetails(worker.id);
+                break;
+            default:
+                DialogBuilder.showStandardDialog(getContext(), "", getString(R.string.verified_cscs_failed));
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.cscs_status)
+            EditCscsDetailsDialog.newInstance(worker.lastName, this).show(getActivity().getSupportFragmentManager(), "");
     }
 }
