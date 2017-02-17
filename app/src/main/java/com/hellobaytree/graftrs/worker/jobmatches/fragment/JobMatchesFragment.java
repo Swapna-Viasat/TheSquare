@@ -62,7 +62,7 @@ public class JobMatchesFragment extends Fragment
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mUserActionsListener = new MatchesPresenter(this);
-        progressDialog = new ProgressDialog.Builder(getActivity()).setMessage("Please wait").create();
+        progressDialog = new ProgressDialog.Builder(getActivity()).setMessage("Hold tight, we are busy working...").create();
     }
 
     @Override
