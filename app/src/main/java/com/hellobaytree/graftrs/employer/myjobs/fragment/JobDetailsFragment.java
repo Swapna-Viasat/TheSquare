@@ -181,8 +181,8 @@ public class JobDetailsFragment extends Fragment {
             occupation.setText(job.role.name);
         }
 
-        if (null != job.address) {
-            location.setText(job.address);
+        if (null != job.locationName) {
+            location.setText(job.locationName);
         }
 
         payNumber.setText("£ " + String.valueOf(job.budget));
