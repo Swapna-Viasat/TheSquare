@@ -12,19 +12,19 @@ import android.view.MenuItem;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.myjobs.fragment.WorkerProfileFragment;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by Vadim Goroshevsky
- * Copyright (c) 2016 FusionWorks. All rights reserved.
+ * Copyright (c) 2016 The Square Tech. All rights reserved.
  */
 
 public class ViewWorkerProfileActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     public static final String WORKER_ID = "WORKER_ID";
 
@@ -32,18 +32,20 @@ public class ViewWorkerProfileActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
-
         ButterKnife.bind(this);
 
         setToolbar();
 
         Intent intent = getIntent();
         int workerId = intent.getIntExtra(WORKER_ID, 0);
+        int applicationId = intent.getIntExtra(Constants.KEY_APPLICATION_ID, 0);
+        boolean hasApplied = intent.getBooleanExtra(Constants.KEY_HAS_APPLIED, false);
 
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, WorkerProfileFragment.newInstance(workerId));
+            fragmentTransaction.replace(R.id.container,
+                    WorkerProfileFragment.newInstance(workerId, applicationId, hasApplied));
             fragmentTransaction.commit();
         }
     }

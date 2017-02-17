@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -27,8 +28,10 @@ import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.models.Skill;
 import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
@@ -40,6 +43,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -94,16 +98,22 @@ public class WorkerProfileFragment extends Fragment {
     @BindView(R.id.cscsContent)
     View cscsContent;
 
+    @BindView(R.id.book) JosefinSansTextView book;
+
     private static final String KEY_WORKER_ID = "KEY_WORKER_ID";
     private Worker worker;
     private GoogleApiClient googleApiClient;
     private GoogleMap googleMap;
     private int workerId;
 
-    public static WorkerProfileFragment newInstance(int workerId) {
+    public static WorkerProfileFragment newInstance(int workerId,
+                                                    int applicationId,
+                                                    boolean hasApplied) {
         WorkerProfileFragment fragment = new WorkerProfileFragment();
         Bundle args = new Bundle();
         args.putInt(KEY_WORKER_ID, workerId);
+        args.putInt(Constants.KEY_APPLICATION_ID, applicationId);
+        args.putBoolean(Constants.KEY_HAS_APPLIED, hasApplied);
         fragment.setArguments(args);
         return fragment;
     }
@@ -124,6 +134,45 @@ public class WorkerProfileFragment extends Fragment {
 
         mapView.onCreate(savedInstanceState);
         return v;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //
+        if (getArguments().getBoolean(Constants.KEY_HAS_APPLIED, false)) {
+            final int i = getArguments().getInt(Constants.KEY_APPLICATION_ID, 0);
+            //
+            book.setVisibility(View.VISIBLE);
+            book.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+                    HttpRestServiceConsumer.getBaseApiClient()
+                            .acceptApplication(i)
+                            .enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call,
+                                                       Response<ResponseBody> response) {
+                                    //
+                                    if (response.isSuccessful()) {
+                                        //
+                                        DialogBuilder.cancelDialog(dialog);
+                                        book.setVisibility(View.GONE);
+                                        Toast.makeText(getContext(), "Booked!", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        HandleErrors.parseError(getContext(), dialog, response);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    HandleErrors.parseFailureError(getContext(), dialog, t);
+                                }
+                            });
+                }
+            });
+        }
     }
 
     private synchronized void buildGoogleApiClient() {
