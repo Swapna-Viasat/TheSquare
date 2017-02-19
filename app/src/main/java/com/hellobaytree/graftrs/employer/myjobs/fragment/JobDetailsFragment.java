@@ -28,6 +28,8 @@ import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.MainEmployerActivity;
+import com.hellobaytree.graftrs.employer.createjob.CreateRequest;
+import com.hellobaytree.graftrs.employer.createjob.PreviewJobActivity;
 import com.hellobaytree.graftrs.employer.myjobs.adapter.JobDetailsPagerAdapter;
 import com.hellobaytree.graftrs.employer.myjobs.dialog.ViewMoreDialog;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
@@ -41,8 +43,10 @@ import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,17 +111,6 @@ public class JobDetailsFragment extends Fragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewMore.setVisibility(View.VISIBLE);
-        toggleEdit.setVisibility(View.VISIBLE);
-        toggleEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    //
-                } else {
-                    //
-                }
-            }
-        });
     }
 
     private void showEdits() {
@@ -165,6 +158,155 @@ public class JobDetailsFragment extends Fragment
                 dialog.show(getActivity().getSupportFragmentManager(), "view_more");
             }
         });
+    }
+
+    private void setupEditing(final Job job) {
+
+        try {
+            final CreateRequest result = new CreateRequest();
+            //
+            result.id = job.id;
+            result.roleName = job.role.name;
+            result.role = job.role.id;
+            result.roleObject = job.role;
+            result.experience = job.experience;
+            result.budget = job.budget;
+            result.budgetType = job.budgetType.id;
+            result.location = job.location;
+            result.locationName = job.locationName;
+            result.contactName = job.contactName;
+            result.contactPhone = job.contactPhone;
+            result.contactCountryCode = job.contactCountryCode;
+            result.contactPhoneNumber = job.contactPhoneNumber;
+            result.address = job.address;
+            result.description = job.description;
+            result.english = job.english;
+            result.overtime = job.payOvertime;
+            result.overtimeValue = job.overtimeRate;
+            String englishString = "Basic";
+            switch (job.english) {
+                case 2:
+                    englishString = "Fluent";
+                    break;
+                case 3:
+                    englishString = "Native";
+                    break;
+            }
+            result.englishLevelString = englishString;
+
+            /**
+             * Loading Trades!
+             */
+            if (null != job.trades) {
+                if (!job.trades.isEmpty()) {
+                    result.tradeObjects = job.trades;
+                    int[] tradeIds = new int[job.trades.size()];
+                    List<String> tradeStrings = new ArrayList<>();
+                    for (int i = 0; i < job.trades.size(); i++) {
+                        tradeIds[i] = job.trades.get(i).id;
+                        tradeStrings.add(job.trades.get(i).name);
+                    }
+                    result.trades = tradeIds;
+                    result.tradeStrings = tradeStrings;
+                }
+            }
+
+            /**
+             * Loading qualifications!
+             */
+            if (null != job.qualifications) {
+                if (!job.qualifications.isEmpty()) {
+                    result.qualificationObjects = job.qualifications;
+                    int[] qualificationIds = new int[job.qualifications.size()];
+                    List<String> qualificationStrings = new ArrayList<>();
+                    for (int i = 0; i < job.qualifications.size(); i++) {
+                        qualificationIds[i] = job.qualifications.get(i).id;
+                        qualificationStrings.add(job.qualifications.get(i).name);
+                    }
+                    result.qualifications = qualificationIds;
+                    result.qualificationStrings = qualificationStrings;
+                }
+            }
+
+            /**
+             * Loading skills!
+             */
+            if (null != job.skills) {
+                if (!job.skills.isEmpty()) {
+                    int[] skillIds = new int[job.skills.size()];
+                    List<String> skillNames = new ArrayList<>();
+                    for (int i = 0; i < job.skills.size(); i++) {
+                        skillIds[i] = job.skills.get(i).id;
+                        skillNames.add(job.skills.get(i).name);
+                    }
+                    result.skills = skillIds;
+                    result.skillStrings = skillNames;
+                }
+            }
+
+            /**
+             * Loading experience.
+             */
+            // TODO: what happened with experience qualifications ???
+
+            /**
+             * Loading experience types!
+             */
+            if (null != job.experienceTypes) {
+                if (!job.experienceTypes.isEmpty()) {
+                    result.experienceTypeObjects = job.experienceTypes;
+                    int[] experienceTypeIds = new int[job.experienceTypes.size()];
+                    List<String> experienceTypeNames = new ArrayList<>();
+                    for (int i = 0; i < job.experienceTypes.size(); i++) {
+                        experienceTypeIds[i] = job.experienceTypes.get(i).id;
+                        experienceTypeNames.add(job.experienceTypes.get(i).name);
+                    }
+                    result.experienceTypes = experienceTypeIds;
+                    result.experienceTypeStrings = experienceTypeNames;
+                }
+            }
+
+            /**
+             * Loading logo.
+             */
+            if (null != job.owner) {
+                if (null != job.owner.picture) {
+                    result.logo = job.owner.picture;
+                }
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            Date date = format.parse(job.start);
+            calendar.setTime(date);
+            String startDate = calendar.get(Calendar.YEAR) + "-" +
+                    String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" +
+                    calendar.get(Calendar.DAY_OF_MONTH);
+            String startTime = calendar.get(Calendar.HOUR) + ":" +
+                    calendar.get(Calendar.MINUTE) + ":" + "00";
+            result.date = startDate;
+            result.time = startTime;
+
+            /**
+             *
+             */
+            toggleEdit.setVisibility(View.VISIBLE);
+            toggleEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (b) {
+                        Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
+                        intent.putExtra("request", result);
+                        getActivity().finish();
+                        startActivity(intent);
+                    } else {
+                        //
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -237,6 +379,7 @@ public class JobDetailsFragment extends Fragment
     private void populate(Job job) {
 
         setupViewMore(job);
+        setupEditing(job);
 
         if (job.status.id == Job.TAB_LIVE) {
             viewPager.setVisibility(View.VISIBLE);

@@ -9,6 +9,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.hellobaytree.graftrs.R;
@@ -90,6 +91,7 @@ public class CreateJobActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "create job activity resumed");
     }
 
     @Override

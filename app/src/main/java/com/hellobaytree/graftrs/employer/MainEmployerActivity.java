@@ -64,6 +64,7 @@ public class MainEmployerActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "main employer activity resumed");
 
         // checking if the employer wasn't in the process of creating a job
         // when last left the app
