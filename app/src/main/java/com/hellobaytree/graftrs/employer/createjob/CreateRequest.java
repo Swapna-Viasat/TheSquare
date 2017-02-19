@@ -47,6 +47,7 @@ public class CreateRequest implements Serializable {
     public  int[] skills;
     public List<String> skillStrings;
     @SerializedName("english_level") public int english;
+    public String englishLevelString;
     @SerializedName("budget_type") public int budgetType;
     public float budget;
     @SerializedName("pay_overtime") public boolean overtime;

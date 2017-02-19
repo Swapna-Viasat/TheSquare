@@ -57,6 +57,7 @@ public class SelectExperienceFragment extends Fragment
     private boolean unfinished = true;
 
     private int english;
+    private String englishString = "Basic";
     private int experience;
     private CreateRequest createRequest;
 
@@ -308,6 +309,7 @@ public class SelectExperienceFragment extends Fragment
     public void next() {
         if (validate()) {
             createRequest.english = english;
+            createRequest.englishLevelString = englishString;
             createRequest.experience = experience;
 
             List<ExperienceQualification> selected = new ArrayList<>();
@@ -375,10 +377,12 @@ public class SelectExperienceFragment extends Fragment
             }
         }
         english = level.id;
+        englishString = level.name;
         level.selected = true;
         fluencyAdapter.notifyDataSetChanged();
         if (null != createRequest) {
             createRequest.english = level.id;
+            createRequest.englishLevelString = level.name;
         }
     }
 

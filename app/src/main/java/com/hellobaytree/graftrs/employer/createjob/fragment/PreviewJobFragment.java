@@ -79,6 +79,8 @@ public class PreviewJobFragment extends Fragment {
     private CreateRequest createRequest;
     @BindView(R.id.job_details_description) JosefinSansTextView description;
     @BindView(R.id.job_details_skills) JosefinSansTextView skills;
+    @BindView(R.id.job_details_english_level) JosefinSansTextView englishLevel;
+    @BindView(R.id.job_details_overtime) JosefinSansTextView overtime;
     @BindView(R.id.job_details_qualifications) JosefinSansTextView qualifications;
     @BindView(R.id.job_details_qualifications2) JosefinSansTextView qualifications2;
     @BindView(R.id.job_details_experience_types) JosefinSansTextView experienceTypes;
@@ -139,6 +141,8 @@ public class PreviewJobFragment extends Fragment {
             R.id.preview_experience,
             R.id.preview_reporting_to,
             R.id.preview_start_date,
+            R.id.job_details_english_level_label,
+            R.id.job_details_overtime_label,
             R.id.preview_location,
             R.id.preview_salary_number,
             R.id.job_details_description_label,
@@ -176,11 +180,17 @@ public class PreviewJobFragment extends Fragment {
             case R.id.job_details_reqs_label:
                 fragment = SelectExperienceFragment.newInstance(createRequest, true);
                 break;
+            case R.id.job_details_english_level_label:
+                fragment = SelectExperienceFragment.newInstance(createRequest, true);
+                break;
             case R.id.job_details_qualifications_label:
                 fragment = SelectQualificationsFragment.newInstance(createRequest, true);
                 break;
             case R.id.job_details_experience_types_label:
                 fragment = SelectExperienceTypeFragment.newInstance(createRequest, true);
+                break;
+            case R.id.job_details_overtime_label:
+                fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
         }
         if (null != fragment) {
@@ -227,16 +237,15 @@ public class PreviewJobFragment extends Fragment {
             date.setText(createRequest.date + " - " + createRequest.time);
             //
             notes.setText(createRequest.notes);
-
+            // lists
             description.setText(createRequest.description);
             skills.setText(TextTools.toBulletList(createRequest.skillStrings, true));
             qualifications.setText(TextTools.toBulletList(createRequest.expQualificationStrings, true));
             qualifications2.setText(TextTools.toBulletList(createRequest.qualificationStrings, true));
             experienceTypes.setText(TextTools.toBulletList(createRequest.experienceTypeStrings, true));
-
+            // salary
             salaryNumber.setText(String.valueOf(getString(R.string.pound_sterling) + " " +
                     NumberFormat.getInstance(Locale.UK).format(createRequest.budget)));
-
             switch (createRequest.budgetType) {
                 case 1:
                     salaryPeriod.setText("per hour");
@@ -248,6 +257,17 @@ public class PreviewJobFragment extends Fragment {
                     salaryPeriod.setText("per year");
             }
 
+            // overtime
+            if (createRequest.overtime) {
+                overtime.setText(String.format(getString(R.string.job_details_overtime_text),
+                        createRequest.overtimeValue));
+            } else {
+                overtime.setText("n/a");
+            }
+            // english level
+            if (null != createRequest.englishLevelString) {
+                englishLevel.setText(createRequest.englishLevelString);
+            }
 
             startDate.setText(createRequest.date);
 
