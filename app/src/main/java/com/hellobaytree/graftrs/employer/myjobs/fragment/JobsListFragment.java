@@ -190,34 +190,23 @@ public class JobsListFragment extends Fragment
             result.location = job.location;
             result.locationName = job.locationName;
             result.description = job.description;
+            result.english = job.english;
+            result.overtime = job.payOvertime;
+            result.overtimeValue = job.overtimeRate;
+            String englishString = "Basic";
+            switch (job.english) {
+                case 2:
+                    englishString = "Fluent";
+                    break;
+                case 3:
+                    englishString = "Native";
+                    break;
+            }
+            result.englishLevelString = englishString;
 
-            if (null != job.skills) {
-                int[] skillIds = new int[job.skills.size()];
-                for (int i = 0; i < job.skills.size(); i++) {
-                    skillIds[i] = job.skills.get(i).id;
-                    skillStrings.add(job.skills.get(i).name);
-                }
-                result.skills = skillIds;
-                result.skillStrings = skillStrings;
-            }
-            if (null != job.experienceTypes) {
-                int[] experienceTypeIds = new int[job.experienceTypes.size()];
-                for (int i = 0; i < job.experienceTypes.size(); i++) {
-                    experienceTypeIds[i] = job.experienceTypes.get(i).id;
-                    experienceTypeStrings.add(job.experienceTypes.get(i).name);
-                }
-                result.experienceTypes = experienceTypeIds;
-                result.experienceTypeStrings = experienceTypeStrings;
-            }
-            if (null != job.qualifications) {
-                int[] qualificationIds = new int[job.qualifications.size()];
-                for (int i = 0; i < job.qualifications.size(); i++) {
-                    qualificationIds[i] = job.qualifications.get(i).id;
-                    qualificationStrings.add(job.qualifications.get(i).name);
-                }
-                result.qualifications = qualificationIds;
-                result.qualificationStrings = qualificationStrings;
-            }
+            /**
+             * Loading trades.
+             */
             if (null != job.trades && !job.trades.isEmpty()) {
                 TextTools.log(TAG, "trades not null");
                 int[] tradeIds = new int[job.trades.size()];
@@ -229,7 +218,53 @@ public class JobsListFragment extends Fragment
                 result.tradeStrings = tradeStrings;
             }
 
+            /**
+             * Loading qualifications.
+             */
+            if (null != job.qualifications) {
+                int[] qualificationIds = new int[job.qualifications.size()];
+                for (int i = 0; i < job.qualifications.size(); i++) {
+                    qualificationIds[i] = job.qualifications.get(i).id;
+                    qualificationStrings.add(job.qualifications.get(i).name);
+                }
+                result.qualifications = qualificationIds;
+                result.qualificationStrings = qualificationStrings;
+            }
 
+            /**
+             * Loading skills.
+             */
+            if (null != job.skills) {
+                int[] skillIds = new int[job.skills.size()];
+                for (int i = 0; i < job.skills.size(); i++) {
+                    skillIds[i] = job.skills.get(i).id;
+                    skillStrings.add(job.skills.get(i).name);
+                }
+                result.skills = skillIds;
+                result.skillStrings = skillStrings;
+            }
+
+            /**
+             * Loading experience.
+             */
+            // TODO: what happened with experience qualifications ???
+
+            /**
+             * Loading experience types.
+             */
+            if (null != job.experienceTypes) {
+                int[] experienceTypeIds = new int[job.experienceTypes.size()];
+                for (int i = 0; i < job.experienceTypes.size(); i++) {
+                    experienceTypeIds[i] = job.experienceTypes.get(i).id;
+                    experienceTypeStrings.add(job.experienceTypes.get(i).name);
+                }
+                result.experienceTypes = experienceTypeIds;
+                result.experienceTypeStrings = experienceTypeStrings;
+            }
+
+            /**
+             * Date and time.
+             */
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             Date date = simpleDateFormat.parse(job.start);
@@ -243,6 +278,9 @@ public class JobsListFragment extends Fragment
             result.time = DateUtils.time(calendar.get(Calendar.HOUR_OF_DAY),
                     calendar.get(Calendar.MINUTE));
 
+            /**
+             * Reporting to info. and logo.
+             */
             result.contactName = job.contactName;
             result.contactPhone = job.contactPhone;
             result.contactCountryCode = job.contactCountryCode;

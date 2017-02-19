@@ -253,8 +253,9 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
             payload.put("trades", request.trades);
             payload.put("experience", request.experience);
             payload.put("english_level_id", request.english);
+            payload.put("experience_qualifications", request.expQualifications);
             payload.put("qualifications", request.qualifications);
-            payload.put("skills", request.experienceTypes);
+            payload.put("skills", request.skills);
             payload.put("experience_type", request.experienceTypes);
             payload.put("description", request.description);
             payload.put("budget_type", budgetType);
