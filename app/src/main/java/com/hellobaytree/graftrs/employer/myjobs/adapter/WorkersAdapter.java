@@ -43,6 +43,7 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
 
     public interface WorkersActionListener {
         void onInvite(Worker worker);
+        void onBook(Worker worker);
         void onViewWorkerProfile(Worker worker);
     }
 
@@ -83,14 +84,6 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
                     .into(holder.avatar);
         }
 
-        holder.workerAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (null != listener) {
-                    listener.onInvite(worker);
-                }
-            }
-        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,10 +95,11 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
         updateStatus(holder, worker);
     }
 
-    private void updateStatus(WorkerHolder workerHolder, Worker worker) {
+    private void updateStatus(WorkerHolder workerHolder, final Worker worker) {
         if (null != worker.applications) {
             if (!worker.applications.isEmpty()) {
                 workerHolder.workerAction.setVisibility(View.GONE);
+                //
                 workerHolder.workerLabel.setVisibility(View.VISIBLE);
                 // now pick the right label
                 final Application application = worker.applications.get(0);
@@ -115,6 +109,16 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
                             workerHolder.workerLabel.setImageDrawable(ContextCompat
                                     .getDrawable(context, R.drawable.workers_offered));
                         } else {
+
+                            workerHolder.workerAction.setVisibility(View.VISIBLE);
+                            workerHolder.workerAction.setText("Book");
+                            workerHolder.workerAction.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (null != listener) listener.onBook(worker);
+                                }
+                            });
+
                             workerHolder.workerLabel.setImageDrawable(ContextCompat
                                     .getDrawable(context, R.drawable.workers_applied));
                         }
@@ -142,6 +146,14 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
                 //
             } else {
                 workerHolder.workerAction.setVisibility(View.VISIBLE);
+                workerHolder.workerAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (null != listener) {
+                            listener.onInvite(worker);
+                        }
+                    }
+                });
                 workerHolder.workerLabel.setVisibility(View.GONE);
             }
         } else {

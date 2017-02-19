@@ -45,7 +45,7 @@ import retrofit2.Response;
 public class AccountFragment extends Fragment {
     private static final String TAG = "AccountFragment";
 
-    @BindView(R.id.employer_account_logo) CircleImageView logo;
+    @BindView(R.id.employer_account_logo) ImageView logo;
     @BindView(R.id.employer_account_name) TextView name;
     @BindView(R.id.employer_account_owner) TextView owner;
     @BindView(R.id.employer_account_rating) RatingView rating;
@@ -152,6 +152,7 @@ public class AccountFragment extends Fragment {
             if (null != employer.picture) {
                 Picasso.with(getContext())
                         .load(employer.picture)
+                        .fit()
                         .into(logo);
             }
 

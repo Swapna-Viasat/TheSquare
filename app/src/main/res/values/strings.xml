@@ -306,6 +306,7 @@
     <string name="job_description">Job Description</string>
     <string name="view_more">View More</string>
     <string name="skills_required">Skills Required</string>
+    <string name="skills_required2">Skills </string>
     <string name="mandatory_requirements">Mandatory Requirements</string>
 
     <string name="main_worker_advice">Better profiles get better jobs!\nUpdate yours now.</string>
@@ -405,7 +406,7 @@
 
     <!-- Worker Jobs -->
     <string name="worker_jobs_booked">Booked</string>
-    <string name="worker_jobs_offers_applications">Offers &amp; Applications</string>
+    <string name="worker_jobs_offers_applications">Offers &amp;\nApplications</string>
     <string name="worker_jobs_liked">Liked</string>
     <string name="worker_jobs_completed">Completed</string>
     <string name="worker_jobs_end_contract">End Contract</string>
@@ -422,9 +423,12 @@
     </string>
     <string name="job_details_reporting_to">Reporting to</string>
     <string name="job_details_turn_up_address">Address to turn up at</string>
-    <string name="job_details_date_arrival">Date &amp; Time to arrive</string>
+    <string name="job_details_date_arrival">Date &amp; time to arrive</string>
     <string name="job_details_notes">Anything else to note</string>
     <string name="job_details_experience">Experience: </string>
+    <string name="job_details_english_level">Level of English</string>
+    <string name="job_details_overtime">Overtime</string>
+    <string name="job_details_overtime_text">£%d per hour</string>
     <string name="job_details_mandatory_requirements">Requirements: </string>
     <string name="job_details_qualifications">Qualifications: </string>
     <string name="job_details_experience_types">Types of experience: </string>
@@ -543,6 +547,8 @@
     <string name="employer_settings_send">Send</string>
     <string name="employer_settings_logout_prompt">Are you sure you want to logout of The Square App?</string>
     <string name="employer_settings_my_subscriptions">My Subscriptions</string>
+    <string name="employer_settings_security">Security</string>
+    <string name="employer_security_save">Save</string>
 
     <!-- Worker Settings -->
     <string name="new_job_matches">New job matches</string>
@@ -759,4 +765,7 @@
 
     <!-- Passport upload-->
     <string name="passport_nophoto">Please upload your passport before previewing</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

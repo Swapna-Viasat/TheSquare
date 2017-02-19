@@ -9,6 +9,9 @@ import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.hellobaytree.graftrs.worker.myjobs.fragment.JobsListFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Evgheni on 11/3/2016.
  */
@@ -17,10 +20,20 @@ public class JobsPagerAdapter extends FragmentPagerAdapter {
 
     private static final int JOBS_COUNT = 4;
     private Context context;
+    private List<JobsListFragment> fragments;
 
     public JobsPagerAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
         this.context = context;
+        initAdapter();
+    }
+
+    private void initAdapter() {
+        fragments = new ArrayList<>();
+        fragments.add(JobsListFragment.newInstance(Job.TYPE_BOOKED));
+        fragments.add(JobsListFragment.newInstance(Job.TYPE_OFFER));
+        fragments.add(JobsListFragment.newInstance(Job.TYPE_LIKED));
+        fragments.add(JobsListFragment.newInstance(Job.TYPE_COMPLETED));
     }
 
     @Override
@@ -40,16 +53,7 @@ public class JobsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int index) {
-        switch (index) {
-            case 0:
-                return JobsListFragment.newInstance(Job.TYPE_BOOKED);
-            case 1:
-                return JobsListFragment.newInstance(Job.TYPE_OFFER);
-            case 2:
-                return JobsListFragment.newInstance(Job.TYPE_LIKED);
-            case 3:
-                return JobsListFragment.newInstance(Job.TYPE_COMPLETED);
-        }
+        if (index >= 0 && index < JOBS_COUNT) return fragments.get(index);
         return null;
     }
 

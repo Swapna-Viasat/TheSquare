@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.payments.PaymentsActivity;
@@ -31,15 +32,19 @@ public class EmployerSettingsFragment extends SettingsFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, view); 
+        ButterKnife.bind(this, view);
         return view;
     }
 
-    @OnClick({R.id.my_subscriptions, R.id.notify})
+    @OnClick({R.id.my_security, R.id.notify})
     public void onAction(View view) {
         switch (view.getId()) {
-            case R.id.my_subscriptions:
-                startActivity(new Intent(getActivity(), PaymentsActivity.class));
+            case R.id.my_security:
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, EmployerSecurityFragment.newInstance())
+                        .addToBackStack("security")
+                        .commit();
                 break;
             case R.id.notify:
                 getActivity().getSupportFragmentManager()
