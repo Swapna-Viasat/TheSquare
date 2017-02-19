@@ -518,6 +518,9 @@
     <string name="employer_rate_worker">Please rate %s\'s \nperformance</string>
     <string name="employer_rate_submit">Done</string>
     <string name="employer_rate_again">Would you hire %s again?</string>
+    
+    <!-- Employer My Account --> 
+    <string name="employer_account_price_plan">My Price Plan</string>
 
     <!-- Settings -->
     <string name="settings_notify_reviews">Reviews</string>
