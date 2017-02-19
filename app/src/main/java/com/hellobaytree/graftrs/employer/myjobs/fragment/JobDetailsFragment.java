@@ -21,12 +21,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.MainEmployerActivity;
 import com.hellobaytree.graftrs.employer.myjobs.adapter.JobDetailsPagerAdapter;
+import com.hellobaytree.graftrs.employer.myjobs.dialog.ViewMoreDialog;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.models.Job;
@@ -43,6 +46,7 @@ import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,7 +55,8 @@ import retrofit2.Response;
  * Created by gherg on 12/30/2016.
  */
 
-public class JobDetailsFragment extends Fragment {
+public class JobDetailsFragment extends Fragment
+        implements ViewMoreDialog.ViewMoreListener {
 
     public static final String TAG = "JobDetailsFragment";
 
@@ -67,6 +72,8 @@ public class JobDetailsFragment extends Fragment {
     @BindView(R.id.item_job_logo) ImageView logo;
     @BindView(R.id.item_job_company_name) JosefinSansTextView name;
     @BindView(R.id.item_job_id) JosefinSansTextView id;
+    @BindView(R.id.view_more) JosefinSansTextView viewMore;
+    @BindView(R.id.toggle_edit) Switch toggleEdit;
 
     private JobDetailsPagerAdapter adapter;
 
@@ -99,6 +106,65 @@ public class JobDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        viewMore.setVisibility(View.VISIBLE);
+        toggleEdit.setVisibility(View.VISIBLE);
+        toggleEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    //
+                } else {
+                    //
+                }
+            }
+        });
+    }
+
+    private void showEdits() {
+        //
+    }
+
+    private void hideEdits() {
+        //
+    }
+
+    public void onAction(int action) {
+        switch (action) {
+            case ViewMoreDialog.EDIT_DESCRIPTION:
+                //
+                break;
+            case ViewMoreDialog.EDIT_ENGLISH_LEVEL:
+                //
+                break;
+            case ViewMoreDialog.EDIT_EXPERIENCE_TYPES:
+                //
+                break;
+            case ViewMoreDialog.EDIT_OVERTIME:
+                //
+                break;
+            case ViewMoreDialog.EDIT_QUALIFICATIONS:
+                //
+                break;
+            case ViewMoreDialog.EDIT_REQUIREMENTS:
+                //
+                break;
+            case ViewMoreDialog.EDIT_SKILLS:
+                //
+                break;
+            default:
+                //
+                break;
+        }
+    }
+
+    public void setupViewMore(final Job job) {
+        getView().findViewById(R.id.view_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewMoreDialog dialog = ViewMoreDialog.newInstance(JobDetailsFragment.this, job);
+                dialog.show(getActivity().getSupportFragmentManager(), "view_more");
+            }
+        });
     }
 
 
@@ -155,18 +221,22 @@ public class JobDetailsFragment extends Fragment {
                             populate(response.body().getResponse());
 
                         } else {
+                            viewMore.setVisibility(View.GONE);
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseObject<Job>> call, Throwable t) {
+                        viewMore.setVisibility(View.GONE);
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
     }
 
     private void populate(Job job) {
+
+        setupViewMore(job);
 
         if (job.status.id == Job.TAB_LIVE) {
             viewPager.setVisibility(View.VISIBLE);

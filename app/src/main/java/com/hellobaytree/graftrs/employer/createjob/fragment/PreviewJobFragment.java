@@ -268,6 +268,10 @@ public class PreviewJobFragment extends Fragment {
             if (null != createRequest.englishLevelString) {
                 englishLevel.setText(createRequest.englishLevelString);
             }
+            // description
+            if (null != createRequest.description) {
+                description.setText(createRequest.description);
+            }
 
             startDate.setText(createRequest.date);
 

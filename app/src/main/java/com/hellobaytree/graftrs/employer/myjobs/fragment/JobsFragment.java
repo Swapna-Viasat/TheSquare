@@ -162,6 +162,7 @@ public class JobsFragment extends Fragment
             result.contactCountryCode = job.contactCountryCode;
             result.contactPhoneNumber = job.contactPhoneNumber;
             result.address = job.address;
+            result.description = job.description;
             result.english = job.english;
             result.overtime = job.payOvertime;
             result.overtimeValue = job.overtimeRate;
