@@ -50,6 +50,7 @@ import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
 import com.hellobaytree.graftrs.shared.utils.MediaTools;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText;
@@ -201,7 +202,6 @@ public class SelectExperienceFragment extends Fragment
             }
         });
         current = reg.get(0);
-        reg.get(0).requestFocus();
         for (EditText e : reg) {
             e.addTextChangedListener(regListener);
         }
@@ -892,6 +892,7 @@ public class SelectExperienceFragment extends Fragment
     @Override
     public void onPause() {
         persistProgress();
+        KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
 

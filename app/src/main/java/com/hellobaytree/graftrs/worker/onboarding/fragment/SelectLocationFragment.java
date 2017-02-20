@@ -48,6 +48,7 @@ import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.CommuteTimeSeekBar;
 import com.hellobaytree.graftrs.worker.onboarding.OnGeoCodingFinishedListener;
@@ -420,6 +421,7 @@ public class SelectLocationFragment extends Fragment
     public void onPause() {
         persistProgress();
         googleApiClient.disconnect();
+        KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
 
