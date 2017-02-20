@@ -39,7 +39,6 @@ import butterknife.OnClick;
 
 /**
  * Created by Vadim Goroshevsky
- * Copyright (c) 2016 FusionWorks. All rights reserved.
  */
 
 public class JobDetailsFragment extends Fragment implements JobDetailsContract {
@@ -57,6 +56,8 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     @BindView(R.id.appliedHintView) TextView appliedHeaderView;
     @BindView(R.id.approvedHintView) View approvedHeaderView;
     @BindView(R.id.reportingToTextView) TextView reportingToTextView;
+    @BindView(R.id.reportingToPhoneTextView) TextView reportingToPhoneTextView;
+    @BindView(R.id.reportingToAddressTextView) TextView reportingToAddressTextView;
     @BindView(R.id.dateToArriveTextView) TextView dateToArriveTextView;
     @BindView(R.id.elseToNoteTextView) TextView elseToNoteTextView;
     @BindView(R.id.approvedHint) View approvedHintView;
@@ -146,7 +147,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 }
             }
 
-            jobId.setText("Job ID: " + currentJob.jobRef);
+            jobId.setText("Job ref ID: " + currentJob.jobRef);
 
             if (!TextUtils.isEmpty(currentJob.startTime)) {
                 startDate.setText(String.format(getString(R.string.item_match_format_starts),
@@ -167,13 +168,13 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 dateToArriveTextView.setText(DateUtils
                         .formatDateMonthDayAndTime(currentJob.startTime));
                 reportingToTextView.append(currentJob.contactName);
-                reportingToTextView.append("\n");
-                reportingToTextView.append(currentJob.contactPhone);
+                reportingToPhoneTextView.append(currentJob.contactPhone);
+                reportingToAddressTextView.append(currentJob.address);
 
-                if (currentJob.company != null) {
-                    reportingToTextView.append("\n");
-                    reportingToTextView.append(currentJob.company.addressFirstLine);
-                }
+//                if (currentJob.company != null) {
+//                    reportingToTextView.append("\n");
+//                    reportingToTextView.append(currentJob.company.addressFirstLine);
+//                }
             }
 
             if (currentJob.status != null) {

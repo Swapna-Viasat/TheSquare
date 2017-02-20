@@ -151,13 +151,18 @@ public class JobDetailsFragment extends Fragment
     }
 
     public void setupViewMore(final Job job) {
-        getView().findViewById(R.id.view_more).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewMoreDialog dialog = ViewMoreDialog.newInstance(JobDetailsFragment.this, job);
-                dialog.show(getActivity().getSupportFragmentManager(), "view_more");
-            }
-        });
+        // it's possible the user will leave by this time, creating a npe. :(
+        try {
+            getView().findViewById(R.id.view_more).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ViewMoreDialog dialog = ViewMoreDialog.newInstance(JobDetailsFragment.this, job);
+                    dialog.show(getActivity().getSupportFragmentManager(), "view_more");
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupEditing(final Job job) {
