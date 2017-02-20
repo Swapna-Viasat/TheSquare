@@ -28,6 +28,7 @@ import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
+import com.hellobaytree.graftrs.worker.settings.ui.dialog.EditNameDialog;
 import com.hellobaytree.graftrs.worker.settings.ui.dialog.EditPasswordDialog;
 
 import java.util.Arrays;
@@ -79,7 +80,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
     }
 
     @OnClick({R.id.phone, R.id.social, R.id.terms, R.id.about, R.id.share, R.id.logout, R.id.notify,
-            R.id.editEmail, R.id.editZip, R.id.pass})
+            R.id.editEmail, R.id.editZip, R.id.pass, R.id.nameLabel})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.phone:
@@ -111,6 +112,8 @@ public class WorkerSettingsFragment extends SettingsFragment {
             case R.id.pass:
                 editPassword();
                 break;
+            case R.id.nameLabel:
+                editName();
         }
     }
 
@@ -206,6 +209,18 @@ public class WorkerSettingsFragment extends SettingsFragment {
                 HashMap<String, Object> payload = new HashMap<>();
                 payload.put("password", password);
                 payload.put("password2", password);
+                patchWorker(payload);
+            }
+        }).show(getFragmentManager(), "");
+    }
+
+    private void editName() {
+        EditNameDialog.newInstance(new EditNameDialog.NameChangedListener() {
+            @Override
+            public void onNameChanged(String name, String surname) {
+                HashMap<String, Object> payload = new HashMap<>();
+                payload.put("first_name", name);
+                payload.put("last_name", surname);
                 patchWorker(payload);
             }
         }).show(getFragmentManager(), "");

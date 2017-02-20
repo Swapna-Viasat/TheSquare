@@ -30,6 +30,7 @@ import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.onboarding.adapter.RolesAdapter;
@@ -312,6 +313,7 @@ public class SelectRoleFragment extends Fragment
     @Override
     public void onPause() {
         persistProgress();
+        KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
 

@@ -31,7 +31,6 @@ import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.main.ui.MainWorkerActivity;
 import com.hellobaytree.graftrs.worker.myaccount.ui.activity.MyAccountBillingActivity;
 import com.hellobaytree.graftrs.worker.myaccount.ui.activity.MyAccountViewProfileActivity;
-import com.hellobaytree.graftrs.worker.onboarding.OnboardingWorkerActivity;
 import com.hellobaytree.graftrs.worker.reviews.activity.ReviewActivity;
 import com.hellobaytree.graftrs.worker.settings.ui.activity.WorkerSettingsActivity;
 import com.squareup.picasso.Picasso;
@@ -139,7 +138,7 @@ public class AccountFragment extends Fragment {
     public void action(View view) {
         switch (view.getId()) {
             case R.id.worker_account_edit:
-                startActivity(new Intent(getActivity(), OnboardingWorkerActivity.class));
+                startActivity(new Intent(getActivity(), MyAccountViewProfileActivity.class));
                 break;
             case R.id.worker_account_profile:
                 // view profile

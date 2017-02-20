@@ -354,9 +354,9 @@ public class WorkerProfileFragment extends Fragment {
     private void populateCscs(ResponseObject<CSCSCardWorker> dataResponse) {
         if (dataResponse != null) {
 
-            String regnum = dataResponse.getResponse().getRegistration_number();
-            populateCscsStatus(dataResponse.getResponse().getVerification_status());
-            if (dataResponse.getResponse().getVerification_status() == 4 && !regnum.isEmpty()) {
+            String regnum = dataResponse.getResponse().registrationNumber;
+            populateCscsStatus(dataResponse.getResponse().verificationStatus);
+            if (dataResponse.getResponse().verificationStatus == 4 && !regnum.isEmpty()) {
                 final char ca[] = regnum.toCharArray();
                 ButterKnife.Setter<TextView, Boolean> ENABLED = new ButterKnife.Setter<TextView, Boolean>() {
                     @Override

@@ -34,6 +34,7 @@ import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
 import com.hellobaytree.graftrs.shared.utils.MediaTools;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.squareup.picasso.Picasso;
@@ -473,6 +474,7 @@ public class SelectWorkerInfoFragment extends Fragment {
     @Override
     public void onPause() {
         persistProgress();
+        KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
 

@@ -36,7 +36,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
-import com.hellobaytree.graftrs.employer.createjob.adapter.ExperienceAdapter;
 import com.hellobaytree.graftrs.employer.createjob.persistence.GsonConfig;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
@@ -51,11 +50,13 @@ import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
 import com.hellobaytree.graftrs.shared.utils.MediaTools;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.onboarding.OnLanguagesSelectedListener;
+import com.hellobaytree.graftrs.worker.onboarding.adapter.ExperienceAdapter;
 import com.hellobaytree.graftrs.worker.onboarding.adapter.FluencyAdapter;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
@@ -201,7 +202,6 @@ public class SelectExperienceFragment extends Fragment
             }
         });
         current = reg.get(0);
-        reg.get(0).requestFocus();
         for (EditText e : reg) {
             e.addTextChangedListener(regListener);
         }
@@ -447,8 +447,8 @@ public class SelectExperienceFragment extends Fragment
     private void populate(ResponseObject<CSCSCardWorker> dataResponse) {
         surname.setText(lastname);
         surname.setEnabled(false);
-        String regnum = dataResponse.getResponse().getRegistration_number();
-        populateCscsStatus(dataResponse.getResponse().getVerification_status());
+        String regnum = dataResponse.getResponse().registrationNumber;
+        populateCscsStatus(dataResponse.getResponse().verificationStatus);
        if(!regnum.isEmpty()) {
            final char ca[] = regnum.toCharArray();
            ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
@@ -700,7 +700,7 @@ public class SelectExperienceFragment extends Fragment
                                                Response<ResponseObject<CSCSCardWorker>> response) {
                             if (response.isSuccessful()) {
                                 DialogBuilder.cancelDialog(dialog);
-                                cscsStatus = response.body().getResponse().getVerification_status();
+                                cscsStatus = response.body().getResponse().verificationStatus;
                                 populateCscsStatus(cscsStatus);
                             } else {
                                 HandleErrors.parseError(getContext(), dialog, response);
@@ -892,6 +892,7 @@ public class SelectExperienceFragment extends Fragment
     @Override
     public void onPause() {
         persistProgress();
+        KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
 

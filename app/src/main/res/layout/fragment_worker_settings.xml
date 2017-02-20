@@ -33,6 +33,61 @@
                     android:layout_height="wrap_content">
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/nameLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="12dp"
+                        android:paddingEnd="3dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="3dp"
+                        android:paddingStart="12dp"
+                        android:paddingTop="12dp"
+                        android:text="@string/worker_change_name"
+                        android:textSize="16sp"
+                        app:josefin_style="italic" />
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/nameValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/nameLabel"
+                        android:layout_toLeftOf="@+id/editNameIcon"
+                        android:layout_toRightOf="@+id/nameLabel"
+                        android:layout_toStartOf="@+id/editNameIcon"
+                        android:paddingBottom="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="12dp"
+                        android:paddingStart="3dp"
+                        android:paddingTop="12dp"
+                        android:textColor="@color/redSquareColor"
+                        android:textSize="16sp"
+                        app:josefin_style="italic" />
+
+                    <ImageView
+                        android:id="@+id/editNameIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_mode_edit_black_24dp"
+                        android:tint="@color/redSquareColor"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/phoneLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
