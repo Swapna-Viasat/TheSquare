@@ -89,17 +89,6 @@
                     app:editable="no" />
             </LinearLayout>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                android:textColor="@color/redSquareColor"
-                android:text="BOOK"
-                android:id="@+id/book"
-                android:visibility="gone"
-                android:background="@android:color/white"
-                android:padding="12dp"
-                android:textSize="16sp"
-                android:layout_gravity="bottom|end|right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </FrameLayout>
 
         <LinearLayout
@@ -292,5 +281,20 @@
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="240dp" />
+
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            android:textColor="@android:color/white"
+            android:text="BOOK"
+            android:id="@+id/book"
+            android:visibility="gone"
+            android:background="@color/redSquareColor"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:layout_margin="12dp"
+            android:layout_gravity="bottom|end|right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>
