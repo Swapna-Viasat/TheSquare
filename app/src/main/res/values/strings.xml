@@ -493,7 +493,7 @@
     <string name="worker_reviews_attitude">Attitude to work and team</string>
     <string name="worker_reviews_safety">Safe worker</string>
     <string name="menu_worker_reviews">Reviews</string>
-    <string name="worker_request_review">Put in the details of the \nemployer you want to get \na reference from.</string>
+    <string name="worker_request_review">Great! Every review improves your star rating! \nTell which employer you want to get a reference from and we\'ll send them a request by email.</string>
     <string name="worker_request_review_first_name">First Name*</string>
     <string name="worker_request_review_last_name">Last Name*</string>
     <string name="worker_request_email">Email Address*</string>

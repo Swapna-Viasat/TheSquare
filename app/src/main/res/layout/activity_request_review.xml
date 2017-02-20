@@ -27,7 +27,7 @@
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:layout_gravity="center"
                 android:text="@string/worker_request_review"
-                android:textSize="26sp"
+                android:textSize="22sp"
                 app:josefin_style="light"
                 android:textColor="@color/blackSquareColor"
                 android:layout_marginBottom="12dp"
