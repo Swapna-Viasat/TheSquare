@@ -617,7 +617,8 @@
     <string name="onboarding_location">Where are you looking for work?</string>
     <string name="onboarding_companies">Add any notable companies \nyou\'ve worked for.</string>
     <string name="onboarding_roles">OK %s, which jobs \nbest describe what you do?</string>
-    <string name="onboarding_trades">What trades?</string>
+    <string name="onboarding_trades">You can chose up to 3 trades below...</string>
+    <string name="onboarding_trades_apprenticeships">(we recommend you don\'t select any, to be matched to all apprenticeships)</string>
     <string name="onboarding_cscs">Please confirm your \nCSCS details.</string>
     <string name="onboarding_cscs_surname">Surname</string>
     <string name="onboarding_cscs_dob">Date of birth</string>

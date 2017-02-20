@@ -27,11 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="12dp"
+            android:textSize="20dp"
             android:textColor="@color/blackSquareColor"
             app:josefin_style="italic"
             android:foregroundGravity="center"
-            android:text="@string/up_to_three"
+            android:text="@string/onboarding_trades_apprenticeships"
             android:layout_marginTop="4dp" />
 
         <include
