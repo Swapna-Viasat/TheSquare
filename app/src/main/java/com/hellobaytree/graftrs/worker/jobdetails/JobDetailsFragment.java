@@ -33,6 +33,9 @@ import com.hellobaytree.graftrs.worker.jobmatches.model.ApplicationStatus;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -64,6 +67,8 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     //
     @BindView(R.id.job_details_description) JosefinSansTextView description;
     @BindView(R.id.job_details_skills) JosefinSansTextView skills;
+    @BindView(R.id.job_details_english_level) JosefinSansTextView englishLevel;
+    @BindView(R.id.job_details_overtime) JosefinSansTextView overtime;
     @BindView(R.id.job_details_qualifications) JosefinSansTextView qualifications;
     @BindView(R.id.job_details_qualifications2) JosefinSansTextView qualifications2;
     @BindView(R.id.job_details_experience_types) JosefinSansTextView experienceTypes;
@@ -139,11 +144,12 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             experienceYears.setText(String.format(getString(R.string.item_match_format_experience),
                     currentJob.experience, getResources().getQuantityString(R.plurals.year_plural, currentJob.experience)));
 
-            paymentRate.setText(getString(R.string.pound_sterling) + " " + String.valueOf(currentJob.budget));
+            paymentRate.setText(getString(R.string.pound_sterling) + String.valueOf(NumberFormat
+                    .getInstance(Locale.UK).format(Double.valueOf(currentJob.budget))));
 
             if (null != currentJob.budgetType) {
                 if (null != currentJob.budgetType.name) {
-                    paymentRatePer.setText("PER " + currentJob.budgetType.name);
+                    paymentRatePer.setText("Per " + currentJob.budgetType.name);
                 }
             }
 
@@ -157,10 +163,26 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             try {
                 description.setText(currentJob.description);
                 skills.setText(TextTools.toBulletList(currentJob.getSkillsList(), true));
-                qualifications.setText(TextTools.toBulletList(currentJob.getQualificationsList(), true));
+                qualifications2.setText(TextTools.toBulletList(currentJob.getQualificationsList(), true));
                 experienceTypes.setText(TextTools.toBulletList(currentJob.getExperienceTypesList(), true));
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+
+            String englishString = "Basic";
+            switch (currentJob.englishLevel) {
+                case 2:
+                    englishString = "Fluent";
+                    break;
+                case 3:
+                    englishString = "Native";
+                    break;
+            }
+            englishLevel.setText(englishString);
+
+            if (currentJob.payOvertime) {
+                overtime.setText(String.format(getString(R.string.job_details_overtime_text),
+                        (int) currentJob.payOvertimeValue));
             }
 
             if (getCurrentAppStatus() == ApplicationStatus.STATUS_APPROVED) {
@@ -170,11 +192,6 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 reportingToTextView.append(currentJob.contactName);
                 reportingToPhoneTextView.append(currentJob.contactPhone);
                 reportingToAddressTextView.append(currentJob.address);
-
-//                if (currentJob.company != null) {
-//                    reportingToTextView.append("\n");
-//                    reportingToTextView.append(currentJob.company.addressFirstLine);
-//                }
             }
 
             if (currentJob.status != null) {

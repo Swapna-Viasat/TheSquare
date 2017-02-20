@@ -42,11 +42,13 @@ import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -403,10 +405,13 @@ public class JobDetailsFragment extends Fragment
             location.setText(job.locationName);
         }
 
-        payNumber.setText("£ " + String.valueOf(job.budget));
+        payNumber.setText("£" + String.valueOf(NumberFormat
+                .getInstance(Locale.UK).format(Double.valueOf(job.budget))));
 
         if (null != job.budgetType) {
-            payPeriod.setText("PER " + job.budgetType.name);
+            if (null != job.budgetType.name) {
+                payPeriod.setText("Per " + job.budgetType.name);
+            }
         }
 
         experience.setText(String

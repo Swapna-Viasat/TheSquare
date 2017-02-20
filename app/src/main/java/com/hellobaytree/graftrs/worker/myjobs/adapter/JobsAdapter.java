@@ -16,8 +16,10 @@ import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,9 +61,13 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         });
 
         try {
-            holder.salary.setText(context.getString(R.string.pound_sterling) +
-                    " " + String.valueOf(job.budget));
-            holder.salaryPeriod.setText("PER " + job.budgetType.name);
+            holder.salary.setText(context.getString(R.string.pound_sterling) + String.valueOf(NumberFormat
+                    .getInstance(Locale.UK).format(Double.valueOf(job.budget))));
+            if (null != job.budgetType) {
+                if (null != job.budgetType.name) {
+                    holder.salaryPeriod.setText("Per " + job.budgetType.name);
+                }
+            }
 
             if (null != job.owner.picture) {
                 Picasso.with(context)
