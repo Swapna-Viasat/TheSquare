@@ -120,6 +120,9 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 if (null != currentJob.company.name) {
                     companyName.setText(currentJob.company.name);
                 }
+                if (null != currentJob.company.postCode) {
+                    workPlace.setText(currentJob.company.postCode);
+                }
             }
 
             if (currentJob.owner != null) {
@@ -135,7 +138,6 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             experienceYears.setText(String.format(getString(R.string.item_match_format_experience),
                     currentJob.experience, getResources().getQuantityString(R.plurals.year_plural, currentJob.experience)));
 
-            workPlace.setText(currentJob.address);
             paymentRate.setText(getString(R.string.pound_sterling) + " " + String.valueOf(currentJob.budget));
 
             if (null != currentJob.budgetType) {

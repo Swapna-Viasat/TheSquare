@@ -73,7 +73,13 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
             holder.experience
                     .setText(String.format(context.getString(R.string.item_match_format_experience),
                             job.experience, context.getResources().getQuantityString(R.plurals.year_plural, job.experience)));
-            holder.location.setText(job.address);
+
+            if (null != job.company) {
+                if (null != job.company.postCode) {
+                    holder.location.setText(job.company.postCode);
+                }
+            }
+
             setLiked(job.liked, holder.likeImage);
             holder.likeImage.setOnClickListener(new View.OnClickListener() {
                 @Override
