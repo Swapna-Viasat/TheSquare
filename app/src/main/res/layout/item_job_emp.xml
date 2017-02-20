@@ -38,6 +38,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+                <!-- View More -->
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:text="View More"
+                    android:textSize="14sp"
+                    android:id="@+id/view_more"
+                    android:visibility="gone"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textAllCaps="true"
+                    android:elevation="4dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <!-- Company Logo -->
                 <ImageView
                     android:scaleType="centerCrop"
@@ -80,6 +98,7 @@
 
                 <!-- Salary-->
                 <LinearLayout
+                    android:id="@+id/sal"
                     android:layout_below="@+id/item_job_company_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,6 +125,20 @@
                         android:textSize="22sp"
                         app:josefin_style="light" />
                 </LinearLayout>
+
+                <Switch
+                    android:textColor="@color/redSquareColor"
+                    android:textStyle="italic"
+                    android:text="edit"
+                    android:visibility="gone"
+                    android:id="@+id/toggle_edit"
+                    android:layout_marginRight="14dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@+id/sal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <!-- Delete Button for Draft Item -->
                 <View

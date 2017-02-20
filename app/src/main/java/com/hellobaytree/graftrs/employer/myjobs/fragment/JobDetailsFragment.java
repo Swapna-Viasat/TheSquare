@@ -21,12 +21,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.MainEmployerActivity;
+import com.hellobaytree.graftrs.employer.createjob.CreateRequest;
+import com.hellobaytree.graftrs.employer.createjob.PreviewJobActivity;
 import com.hellobaytree.graftrs.employer.myjobs.adapter.JobDetailsPagerAdapter;
+import com.hellobaytree.graftrs.employer.myjobs.dialog.ViewMoreDialog;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.models.Job;
@@ -38,11 +43,14 @@ import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,7 +59,8 @@ import retrofit2.Response;
  * Created by gherg on 12/30/2016.
  */
 
-public class JobDetailsFragment extends Fragment {
+public class JobDetailsFragment extends Fragment
+        implements ViewMoreDialog.ViewMoreListener {
 
     public static final String TAG = "JobDetailsFragment";
 
@@ -67,6 +76,8 @@ public class JobDetailsFragment extends Fragment {
     @BindView(R.id.item_job_logo) ImageView logo;
     @BindView(R.id.item_job_company_name) JosefinSansTextView name;
     @BindView(R.id.item_job_id) JosefinSansTextView id;
+    @BindView(R.id.view_more) JosefinSansTextView viewMore;
+    @BindView(R.id.toggle_edit) Switch toggleEdit;
 
     private JobDetailsPagerAdapter adapter;
 
@@ -99,6 +110,203 @@ public class JobDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        viewMore.setVisibility(View.VISIBLE);
+    }
+
+    private void showEdits() {
+        //
+    }
+
+    private void hideEdits() {
+        //
+    }
+
+    public void onAction(int action) {
+        switch (action) {
+            case ViewMoreDialog.EDIT_DESCRIPTION:
+                //
+                break;
+            case ViewMoreDialog.EDIT_ENGLISH_LEVEL:
+                //
+                break;
+            case ViewMoreDialog.EDIT_EXPERIENCE_TYPES:
+                //
+                break;
+            case ViewMoreDialog.EDIT_OVERTIME:
+                //
+                break;
+            case ViewMoreDialog.EDIT_QUALIFICATIONS:
+                //
+                break;
+            case ViewMoreDialog.EDIT_REQUIREMENTS:
+                //
+                break;
+            case ViewMoreDialog.EDIT_SKILLS:
+                //
+                break;
+            default:
+                //
+                break;
+        }
+    }
+
+    public void setupViewMore(final Job job) {
+        getView().findViewById(R.id.view_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewMoreDialog dialog = ViewMoreDialog.newInstance(JobDetailsFragment.this, job);
+                dialog.show(getActivity().getSupportFragmentManager(), "view_more");
+            }
+        });
+    }
+
+    private void setupEditing(final Job job) {
+
+        try {
+            final CreateRequest result = new CreateRequest();
+            //
+            result.id = job.id;
+            result.roleName = job.role.name;
+            result.role = job.role.id;
+            result.roleObject = job.role;
+            result.experience = job.experience;
+            result.budget = job.budget;
+            result.budgetType = job.budgetType.id;
+            result.location = job.location;
+            result.locationName = job.locationName;
+            result.contactName = job.contactName;
+            result.contactPhone = job.contactPhone;
+            result.contactCountryCode = job.contactCountryCode;
+            result.contactPhoneNumber = job.contactPhoneNumber;
+            result.address = job.address;
+            result.description = job.description;
+            result.english = job.english;
+            result.overtime = job.payOvertime;
+            result.overtimeValue = job.overtimeRate;
+            String englishString = "Basic";
+            switch (job.english) {
+                case 2:
+                    englishString = "Fluent";
+                    break;
+                case 3:
+                    englishString = "Native";
+                    break;
+            }
+            result.englishLevelString = englishString;
+
+            /**
+             * Loading Trades!
+             */
+            if (null != job.trades) {
+                if (!job.trades.isEmpty()) {
+                    result.tradeObjects = job.trades;
+                    int[] tradeIds = new int[job.trades.size()];
+                    List<String> tradeStrings = new ArrayList<>();
+                    for (int i = 0; i < job.trades.size(); i++) {
+                        tradeIds[i] = job.trades.get(i).id;
+                        tradeStrings.add(job.trades.get(i).name);
+                    }
+                    result.trades = tradeIds;
+                    result.tradeStrings = tradeStrings;
+                }
+            }
+
+            /**
+             * Loading qualifications!
+             */
+            if (null != job.qualifications) {
+                if (!job.qualifications.isEmpty()) {
+                    result.qualificationObjects = job.qualifications;
+                    int[] qualificationIds = new int[job.qualifications.size()];
+                    List<String> qualificationStrings = new ArrayList<>();
+                    for (int i = 0; i < job.qualifications.size(); i++) {
+                        qualificationIds[i] = job.qualifications.get(i).id;
+                        qualificationStrings.add(job.qualifications.get(i).name);
+                    }
+                    result.qualifications = qualificationIds;
+                    result.qualificationStrings = qualificationStrings;
+                }
+            }
+
+            /**
+             * Loading skills!
+             */
+            if (null != job.skills) {
+                if (!job.skills.isEmpty()) {
+                    int[] skillIds = new int[job.skills.size()];
+                    List<String> skillNames = new ArrayList<>();
+                    for (int i = 0; i < job.skills.size(); i++) {
+                        skillIds[i] = job.skills.get(i).id;
+                        skillNames.add(job.skills.get(i).name);
+                    }
+                    result.skills = skillIds;
+                    result.skillStrings = skillNames;
+                }
+            }
+
+            /**
+             * Loading experience.
+             */
+            // TODO: what happened with experience qualifications ???
+
+            /**
+             * Loading experience types!
+             */
+            if (null != job.experienceTypes) {
+                if (!job.experienceTypes.isEmpty()) {
+                    result.experienceTypeObjects = job.experienceTypes;
+                    int[] experienceTypeIds = new int[job.experienceTypes.size()];
+                    List<String> experienceTypeNames = new ArrayList<>();
+                    for (int i = 0; i < job.experienceTypes.size(); i++) {
+                        experienceTypeIds[i] = job.experienceTypes.get(i).id;
+                        experienceTypeNames.add(job.experienceTypes.get(i).name);
+                    }
+                    result.experienceTypes = experienceTypeIds;
+                    result.experienceTypeStrings = experienceTypeNames;
+                }
+            }
+
+            /**
+             * Loading logo.
+             */
+            if (null != job.owner) {
+                if (null != job.owner.picture) {
+                    result.logo = job.owner.picture;
+                }
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            Date date = format.parse(job.start);
+            calendar.setTime(date);
+            String startDate = calendar.get(Calendar.YEAR) + "-" +
+                    String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" +
+                    calendar.get(Calendar.DAY_OF_MONTH);
+            String startTime = calendar.get(Calendar.HOUR) + ":" +
+                    calendar.get(Calendar.MINUTE) + ":" + "00";
+            result.date = startDate;
+            result.time = startTime;
+
+            /**
+             *
+             */
+            toggleEdit.setVisibility(View.VISIBLE);
+            toggleEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (b) {
+                        Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
+                        intent.putExtra("request", result);
+                        getActivity().finish();
+                        startActivity(intent);
+                    } else {
+                        //
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -155,18 +363,23 @@ public class JobDetailsFragment extends Fragment {
                             populate(response.body().getResponse());
 
                         } else {
+                            viewMore.setVisibility(View.GONE);
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseObject<Job>> call, Throwable t) {
+                        viewMore.setVisibility(View.GONE);
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
     }
 
     private void populate(Job job) {
+
+        setupViewMore(job);
+        setupEditing(job);
 
         if (job.status.id == Job.TAB_LIVE) {
             viewPager.setVisibility(View.VISIBLE);
@@ -181,8 +394,8 @@ public class JobDetailsFragment extends Fragment {
             occupation.setText(job.role.name);
         }
 
-        if (null != job.address) {
-            location.setText(job.address);
+        if (null != job.locationName) {
+            location.setText(job.locationName);
         }
 
         payNumber.setText("£ " + String.valueOf(job.budget));

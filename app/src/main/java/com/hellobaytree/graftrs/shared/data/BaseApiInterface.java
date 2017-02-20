@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -259,6 +260,9 @@ public interface BaseApiInterface {
     @GET("/jobs/")
     Call<MatchesResponse> getJobMatches(@Query("ordering") Ordering ordering,
                                         @Query("filter_commute_time") Integer commuteTime);
+
+    @POST("applications/{pk}/accept/")
+    Call<ResponseBody> acceptApplication(@Path("pk") int id);
 
 
     @GET("/reviews/")

@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.myjobs.activity.ViewWorkerProfileActivity;
@@ -31,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -258,8 +260,42 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
         if (worker != null) {
             Intent viewWorkerProfileIntent = new Intent(getContext(), ViewWorkerProfileActivity.class);
             viewWorkerProfileIntent.putExtra(ViewWorkerProfileActivity.WORKER_ID, worker.id);
+            if (null != worker.applications) {
+                if (!worker.applications.isEmpty()) {
+                    viewWorkerProfileIntent.putExtra(Constants.KEY_APPLICATION_ID,
+                            worker.applications.get(0).id);
+                    viewWorkerProfileIntent.putExtra(Constants.KEY_HAS_APPLIED, true);
+                }
+            }
             getActivity().startActivity(viewWorkerProfileIntent);
         }
+    }
+
+    @Override
+    public void onBook(Worker worker) {
+        //
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .acceptApplication(worker.applications.get(0).id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            //
+                            DialogBuilder.cancelDialog(dialog);
+                            fetchWorkers(getArguments().getInt(Constants.KEY_JOB_ID));
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     private void inviteWorker(int workerId, int jobId) {

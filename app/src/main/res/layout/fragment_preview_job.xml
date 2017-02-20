@@ -86,7 +86,7 @@
                                 android:id="@+id/preview_occupation"
                                 android:textSize="20sp"
                                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                                android:drawableTint="@color/redSquareColor"
+                                android:drawableTint="@color/blackSquareColor"
                                 android:drawablePadding="18dp"
                                 android:textAllCaps="true"
                                 app:josefin_style="light"
@@ -110,7 +110,7 @@
                                 android:textAllCaps="true"
                                 android:layout_marginTop="8dp"
                                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                                android:drawableTint="@color/redSquareColor"
+                                android:drawableTint="@color/blackSquareColor"
                                 android:drawablePadding="18dp"
                                 android:textColor="@color/blackSquareColor"
                                 android:layout_width="wrap_content"
@@ -144,7 +144,7 @@
                                 app:josefin_style="light"
                                 android:textAllCaps="true"
                                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                                android:drawableTint="@color/redSquareColor"
+                                android:drawableTint="@color/blackSquareColor"
                                 android:drawablePadding="18dp"
                                 android:textColor="@color/redSquareColor"
                                 android:layout_width="wrap_content"
@@ -183,7 +183,7 @@
                                 android:paddingLeft="5dp"
                                 android:paddingStart="5dp"
                                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                                android:drawableTint="@color/redSquareColor"
+                                android:drawableTint="@color/blackSquareColor"
                                 android:drawablePadding="18dp"
                                 android:layout_marginRight="15dp"
                                 android:layout_marginEnd="15dp" />
@@ -204,7 +204,7 @@
                                 style="@style/caption_gray_text"
                                 app:josefin_style="light"
                                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                                android:drawableTint="@color/redSquareColor"
+                                android:drawableTint="@color/blackSquareColor"
                                 android:drawablePadding="18dp"
                                 android:paddingLeft="5dp"
                                 android:paddingStart="5dp"
@@ -228,7 +228,7 @@
                 android:id="@+id/job_details_description_label"
                 android:textSize="16sp"
                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                android:drawableTint="@color/redSquareColor"
+                android:drawableTint="@color/blackSquareColor"
                 android:drawablePadding="18dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/blackSquareColor"
@@ -236,45 +236,8 @@
                 android:layout_height="wrap_content"/>
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_description"
-                android:textSize="12sp"
-                android:textColor="@color/graySquareColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <!-- Skills -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                android:text="@string/skills_required"
-                android:id="@+id/job_details_skills_label"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                android:drawableTint="@color/redSquareColor"
-                android:drawablePadding="18dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/blackSquareColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                android:id="@+id/job_details_skills"
-                android:textSize="12sp"
-                android:textColor="@color/graySquareColor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <!-- Mandatory Reqs -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                android:text="@string/job_details_mandatory_requirements"
-                android:id="@+id/job_details_reqs_label"
-                android:textSize="16sp"
-                android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                android:drawableTint="@color/redSquareColor"
-                android:drawablePadding="18dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/blackSquareColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                android:id="@+id/job_details_qualifications"
-                android:textSize="12sp"
+                android:textSize="14sp"
+                app:josefin_style="italic"
                 android:textColor="@color/graySquareColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -284,8 +247,9 @@
                 android:text="@string/job_details_qualifications"
                 android:id="@+id/job_details_qualifications_label"
                 android:textSize="16sp"
+                android:layout_marginTop="12dp"
                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                android:drawableTint="@color/redSquareColor"
+                android:drawableTint="@color/blackSquareColor"
                 android:drawablePadding="18dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/blackSquareColor"
@@ -293,10 +257,72 @@
                 android:layout_height="wrap_content" />
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_qualifications2"
-                android:textSize="12sp"
+                android:textSize="14sp"
+                app:josefin_style="italic"
                 android:textColor="@color/graySquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <!-- Requirements -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:text="@string/job_details_mandatory_requirements"
+                android:id="@+id/job_details_reqs_label"
+                android:textSize="16sp"
+                android:drawableRight="@drawable/ic_mode_edit_black_24dp"
+                android:drawableTint="@color/blackSquareColor"
+                android:drawablePadding="18dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/job_details_qualifications"
+                android:textSize="14sp"
+                app:josefin_style="italic"
+                android:textColor="@color/graySquareColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- English Level -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:text="@string/job_details_english_level"
+                android:id="@+id/job_details_english_level_label"
+                android:textSize="16sp"
+                android:drawableRight="@drawable/ic_mode_edit_black_24dp"
+                android:drawableTint="@color/blackSquareColor"
+                android:drawablePadding="18dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/job_details_english_level"
+                android:textSize="14sp"
+                app:josefin_style="italic"
+                android:textColor="@color/graySquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Skills -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:text="@string/skills_required2"
+                android:id="@+id/job_details_skills_label"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
+                android:drawableRight="@drawable/ic_mode_edit_black_24dp"
+                android:drawableTint="@color/blackSquareColor"
+                android:drawablePadding="18dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/job_details_skills"
+                android:textSize="14sp"
+                app:josefin_style="italic"
+                android:textColor="@color/graySquareColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <!-- Experience Types -->
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
@@ -304,7 +330,7 @@
                 android:id="@+id/job_details_experience_types_label"
                 android:textSize="16sp"
                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
-                android:drawableTint="@color/redSquareColor"
+                android:drawableTint="@color/blackSquareColor"
                 android:drawablePadding="18dp"
                 android:gravity="center_vertical"
                 android:textColor="@color/blackSquareColor"
@@ -312,7 +338,28 @@
                 android:layout_height="wrap_content" />
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_experience_types"
-                android:textSize="12sp"
+                android:textSize="14sp"
+                app:josefin_style="italic"
+                android:textColor="@color/graySquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Experience Types -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:text="@string/job_details_overtime"
+                android:id="@+id/job_details_overtime_label"
+                android:textSize="16sp"
+                android:drawableRight="@drawable/ic_mode_edit_black_24dp"
+                android:drawableTint="@color/blackSquareColor"
+                android:drawablePadding="18dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/blackSquareColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/job_details_overtime"
+                app:josefin_style="italic"
+                android:textSize="14sp"
                 android:textColor="@color/graySquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
