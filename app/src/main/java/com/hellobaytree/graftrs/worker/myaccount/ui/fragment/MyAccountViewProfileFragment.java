@@ -454,35 +454,17 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             cscsExpirationView.setText(DateUtils.getCscsExpirationDate(dataResponse.getResponse().expiryDate));
 
             try {
-                if (dataResponse.getResponse().cscsRecords != null) {
-                    if (dataResponse.getResponse().cscsRecords.firstRecord != null) {
-                        for (CSCSCardWorker.CscsRecords.CscsRecord record : dataResponse.getResponse().cscsRecords.firstRecord) {
-                            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
-                            TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
-                            cscsText.setText(record.name + " - " + record.category.name);
-                            cscsRecordsLayout.addView(itemView);
+                if (!CollectionUtils.isEmpty(dataResponse.getResponse().cscsRecords)) {
+                    for (List<CSCSCardWorker.CscsRecord> cscsRecordList : dataResponse.getResponse().cscsRecords.values())
+                        if (!CollectionUtils.isEmpty(cscsRecordList)) {
+                            for (CSCSCardWorker.CscsRecord record : cscsRecordList) {
+                                View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
+                                TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
+                                cscsText.setText(record.name + " - " + record.category.name);
+                                cscsRecordsLayout.addView(itemView);
+                            }
                         }
-                    }
-
-                    if (dataResponse.getResponse().cscsRecords.secondRecord != null) {
-                        for (CSCSCardWorker.CscsRecords.CscsRecord record : dataResponse.getResponse().cscsRecords.secondRecord) {
-                            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
-                            TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
-                            cscsText.setText(record.name + " - " + record.category.name);
-                            cscsRecordsLayout.addView(itemView);
-                        }
-                    }
-
-                    if (dataResponse.getResponse().cscsRecords.thirdRecord != null) {
-                        for (CSCSCardWorker.CscsRecords.CscsRecord record : dataResponse.getResponse().cscsRecords.thirdRecord) {
-                            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
-                            TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
-                            cscsText.setText(record.name + " - " + record.category.name);
-                            cscsRecordsLayout.addView(itemView);
-                        }
-                    }
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -491,11 +473,11 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     private void populateCscsStatus(int status) {
         if (status == VERIFICATION_VALID) {
-            cscsStatus.setText("VERIFIED");
+            cscsStatus.setText(R.string.worker_cscs_verified);
             cscsContent.setVisibility(View.VISIBLE);
             cscsStatus.setOnClickListener(null);
         } else {
-            cscsStatus.setText("NOT VERIFIED");
+            cscsStatus.setText(getString(R.string.worker_cscs_not_verified));
             cscsContent.setVisibility(View.GONE);
             cscsStatus.setOnClickListener(this);
         }

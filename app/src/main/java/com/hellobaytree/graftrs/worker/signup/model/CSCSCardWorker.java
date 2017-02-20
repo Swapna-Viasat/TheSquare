@@ -3,11 +3,9 @@ package com.hellobaytree.graftrs.worker.signup.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by juanmaggi on 3/9/16.
- */
 public class CSCSCardWorker implements Serializable {
 
     public int id;
@@ -25,25 +23,16 @@ public class CSCSCardWorker implements Serializable {
     @SerializedName("expiry_date")
     public String expiryDate;
     @SerializedName("cscs_records")
-    public CscsRecords cscsRecords;
+    public HashMap<String, List<CscsRecord>> cscsRecords;
 
-    public class CscsRecords implements Serializable {
-        @SerializedName("1")
-        public List<CscsRecord> firstRecord;
-        @SerializedName("2")
-        public List<CscsRecord> secondRecord;
-        @SerializedName("3")
-        public List<CscsRecord> thirdRecord;
+    public class CscsRecord implements Serializable {
+        public String id;
+        public String name;
+        public Category category;
 
-        public class CscsRecord implements Serializable {
-            public String id;
+        public class Category implements Serializable {
+            public int id;
             public String name;
-            public Category category;
-
-            public class Category implements Serializable {
-                public int id;
-                public String name;
-            }
         }
     }
 }
