@@ -550,6 +550,7 @@
     <string name="new_job_matches">New job matches</string>
     <string name="job_offers">Job offers</string>
     <string name="job_booking_decline">Job booking &amp; declines</string>
+    <string name="worker_change_name">Edit your name</string>
 
     <!-- Link to T&C -->
     <string name="link_tc">http://www.thesquareapp.com/terms</string>
