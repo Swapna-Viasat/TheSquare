@@ -14,8 +14,10 @@ import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,8 +62,14 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
         });
 
         try {
-            holder.salary.setText(String.valueOf("£ " + job.budget));
-            holder.salaryPeriod.setText("PER " + job.budgetType.name);
+            holder.salary.setText(String.valueOf("£" +
+                    String.valueOf(NumberFormat
+                            .getInstance(Locale.UK).format(Double.valueOf(job.budget)))));
+            if (null != job.budgetType) {
+                if (null != job.budgetType.name) {
+                    holder.salaryPeriod.setText("Per " + job.budgetType.name);
+                }
+            }
 
             Picasso.with(context)
                     .load(job.owner.picture)
@@ -73,7 +81,13 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
             holder.experience
                     .setText(String.format(context.getString(R.string.item_match_format_experience),
                             job.experience, context.getResources().getQuantityString(R.plurals.year_plural, job.experience)));
-            holder.location.setText(job.address);
+
+            if (null != job.company) {
+                if (null != job.company.postCode) {
+                    holder.location.setText(job.company.postCode);
+                }
+            }
+
             setLiked(job.liked, holder.likeImage);
             holder.likeImage.setOnClickListener(new View.OnClickListener() {
                 @Override

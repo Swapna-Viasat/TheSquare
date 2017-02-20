@@ -33,13 +33,15 @@ import com.hellobaytree.graftrs.worker.jobmatches.model.ApplicationStatus;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Created by Vadim Goroshevsky
- * Copyright (c) 2016 FusionWorks. All rights reserved.
  */
 
 public class JobDetailsFragment extends Fragment implements JobDetailsContract {
@@ -57,12 +59,16 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     @BindView(R.id.appliedHintView) TextView appliedHeaderView;
     @BindView(R.id.approvedHintView) View approvedHeaderView;
     @BindView(R.id.reportingToTextView) TextView reportingToTextView;
+    @BindView(R.id.reportingToPhoneTextView) TextView reportingToPhoneTextView;
+    @BindView(R.id.reportingToAddressTextView) TextView reportingToAddressTextView;
     @BindView(R.id.dateToArriveTextView) TextView dateToArriveTextView;
     @BindView(R.id.elseToNoteTextView) TextView elseToNoteTextView;
     @BindView(R.id.approvedHint) View approvedHintView;
     //
     @BindView(R.id.job_details_description) JosefinSansTextView description;
     @BindView(R.id.job_details_skills) JosefinSansTextView skills;
+    @BindView(R.id.job_details_english_level) JosefinSansTextView englishLevel;
+    @BindView(R.id.job_details_overtime) JosefinSansTextView overtime;
     @BindView(R.id.job_details_qualifications) JosefinSansTextView qualifications;
     @BindView(R.id.job_details_qualifications2) JosefinSansTextView qualifications2;
     @BindView(R.id.job_details_experience_types) JosefinSansTextView experienceTypes;
@@ -120,6 +126,9 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 if (null != currentJob.company.name) {
                     companyName.setText(currentJob.company.name);
                 }
+                if (null != currentJob.company.postCode) {
+                    workPlace.setText(currentJob.company.postCode);
+                }
             }
 
             if (currentJob.owner != null) {
@@ -135,16 +144,16 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             experienceYears.setText(String.format(getString(R.string.item_match_format_experience),
                     currentJob.experience, getResources().getQuantityString(R.plurals.year_plural, currentJob.experience)));
 
-            workPlace.setText(currentJob.address);
-            paymentRate.setText(getString(R.string.pound_sterling) + " " + String.valueOf(currentJob.budget));
+            paymentRate.setText(getString(R.string.pound_sterling) + String.valueOf(NumberFormat
+                    .getInstance(Locale.UK).format(Double.valueOf(currentJob.budget))));
 
             if (null != currentJob.budgetType) {
                 if (null != currentJob.budgetType.name) {
-                    paymentRatePer.setText("PER " + currentJob.budgetType.name);
+                    paymentRatePer.setText("Per " + currentJob.budgetType.name);
                 }
             }
 
-            jobId.setText("Job ID: " + currentJob.jobRef);
+            jobId.setText("Job ref ID: " + currentJob.jobRef);
 
             if (!TextUtils.isEmpty(currentJob.startTime)) {
                 startDate.setText(String.format(getString(R.string.item_match_format_starts),
@@ -154,10 +163,26 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             try {
                 description.setText(currentJob.description);
                 skills.setText(TextTools.toBulletList(currentJob.getSkillsList(), true));
-                qualifications.setText(TextTools.toBulletList(currentJob.getQualificationsList(), true));
+                qualifications2.setText(TextTools.toBulletList(currentJob.getQualificationsList(), true));
                 experienceTypes.setText(TextTools.toBulletList(currentJob.getExperienceTypesList(), true));
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+
+            String englishString = "Basic";
+            switch (currentJob.englishLevel) {
+                case 2:
+                    englishString = "Fluent";
+                    break;
+                case 3:
+                    englishString = "Native";
+                    break;
+            }
+            englishLevel.setText(englishString);
+
+            if (currentJob.payOvertime) {
+                overtime.setText(String.format(getString(R.string.job_details_overtime_text),
+                        (int) currentJob.payOvertimeValue));
             }
 
             if (getCurrentAppStatus() == ApplicationStatus.STATUS_APPROVED) {
@@ -165,13 +190,8 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 dateToArriveTextView.setText(DateUtils
                         .formatDateMonthDayAndTime(currentJob.startTime));
                 reportingToTextView.append(currentJob.contactName);
-                reportingToTextView.append("\n");
-                reportingToTextView.append(currentJob.contactPhone);
-
-                if (currentJob.company != null) {
-                    reportingToTextView.append("\n");
-                    reportingToTextView.append(currentJob.company.addressFirstLine);
-                }
+                reportingToPhoneTextView.append(currentJob.contactPhone);
+                reportingToAddressTextView.append(currentJob.address);
             }
 
             if (currentJob.status != null) {
