@@ -133,7 +133,7 @@ public class EditCscsDetailsDialog extends DialogFragment {
     }
 
     private void proceed(CSCSCardWorker cscsCardWorker) {
-        int cscsStatus = cscsCardWorker.getVerification_status();
+        int cscsStatus = cscsCardWorker.verificationStatus;
         if (listener != null) listener.onCscsUpdated(cscsStatus);
         this.dismiss();
     }

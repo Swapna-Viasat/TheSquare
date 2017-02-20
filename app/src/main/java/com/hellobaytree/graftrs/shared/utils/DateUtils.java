@@ -6,6 +6,7 @@ import com.hellobaytree.graftrs.GraftrsApplication;
 import com.hellobaytree.graftrs.R;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -174,6 +175,29 @@ public class DateUtils {
         try {
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
             return formatter.parseLocalDate(birthDate).toString("d MMMM yyyy");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static LocalDate getParsedLocalDate(String date) {
+        if (TextUtils.isEmpty(date)) return null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+            return formatter.parseLocalDate(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getCscsExpirationDate(String date) {
+        if (TextUtils.isEmpty(date)) return null;
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+            return formatter.parseLocalDate(date).toString("MMMM, yyyy");
         } catch (Exception e) {
             e.printStackTrace();
             return null;

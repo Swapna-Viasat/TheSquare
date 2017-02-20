@@ -3,7 +3,6 @@ package com.hellobaytree.graftrs.employer.myjobs.fragment;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,6 @@ import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
-import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
 
@@ -305,9 +303,9 @@ public class WorkerProfileFragment extends Fragment {
     private void populateCscs(ResponseObject<CSCSCardWorker> dataResponse) {
         if (dataResponse != null) {
 
-            String regnum = dataResponse.getResponse().getRegistration_number();
-            populateCscsStatus(dataResponse.getResponse().getVerification_status());
-            if (dataResponse.getResponse().getVerification_status() == 4 && !regnum.isEmpty()) {
+            String regnum = dataResponse.getResponse().registrationNumber;
+            populateCscsStatus(dataResponse.getResponse().verificationStatus);
+            if (dataResponse.getResponse().verificationStatus == 4 && !regnum.isEmpty()) {
                 final char ca[] = regnum.toCharArray();
                 ButterKnife.Setter<TextView, Boolean> ENABLED = new ButterKnife.Setter<TextView, Boolean>() {
                     @Override

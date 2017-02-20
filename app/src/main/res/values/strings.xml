@@ -652,6 +652,11 @@
     <string name="worker_account_leaderboards">Leaderboards</string>
     <string name="worker_account_timesheets">Timesheets &amp; Invoices</string>
     <string name="worker_passport_photo">Photo of passport</string>
+    <string name="worker_cscs_card">CSCS Card</string>
+    <string name="worker_cscs_not_verified">Not verified</string>
+    <string name="worker_cscs_reg_number">CSCS Card Registration Number</string>
+    <string name="worker_cscs_expires_ends">Expires Ends</string>
+    <string name="worker_cscs_record_category">Record - Category</string>
 
     <!-- Employer Account -->
     <string name="company_description">Company description</string>

@@ -14,7 +14,7 @@
             android:id="@+id/cscs_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CSCS Card"
+            android:text="@string/worker_cscs_card"
             android:textColor="@color/blackSquareColor" />
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
@@ -23,7 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="NOT VERIFIED"
+            android:text="@string/worker_cscs_not_verified"
+            android:textAllCaps="true"
             android:textSize="14sp" />
 
     </RelativeLayout>
@@ -45,7 +46,7 @@
             android:id="@+id/cscsCardRegLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CSCS Card Registration Number"
+            android:text="@string/worker_cscs_reg_number"
             android:textColor="@color/blackSquareColor"
             app:josefin_style="italic" />
 
@@ -71,7 +72,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:maxLength="1"
-                    android:text="1"
                     android:textColor="@color/blackSquareColor"
                     app:josefin_style="italic" />
 
@@ -94,7 +94,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:maxLength="1"
-                    android:text="1"
                     android:textColor="@color/blackSquareColor"
                     app:josefin_style="italic" />
 
@@ -117,7 +116,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:maxLength="1"
-                    android:text="1"
                     android:textColor="@color/blackSquareColor"
                     app:josefin_style="italic" />
 
@@ -140,7 +138,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:maxLength="1"
-                    android:text="1"
                     android:textColor="@color/blackSquareColor"
                     app:josefin_style="italic" />
 
@@ -163,7 +160,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:maxLength="1"
-                    android:text="1"
                     android:textColor="@color/blackSquareColor"
                     app:josefin_style="italic" />
 
@@ -186,7 +182,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:maxLength="1"
-                    android:text="1"
                     android:textColor="@color/blackSquareColor"
                     app:josefin_style="italic" />
 
@@ -209,7 +204,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:maxLength="1"
-                    android:text="1"
                     android:textColor="@color/blackSquareColor"
                     app:josefin_style="italic" />
 
@@ -232,7 +226,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:maxLength="1"
-                    android:text="1"
                     android:textColor="@color/blackSquareColor"
                     app:josefin_style="italic" />
 
@@ -251,9 +244,8 @@
             android:layout_below="@id/cscsNumberLayout"
             android:layout_marginBottom="14dp"
             android:layout_marginTop="14dp"
-            android:text="Expires"
+            android:text="@string/worker_cscs_expires_ends"
             android:textColor="@color/blackSquareColor"
-            android:visibility="gone"
             app:josefin_style="semiBold" />
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
@@ -262,10 +254,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cscs_expires"
-            android:text="24 Jan 2017"
-            android:textSize="14sp"
-            android:visibility="gone" />
+            android:textAllCaps="true"
+            android:textSize="14sp" />
 
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            android:id="@+id/recordCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cscs_expires_value"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="14dp"
+            android:text="@string/worker_cscs_record_category"
+            android:textColor="@color/blackSquareColor"
+            app:josefin_style="semiBold" />
+
+        <LinearLayout
+            android:id="@+id/cscsRecordsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recordCategory"
+            android:orientation="vertical" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -13,9 +13,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -36,7 +33,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
-import com.hellobaytree.graftrs.employer.createjob.adapter.ExperienceAdapter;
 import com.hellobaytree.graftrs.employer.createjob.persistence.GsonConfig;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
@@ -56,7 +52,6 @@ import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.onboarding.OnLanguagesSelectedListener;
-import com.hellobaytree.graftrs.worker.onboarding.adapter.FluencyAdapter;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
 
@@ -447,8 +442,8 @@ public class SelectExperienceFragment extends Fragment
     private void populate(ResponseObject<CSCSCardWorker> dataResponse) {
         surname.setText(lastname);
         surname.setEnabled(false);
-        String regnum = dataResponse.getResponse().getRegistration_number();
-        populateCscsStatus(dataResponse.getResponse().getVerification_status());
+        String regnum = dataResponse.getResponse().registrationNumber;
+        populateCscsStatus(dataResponse.getResponse().verificationStatus);
        if(!regnum.isEmpty()) {
            final char ca[] = regnum.toCharArray();
            ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
@@ -700,7 +695,7 @@ public class SelectExperienceFragment extends Fragment
                                                Response<ResponseObject<CSCSCardWorker>> response) {
                             if (response.isSuccessful()) {
                                 DialogBuilder.cancelDialog(dialog);
-                                cscsStatus = response.body().getResponse().getVerification_status();
+                                cscsStatus = response.body().getResponse().verificationStatus;
                                 populateCscsStatus(cscsStatus);
                             } else {
                                 HandleErrors.parseError(getContext(), dialog, response);
