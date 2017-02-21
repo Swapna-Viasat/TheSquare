@@ -92,6 +92,30 @@ public class JobMatchesFilterDialog extends DialogFragment implements View.OnCli
     public void onClick(View v) {
         if (v.getId() == R.id.closeImage) {
             setData();
+        } else if (v.getId() == R.id.bestPaidLayout) {
+            int viewIndex = Arrays.asList(optionLayouts).indexOf(v);
+            if (viewIndex > -1) {
+                updateOptionView(viewIndex);
+            }
+            setData();
+        } else if (v.getId() == R.id.startDateLayout) {
+            int viewIndex = Arrays.asList(optionLayouts).indexOf(v);
+            if (viewIndex > -1) {
+                updateOptionView(viewIndex);
+            }
+            setData();
+        } else if (v.getId() == R.id.nearestMeLayout) {
+            int viewIndex = Arrays.asList(optionLayouts).indexOf(v);
+            if (viewIndex > -1) {
+                updateOptionView(viewIndex);
+            }
+            setData();
+        } else if (v.getId() == R.id.bestEmployersLayout) {
+            int viewIndex = Arrays.asList(optionLayouts).indexOf(v);
+            if (viewIndex > -1) {
+                updateOptionView(viewIndex);
+            }
+            setData();
         } else {
             LinearLayout option = (LinearLayout) v;
             int viewIndex = Arrays.asList(optionLayouts).indexOf(option);
