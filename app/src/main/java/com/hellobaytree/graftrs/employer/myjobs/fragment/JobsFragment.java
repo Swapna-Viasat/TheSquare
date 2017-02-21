@@ -162,6 +162,20 @@ public class JobsFragment extends Fragment
             result.contactCountryCode = job.contactCountryCode;
             result.contactPhoneNumber = job.contactPhoneNumber;
             result.address = job.address;
+            result.description = job.description;
+            result.english = job.english;
+            result.overtime = job.payOvertime;
+            result.overtimeValue = job.overtimeRate;
+            String englishString = "Basic";
+            switch (job.english) {
+                case 2:
+                    englishString = "Fluent";
+                    break;
+                case 3:
+                    englishString = "Native";
+                    break;
+            }
+            result.englishLevelString = englishString;
 
             /**
              * Loading Trades!
@@ -214,6 +228,11 @@ public class JobsFragment extends Fragment
             }
 
             /**
+             * Loading experience.
+             */
+            // TODO: what happened with experience qualifications ???
+
+            /**
              * Loading experience types!
              */
             if (null != job.experienceTypes) {
@@ -230,6 +249,9 @@ public class JobsFragment extends Fragment
                 }
             }
 
+            /**
+             * Loading logo.
+             */
             if (null != job.owner) {
                 if (null != job.owner.picture) {
                     result.logo = job.owner.picture;
@@ -247,6 +269,11 @@ public class JobsFragment extends Fragment
                     calendar.get(Calendar.MINUTE) + ":" + "00";
             result.date = startDate;
             result.time = startTime;
+
+            /**
+             *
+             */
+
             //
             return result;
         } catch (Exception e) {

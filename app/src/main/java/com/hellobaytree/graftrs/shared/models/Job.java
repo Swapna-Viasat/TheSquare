@@ -27,7 +27,7 @@ public class Job implements Serializable {
     @SerializedName("start_datetime") public String start;
     @SerializedName("budget_type") public BudgetType budgetType;
     @SerializedName("pay_overtime") public boolean payOvertime;
-    @SerializedName("pay_overtime_value") public String overtimeRate;
+    @SerializedName("pay_overtime_value") public int overtimeRate;
     @SerializedName("english_level") public int english;
     @SerializedName("contact_name") public String contactName;
     @SerializedName("contact_phone") public String contactPhone;

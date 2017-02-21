@@ -75,6 +75,7 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
     private EditText selectedEditText;
     private String verificationCode;
     private static final int REQUEST_SMS = 1;
+    public static final long WAIT_DELAY = 3000;
     private SmsInterceptor smsInterceptor;
     private Dialog dialog;
     private Handler handler;
@@ -400,7 +401,7 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_SMS)
                 == PackageManager.PERMISSION_GRANTED) {
             dialog = DialogBuilder.showCustomDialog(getContext());
-            handler.postDelayed(cancelDialogRunnable, 10000);
+            handler.postDelayed(cancelDialogRunnable, WAIT_DELAY);
             enableBroadcastReceiver();
         } else {
             requestPermissions(new String[]{Manifest.permission.READ_SMS}, REQUEST_SMS);

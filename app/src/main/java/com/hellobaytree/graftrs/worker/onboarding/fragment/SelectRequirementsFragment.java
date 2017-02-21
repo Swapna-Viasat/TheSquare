@@ -29,6 +29,7 @@ import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.onboarding.adapter.ExperienceAdapter;
 
@@ -194,6 +195,7 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
     @Override
     public void onPause() {
         persistProgress();
+        KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
 

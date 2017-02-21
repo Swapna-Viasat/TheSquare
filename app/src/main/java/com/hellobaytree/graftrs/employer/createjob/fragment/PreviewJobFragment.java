@@ -268,6 +268,10 @@ public class PreviewJobFragment extends Fragment {
             if (null != createRequest.englishLevelString) {
                 englishLevel.setText(createRequest.englishLevelString);
             }
+            // description
+            if (null != createRequest.description) {
+                description.setText(createRequest.description);
+            }
 
             startDate.setText(createRequest.date);
 
@@ -303,7 +307,8 @@ public class PreviewJobFragment extends Fragment {
             payload.put("experience", createRequest.experience);
             payload.put("english_level_id", createRequest.english);
             payload.put("qualifications", createRequest.qualifications);
-            payload.put("skills", createRequest.experienceTypes);
+            payload.put("experience_qualifications", createRequest.expQualifications);
+            payload.put("skills", createRequest.skills);
             payload.put("experience_type", createRequest.experienceTypes);
             payload.put("description", createRequest.description);
             payload.put("budget_type", createRequest.budgetType);

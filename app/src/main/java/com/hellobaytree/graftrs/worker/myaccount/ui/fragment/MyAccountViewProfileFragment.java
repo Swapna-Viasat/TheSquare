@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -163,6 +164,12 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     @BindView(R.id.worker_profile_passport_value)
     ImageView passportImage;
+
+    @BindView(R.id.cscs_expires_value)
+    TextView cscsExpirationView;
+
+    @BindView(R.id.cscsRecordsLayout)
+    LinearLayout cscsRecordsLayout;
 
     //nationality, date of birth, languages spoken, nis, photo of passport
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -408,9 +415,9 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     private void populateCscs(ResponseObject<CSCSCardWorker> dataResponse) {
         if (dataResponse != null) {
 
-            String regnum = dataResponse.getResponse().getRegistration_number();
-            populateCscsStatus(dataResponse.getResponse().getVerification_status());
-            if (dataResponse.getResponse().getVerification_status() == 4 && !regnum.isEmpty()) {
+            String regnum = dataResponse.getResponse().registrationNumber;
+            populateCscsStatus(dataResponse.getResponse().verificationStatus);
+            if (dataResponse.getResponse().verificationStatus == 4 && !regnum.isEmpty()) {
                 final char ca[] = regnum.toCharArray();
                 ButterKnife.Setter<TextView, Boolean> ENABLED = new ButterKnife.Setter<TextView, Boolean>() {
                     @Override
@@ -443,6 +450,42 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                 Picasso.with(getContext())
                         .load(HttpRestServiceConsumer.getApiRoot() + dataResponse.getResponse().cardPicture)
                         .fit().centerCrop().into(cscsImage);
+
+            cscsExpirationView.setText(DateUtils.getCscsExpirationDate(dataResponse.getResponse().expiryDate));
+
+            try {
+                if (dataResponse.getResponse().cscsRecords != null) {
+                    if (dataResponse.getResponse().cscsRecords.firstRecord != null) {
+                        for (CSCSCardWorker.CscsRecords.CscsRecord record : dataResponse.getResponse().cscsRecords.firstRecord) {
+                            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
+                            TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
+                            cscsText.setText(record.name + " - " + record.category.name);
+                            cscsRecordsLayout.addView(itemView);
+                        }
+                    }
+
+                    if (dataResponse.getResponse().cscsRecords.secondRecord != null) {
+                        for (CSCSCardWorker.CscsRecords.CscsRecord record : dataResponse.getResponse().cscsRecords.secondRecord) {
+                            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
+                            TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
+                            cscsText.setText(record.name + " - " + record.category.name);
+                            cscsRecordsLayout.addView(itemView);
+                        }
+                    }
+
+                    if (dataResponse.getResponse().cscsRecords.thirdRecord != null) {
+                        for (CSCSCardWorker.CscsRecords.CscsRecord record : dataResponse.getResponse().cscsRecords.thirdRecord) {
+                            View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
+                            TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
+                            cscsText.setText(record.name + " - " + record.category.name);
+                            cscsRecordsLayout.addView(itemView);
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

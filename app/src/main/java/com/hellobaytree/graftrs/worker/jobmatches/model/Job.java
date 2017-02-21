@@ -118,6 +118,7 @@ public class Job implements Serializable {
         public int owner;
         public String name;
         public String logo;
+        @SerializedName("post_code") public String postCode;
         @SerializedName("address_line1")
         public String addressFirstLine;
         @SerializedName("address_line2")

@@ -344,7 +344,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <!-- Experience Types -->
+            <!-- Overtime -->
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_overtime"
                 android:id="@+id/job_details_overtime_label"
