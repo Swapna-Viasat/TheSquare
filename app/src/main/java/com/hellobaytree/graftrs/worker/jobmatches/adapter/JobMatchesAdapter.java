@@ -71,11 +71,19 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
                 }
             }
 
-            Picasso.with(context)
-                    .load(job.owner.picture)
-                    .fit()
-                    .centerCrop()
-                    .into(holder.logo);
+            if (null != job.owner) {
+                if (null != job.owner.picture) {
+                    holder.logo.setVisibility(View.VISIBLE);
+                    holder.companyName.setVisibility(View.GONE);
+                    Picasso.with(context)
+                            .load(job.owner.picture)
+                            .fit()
+                            .into(holder.logo);
+                } else {
+                    holder.logo.setVisibility(View.GONE);
+                    holder.companyName.setVisibility(View.VISIBLE);
+                }
+            }
 
             holder.occupation.setText(job.role.name);
             holder.experience
