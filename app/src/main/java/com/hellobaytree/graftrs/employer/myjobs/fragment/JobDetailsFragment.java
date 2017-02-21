@@ -386,7 +386,9 @@ public class JobDetailsFragment extends Fragment
     private void populate(Job job) {
 
         setupViewMore(job);
-        setupEditing(job);
+        if (job.isEditable) {
+            setupEditing(job);
+        }
 
         if (job.status.id == Job.TAB_LIVE) {
             viewPager.setVisibility(View.VISIBLE);

@@ -67,10 +67,15 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
         if (null != job.owner) {
             if (null != job.owner.picture) {
+                holder.logo.setVisibility(View.VISIBLE);
+                holder.companyName.setVisibility(View.GONE);
                 Picasso.with(holder.itemView.getContext())
                         .load(job.owner.picture)
                         .fit()
                         .into(holder.logo);
+            } else {
+                holder.logo.setVisibility(View.GONE);
+                holder.companyName.setVisibility(View.VISIBLE);
             }
         }
 
