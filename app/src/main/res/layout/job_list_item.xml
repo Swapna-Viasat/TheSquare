@@ -12,16 +12,17 @@
         android:textSize="12sp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="6dp"
         app:josefin_style="italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <!-- Company Logo -->
     <ImageView
         android:background="@color/black_overlay"
         android:id="@+id/companyLogo"
         android:layout_width="78dp"
         android:layout_height="42dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
 
@@ -37,6 +38,7 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
 
+            <!-- Role and Years of Experience -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,6 +65,7 @@
 
             </LinearLayout>
 
+            <!-- Salary rate and period -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
