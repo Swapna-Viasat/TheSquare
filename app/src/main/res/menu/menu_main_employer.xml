@@ -16,6 +16,10 @@
             android:icon="@drawable/ic_account_circle_black_24dp"
             android:title="@string/menu_employer_my_account" />
         <item
+            android:id="@+id/nav_employer_subscription"
+            android:icon="@drawable/ic_payment_black_24dp"
+            android:title="@string/employer_account_price_plan"/>
+        <item
             android:visible="false"
             android:id="@+id/nav_employer_edit_profile"
             android:icon="@drawable/ic_chat_black_24dp"
