@@ -561,7 +561,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
         switch (item.getItemId()) {
             case R.id.createJobCancel:
                 AlertDialog dialog = new AlertDialog.Builder(getContext())
-                        .setMessage("Are you sure you want to delete this job?")
+                        .setMessage("Are you sure you want to exit?")
                         .setNegativeButton("Save as draft", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -577,7 +577,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                                 getActivity().finish();
                             }
                         })
-                        .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+                        .setNeutralButton("Exit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
