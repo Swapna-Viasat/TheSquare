@@ -149,6 +149,8 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
 
         request = (CreateRequest) getArguments().getSerializable("request");
 
+        TextTools.log(TAG, request.location.toString());
+
         selectedRole = request.roleObject;
 
         overtimeSwitch.setChecked(false);

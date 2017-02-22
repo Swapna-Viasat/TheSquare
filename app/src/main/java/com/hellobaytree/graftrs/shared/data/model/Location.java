@@ -33,6 +33,11 @@ public class Location implements Parcelable, Serializable {
         out.writeDouble(longitude);
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(latitude) + " " + String.valueOf(longitude);
+    }
+
     public Location() {}
 
     private Location(Parcel in) {

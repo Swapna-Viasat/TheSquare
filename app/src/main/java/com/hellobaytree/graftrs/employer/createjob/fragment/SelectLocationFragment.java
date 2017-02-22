@@ -167,7 +167,19 @@ public class SelectLocationFragment extends Fragment
         persistProgress();
     }
     private void persistProgress() {
-        request.location = centerMapLocation;
+        Location pickedLocation = new Location();
+        if (null != googleMap) {
+            TextTools.log(TAG, "google map not null");
+            pickedLocation.latitude = googleMap.getCameraPosition().target.latitude;
+            TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.latitude));
+            pickedLocation.longitude = googleMap.getCameraPosition().target.longitude;
+            TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.longitude));
+        } else {
+            TextTools.log(TAG, "google map is null");
+        }
+        // request.location = centerMapLocation;
+        request.location = pickedLocation;
+        TextTools.log(TAG, request.location.toString());
         request.locationName = filter.getText().toString();
 
         getActivity().getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
@@ -223,11 +235,17 @@ public class SelectLocationFragment extends Fragment
     public void next() {
         Location pickedLocation = new Location();
         if (null != googleMap) {
+            TextTools.log(TAG, "google map not null");
             pickedLocation.latitude = googleMap.getCameraPosition().target.latitude;
+            TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.latitude));
             pickedLocation.longitude = googleMap.getCameraPosition().target.longitude;
+            TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.longitude));
+        } else {
+            TextTools.log(TAG, "google map is null");
         }
         // request.location = centerMapLocation;
-        request.location = pickedLocation; 
+        request.location = pickedLocation;
+        TextTools.log(TAG, request.location.toString());
         request.locationName = filter.getText().toString();
 
         getActivity().getSupportFragmentManager()
