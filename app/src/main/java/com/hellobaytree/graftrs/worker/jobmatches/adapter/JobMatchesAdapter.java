@@ -1,6 +1,8 @@
 package com.hellobaytree.graftrs.worker.jobmatches.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -52,7 +55,7 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
         return new JobHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_match, parent, false));
     }
 
-    public void onBindViewHolder(JobHolder holder, int position) {
+    public void onBindViewHolder(final JobHolder holder, int position) {
         final Job job = data.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

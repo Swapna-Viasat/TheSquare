@@ -76,10 +76,9 @@
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/job_item_payment_rate_per"
                     style="@style/body_red_text"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="P/Y"
                     android:textColor="@color/redSquareColor"
                     app:josefin_style="light" />
 
@@ -88,7 +87,6 @@
                     style="@style/title_red_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="&#163; 165"
                     app:josefin_style="light" />
             </LinearLayout>
 
