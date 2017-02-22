@@ -145,12 +145,30 @@
                     android:layout_margin="14dp"
                     android:id="@+id/delete_draft"
                     android:visibility="gone"
+                    android:layout_below="@+id/sal"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/ic_trash"
                     android:backgroundTint="@color/redSquareColor"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
+
+                <!-- Cancel Button -->
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:padding="4dp"
+                    android:visibility="gone"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:id="@+id/cancel_job"
+                    android:layout_below="@+id/toggle_edit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Cancel"
+                    android:layout_margin="14dp"
+                    android:background="@color/redSquareColor"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <!-- Awarded to -->
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView

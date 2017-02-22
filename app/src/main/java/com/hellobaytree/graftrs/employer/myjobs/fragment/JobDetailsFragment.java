@@ -53,6 +53,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -383,9 +384,51 @@ public class JobDetailsFragment extends Fragment
                 });
     }
 
-    private void populate(Job job) {
+    private void cancel(int id) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .cancelJob(id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+                            Intent intent = new Intent(getActivity(), MainEmployerActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            getActivity().finish();
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+    }
+
+    private void populate(final Job job) {
 
         setupViewMore(job);
+
+        try {
+            getView().findViewById(R.id.cancel_job).setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.cancel_job)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            cancel(job.id);
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (job.isEditable) {
             setupEditing(job);
         }

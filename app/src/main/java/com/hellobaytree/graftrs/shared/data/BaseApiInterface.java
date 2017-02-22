@@ -223,6 +223,9 @@ public interface BaseApiInterface {
     @POST("/jobs/")
     Call<ResponseObject<Job>> createJob(@Body HashMap<String, Object> createJobRequest);
 
+    @POST("/jobs/{pk}/cancel/")
+    Call<ResponseBody> cancelJob(@Path("pk") int jobId);
+
     @GET("/jobs/{pk}/")
     Call<ResponseObject<com.hellobaytree.graftrs.worker.jobmatches.model.Job>>
     fetchSingleJob(@Path("pk") int jobId);

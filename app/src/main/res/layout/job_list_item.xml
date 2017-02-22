@@ -67,6 +67,7 @@
 
             <!-- Salary rate and period -->
             <LinearLayout
+                android:id="@+id/salary_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

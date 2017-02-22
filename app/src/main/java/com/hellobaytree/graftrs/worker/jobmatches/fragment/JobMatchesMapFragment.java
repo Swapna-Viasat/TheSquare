@@ -318,7 +318,7 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
                         }
                     }
                     ((JosefinSansTextView) view.findViewById(R.id.salary))
-                            .setText(context.getString(R.string.pound_sterling) + " " + 
+                            .setText(context.getString(R.string.pound_sterling) + " " +
                                     String.valueOf(job.budget));
                     ((JosefinSansTextView) view.findViewById(R.id.job_id))
                             .setText(String.valueOf(job.jobRef));
