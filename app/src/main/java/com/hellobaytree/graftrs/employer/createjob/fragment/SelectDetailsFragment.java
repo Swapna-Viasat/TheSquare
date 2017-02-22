@@ -61,8 +61,10 @@ import com.hellobaytree.graftrs.shared.view.widget.YearRateSeekBar;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -253,8 +255,26 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
             payload.put("trades", request.trades);
             payload.put("experience", request.experience);
             payload.put("english_level_id", request.english);
-            payload.put("experience_qualifications", request.expQualifications);
-            payload.put("qualifications", request.qualifications);
+            // beginning of wow
+            int[] quals = new int[request.expQualifications.length +
+                    request.qualifications.length];
+            List<Integer> reqs = new ArrayList<>();
+            for (int i = 0; i < request.expQualifications.length; i++) {
+                reqs.add(request.expQualifications[i]);
+            }
+            List<Integer> qual = new ArrayList<>();
+            for (int i = 0; i < request.qualifications.length; i++) {
+                qual.add(request.qualifications[i]);
+            }
+            List<Integer> combined = new ArrayList<>();
+            combined.addAll(reqs); combined.addAll(qual);
+            for (int i = 0; i < combined.size(); i++) {
+                quals[i] = combined.get(i);
+            }
+            payload.put("qualifications", quals);
+            // payload.put("experience_qualifications", request.expQualifications);
+            // payload.put("qualifications", request.qualifications);
+            // end of wow
             payload.put("skills", request.skills);
             payload.put("experience_type", request.experienceTypes);
             payload.put("description", request.description);

@@ -35,6 +35,7 @@ import com.hellobaytree.graftrs.employer.createjob.listener.PlacesAutocompleteLi
 import com.hellobaytree.graftrs.employer.createjob.persistence.GsonConfig;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.ZipCodeVerifier;
+import com.hellobaytree.graftrs.shared.data.model.Location;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.data.model.ZipResponse;
 import com.hellobaytree.graftrs.shared.models.Employer;
@@ -220,7 +221,13 @@ public class SelectLocationFragment extends Fragment
 
     @OnClick(R.id.next)
     public void next() {
-        request.location = centerMapLocation;
+        Location pickedLocation = new Location();
+        if (null != googleMap) {
+            pickedLocation.latitude = googleMap.getCameraPosition().target.latitude;
+            pickedLocation.longitude = googleMap.getCameraPosition().target.longitude;
+        }
+        // request.location = centerMapLocation;
+        request.location = pickedLocation; 
         request.locationName = filter.getText().toString();
 
         getActivity().getSupportFragmentManager()
