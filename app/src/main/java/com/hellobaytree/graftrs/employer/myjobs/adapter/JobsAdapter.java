@@ -116,7 +116,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         // statuses
         if (job.status.id == Job.TAB_LIVE) {
             bindLive(holder, job);
-        } else if (job.status.id == Job.TAB_OLD){
+        } else if (job.status.id == Job.TAB_OLD || job.status.id == 4){
             bindOld(holder, job);
         } else {
             bindDraft(holder, job);
@@ -138,6 +138,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
     public class JobHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item_match_start_location) FrameLayout startLocationFrame;
+        @BindView(R.id.banner_cancelled) ImageView cancelled;
 
         @BindView(R.id.item_job_location) JosefinSansTextView location;
         @BindView(R.id.item_job_occupation) JosefinSansTextView occupation;
@@ -174,6 +175,13 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
     }
 
     public void bindOld(JobHolder holder, final Job job) {
+
+        if (job.status.id == 4) {
+            holder.cancelled.setVisibility(View.VISIBLE);
+        } else {
+            holder.cancelled.setVisibility(View.GONE);
+        }
+
         holder.actions.setVisibility(View.VISIBLE);
         holder.action.setText(holder.itemView
                 .getContext().getString(R.string.employer_jobs_republish));
