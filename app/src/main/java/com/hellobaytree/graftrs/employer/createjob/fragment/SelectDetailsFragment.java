@@ -575,6 +575,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                                 dialogInterface.dismiss();
                                 unfinished = false;
                                 getActivity().finish();
+                                getActivity().startActivity(new Intent(getActivity(), MainEmployerActivity.class));
                             }
                         })
                         .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
