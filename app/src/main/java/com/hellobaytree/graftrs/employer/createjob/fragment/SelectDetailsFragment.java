@@ -569,7 +569,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                                 callApi(Constants.JOB_STATUS_DRAFT);
                             }
                         })
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
@@ -577,7 +577,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                                 getActivity().finish();
                             }
                         })
-                        .setNeutralButton("Exit", new DialogInterface.OnClickListener() {
+                        .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();

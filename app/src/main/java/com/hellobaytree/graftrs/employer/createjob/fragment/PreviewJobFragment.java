@@ -363,14 +363,14 @@ public class PreviewJobFragment extends Fragment {
                                 callApi(Constants.JOB_STATUS_DRAFT);
                             }
                         })
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
                                 discard();
                             }
                         })
-                        .setNeutralButton("Exit", new DialogInterface.OnClickListener() {
+                        .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
