@@ -40,6 +40,7 @@ import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager
 import com.hellobaytree.graftrs.shared.models.Company;
 import com.hellobaytree.graftrs.shared.models.Language;
 import com.hellobaytree.graftrs.shared.models.Qualification;
+import com.hellobaytree.graftrs.shared.models.Role;
 import com.hellobaytree.graftrs.shared.models.Skill;
 import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
@@ -111,7 +112,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             R.id.worker_profile_requirements_edit,
             R.id.worker_profile_nationality_edit,
             R.id.worker_profile_birthday_edit,
-            R.id.worker_profile_languages_edit,
+            R.id.worker_profile_email_edit,
             R.id.worker_profile_nis_edit,
             R.id.worker_profile_passport_edit
     })
@@ -119,6 +120,9 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     @BindViews({R.id.cscs1, R.id.cscs2, R.id.cscs3, R.id.cscs4, R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8})
     List<TextView> cscsNumbers;
+
+    @BindViews({R.id.nis1, R.id.nis2, R.id.nis3, R.id.nis4, R.id.nis5, R.id.nis6, R.id.nis7, R.id.nis8, R.id.nis9})
+    List<TextView> nisNumbers;
 
     @BindView(R.id.workerImage)
     ImageView cscsImage;
@@ -159,9 +163,6 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     @BindView(R.id.worker_profile_languages_value)
     TextView languagesView;
 
-    @BindView(R.id.worker_profile_nis_value)
-    TextView nisView;
-
     @BindView(R.id.worker_profile_passport_value)
     ImageView passportImage;
 
@@ -170,6 +171,15 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     @BindView(R.id.cscsRecordsLayout)
     LinearLayout cscsRecordsLayout;
+
+    @BindView(R.id.worker_profile_email)
+    TextView workerEmail;
+
+    @BindView(R.id.worker_profile_phone)
+    TextView workerPhone;
+
+    @BindView(R.id.worker_profile_english_value)
+    TextView englishLevel;
 
     //nationality, date of birth, languages spoken, nis, photo of passport
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -251,11 +261,13 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             fillWorkerBio();
             fillLocationName();
             initMap();
+            fillNiNumber();
             if (worker.nationality != null)
                 nationalityView.setText(worker.nationality.name);
-            dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
-            nisView.setText(worker.niNumber);
-
+            dateOfBirthView.setText(worker.dateOfBirth);
+            workerEmail.setText(worker.email);
+            workerPhone.setText(SharedPreferencesManager.getInstance(getContext()).loadSessionInfoWorker().getPhoneNumber());
+            englishLevel.setText(worker.englishLevel.name);
             if (worker.passportUpload != null)
                 Picasso.with(getContext())
                         .load(worker.passportUpload)
@@ -266,6 +278,40 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                 for (Language l : worker.languages) languageNames.add(l.name);
                 languagesView.setText(TextTools.toBulletList(languageNames, true));
             }
+        }
+    }
+
+    private void fillNiNumber() {
+        if (worker != null && !TextUtils.isEmpty(worker.niNumber)) {
+
+            final char ni[] = worker.niNumber.toCharArray();
+            ButterKnife.Setter<TextView, Boolean> ENABLED = new ButterKnife.Setter<TextView, Boolean>() {
+                @Override
+                public void set(TextView view, Boolean value, int index) {
+
+                    switch (view.getId()) {
+                        case R.id.nis1:
+                            nisNumbers.get(0).setText(Character.toString(ni[0]));
+                        case R.id.nis2:
+                            nisNumbers.get(1).setText(Character.toString(ni[1]));
+                        case R.id.nis3:
+                            nisNumbers.get(2).setText(Character.toString(ni[2]));
+                        case R.id.nis4:
+                            nisNumbers.get(3).setText(Character.toString(ni[3]));
+                        case R.id.nis5:
+                            nisNumbers.get(4).setText(Character.toString(ni[4]));
+                        case R.id.nis6:
+                            nisNumbers.get(5).setText(Character.toString(ni[5]));
+                        case R.id.nis7:
+                            nisNumbers.get(6).setText(Character.toString(ni[6]));
+                        case R.id.nis8:
+                            nisNumbers.get(7).setText(Character.toString(ni[7]));
+                        case R.id.nis9:
+                            nisNumbers.get(8).setText(Character.toString(ni[8]));
+                    }
+                }
+            };
+            ButterKnife.apply(nisNumbers, ENABLED, true);
         }
     }
 
@@ -285,9 +331,13 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     }
 
     private void fillWorkerPosition() {
-        String role = "";
-        if (!CollectionUtils.isEmpty(worker.roles)) role = worker.roles.get(0).name;
-        positionView.setText(role);
+        List<String> stringRoles = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(worker.roles)) {
+            for (Role role : worker.roles) {
+                stringRoles.add(role.name);
+            }
+        }
+        positionView.setText(TextUtils.join("\n", stringRoles));
 
         String positionString = getString(R.string.role_year_experience, worker.yearsExperience,
                 getResources().getQuantityString(R.plurals.year_plural, worker.yearsExperience));
@@ -493,21 +543,21 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                     tempBio = string;
                     bioView.setText(string);
                 }
-                patchWorker();
+                HashMap<String, Object> params = new HashMap<>();
+                params.put("bio", tempBio);
+                params.put("years_experience", experienceYears);
+                patchWorker(params);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void patchWorker() {
+    private void patchWorker(HashMap<String, Object> payload) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("bio", tempBio);
-        params.put("years_experience", experienceYears);
         if (worker != null) {
             HttpRestServiceConsumer.getBaseApiClient()
-                    .patchWorker(worker.id, params)
+                    .patchWorker(worker.id, payload)
                     .enqueue(new Callback<ResponseObject<Worker>>() {
                         @Override
                         public void onResponse(Call<ResponseObject<Worker>> call, Response<ResponseObject<Worker>> response) {
@@ -583,11 +633,27 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     @OnClick({R.id.worker_profile_nationality_edit,
             R.id.worker_profile_birthday_edit,
-            R.id.worker_profile_languages_edit,
             R.id.worker_profile_nis_edit,
             R.id.worker_profile_passport_edit})
     void openExperienceFragment() {
         editProfile(Constants.KEY_ONBOARDING_EXPERIENCE);
+    }
+
+    @OnClick(R.id.worker_profile_email_edit)
+    void editEmail() {
+        EditAccountDetailsDialog.newInstance("Email", workerEmail.getText().toString(), false,
+                new EditAccountDetailsDialog.InputFinishedListener() {
+                    @Override
+                    public void onDone(String input, boolean onlyDigits) {
+                        if (TextTools.isEmailValid(input)) {
+
+                            HashMap<String, Object> payload = new HashMap<>();
+                            payload.put("email", input);
+                            patchWorker(payload);
+                        } else
+                            DialogBuilder.showStandardDialog(getContext(), "", getString(R.string.validate_email));
+                    }
+                }).show(getFragmentManager(), "");
     }
 
     @Override
