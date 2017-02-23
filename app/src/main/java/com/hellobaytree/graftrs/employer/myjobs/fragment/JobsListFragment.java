@@ -152,8 +152,12 @@ public class JobsListFragment extends Fragment
         //
         data.clear();
         for (Job job : jobs) {
-            if (job.status.id == getArguments().getInt(Constants.KEY_EMPLOYER_JOB_TAB) ||
-                    job.status.id == 4) {
+            if (job.status.id == getArguments().getInt(Constants.KEY_EMPLOYER_JOB_TAB)) {
+                if (getArguments().getInt(Constants.KEY_EMPLOYER_JOB_TAB) == 3) {
+                    if (job.status.id == 4) {
+                        data.add(job);
+                    }
+                }
                 data.add(job);
             }
         }
