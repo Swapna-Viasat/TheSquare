@@ -115,11 +115,11 @@ public class SelectCompaniesFragment extends Fragment
             data.clear();
             data.addAll(companies);
 
-            adapter = new CompanyAdapter(data);
-            adapter.setListener(this);
-
             filtered.clear();
             filtered.addAll(data);
+
+            adapter = new CompanyAdapter(filtered);
+            adapter.setListener(this);
 
             list.setLayoutManager(new LinearLayoutManager(getContext()));
             list.setAdapter(adapter);
