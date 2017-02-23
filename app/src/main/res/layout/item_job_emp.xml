@@ -20,6 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/banner_cancelled"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:background="@drawable/banner_cancelled"
+                android:layout_width="300dp"
+                android:layout_height="100dp" />
+
             <!-- Top Block -->
             <RelativeLayout
                 android:id="@+id/item_match_job"
@@ -33,7 +41,6 @@
                     android:textSize="12sp"
                     android:layout_marginTop="14dp"
                     android:layout_marginLeft="14dp"
-                    android:layout_marginBottom="6dp"
                     app:josefin_style="italic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -58,6 +65,7 @@
 
                 <!-- Company Logo -->
                 <ImageView
+                    android:layout_marginTop="14dp"
                     android:scaleType="centerCrop"
                     android:layout_below="@+id/item_job_company_name"
                     android:background="@color/black_overlay"
@@ -99,7 +107,7 @@
                 <!-- Salary-->
                 <LinearLayout
                     android:id="@+id/sal"
-                    android:layout_below="@+id/item_job_company_name"
+                    android:layout_below="@+id/view_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -145,12 +153,30 @@
                     android:layout_margin="14dp"
                     android:id="@+id/delete_draft"
                     android:visibility="gone"
+                    android:layout_below="@+id/sal"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/ic_trash"
                     android:backgroundTint="@color/redSquareColor"
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
+
+                <!-- Cancel Button -->
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:padding="4dp"
+                    android:visibility="gone"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:id="@+id/cancel_job"
+                    android:layout_below="@+id/toggle_edit"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Cancel"
+                    android:layout_margin="14dp"
+                    android:background="@color/redSquareColor"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <!-- Awarded to -->
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView

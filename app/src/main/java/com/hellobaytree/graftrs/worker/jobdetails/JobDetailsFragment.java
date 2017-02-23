@@ -132,9 +132,16 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             }
 
             if (currentJob.owner != null) {
-                Picasso.with(getActivity())
-                        .load(currentJob.owner.picture)
-                        .fit().centerCrop().into(companyLogo);
+                if (null != currentJob.owner.picture) {
+                    companyName.setVisibility(View.GONE);
+                    companyLogo.setVisibility(View.VISIBLE);
+                    Picasso.with(getActivity())
+                            .load(currentJob.owner.picture)
+                            .fit().centerCrop().into(companyLogo);
+                } else {
+                    companyLogo.setVisibility(View.GONE);
+                    companyName.setVisibility(View.VISIBLE);
+                }
             }
 
             if (currentJob.role != null) {

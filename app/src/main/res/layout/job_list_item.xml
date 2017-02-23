@@ -12,16 +12,17 @@
         android:textSize="12sp"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="6dp"
         app:josefin_style="italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <!-- Company Logo -->
     <ImageView
         android:background="@color/black_overlay"
         android:id="@+id/companyLogo"
         android:layout_width="78dp"
         android:layout_height="42dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
 
@@ -37,6 +38,7 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
 
+            <!-- Role and Years of Experience -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,7 +65,9 @@
 
             </LinearLayout>
 
+            <!-- Salary rate and period -->
             <LinearLayout
+                android:id="@+id/salary_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -73,10 +77,9 @@
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/job_item_payment_rate_per"
                     style="@style/body_red_text"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
-                    android:text="P/Y"
                     android:textColor="@color/redSquareColor"
                     app:josefin_style="light" />
 
@@ -85,7 +88,6 @@
                     style="@style/title_red_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="&#163; 165"
                     app:josefin_style="light" />
             </LinearLayout>
 

@@ -32,13 +32,13 @@
                     android:textSize="12sp"
                     android:layout_marginTop="14dp"
                     android:layout_marginLeft="14dp"
-                    android:layout_marginBottom="6dp"
                     app:josefin_style="italic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <!-- Company Logo -->
                 <ImageView
+                    android:layout_marginTop="14dp"
                     android:layout_below="@+id/item_job_company_name"
                     android:background="@color/black_overlay"
                     android:id="@+id/item_job_logo"

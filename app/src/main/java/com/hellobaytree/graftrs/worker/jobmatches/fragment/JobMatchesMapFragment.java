@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -38,6 +40,7 @@ import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
+import com.hellobaytree.graftrs.worker.jobdetails.JobDetailActivity;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.hellobaytree.graftrs.worker.myaccount.ui.activity.MyAccountViewProfileActivity;
 import com.squareup.picasso.Picasso;
@@ -154,6 +157,14 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         TextTools.log(TAG, "on map ready");
         map = googleMap;
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent intent = new Intent(getActivity(), JobDetailActivity.class);
+                intent.putExtra(JobDetailActivity.JOB_ARG, (int) Integer.valueOf(marker.getTitle()));
+                getActivity().startActivity(intent);
+            }
+        });
         map.setInfoWindowAdapter(new CustomInfoWindowAdapter((ArrayList) getArguments().getSerializable("data"), getActivity()));
         map.setOnMarkerClickListener(this);
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -259,13 +270,34 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
             for (Job job : jobs) {
                 if (marker.getTitle().equals(String.valueOf(job.id))) {
                     // populate info window here
+                    TextView name = (TextView) view.findViewById(R.id.company_name);
+                    ImageView logo = (ImageView) view.findViewById(R.id.logo);
+                    if (null != job.owner) {
+                        if (null != job.owner.picture) {
+                            logo.setVisibility(View.VISIBLE);
+                            name.setVisibility(View.GONE);
+                            Picasso.with(getContext())
+                                    .load(job.owner.picture)
+                                    .fit()
+                                    .into(logo);
+                        } else {
+                            logo.setVisibility(View.GONE);
+                            name.setVisibility(View.VISIBLE);
+                        }
+                    }
 
-                    Picasso.with(getContext())
-                            .load(job.company.logo)
-                            .into((ImageView) view.findViewById(R.id.logo));
+                    if (null != job.company) {
+                        if (null != job.company.name) {
+                            name.setText(job.company.name);
+                        }
+                    }
 
 
-                    ((JosefinSansTextView) view.findViewById(R.id.role)).setText(job.role.name);
+                    if (null != job.role) {
+                        if (null != job.role.name) {
+                            ((JosefinSansTextView) view.findViewById(R.id.role)).setText(job.role.name);
+                        }
+                    }
                     ((JosefinSansTextView) view.findViewById(R.id.experience))
                             .setText(String.format(context.getString(R.string.item_match_format_experience),
                                     job.experience, context.getResources().getQuantityString(R.plurals.year_plural, job.experience)));
@@ -275,12 +307,21 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
                                 DateUtils.formatDateDayAndMonth(job.startTime, true)));
                     }
 
-                    ((JosefinSansTextView) view.findViewById(R.id.location))
-                            .setText(job.address);
-                    ((JosefinSansTextView) view.findViewById(R.id.period))
-                            .setText(job.budgetType.name);
+                    if (null != job.locationName) {
+                        ((JosefinSansTextView) view.findViewById(R.id.location))
+                                .setText(job.locationName);
+                    }
+                    if (null != job.budgetType) {
+                        if (null != job.budgetType.name) {
+                            ((JosefinSansTextView) view.findViewById(R.id.period))
+                                    .setText("Per " + job.budgetType.name);
+                        }
+                    }
                     ((JosefinSansTextView) view.findViewById(R.id.salary))
-                            .setText(String.valueOf(job.budget));
+                            .setText(context.getString(R.string.pound_sterling) + " " +
+                                    String.valueOf(job.budget));
+                    ((JosefinSansTextView) view.findViewById(R.id.job_id))
+                            .setText(String.valueOf(job.jobRef));
                 }
             }
             return view;

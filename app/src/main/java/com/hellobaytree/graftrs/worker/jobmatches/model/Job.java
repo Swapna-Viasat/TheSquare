@@ -1,5 +1,7 @@
 package com.hellobaytree.graftrs.worker.jobmatches.model;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.SerializedName;
 import com.hellobaytree.graftrs.shared.models.ExperienceType;
 
@@ -21,6 +23,7 @@ public class Job implements Serializable {
 
     public boolean liked;
     public int id;
+    public Bitmap logoBitmap;
     @SerializedName("start_datetime")
     public String startTime;
     @SerializedName("workers_quantity")
@@ -57,6 +60,7 @@ public class Job implements Serializable {
     public Company company;
     public Role role;
     public Location location;
+    @SerializedName("location_name") public String locationName;
     public List<Application> application;
     @SerializedName("job_ref")
     public String jobRef;

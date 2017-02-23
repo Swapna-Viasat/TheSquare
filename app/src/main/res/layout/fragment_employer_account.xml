@@ -106,7 +106,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-
             <View android:layout_gravity="bottom"
                 android:background="@android:color/darker_gray"
                 android:layout_width="match_parent"
@@ -300,6 +299,7 @@
 
             <!-- Subscription Plan Management -->
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/employer_account_subscription_plan_management"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"

@@ -1,13 +1,16 @@
 package com.hellobaytree.graftrs.employer.account;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,15 +31,27 @@ import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.models.Employer;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by maizaga on 27/12/16.
@@ -126,8 +141,25 @@ public class AccountFragment extends Fragment {
         });
     }
 
-    private void populateView(Employer employer) {
+    private void updateLogo(String picture, int id) {
+        HashMap<String, String> body = new HashMap<>();
+        body.put("logo", picture);
+        HttpRestServiceConsumer.getBaseApiClient()
+                .updateLogo(id, body)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void populateView(Employer employer) {
         try {
             if (null != employer) meEmployer = employer;
             if (null != employer.company) {
@@ -153,6 +185,7 @@ public class AccountFragment extends Fragment {
                 Picasso.with(getContext())
                         .load(employer.picture)
                         .fit()
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
                         .into(logo);
             }
 
@@ -188,6 +221,38 @@ public class AccountFragment extends Fragment {
             case R.id.employer_account_subscription_plan_management:
                 startActivity(new Intent(getActivity(), PaymentsActivity.class));
                 break;
+        }
+    }
+
+    @OnClick(R.id.employer_account_logo)
+    public void logo() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 333);
+    }
+
+    private void prepPicture(Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            String file = Base64.encodeToString(bytes, Base64.NO_WRAP);
+            updateLogo(file, (null != meEmployer) ? meEmployer.id : 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 333) {
+                try {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    prepPicture(bitmap);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

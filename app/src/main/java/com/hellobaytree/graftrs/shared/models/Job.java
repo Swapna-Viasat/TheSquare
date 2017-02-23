@@ -31,6 +31,7 @@ public class Job implements Serializable {
     @SerializedName("english_level") public int english;
     @SerializedName("contact_name") public String contactName;
     @SerializedName("contact_phone") public String contactPhone;
+    @SerializedName("is_editable") public boolean isEditable;
     // added new fields
     @SerializedName("contact_phone_number") public long contactPhoneNumber;
     @SerializedName("contact_country_code") public int contactCountryCode;
