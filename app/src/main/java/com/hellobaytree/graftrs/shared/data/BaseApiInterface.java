@@ -62,6 +62,10 @@ public interface BaseApiInterface {
      * Data endpoints
      */
 
+    @PATCH("/employers/{company_id}/company/")
+    Call<ResponseBody> updateLogo(@Path("company_id") int companyId,
+                                  @Body HashMap<String, String> body);
+
     @GET("/data/")
     Call<DataResponse> fetchData();
 
@@ -141,6 +145,10 @@ public interface BaseApiInterface {
     @PATCH("/employers/{pk}/company/")
     Call<ResponseObject<Employer>> uploadProfileImageEmployerCompany(@Path("pk") int id, @Part MultipartBody.Part file);
 
+    @PATCH("/employers/{pk}/company/")
+    Call<ResponseObject<Employer>>
+    uploadProfileImageEmployerCompany2(@Path("pk") int id, @Body HashMap<String, String> body);
+
     @GET("/employers/{pk}")
     Call<ResponseObject<Employer>> getEmployerProfile(@Path("pk") int id);
 
@@ -214,6 +222,9 @@ public interface BaseApiInterface {
     /////////////////////////////////Jobs/////////////////////////////////
     @POST("/jobs/")
     Call<ResponseObject<Job>> createJob(@Body HashMap<String, Object> createJobRequest);
+
+    @POST("/jobs/{pk}/cancel/")
+    Call<ResponseBody> cancelJob(@Path("pk") int jobId);
 
     @GET("/jobs/{pk}/")
     Call<ResponseObject<com.hellobaytree.graftrs.worker.jobmatches.model.Job>>

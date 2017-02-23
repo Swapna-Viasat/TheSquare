@@ -69,12 +69,18 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                 }
             }
 
-            if (null != job.owner.picture) {
-                Picasso.with(context)
-                        .load(job.owner.picture)
-                        .fit()
-                        .centerCrop()
-                        .into(holder.logo);
+            if (null != job.owner) {
+                if (null != job.owner.picture) {
+                    holder.company.setVisibility(View.GONE);
+                    holder.logo.setVisibility(View.VISIBLE);
+                    Picasso.with(context)
+                            .load(job.owner.picture)
+                            .fit()
+                            .into(holder.logo);
+                } else {
+                    holder.company.setVisibility(View.VISIBLE);
+                    holder.logo.setVisibility(View.GONE);
+                }
             }
 
             holder.occupation.setText(job.role.name);

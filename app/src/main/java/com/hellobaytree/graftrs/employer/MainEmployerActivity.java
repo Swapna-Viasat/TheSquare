@@ -24,6 +24,8 @@ import com.hellobaytree.graftrs.employer.createjob.CreateJobActivity;
 import com.hellobaytree.graftrs.employer.mygraftrs.fragment.MyGraftrsEmployerFragment;
 import com.hellobaytree.graftrs.employer.myjobs.fragment.JobsFragment;
 import com.hellobaytree.graftrs.employer.onboarding.OnboardingEmployerActivity;
+import com.hellobaytree.graftrs.employer.payments.PaymentsActivity;
+import com.hellobaytree.graftrs.employer.subscription.SubscriptionActivity;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 import com.hellobaytree.graftrs.shared.utils.Constants;
@@ -173,6 +175,12 @@ public class MainEmployerActivity extends AppCompatActivity {
         if (title.equals(getResources().getString(R.string.menu_employer_my_account))) {
             lastTab = 2;
             fragment = new AccountFragment();
+        }
+        if (title.equals(getString(R.string.employer_account_price_plan))) {
+            //
+            Intent intent = new Intent(this, PaymentsActivity.class);
+            startActivity(intent);
+            return;
         }
 
         if (title.equals(getResources().getString(R.string.menu_employer_log_out))) {

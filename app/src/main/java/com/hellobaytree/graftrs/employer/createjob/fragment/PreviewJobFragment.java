@@ -48,7 +48,9 @@ import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -306,8 +308,26 @@ public class PreviewJobFragment extends Fragment {
             payload.put("trades", createRequest.trades);
             payload.put("experience", createRequest.experience);
             payload.put("english_level_id", createRequest.english);
-            payload.put("qualifications", createRequest.qualifications);
-            payload.put("experience_qualifications", createRequest.expQualifications);
+            // beginning of wow
+            int[] quals = new int[createRequest.expQualifications.length +
+                    createRequest.qualifications.length];
+            List<Integer> reqs = new ArrayList<>();
+            for (int i = 0; i < createRequest.expQualifications.length; i++) {
+                reqs.add(createRequest.expQualifications[i]);
+            }
+            List<Integer> qual = new ArrayList<>();
+            for (int i = 0; i < createRequest.qualifications.length; i++) {
+                qual.add(createRequest.qualifications[i]);
+            }
+            List<Integer> combined = new ArrayList<>();
+            combined.addAll(reqs); combined.addAll(qual);
+            for (int i = 0; i < combined.size(); i++) {
+                quals[i] = combined.get(i);
+            }
+            payload.put("qualifications", quals);
+            // payload.put("experience_qualifications", createRequest.expQualifications);
+            // payload.put("qualifications", createRequest.qualifications);
+            // end of wow
             payload.put("skills", createRequest.skills);
             payload.put("experience_type", createRequest.experienceTypes);
             payload.put("description", createRequest.description);
@@ -355,7 +375,7 @@ public class PreviewJobFragment extends Fragment {
             case R.id.createJobCancel:
                 //
                 AlertDialog dialog = new AlertDialog.Builder(getContext())
-                        .setMessage("Are you sure you want to delete this job?")
+                        .setMessage("Are you sure you want to exit?")
                         .setNegativeButton("Save as draft", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -363,7 +383,7 @@ public class PreviewJobFragment extends Fragment {
                                 callApi(Constants.JOB_STATUS_DRAFT);
                             }
                         })
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
