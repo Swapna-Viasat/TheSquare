@@ -262,7 +262,7 @@ public class SelectQualificationsFragment extends Fragment
                 try {
                     filtered.clear();
                     for (Qualification o : data) {
-                        if (o.name.contains(charSequence)) {
+                        if (o.name.toLowerCase().contains(charSequence.toString().toLowerCase())) {
                             filtered.add(o);
                         }
                     }

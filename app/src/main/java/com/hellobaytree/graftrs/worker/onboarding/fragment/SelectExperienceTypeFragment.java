@@ -215,7 +215,7 @@ public class SelectExperienceTypeFragment extends Fragment
             } else {
                 filtered.clear();
                 for (ExperienceType o : data) {
-                    if (o.name.contains(charSequence)) {
+                    if (o.name.toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filtered.add(o);
                     }
                 }
