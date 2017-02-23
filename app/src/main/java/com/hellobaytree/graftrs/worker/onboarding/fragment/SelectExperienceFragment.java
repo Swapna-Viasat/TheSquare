@@ -48,6 +48,7 @@ import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
+import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
@@ -61,10 +62,13 @@ import com.hellobaytree.graftrs.worker.onboarding.adapter.FluencyAdapter;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
 
+import org.joda.time.LocalDate;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,9 +103,7 @@ public class SelectExperienceFragment extends Fragment
     private int id;
     private int cscsStatus;
     private String lastname = null;
-    private String selectLangs = null;
-    private List<String> languageId = new ArrayList<>();
-    private List<String> langIds = new ArrayList<>();
+    private List<String> selectedLanguages = new ArrayList<>();
     @BindView(R.id.years)
     JosefinSansTextView years;
     @BindView(R.id.seek)
@@ -115,19 +117,19 @@ public class SelectExperienceFragment extends Fragment
     private EditText current;
     private EditText next;
     @BindView(R.id.spinner_nationality)
-    Spinner nationality;
+    Spinner spinnerNationality;
     @BindView(R.id.spinner_day)
-    Spinner day;
+    Spinner spinnerDay;
     @BindView(R.id.spinner_month)
-    Spinner month;
+    Spinner spinnerMonth;
     @BindView(R.id.spinner_year)
-    Spinner year;
+    Spinner spinnerYear;
     @BindView(R.id.cscs_details)
     LinearLayout cscs;
     @BindView(R.id.openDialog)
     View openDialog;
     @BindView(R.id.lang)
-    TextView lang;
+    TextView languagesTextView;
     @BindView(R.id.surname)
     JosefinSansEditText surname;
     @BindViews({R.id.reg_01, R.id.reg_02, R.id.reg_03, R.id.reg_04, R.id.reg_05,
@@ -150,13 +152,15 @@ public class SelectExperienceFragment extends Fragment
     private ArrayAdapter<CharSequence> yearAdapter;
     private ArrayAdapter nationalityAdapter;
     private ArrayAdapter languagesAdapter;
+    private List<Nationality> nationalities;
     private FluencyAdapter fluencyAdapter;
     private List<EnglishLevel> levels = new ArrayList<>();
     private ExperienceAdapter experienceAdapter;
     private List<ExperienceQualification> qualifications = new ArrayList<>();
     private Worker currentWorker;
     private List<ExperienceQualification> selected = new ArrayList<>();
-    private Map<String, Integer> countryIds = new HashMap<String, Integer>();
+    private Map<String, Integer> countryIds = new HashMap<>();
+    private List<Language> fetchedLanguages;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_SELECTION = 2;
     static final int REQUEST_PERMISSIONS = 3;
@@ -209,38 +213,22 @@ public class SelectExperienceFragment extends Fragment
             e.addTextChangedListener(nisListener);
         }
         // Create an ArrayAdapter using the string array and a default spinner
-        dayAdapter = ArrayAdapter
-                .createFromResource(getContext(), R.array.spinner_day,
-                        android.R.layout.simple_spinner_item);
-        dayAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        day.setAdapter(dayAdapter);
+        dayAdapter = ArrayAdapter.createFromResource(getContext(), R.array.spinner_day,
+                android.R.layout.simple_spinner_item);
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDay.setAdapter(dayAdapter);
 
-        monthAdapter = ArrayAdapter
-                .createFromResource(getContext(), R.array.spinner_month,
-                        android.R.layout.simple_spinner_item);
-        monthAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        month.setAdapter(monthAdapter);
+        monthAdapter = ArrayAdapter.createFromResource(getContext(), R.array.spinner_month,
+                android.R.layout.simple_spinner_item);
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMonth.setAdapter(monthAdapter);
 
-        yearAdapter = ArrayAdapter
-                .createFromResource(getContext(), R.array.spinner_year,
-                        android.R.layout.simple_spinner_item);
-        yearAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        year.setAdapter(yearAdapter);
+        yearAdapter = ArrayAdapter.createFromResource(getContext(), R.array.spinner_year,
+                android.R.layout.simple_spinner_item);
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerYear.setAdapter(yearAdapter);
 
-        if (null != getArguments().getSerializable(Constants.KEY_CURRENT_WORKER)) {
-            currentWorker = (Worker) getArguments().getSerializable(Constants.KEY_CURRENT_WORKER);
-            showPassportImage();
-        }
-
-        fetchEnglishLevels();
-        fetchQualifications();
-        //fetchCscsDetails(workerId);
         fetchCurrentWorker();
-        fetchNationality();
-        fetchLanguage();
     }
 
     private void fetchEnglishLevels() {
@@ -303,7 +291,7 @@ public class SelectExperienceFragment extends Fragment
                                            Response<ResponseObject<CSCSCardWorker>> response) {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            populate(response.body());
+                            populateCSCSDetails(response.body());
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
@@ -329,7 +317,7 @@ public class SelectExperienceFragment extends Fragment
                         DialogBuilder.cancelDialog(dialog);
 
                         if (response.isSuccessful() && response.body().getResponse() != null) {
-                            showMultiSelectDialog(response.body().getResponse());
+                            showLanguagesSelectDialog(response.body().getResponse());
                         }
                     }
 
@@ -372,7 +360,6 @@ public class SelectExperienceFragment extends Fragment
                     @Override
                     public void onResponse(Call<ResponseObject<Worker>> call,
                                            Response<ResponseObject<Worker>> response) {
-                        //
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
                             try {
@@ -399,17 +386,11 @@ public class SelectExperienceFragment extends Fragment
     private void populateDetails(Worker worker) {
         try {
             currentWorker = worker;
-            if (!worker.passportUpload.isEmpty()) {
+            if (!TextUtils.isEmpty(worker.passportUpload)) {
                 Picasso.with(getContext()).load(worker.passportUpload).into(passport_photo);
             } else {
                 passport_photo.setImageResource(R.drawable.passport);
             }
-            if (worker.nationalityId > 0) {
-                nationality.setSelection(worker.nationalityId.intValue());
-            }else{
-                nationality.setSelection(0);
-            }
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -444,42 +425,77 @@ public class SelectExperienceFragment extends Fragment
         }
     }
 
-    private void populate(ResponseObject<CSCSCardWorker> dataResponse) {
+    private void populateCSCSDetails(ResponseObject<CSCSCardWorker> dataResponse) {
+
         surname.setText(lastname);
         surname.setEnabled(false);
         String regnum = dataResponse.getResponse().registrationNumber;
         populateCscsStatus(dataResponse.getResponse().verificationStatus);
-       if(!regnum.isEmpty()) {
-           final char ca[] = regnum.toCharArray();
-           ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
-            @Override
-            public void set(JosefinSansEditText view, Boolean value, int index) {
+        if (!regnum.isEmpty()) {
+            final char ca[] = regnum.toCharArray();
+            ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
+                @Override
+                public void set(JosefinSansEditText view, Boolean value, int index) {
 
-                switch (view.getId()) {
-                    case R.id.reg_01:
-                        reg.get(0).setText(Character.toString(ca[0]));
-                    case R.id.reg_02:
-                        reg.get(1).setText(Character.toString(ca[1]));
-                    case R.id.reg_03:
-                        reg.get(2).setText(Character.toString(ca[2]));
-                    case R.id.reg_04:
-                        reg.get(3).setText(Character.toString(ca[3]));
-                    case R.id.reg_05:
-                        reg.get(4).setText(Character.toString(ca[4]));
-                    case R.id.reg_06:
-                        reg.get(5).setText(Character.toString(ca[5]));
-                    case R.id.reg_07:
-                        reg.get(6).setText(Character.toString(ca[6]));
-                    case R.id.reg_08:
-                        reg.get(7).setText(Character.toString(ca[7]));
+                    switch (view.getId()) {
+                        case R.id.reg_01:
+                            reg.get(0).setText(Character.toString(ca[0]));
+                        case R.id.reg_02:
+                            reg.get(1).setText(Character.toString(ca[1]));
+                        case R.id.reg_03:
+                            reg.get(2).setText(Character.toString(ca[2]));
+                        case R.id.reg_04:
+                            reg.get(3).setText(Character.toString(ca[3]));
+                        case R.id.reg_05:
+                            reg.get(4).setText(Character.toString(ca[4]));
+                        case R.id.reg_06:
+                            reg.get(5).setText(Character.toString(ca[5]));
+                        case R.id.reg_07:
+                            reg.get(6).setText(Character.toString(ca[6]));
+                        case R.id.reg_08:
+                            reg.get(7).setText(Character.toString(ca[7]));
+                    }
                 }
-            }
-        };
+            };
             ButterKnife.apply(reg, ENABLED, true);
         }
     }
 
+    private void populateNis() {
+        if (currentWorker != null && !TextUtils.isEmpty(currentWorker.niNumber)) {
+            final char ni[] = currentWorker.niNumber.toCharArray();
+            ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
+                @Override
+                public void set(JosefinSansEditText view, Boolean value, int index) {
+
+                    switch (view.getId()) {
+                        case R.id.nis_01:
+                            nis.get(0).setText(Character.toString(ni[0]));
+                        case R.id.nis_02:
+                            nis.get(1).setText(Character.toString(ni[1]));
+                        case R.id.nis_03:
+                            nis.get(2).setText(Character.toString(ni[2]));
+                        case R.id.nis_04:
+                            nis.get(3).setText(Character.toString(ni[3]));
+                        case R.id.nis_05:
+                            nis.get(4).setText(Character.toString(ni[4]));
+                        case R.id.nis_06:
+                            nis.get(5).setText(Character.toString(ni[5]));
+                        case R.id.nis_07:
+                            nis.get(6).setText(Character.toString(ni[6]));
+                        case R.id.nis_08:
+                            nis.get(7).setText(Character.toString(ni[7]));
+                        case R.id.nis_09:
+                            nis.get(8).setText(Character.toString(ni[8]));
+                    }
+                }
+            };
+            ButterKnife.apply(nis, ENABLED, true);
+        }
+    }
+
     private void processNationality(List<Nationality> nationalityList) {
+        nationalities = nationalityList;
         if (nationalityList != null) {
             List<String> countrynames = new ArrayList<String>();
             try {
@@ -490,8 +506,9 @@ public class SelectExperienceFragment extends Fragment
                 }
                 nationalityAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, countrynames);
                 nationalityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                nationality.setAdapter(nationalityAdapter);
-                nationality.setSelection(0);
+                spinnerNationality.setAdapter(nationalityAdapter);
+
+                populateNationality();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -509,7 +526,7 @@ public class SelectExperienceFragment extends Fragment
                     }
                 }
                 if (english > 0) {
-                        patchWorker();
+                    patchWorker();
                     break;
                 } else
                     DialogBuilder.showStandardDialog(getContext(), "",
@@ -657,20 +674,18 @@ public class SelectExperienceFragment extends Fragment
                     .into(passport_photo);
         }
     }
+
     private void showOrginalImage() {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         final Dialog settingsDialog = new Dialog(getContext());
         if (currentWorker != null && currentWorker.passportUpload != null) {
             settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-            settingsDialog.setContentView(layoutInflater.inflate(R.layout.popup_passport_image
-                    , null));
+            settingsDialog.setContentView(layoutInflater.inflate(R.layout.popup_passport_image, null));
             ImageButton close = (ImageButton) settingsDialog.findViewById(R.id.passport_preview_close);
-            close.setOnClickListener(new View.OnClickListener()
-            {
+            close.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     settingsDialog.dismiss();
                 }
             });
@@ -678,7 +693,7 @@ public class SelectExperienceFragment extends Fragment
             Picasso.with(getContext()).load(currentWorker.passportUpload).into(iv);
             //settingsDialog.getWindow().setLayout(700, 700);
             settingsDialog.show();
-        }else {
+        } else {
             DialogBuilder.showStandardDialog(getContext(), "",
                     getString(R.string.passport_nophoto));
         }
@@ -718,21 +733,46 @@ public class SelectExperienceFragment extends Fragment
         }
     }
 
-    private void populateCscsStatus(int status){
-        if(status == 4){
+    private void populateCscsStatus(int status) {
+        if (status == 4) {
             verify.setText(R.string.verified_cscs_success);
             cscsErrorMsg.setText("");
             verify.setEnabled(false);
-        }
-        else if(status == 2){
+        } else if (status == 2) {
             verify.setText(R.string.verified_cscs_failed);
             cscsErrorMsg.setText(R.string.cscs_status_infrastructure_issue);
-            cscsErrorMsg.setLineSpacing(1,1.5f);
-        } else if(status == 3){
+            cscsErrorMsg.setLineSpacing(1, 1.5f);
+        } else if (status == 3) {
             verify.setText(R.string.verified_cscs_failed);
             cscsErrorMsg.setText(R.string.cscs_status_carddetails_invalid);
-            cscsErrorMsg.setLineSpacing(1,1.5f);
+            cscsErrorMsg.setLineSpacing(1, 1.5f);
         }
+    }
+
+    private List<Integer> getLanguagesIds() {
+        List<Integer> result = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(selectedLanguages) && !CollectionUtils.isEmpty(fetchedLanguages)) {
+            for (String language : selectedLanguages) {
+                for (Language language1 : fetchedLanguages) {
+                    if (TextUtils.equals(language, language1.name))
+                        result.add(language1.id);
+                }
+            }
+        }
+        return result;
+    }
+
+    private List<Language> getSavedLanguages() {
+        List<Language> result = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(selectedLanguages) && !CollectionUtils.isEmpty(fetchedLanguages)) {
+            for (String language : selectedLanguages) {
+                for (Language language1 : fetchedLanguages) {
+                    if (TextUtils.equals(language, language1.name))
+                        result.add(language1);
+                }
+            }
+        }
+        return result;
     }
 
     private void patchWorker() {
@@ -750,8 +790,8 @@ public class SelectExperienceFragment extends Fragment
         request.put("years_experience", experience);
         request.put("ni_number", getNIS());
         request.put("date_of_birth", getDateOfBirth());
-        request.put("nationality_id", countryIds.get(nationality.getSelectedItem()));
-        request.put("languages_ids", langIds);
+        request.put("nationality_id", countryIds.get(spinnerNationality.getSelectedItem()));
+        request.put("languages_ids", getLanguagesIds());
 
         HttpRestServiceConsumer.getBaseApiClient()
                 .patchWorker(workerId, request)
@@ -761,7 +801,7 @@ public class SelectExperienceFragment extends Fragment
                                            Response<ResponseObject<Worker>> response) {
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
-                             proceed();
+                            proceed();
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
@@ -811,8 +851,8 @@ public class SelectExperienceFragment extends Fragment
                 cscs.setVisibility(View.GONE);
             } else {
                 fetchCscsDetails(workerId);
-               if(cscsStatus > 0)
-                populateCscsStatus(cscsStatus);
+                if (cscsStatus > 0)
+                    populateCscsStatus(cscsStatus);
                 cscs.setVisibility(View.VISIBLE);
             }
         } else {
@@ -843,30 +883,28 @@ public class SelectExperienceFragment extends Fragment
 
     private String getDateOfBirth() {
         String birthDate;
-        int monthValue = month.getSelectedItemPosition();
-        if(day.getSelectedItemPosition() > 0 & month.getSelectedItemPosition() > 0 & year.getSelectedItemPosition() > 0) {
-            birthDate = year.getSelectedItem().toString() + "-" +
+        int monthValue = spinnerMonth.getSelectedItemPosition();
+        if (spinnerDay.getSelectedItemPosition() > 0 & spinnerMonth.getSelectedItemPosition() > 0 & spinnerYear.getSelectedItemPosition() > 0) {
+            birthDate = spinnerYear.getSelectedItem().toString() + "-" +
                     ((monthValue > 9) ? String.valueOf(monthValue) : "0" +
                             String.valueOf(monthValue)) + "-" +
-                    day.getSelectedItem().toString();
-        }else {
+                    spinnerDay.getSelectedItem().toString();
+        } else {
             birthDate = null;
         }
         return birthDate;
     }
 
-    private void showMultiSelectDialog(List<Language> languageList) {
+    private void showLanguagesSelectDialog(List<Language> languageList) {
+        fetchedLanguages = languageList;
 
-        String langId;
-        List<String> languages = new ArrayList<>();
-        for (Language la : languageList) {
-            languages.add(la.name);
-            langId = la.name + "~" + la.id;
-            languageId.add(langId);
-        }
-        final CharSequence[] dialogList = languages.toArray(new CharSequence[languages.size()]);
+        List<String> languageNames = new ArrayList<>();
+        for (Language language : languageList) languageNames.add(language.name);
+
+        final CharSequence[] dialogList = languageNames.toArray(new CharSequence[languageNames.size()]);
         final AlertDialog.Builder builderDialog = new AlertDialog.Builder(getContext());
         builderDialog.setTitle(getString(R.string.onboarding_select_language));
+
         openDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -887,6 +925,14 @@ public class SelectExperienceFragment extends Fragment
         fetchQualifications();
         populateExperienceYears();
         populateData();
+        fetchCscsDetails(workerId);
+        fetchNationality();
+        fetchLanguage();
+
+        populateDateOfBirth();
+        populateNis();
+        populateLanguages();
+        showPassportImage();
     }
 
     @Override
@@ -934,6 +980,55 @@ public class SelectExperienceFragment extends Fragment
         }
     }
 
+    private void populateNationality() {
+        if (currentWorker != null && currentWorker.nationality != null && nationalities != null) {
+            for (Nationality nationality : nationalities) {
+                if (nationality.id == currentWorker.nationality.id) {
+                    spinnerNationality.setSelection(nationalities.indexOf(nationality) + 1);
+                }
+            }
+        }
+    }
+
+    private void populateDateOfBirth() {
+        List<String> days = Arrays.asList(getContext().getResources().getStringArray(R.array.spinner_day));
+        List<String> months = Arrays.asList(getContext().getResources().getStringArray(R.array.spinner_month));
+        List<String> years = Arrays.asList(getContext().getResources().getStringArray(R.array.spinner_year));
+
+        if (currentWorker != null && !TextUtils.isEmpty(currentWorker.dateOfBirth)) {
+            LocalDate dateOfBirth = DateUtils.getParsedLocalDate(currentWorker.dateOfBirth);
+
+            for (String day : days) {
+                if (TextUtils.equals(day.startsWith("0") ? day.substring(1) : day,
+                        String.valueOf(dateOfBirth.getDayOfMonth()))) {
+                    spinnerDay.setSelection(days.indexOf(day));
+                }
+            }
+
+            for (String month : months) {
+                if (TextUtils.equals(month, dateOfBirth.toString("MMMM"))) {
+                    spinnerMonth.setSelection(months.indexOf(month));
+                }
+            }
+
+            for (String year : years) {
+                if (TextUtils.equals(year, String.valueOf(dateOfBirth.getYear()))) {
+                    spinnerYear.setSelection(years.indexOf(year));
+                }
+            }
+        }
+    }
+
+    private void populateLanguages() {
+        selectedLanguages = new ArrayList<>();
+        if (currentWorker != null && !CollectionUtils.isEmpty(currentWorker.languages)) {
+            for (Language language : currentWorker.languages) {
+                selectedLanguages.add(language.name);
+            }
+        }
+        languagesTextView.setText(TextUtils.join(", ", selectedLanguages));
+    }
+
     private void loadWorker() {
         String workerJson = getActivity().getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW,
                 Context.MODE_PRIVATE).getString(Constants.KEY_PERSISTED_WORKER, "");
@@ -955,7 +1050,6 @@ public class SelectExperienceFragment extends Fragment
     private void persistProgress() {
         if (currentWorker != null) {
             currentWorker.yearsExperience = experience;
-            currentWorker.nationalityId = nationality.getSelectedItemId();
             currentWorker.dateOfBirth = getDateOfBirth();
             if (english > 0) {
                 for (EnglishLevel level : levels) {
@@ -982,6 +1076,15 @@ public class SelectExperienceFragment extends Fragment
             }
 
             currentWorker.qualifications.addAll(requirementsToQualifications(selected));
+            currentWorker.niNumber = getNIS();
+            currentWorker.languages = getSavedLanguages();
+
+            if (nationalities != null && countryIds != null)
+                for (Nationality nationality : nationalities) {
+                    if (countryIds.get(spinnerNationality.getSelectedItem()) != null
+                            && countryIds.get(spinnerNationality.getSelectedItem()) == nationality.id)
+                        currentWorker.nationality = nationality;
+                }
         }
 
         getActivity().getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, Context.MODE_PRIVATE)
@@ -1126,22 +1229,9 @@ public class SelectExperienceFragment extends Fragment
     }
 
     @Override
-    public void onLanguagesSelected(String selectedLangs) {
-        selectLangs = selectedLangs;
-        lang.setText(selectLangs);
-
-        String langId;
-        String langName;
-        for (String langs : languageId) {
-            langId = langs.substring(langs.indexOf("~") + 1, langs.length());
-            langName = langs.substring(0, langs.indexOf("~"));
-            for (String retval : selectedLangs.split(",")) {
-                if (langName.equalsIgnoreCase(retval)) {
-                    langIds.add(langId);
-
-                }
-            }
-        }
+    public void onLanguagesSelected(List<String> selectedLangs) {
+        languagesTextView.setText(TextUtils.join(", ", selectedLangs));
+        selectedLanguages = selectedLangs;
     }
 
     @Override

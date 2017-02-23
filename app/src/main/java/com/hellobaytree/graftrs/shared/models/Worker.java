@@ -48,8 +48,6 @@ public class Worker implements Serializable {
     public int filterCommuteTime;
     @SerializedName("passport_upload")
     public String passportUpload;
-    @SerializedName("nationality_id")
-    public Long nationalityId;
     @SerializedName("date_of_birth")
     public String dateOfBirth;
     public List<Application> applications;
