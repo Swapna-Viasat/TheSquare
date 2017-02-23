@@ -5,6 +5,8 @@
 
 package com.hellobaytree.graftrs.worker.onboarding;
 
+import java.util.List;
+
 public interface OnLanguagesSelectedListener {
-    void onLanguagesSelected(String languages);
+    void onLanguagesSelected(List<String> languages);
 }

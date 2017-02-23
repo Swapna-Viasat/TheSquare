@@ -131,7 +131,8 @@ public class WorkerProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_worker_profile, container, false);
         ButterKnife.bind(this, v);
-
+        v.findViewById(R.id.cscs_expires).setVisibility(View.GONE);
+        v.findViewById(R.id.recordCategory).setVisibility(View.GONE);
         mapView.onCreate(savedInstanceState);
         return v;
     }
