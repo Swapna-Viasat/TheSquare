@@ -21,6 +21,9 @@ import android.widget.TextView;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.worker.onboarding.OnLanguagesSelectedListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DialogBuilder {
 
     public interface OnClickStandardDialog {
@@ -92,7 +95,7 @@ public class DialogBuilder {
     }
 
     public static Dialog showTwoOptionsStandardDialog(final Context context, String title, String message,
-                                                    String btnOneText, String btnTwoText, final OnClickTwoOptionsStandardDialog listener) {
+                                                      String btnOneText, String btnTwoText, final OnClickTwoOptionsStandardDialog listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message).setPositiveButton(btnTwoText, new DialogInterface.OnClickListener() {
@@ -219,7 +222,7 @@ public class DialogBuilder {
                                              final OnLanguagesSelectedListener listener) {
         if (context == null) return;
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.DialogTheme);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogTheme);
         int count = dialogList.length;
         boolean[] isChecked = new boolean[count];
 
@@ -231,33 +234,33 @@ public class DialogBuilder {
                 });
 
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                StringBuilder selectedLanguages = new StringBuilder();
-                ListView list = ((AlertDialog) dialog).getListView();
-                for (int i = 0; i < list.getCount(); i++) {
-                    boolean checked = list.isItemChecked(i);
-                    if (checked) {
-                        if (selectedLanguages.length() > 0) selectedLanguages.append(",");
-                        selectedLanguages.append(list.getItemAtPosition(i));
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ListView list = ((AlertDialog) dialog).getListView();
+                        List<String> result = new ArrayList<>();
+                        for (int i = 0; i < list.getCount(); i++) {
 
+                            if (list.isItemChecked(i)) {
+                                result.add((String) list.getItemAtPosition(i));
+                            }
+                        }
+                        if (listener != null)
+                            listener.onLanguagesSelected(result);
                     }
                 }
-                if (selectedLanguages.toString().trim().equals("")) {
 
-                    selectedLanguages.setLength(0);
-                } else {
-                    if (listener != null) listener.onLanguagesSelected(selectedLanguages.toString());
+        );
+
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
+
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
                 }
-            }
-        });
 
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        );
         AlertDialog alert = builder.create();
         alert.show();
         //return selectedLanguages.toString();

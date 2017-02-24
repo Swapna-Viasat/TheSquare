@@ -66,11 +66,13 @@
                         android:id="@+id/worker_view_profile_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
+                        android:maxLines="3"
                         android:paddingTop="6dp"
                         android:textAllCaps="true"
                         android:textColor="@color/blackSquareColor"
                         android:textSize="18sp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         app:josefin_style="italic"
                         tools:text="ADMINISTRATOR" />
 

@@ -57,6 +57,10 @@
             </intent-filter>
         </receiver>
 
+
+        <!-- Branch testing (TestMode "true" to simulate fresh installs) -->
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" />
+
         <activity
             android:name=".shared.main.activity.MainActivity"
             android:label="@string/app_name"
@@ -67,6 +71,14 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Branch URI scheme -->
+            <intent-filter>
+                <data android:scheme="thesquare" android:host="open" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
         <activity

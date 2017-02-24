@@ -8,6 +8,7 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 
+import io.branch.referral.Branch;
 import io.fabric.sdk.android.Fabric;
 
 public class GraftrsApplication extends MultiDexApplication {
@@ -27,6 +28,8 @@ public class GraftrsApplication extends MultiDexApplication {
         context = getApplicationContext();
 
         SharedPreferencesManager.saveDeviceId(this);
+
+        Branch.getAutoInstance(this);
 
         if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
