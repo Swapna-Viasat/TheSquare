@@ -795,7 +795,7 @@
     <string name="share_worker_subject">%s wants you to join them on The Square</string>
 
     <string name="share_play_store_url">
-
+        https://play.google.com/store/apps/details?id=com.hellobaytree.graftrs.graftrs
     </string>
 
     <string name="share_employer_general_title">
