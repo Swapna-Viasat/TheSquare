@@ -781,4 +781,38 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- SHARING is CARING -->
+    <string name="share_generic">Hey, I\’ve just joined The Square. It\'s great, you should check it out </string>
+    <string name="share_description">
+        The Square is the first automated hiring app for the construction industry.
+        (It\'s a bit like Tinder but for construction jobs).
+        We\'re building the fastest growing network of skilled construction workers in the world.
+        Join now and be one of the first to benefit!
+    </string>
+
+    <string name="share_employer_subject">%s wants you to join them on The Square</string>
+    <string name="share_worker_subject">%s wants you to join them on The Square</string>
+
+    <string name="share_employer_general_title">
+        Hey,
+        I\’ve just joined The Square.
+        It\’s the new app that matches you to the best quality construction workers when you need them.
+        It saves you a load of time, money and effort.
+        You should check it out.
+        Enjoy!
+    </string>
+    <string name="share_worker_general_image_url">https://static.wixstatic.com/media/9b4cd7fd433c40528d78d0c64237905e.jpg/v1/fill/w_598,h_238,al_c,q_80,usm_0.66_1.00_0.01/9b4cd7fd433c40528d78d0c64237905e.webp</string>
+
+    <string name="share_worker_general_title">
+        Hey,
+        I\’ve just joined The Square.
+        It\’s the new app that matches you to the best paying construction jobs near you.
+        You should check it out.
+        Enjoy!
+    </string>
+    <string name="share_employer_general_image_url">https://static.wixstatic.com/media/9b4cd7fd433c40528d78d0c64237905e.jpg/v1/fill/w_598,h_238,al_c,q_80,usm_0.66_1.00_0.01/9b4cd7fd433c40528d78d0c64237905e.webp</string>
+
+
+
 </resources>

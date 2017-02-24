@@ -30,6 +30,7 @@ import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.ShareUtils;
 import com.hellobaytree.graftrs.worker.account.AccountFragment;
 import com.hellobaytree.graftrs.worker.jobmatches.fragment.JobMatchesFragment;
 import com.hellobaytree.graftrs.worker.myjobs.fragment.JobsFragment;
@@ -143,6 +144,9 @@ public class MainWorkerActivity extends AppCompatActivity {
             case R.id.nav_worker_my_account:
                 fragment = AccountFragment.newInstance();
                 setToolbarTitle(getString(R.string.my_account_worker_title));
+                break;
+            case R.id.nav_worker_share:
+                ShareUtils.workerLink(this);
                 break;
             case R.id.nav_worker_logout:
                 fragment = null;

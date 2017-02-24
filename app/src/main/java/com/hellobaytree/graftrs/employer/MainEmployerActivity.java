@@ -1,5 +1,6 @@
 package com.hellobaytree.graftrs.employer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -29,6 +30,7 @@ import com.hellobaytree.graftrs.employer.subscription.SubscriptionActivity;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 import com.hellobaytree.graftrs.shared.utils.Constants;
+import com.hellobaytree.graftrs.shared.utils.ShareUtils;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 
 import butterknife.ButterKnife;
@@ -180,6 +182,10 @@ public class MainEmployerActivity extends AppCompatActivity {
             //
             Intent intent = new Intent(this, PaymentsActivity.class);
             startActivity(intent);
+            return;
+        }
+        if (title.equals(getString(R.string.menu_worker_share))) {
+            ShareUtils.employerLink(this);
             return;
         }
 

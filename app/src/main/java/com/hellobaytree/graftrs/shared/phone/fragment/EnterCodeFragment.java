@@ -185,11 +185,15 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                 if (response.isSuccessful()) {
                                     //
                                     DialogBuilder.cancelDialog(dialog);
+                                    String name = response.body().getResponse()
+                                            .getUser().getFirst_name() + " " +
+                                            response.body().getResponse()
+                                                    .getUser().getLast_name();
 
                                     SharedPreferencesManager.getInstance(getContext())
-                                            .persistSessionInfoEmployer(response.body().getResponse().getToken(),
+                                            .persistSessionInfoEmployer2(response.body().getResponse().getToken(),
                                                     response.body().getResponse().getUser(),
-                                                    currentCountryCode, currentPhone);
+                                                    currentCountryCode, currentPhone, name);
 
                                     if (response.body().getResponse().getUser().isOnboarding_done()) {
                                         startActivity(new Intent(getContext(), MainEmployerActivity.class));
@@ -218,11 +222,15 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                 if (response.isSuccessful()) {
                                     //
                                     DialogBuilder.cancelDialog(dialog);
+                                    String name = response.body().getResponse()
+                                            .getUser().getFirst_name() + " " +
+                                            response.body().getResponse()
+                                            .getUser().getLast_name();
 
                                     SharedPreferencesManager.getInstance(getContext())
                                             .persistSessionInfoWorker(response.body().getResponse().getToken(),
                                                     response.body().getResponse().getUser(),
-                                                    currentCountryCode, currentPhone);
+                                                    currentCountryCode, currentPhone, name);
 
                                     if (response.body().getResponse().getUser().isOnboarding_done()) {
                                         startActivity(new Intent(getContext(), MainWorkerActivity.class));

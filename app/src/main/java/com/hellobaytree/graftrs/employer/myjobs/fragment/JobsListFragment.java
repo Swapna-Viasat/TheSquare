@@ -159,11 +159,6 @@ public class JobsListFragment extends Fragment
         for (Job job : jobs) {
             if (3 == getArguments().getInt(Constants.KEY_EMPLOYER_JOB_TAB) &&
                     job.status.id == 4) {
-//                if (getArguments().getInt(Constants.KEY_EMPLOYER_JOB_TAB) == 3) {
-//                    if (job.status.id == 4) {
-//                        data.add(job);
-//                    }
-//                }
                 data.add(job);
             }
         }

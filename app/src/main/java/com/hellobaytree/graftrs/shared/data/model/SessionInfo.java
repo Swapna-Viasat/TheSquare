@@ -7,6 +7,7 @@ public class SessionInfo {
 	private String phoneNumber;
 	private String email;
 	private String token;
+	public String name;
 	private boolean loggedOut;
 
 	
