@@ -253,7 +253,7 @@ public class SelectTradeFragment extends Fragment
                 try {
                     trades.clear();
                     for (Trade o : data) {
-                        if (TextTools.contains(o.name, charSequence)) {
+                        if (TextTools.contains(o.name.toLowerCase(), charSequence.toString().toLowerCase())) {
                             trades.add(o);
                         }
                     }

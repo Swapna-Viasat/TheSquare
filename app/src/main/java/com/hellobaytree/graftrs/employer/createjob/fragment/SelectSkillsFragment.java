@@ -281,7 +281,7 @@ public class SelectSkillsFragment extends Fragment
             } else {
                 filtered.clear();
                 for (Skill o : data) {
-                    if (TextTools.contains(o.name, charSequence)) {
+                    if (TextTools.contains(o.name.toLowerCase(), charSequence.toString().toLowerCase())) {
                         filtered.add(o);
                     }
                 }
