@@ -794,6 +794,10 @@
     <string name="share_employer_subject">%s wants you to join them on The Square</string>
     <string name="share_worker_subject">%s wants you to join them on The Square</string>
 
+    <string name="share_play_store_url">
+
+    </string>
+
     <string name="share_employer_general_title">
         Hey,
         I\’ve just joined The Square.

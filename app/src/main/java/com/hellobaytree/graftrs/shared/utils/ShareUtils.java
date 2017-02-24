@@ -25,7 +25,7 @@ public class ShareUtils {
                 .setCanonicalIdentifier("worker/12345")
                 //
                 .setTitle(context.getString(R.string.share_worker_general_title))
-                .setContentDescription(context.getString(R.string.share_description))
+                //.setContentDescription(context.getString(R.string.share_description))
                 //
                 .setContentImageUrl(context.getString(R.string.share_worker_general_image_url))
                 .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
@@ -36,7 +36,7 @@ public class ShareUtils {
                 .setFeature("")
                 .addControlParameter("$desktop_url", "http://www.thesquare.tech/")
                 .addControlParameter("$ios_url", "http://www.thesquare.tech/")
-                .addControlParameter("$android_url", "https://play.google.com/store");
+                .addControlParameter("$android_url", context.getString(R.string.share_play_store_url));
         object.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
             @Override
             public void onLinkCreate(String url, BranchError error) {
@@ -54,7 +54,7 @@ public class ShareUtils {
                             context.getString(R.string.share_generic) +
                                     "\n\n" + url);
                     intent2.setType("text/plain");
-                    context.startActivity(intent2);
+                    context.startActivity(Intent.createChooser(intent2, "Share The Square"));
                 } else {
                     Log.d(TAG, "error generating link");
                 }
@@ -67,7 +67,7 @@ public class ShareUtils {
                 .setCanonicalIdentifier("employer/12345")
                 //
                 .setTitle(context.getString(R.string.share_employer_general_title))
-                .setContentDescription(context.getString(R.string.share_description))
+                //.setContentDescription(context.getString(R.string.share_description))
                 //
                 .setContentImageUrl(context.getString(R.string.share_employer_general_image_url))
                 .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
@@ -78,7 +78,7 @@ public class ShareUtils {
                 .setFeature("")
                 .addControlParameter("$desktop_url", "http://www.thesquare.tech/")
                 .addControlParameter("$ios_url", "http://www.thesquare.tech/")
-                .addControlParameter("$android_url", "https://play.google.com/store");
+                .addControlParameter("$android_url", context.getString(R.string.share_play_store_url));
         object.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
             @Override
             public void onLinkCreate(String url, BranchError error) {
@@ -96,7 +96,7 @@ public class ShareUtils {
                             context.getString(R.string.share_generic) +
                                     "\n\n" + url);
                     intent2.setType("text/plain");
-                    context.startActivity(intent2);
+                    context.startActivity(Intent.createChooser(intent2, "Share The Square"));
                 } else {
                     Log.d(TAG, "error generating link " + error.getMessage());
                 }
