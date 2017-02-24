@@ -518,8 +518,8 @@
     <string name="employer_rate_worker">Please rate %s\'s \nperformance</string>
     <string name="employer_rate_submit">Done</string>
     <string name="employer_rate_again">Would you hire %s again?</string>
-    
-    <!-- Employer My Account --> 
+
+    <!-- Employer My Account -->
     <string name="employer_account_price_plan">My Price Plan</string>
 
     <!-- Settings -->
@@ -816,7 +816,6 @@
         Enjoy!
     </string>
     <string name="share_employer_general_image_url">https://static.wixstatic.com/media/9b4cd7fd433c40528d78d0c64237905e.jpg/v1/fill/w_598,h_238,al_c,q_80,usm_0.66_1.00_0.01/9b4cd7fd433c40528d78d0c64237905e.webp</string>
-
 
 
 </resources>

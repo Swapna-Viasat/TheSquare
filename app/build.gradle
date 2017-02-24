@@ -82,7 +82,7 @@ dependencies {
     compile 'com.stripe:stripe-android:2.0.2'
     compile 'com.hbb20:ccp:1.7.1'
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+    compile 'io.branch.sdk.android:library:2.+'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
-    compile 'io.branch.sdk.android:library:2.+'
 }
