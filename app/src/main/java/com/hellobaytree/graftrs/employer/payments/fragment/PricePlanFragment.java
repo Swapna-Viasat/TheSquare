@@ -7,14 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PricePlanFragment extends Fragment {
 
     public static final String TAG = "PricePlanFragment";
+
+    @BindView(R.id.due_date) TextView dueDate;
+    @BindView(R.id.plan) TextView plan;
 
     public PricePlanFragment() {
         // Required empty public constructor
@@ -54,6 +61,27 @@ public class PricePlanFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @OnClick(R.id.change_plan)
+    public void changePlan() {
+        Toast.makeText(getContext(), "Change", Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.cancel)
+    public void cancelPlan() {
+        Toast.makeText(getContext(), "Cancel", Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.change_card)
+    public void changeCard() {
+        Toast.makeText(getContext(), "Change card", Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.top_up)
+    public void topUp() {
+        Toast.makeText(getContext(), "Top Up", Toast.LENGTH_LONG).show();
     }
 
 }

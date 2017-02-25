@@ -707,15 +707,23 @@
     <string name="payments_country">Country</string>
     <string name="payments_postcode">Postcode</string>
     <string name="payments_voucher">Voucher Code</string>
+    <string name="payments_cancel">Cancel my subscription</string>
+    <string name="payments_change_card">Change card details</string>
+    <string name="payments_topup">Need a top up?</string>
+    <string name="payments_click_here">Click here</string>
 
     <string name="employer_payments">Subscription plan management</string>
     <string name="employer_payments_plan">Subscription Plan</string>
+    <string name="employer_payments_understanding">Understanding My Price Plan</string>
+    <string name="employer_payments_plan_mine">My Subscription Plan</string>
     <string name="employer_payments_card">Credit Card</string>
     <string name="employer_payments_current">Your current plan</string>
     <string name="employer_payments_try">Try it out for \u00A3250</string>
     <string name="employer_payments_try_text">1 job promotion for up to 1 week.
                             \nUp to 20 suitable candidate matches.</string>
     <string name="employer_payments_upgrade">Upgrade your plan</string>
+    <string name="employer_payments_upgrade_here">Upgrade here</string>
+    <string name="employer_payments_due_date">Bill due %s</string>
     <string name="employer_payments_upgrade_title">Subscribe for \u00A3500 / month</string>
     <string name="employer_payments_upgrade_text">
             Hire at any time, from anywhere on any device.
@@ -724,6 +732,8 @@
             \nTrack previous candidates &amp; hires.
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
+    <string name="payments_booking_credits">My Booking Credits</string>
+    
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
     <string name="employer_payments_action">Upgrade</string>
@@ -806,7 +816,7 @@
         You should check it out.
         Enjoy!
     </string>
-    <string name="share_worker_general_image_url">https://static.wixstatic.com/media/9b4cd7fd433c40528d78d0c64237905e.jpg/v1/fill/w_598,h_238,al_c,q_80,usm_0.66_1.00_0.01/9b4cd7fd433c40528d78d0c64237905e.webp</string>
+    <string name="share_worker_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
 
     <string name="share_worker_general_title">
         Hey,
@@ -815,7 +825,7 @@
         You should check it out.
         Enjoy!
     </string>
-    <string name="share_employer_general_image_url">https://static.wixstatic.com/media/9b4cd7fd433c40528d78d0c64237905e.jpg/v1/fill/w_598,h_238,al_c,q_80,usm_0.66_1.00_0.01/9b4cd7fd433c40528d78d0c64237905e.webp</string>
+    <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
 
 
 </resources>
