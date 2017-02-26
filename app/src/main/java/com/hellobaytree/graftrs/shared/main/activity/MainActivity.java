@@ -36,8 +36,8 @@ public class MainActivity extends Activity {
     public static final String TAG = "MainActivity";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
 
         Branch branch = Branch.getAutoInstance(this);
         branch.initSession(new Branch.BranchUniversalReferralInitListener() {
@@ -57,6 +57,13 @@ public class MainActivity extends Activity {
                 }
             }
         }, this.getIntent().getData(), this);
+        
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
 
         if (TextUtils.isEmpty(SharedPreferencesManager.getInstance(this).getToken())) {
             startActivity(new Intent(this, StartActivity.class));
