@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,20 +67,23 @@ public class SubscriptionFragment extends Fragment {
     @OnClick(R.id.payments_continue)
     public void proceed() {
 
-        ((TextView) getActivity().findViewById(R.id.payments_subscription_label))
-                .setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-        ((TextView) getActivity().findViewById(R.id.payments_cards_label))
-                .setTextColor(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
-        ((ImageView) getActivity().findViewById(R.id.payments_subscription))
-                .setColorFilter(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-        ((ImageView) getActivity().findViewById(R.id.payments_cards))
-                .setColorFilter(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
-
-        getActivity().
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.payments_content, PaymentFragment.newInstance(selectedPlan))
-                .commit();
+        getActivity().getSupportFragmentManager()
+                .popBackStack();
+//
+//        ((TextView) getActivity().findViewById(R.id.payments_subscription_label))
+//                .setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
+//        ((TextView) getActivity().findViewById(R.id.payments_cards_label))
+//                .setTextColor(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
+//        ((ImageView) getActivity().findViewById(R.id.payments_subscription))
+//                .setColorFilter(ContextCompat.getColor(getContext(), R.color.graySquareColor));
+//        ((ImageView) getActivity().findViewById(R.id.payments_cards))
+//                .setColorFilter(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
+//
+//        getActivity().
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.payments_content, PaymentFragment.newInstance(selectedPlan))
+//                .commit();
 
 //        //
 //        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
@@ -115,6 +119,14 @@ public class SubscriptionFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar()
+                    .setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity) getActivity()).getSupportActionBar()
+                    .setTitle("Change Plan");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         select(1);
         PaymentsAdapter adapter = new PaymentsAdapter();
         pager.setOffscreenPageLimit(3);

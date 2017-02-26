@@ -66,7 +66,12 @@ public class PricePlanFragment extends Fragment {
 
     @OnClick(R.id.change_plan)
     public void changePlan() {
-        Toast.makeText(getContext(), "Change", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "Change", Toast.LENGTH_LONG).show();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_employer_content, SubscriptionFragment.newInstance())
+                .addToBackStack("")
+                .commit();
     }
 
     @OnClick(R.id.cancel)
@@ -83,5 +88,4 @@ public class PricePlanFragment extends Fragment {
     public void topUp() {
         Toast.makeText(getContext(), "Top Up", Toast.LENGTH_LONG).show();
     }
-
 }
