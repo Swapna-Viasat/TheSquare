@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Title -->
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:text="@string/create_job_card"
             android:textColor="@color/redSquareColor"
@@ -42,6 +43,8 @@
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:text="@string/create_job_first"
+                        app:josefin_style="light"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
@@ -52,6 +55,9 @@
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/first"
+                        app:josefin_style="light"
+                        android:paddingBottom="4dp"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -64,6 +70,8 @@
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:text="@string/create_job_last"
+                        app:josefin_style="light"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
@@ -74,6 +82,9 @@
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/last"
+                        app:josefin_style="light"
+                        android:paddingBottom="4dp"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -95,6 +106,8 @@
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:text="@string/create_job_card_number"
+                    app:josefin_style="light"
+                    android:textColor="@color/blackSquareColor"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
@@ -105,6 +118,9 @@
                     android:inputType="number"
                     android:layout_margin="12dp"
                     android:id="@+id/number"
+                    app:josefin_style="light"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/blackSquareColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -122,6 +138,8 @@
 
                         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                             android:text="@string/create_job_expiration"
+                            app:josefin_style="light"
+                            android:textColor="@color/blackSquareColor"
                             android:layout_marginTop="12dp"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
@@ -140,6 +158,9 @@
                                 android:layout_margin="12dp"
                                 android:id="@+id/month"
                                 android:hint="month"
+                                app:josefin_style="light"
+                                android:paddingBottom="4dp"
+                                android:textColor="@color/blackSquareColor"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
@@ -151,6 +172,9 @@
                                 android:layout_margin="12dp"
                                 android:id="@+id/year"
                                 android:hint="year"
+                                app:josefin_style="light"
+                                android:paddingBottom="4dp"
+                                android:textColor="@color/blackSquareColor"
                                 android:layout_weight="1"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
@@ -165,6 +189,8 @@
 
                         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                             android:text="@string/create_job_cvc"
+                            app:josefin_style="light"
+                            android:textColor="@color/blackSquareColor"
                             android:layout_marginTop="12dp"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
@@ -176,6 +202,9 @@
                             android:maxLength="3"
                             android:layout_margin="12dp"
                             android:id="@+id/cvc"
+                            app:josefin_style="light"
+                            android:paddingBottom="4dp"
+                            android:textColor="@color/blackSquareColor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -197,6 +226,8 @@
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:text="@string/payments_voucher"
+                    app:josefin_style="light"
+                    android:textColor="@color/blackSquareColor"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
@@ -207,6 +238,9 @@
                     android:inputType="text|textNoSuggestions|textCapWords"
                     android:layout_margin="12dp"
                     android:id="@+id/voucher"
+                    app:josefin_style="light"
+                    android:paddingBottom="4dp"
+                    android:textColor="@color/blackSquareColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -234,6 +268,8 @@
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:text="@string/payments_address1"
+                        app:josefin_style="light"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
@@ -245,6 +281,9 @@
                         android:layout_margin="12dp"
                         android:id="@+id/address1"
                         android:hint="@string/payments_address2"
+                        app:josefin_style="light"
+                        android:paddingBottom="4dp"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -253,6 +292,9 @@
                         android:layout_margin="12dp"
                         android:id="@+id/city"
                         android:hint="@string/payments_city"
+                        app:josefin_style="light"
+                        android:paddingBottom="4dp"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -261,6 +303,9 @@
                         android:layout_margin="12dp"
                         android:id="@+id/country"
                         android:hint="@string/payments_country"
+                        app:josefin_style="light"
+                        android:paddingBottom="4dp"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -273,6 +318,8 @@
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:text="@string/payments_postcode"
+                        app:josefin_style="light"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_marginTop="12dp"
                         android:layout_marginLeft="12dp"
                         android:layout_marginRight="12dp"
@@ -283,6 +330,9 @@
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/postcode"
+                        app:josefin_style="light"
+                        android:paddingBottom="4dp"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -293,10 +343,10 @@
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:text="@string/create_job_confirm"
             android:id="@+id/confirm"
+            app:josefin_style="italic"
             android:textColor="@color/whiteSquareColor"
             android:background="@color/redSquareColor"
             android:textAlignment="center"
-            android:textAllCaps="true"
             android:layout_margin="12dp"
             android:padding="14dp"
             android:textSize="18sp"

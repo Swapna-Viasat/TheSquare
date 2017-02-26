@@ -82,6 +82,11 @@ public class PricePlanFragment extends Fragment {
     @OnClick(R.id.change_card)
     public void changeCard() {
         //Toast.makeText(getContext(), "Change card", Toast.LENGTH_LONG).show();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_employer_content, PaymentFragment.newInstance(1))
+                .addToBackStack("")
+                .commit();
     }
 
     @OnClick(R.id.top_up)

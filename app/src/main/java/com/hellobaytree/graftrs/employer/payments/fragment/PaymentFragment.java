@@ -98,11 +98,17 @@ public class PaymentFragment extends Fragment {
                     public void onResponse(Call<ResponseObject> call,
                                            Response<ResponseObject> response) {
                         //
+                        // TODO:
+                        getActivity().getSupportFragmentManager()
+                                .popBackStack();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseObject> call, Throwable t) {
                         //
+                        // TODO:
+                        getActivity().getSupportFragmentManager()
+                                .popBackStack();
                     }
                 });
     }
