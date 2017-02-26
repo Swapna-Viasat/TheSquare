@@ -710,6 +710,12 @@
     <string name="payments_cancel">Cancel my subscription</string>
     <string name="payments_change_card">Change card details</string>
     <string name="payments_topup">Need a top up?</string>
+    <string name="payments_more_booking">Need more booking credits? Top up now!</string>
+    <string name="payments_tip_title">Tip...</string>
+    <string name="payments_tip_body">If you\'re going to use all your credits every month you
+                should also consider upgrading - it\'s cheaper in the long run!</string>
+    <string name="payments_upgrade_now">Upgrade Now</string>
+    <string name="payments_terms_conditions">Terms &amp; Conditions apply</string>
     <string name="payments_click_here">Click here</string>
 
     <string name="employer_payments">Subscription plan management</string>
@@ -733,7 +739,7 @@
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
     <string name="payments_booking_credits">My Booking Credits</string>
-    
+
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
     <string name="employer_payments_action">Upgrade</string>
