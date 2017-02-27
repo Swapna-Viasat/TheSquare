@@ -27,4 +27,10 @@ public class Employer implements Serializable {
     @SerializedName("reviews_notifications") public boolean reviewNotifications;
     public Company company;
     public String picture;
+
+    // subscription related fields
+    @SerializedName("plan_bookings") public int bookedWithPlan;
+    @SerializedName("max_plan_bookings") public int maxForPlan;
+    @SerializedName("topup_bookings") public int bookedWithTopups;
+    @SerializedName("max_topup_bookings") public int maxForTopups; 
 }

@@ -308,4 +308,6 @@ public interface BaseApiInterface {
     @POST("/payments/manage/setup/")
     Call<ResponseObject> setupPayment(@Body HashMap<String, Object> body);
 
+    @DELETE("/payments/manage/cancel_all/")
+    Call<ResponseBody> cancelAll();
 }
