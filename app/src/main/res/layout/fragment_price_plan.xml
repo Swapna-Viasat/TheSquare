@@ -131,8 +131,8 @@
                     android:layout_height="wrap_content">
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                        android:text="Remaining"
-                        android:id="@+id/we"
+                        android:text="Subscription Credits"
+                        android:id="@+id/display_plan"
                         android:textColor="@color/blackSquareColor"
                         android:textSize="18sp"
                         app:josefin_style="italic"
@@ -148,7 +148,7 @@
                         android:textColor="@color/blackSquareColor"
                         android:textSize="12sp"
                         app:josefin_style="italic"
-                        android:layout_toRightOf="@+id/we"
+                        android:layout_toRightOf="@+id/display_plan"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_marginBottom="18dp"
@@ -195,8 +195,8 @@
                     android:layout_height="wrap_content">
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                        android:text="Top Up"
-                        android:id="@+id/qw"
+                        android:text="Top Up Credits"
+                        android:id="@+id/display_topups"
                         android:textColor="@color/blackSquareColor"
                         android:textSize="18sp"
                         app:josefin_style="italic"
@@ -212,7 +212,7 @@
                         android:textColor="@color/blackSquareColor"
                         android:textSize="12sp"
                         app:josefin_style="italic"
-                        android:layout_toRightOf="@+id/qw"
+                        android:layout_toRightOf="@+id/display_topups"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
                         android:layout_marginBottom="18dp"
