@@ -148,6 +148,7 @@
                         android:textColor="@color/blackSquareColor"
                         android:textSize="12sp"
                         app:josefin_style="italic"
+                        android:id="@+id/plan_expiration"
                         android:layout_toRightOf="@+id/display_plan"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
@@ -161,6 +162,7 @@
                         android:textColor="@color/redSquareColor"
                         android:textSize="24sp"
                         app:josefin_style="italic"
+                        android:id="@+id/plan_digits"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
                         android:layout_marginRight="18dp"
@@ -211,6 +213,7 @@
                         android:text="(Expires 10/04)"
                         android:textColor="@color/blackSquareColor"
                         android:textSize="12sp"
+                        android:id="@+id/topup_expiration"
                         app:josefin_style="italic"
                         android:layout_toRightOf="@+id/display_topups"
                         android:layout_centerVertical="true"
@@ -222,6 +225,7 @@
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:text="10 / 20"
+                        android:id="@+id/topup_digits"
                         android:textColor="@color/redSquareColor"
                         android:textSize="24sp"
                         app:josefin_style="italic"

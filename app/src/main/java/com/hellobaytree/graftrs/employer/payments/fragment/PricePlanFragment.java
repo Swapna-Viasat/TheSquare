@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.models.Employer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,14 @@ public class PricePlanFragment extends Fragment {
 
     @BindView(R.id.due_date) TextView dueDate;
     @BindView(R.id.plan) TextView plan;
+
+    @BindView(R.id.topup_digits) TextView topupDigits;
+    @BindView(R.id.plan_digits) TextView planDigits;
+
+    @BindView(R.id.plan_expiration) TextView planExpiration;
+    @BindView(R.id.topup_expiration) TextView topupExpiration;
+    @BindView(R.id.due_date) TextView billDue;
+    @BindView(R.id.plan) TextView planDisplay;
 
     public PricePlanFragment() {
         // Required empty public constructor
@@ -61,6 +70,32 @@ public class PricePlanFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //
+        fetchEmployer();
+    }
+
+    private void fetchEmployer() {
+        //
+    }
+
+    private void populate(Employer employer) {
+        //
+        if (null != employer) {
+            displayBookings(employer.maxForPlan, employer.bookedWithPlan,
+                    employer.maxForTopups, employer.bookedWithTopups);
+        }
+    }
+
+    private void displayBookings(int planMax, int planUsed, int topMax, int topUsed) {
+        planDigits.setText(String.format(getString(R.string.payments_plans_display_bookings),
+                planUsed, planMax));
+        topupDigits.setText(String.format(getString(R.string.payments_topups_display_bookings),
+                topUsed, topMax));
     }
 
 

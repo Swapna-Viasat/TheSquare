@@ -739,6 +739,28 @@
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
     <string name="payments_booking_credits">My Booking Credits</string>
+    <string name="payments_alt_title">If you are unable to pay by card, please enter the details below
+                to activate an invoice service</string>
+    <string name="payments_alt_spinner_title">Subscription plan</string>
+    <string name="payments_alt_name">Bill payer\'s name</string>
+    <string name="payments_alt_email">Bill payer\'s email</string>
+    <string name="payments_alt_order">Purchase Order Number (if needed)</string>
+    <string name="payments_alt_confirm">Confirm</string>
+    <string name="payments_alt_subtitle">We\'ll get an invoice to you and the bill payer
+                    automatically. The invoice will need to be paid by BACS. Once
+                    paid, you will be able to use The Square.
+                    \n\nAny queries, give us a call on 020 3868 6303 or email:
+                    accounts@thesquareapp.com</string>
+    <string name="payments_alt_note">Note: BACS payments require a minimum of six months subscription.</string>
+    <string name="payments_alt_popup_title">Good stuff!</string>
+    <string name="payments_alt_popup_text">An invoice is on its way to you and the bill payer.
+                        This will need to be paid before you can use The Square.</string>
+    <string name="payments_alt_popup_subtitle">See you Soon!</string>
+
+    <string name="payments_topups_display_bookings">%1$d / %2$d</string>
+    <string name="payments_plans_display_bookings">%1$d / %2$d</string>
+    <string name="payments_expiration_format">(Expires %s)</string>
+    <string name="payments_bill_due_format">Bill due %s</string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>

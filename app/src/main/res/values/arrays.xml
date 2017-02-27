@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="spinner_plans">
+        <item>Basic</item>
+        <item>Standard</item>
+        <item>Platinum</item>
+    </string-array>
+
     <string-array name="spinner_test">
         <item>Array Item One</item>
         <item>Array Item Two</item>
