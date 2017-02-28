@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.myjobs.activity.ViewWorkerProfileActivity;
@@ -260,13 +259,10 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
         if (worker != null) {
             Intent viewWorkerProfileIntent = new Intent(getContext(), ViewWorkerProfileActivity.class);
             viewWorkerProfileIntent.putExtra(ViewWorkerProfileActivity.WORKER_ID, worker.id);
-            if (null != worker.applications) {
-                if (!worker.applications.isEmpty()) {
-                    viewWorkerProfileIntent.putExtra(Constants.KEY_APPLICATION_ID,
-                            worker.applications.get(0).id);
-                    viewWorkerProfileIntent.putExtra(Constants.KEY_HAS_APPLIED, true);
-                }
-            }
+
+            viewWorkerProfileIntent.putExtra(Constants.KEY_JOB_ID,
+                    getArguments().getInt(Constants.KEY_JOB_ID));
+
             getActivity().startActivity(viewWorkerProfileIntent);
         }
     }

@@ -38,6 +38,7 @@ import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.models.Company;
+import com.hellobaytree.graftrs.shared.models.ExperienceType;
 import com.hellobaytree.graftrs.shared.models.Language;
 import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.models.Role;
@@ -114,7 +115,8 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             R.id.worker_profile_birthday_edit,
             R.id.worker_profile_email_edit,
             R.id.worker_profile_nis_edit,
-            R.id.worker_profile_passport_edit
+            R.id.worker_profile_passport_edit,
+            R.id.worker_profile_experience_type_edit
     })
     List<ImageView> editList;
 
@@ -144,6 +146,9 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     @BindView(R.id.worker_details_bullet_list_skills)
     TextView skillsView;
+
+    @BindView(R.id.worker_details_bullet_list_experience_type)
+    TextView experienceTypesView;
 
     @BindView(R.id.worker_details_bullet_list_companies)
     TextView companiesView;
@@ -262,6 +267,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             fillLocationName();
             initMap();
             fillNiNumber();
+            fillExperienceTypes();
             if (worker.nationality != null)
                 nationalityView.setText(worker.nationality.name);
             dateOfBirthView.setText(worker.dateOfBirth);
@@ -373,6 +379,15 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             text += "• " + preference.name + "\n";
         }
         companiesView.setText(text);
+    }
+
+    private void fillExperienceTypes() {
+        List<String> result = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(worker.experienceTypes)) {
+            for (ExperienceType exp : worker.experienceTypes)
+                result.add(exp.name);
+        }
+        experienceTypesView.setText(TextTools.toBulletList(result, true));
     }
 
     private void fillWorkerBio() {
@@ -504,6 +519,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             cscsExpirationView.setText(DateUtils.getCscsExpirationDate(dataResponse.getResponse().expiryDate));
 
             try {
+                cscsRecordsLayout.removeAllViews();
                 if (!CollectionUtils.isEmpty(dataResponse.getResponse().cscsRecords)) {
                     for (List<CSCSCardWorker.CscsRecord> cscsRecordList : dataResponse.getResponse().cscsRecords.values())
                         if (!CollectionUtils.isEmpty(cscsRecordList)) {
@@ -637,6 +653,11 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             R.id.worker_profile_passport_edit})
     void openExperienceFragment() {
         editProfile(Constants.KEY_ONBOARDING_EXPERIENCE);
+    }
+
+    @OnClick(R.id.worker_profile_experience_type_edit)
+    void editExperienceTypes() {
+        editProfile(Constants.KEY_ONBOARDING_SPECIFIC_EXPERIENCE);
     }
 
     @OnClick(R.id.worker_profile_email_edit)
