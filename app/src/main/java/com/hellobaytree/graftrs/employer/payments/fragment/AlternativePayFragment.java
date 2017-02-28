@@ -4,6 +4,7 @@ package com.hellobaytree.graftrs.employer.payments.fragment;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,14 +60,22 @@ public class AlternativePayFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar()
+                    .setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity) getActivity()).getSupportActionBar()
+                    .setTitle("Alternative Payments");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick(R.id.payments_alt_confirm)
     public void onConfirm() {
         //
-        Toast.makeText(getContext(), "confirm", Toast.LENGTH_LONG).show();
+        // Toast.makeText(getContext(), "confirm", Toast.LENGTH_LONG).show();
 
-        final Dialog dialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar);
+        final Dialog dialog = new Dialog(getContext(), android.R.style.Theme_NoTitleBar);
         dialog.setContentView(R.layout.dialog_alt_pay_done);
         dialog.setCancelable(false);
         dialog.findViewById(R.id.pay_alt_close).setOnClickListener(new View.OnClickListener() {

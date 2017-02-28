@@ -337,9 +337,37 @@
                     android:layout_height="wrap_content" />
             </android.support.v7.widget.CardView>
 
-            <!-- Footer -->
+            <!-- Can't by credit card? -->
             <LinearLayout
                 android:layout_margin="12dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:background="@drawable/ic_red_attention"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:textSize="14sp"
+                    android:text="@string/payments_cant_pay_cc"
+                    app:josefin_style="italic"
+                    android:id="@+id/alternative_payment"
+                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/redSquareColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Footer -->
+            <LinearLayout
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="12dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"

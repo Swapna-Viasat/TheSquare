@@ -761,6 +761,7 @@
     <string name="payments_plans_display_bookings">%1$d / %2$d</string>
     <string name="payments_expiration_format">(Expires %s)</string>
     <string name="payments_bill_due_format">Bill due %s</string>
+    <string name="payments_cant_pay_cc">Can\'t pay by credit card? (Tap for options)</string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>

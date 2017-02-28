@@ -32,5 +32,8 @@ public class Employer implements Serializable {
     @SerializedName("plan_bookings") public int bookedWithPlan;
     @SerializedName("max_plan_bookings") public int maxForPlan;
     @SerializedName("topup_bookings") public int bookedWithTopups;
-    @SerializedName("max_topup_bookings") public int maxForTopups; 
+    @SerializedName("max_topup_bookings") public int maxForTopups;
+    @SerializedName("plan_end_date") public String planExpiration;
+    @SerializedName("topup_end_date") public String topupExpiration;
+    @SerializedName("plan_name") public String planName;
 }
