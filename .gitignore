@@ -60,3 +60,6 @@ gradle-wrapper.jar
 .idea/vcs.xml
 *.iml
 .idea
+
+# Fabric
+fabric.properties

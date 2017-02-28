@@ -13,9 +13,12 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/redSquareColor"
         app:tabMode="fixed"
+        app:tabPaddingEnd="-1dp"
+        app:tabPaddingStart="-1dp"
+
         app:tabSelectedTextColor="@color/redSquareColor"
         app:tabTextAppearance="@style/Tab"
-        app:tabTextColor="@color/redSquareColor" />
+        app:tabTextColor="@color/redSquareColor"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/worker_jobs_pager"

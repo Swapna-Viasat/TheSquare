@@ -12,12 +12,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            android:id="@+id/bookedBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="@android:color/holo_green_dark"
+            android:padding="16dp"
+            android:text="Booked"
+            android:textAlignment="center"
+            android:textColor="@color/whiteSquareColor"
+            android:visibility="gone" />
+
         <FrameLayout
             android:id="@+id/content_worker_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/redSquareColor"
             android:padding="14dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_like"
+                android:tint="@color/whiteSquareColor"
+                android:id="@+id/likeImage" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,6 +118,45 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/contactWorkerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/darkSquareColor"
+                android:padding="14dp"
+                android:visibility="gone">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_contacts_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/worker_contact_info"
+                    android:textColor="@color/whiteSquareColor" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_email"
+                    style="@style/caption_gray_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/worker_profile_contacts_title"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/whiteSquareColor"
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_phone"
+                    style="@style/caption_gray_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/worker_profile_email"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/whiteSquareColor"
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="14dp"
@@ -118,7 +177,403 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_bio_title"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp" />
+                    android:hint="@string/employer_worker_details_bio_placeholder"
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:orientation="vertical">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_nationality_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/onboarding_nationality"
+                    android:textColor="@color/blackSquareColor" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_nationality_value"
+                    style="@style/caption_gray_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/worker_profile_languages_title"
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_english_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/worker_profile_nationality_title"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/worker_english_level"
+                    android:textColor="@color/blackSquareColor" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_english_value"
+                    style="@style/caption_gray_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/worker_profile_nationality_title"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@+id/worker_profile_languages_title"
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_languages_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/worker_profile_english_title"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/onboarding_languagesspoken"
+                    android:textColor="@color/blackSquareColor" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_languages_value"
+                    style="@style/caption_gray_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/worker_profile_english_title"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/worker_profile_languages_title"
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:orientation="vertical">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_birthday_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="100dp"
+                    android:text="@string/date_of_birth"
+                    android:textColor="@color/blackSquareColor" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_birthday_value"
+                    style="@style/caption_gray_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/worker_profile_birthday_title"
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/date_of_birth_status"
+                    style="@style/TextRedGraftrsBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/worker_details_provided"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/worker_profile_nis_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/national_insurance_number"
+                        android:textColor="@color/blackSquareColor" />
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/nis_status"
+                        style="@style/TextRedGraftrsBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/worker_details_provided"
+                        android:textAllCaps="true"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/nisNumberLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/worker_profile_nis_title"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis1"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis2"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis3"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis4"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis5"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis6"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis7"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis8"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp"
+                        android:layout_weight="1">
+
+                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/nis9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:maxLength="1"
+                            android:textColor="@color/blackSquareColor"
+                            app:josefin_style="italic" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_below="@id/nis9"
+                            android:background="@color/redSquareColor" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:orientation="vertical">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_passport_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/worker_passport_photo"
+                    android:textColor="@color/blackSquareColor" />
+
+                <ImageView
+                    android:id="@+id/worker_profile_passport_value"
+                    style="@style/caption_gray_text"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/worker_profile_passport_title"
+                    android:layout_marginTop="8dp" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/passport_status"
+                    style="@style/TextRedGraftrsBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/worker_details_provided"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <View
@@ -140,14 +595,14 @@
                     android:text="@string/employer_worker_details_qualifications"
                     android:textColor="@color/blackSquareColor" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <LinearLayout
                     android:id="@+id/worker_details_bullet_list_experience"
                     style="@style/caption_gray_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_experience_title"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp" />
+                    android:orientation="vertical" />
             </RelativeLayout>
 
             <View
@@ -164,7 +619,6 @@
                 android:layout_gravity="bottom"
                 android:background="@android:color/darker_gray" />
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -178,14 +632,14 @@
                     android:text="@string/employer_worker_details_requirements"
                     android:textColor="@color/blackSquareColor" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <LinearLayout
                     android:id="@+id/worker_details_bullet_list_requirements"
                     style="@style/caption_gray_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_requirements_title"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp" />
+                    android:orientation="vertical" />
             </RelativeLayout>
 
             <View
@@ -207,14 +661,43 @@
                     android:text="@string/employer_worker_details_skills"
                     android:textColor="@color/blackSquareColor" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <LinearLayout
                     android:id="@+id/worker_details_bullet_list_skills"
                     style="@style/caption_gray_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_skills_title"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp" />
+                    android:orientation="vertical" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:orientation="vertical">
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/worker_profile_experience_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/worker_experience_types"
+                    android:textColor="@color/blackSquareColor" />
+
+                <LinearLayout
+                    android:id="@+id/worker_details_bullet_list_experience_type"
+                    style="@style/caption_gray_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/worker_profile_experience_type_title"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical" />
             </RelativeLayout>
 
             <View
@@ -243,7 +726,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_companies_title"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
             </RelativeLayout>
 
             <View
@@ -273,7 +757,8 @@
                     android:layout_below="@id/worker_profile_location_title"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:josefin_style="italic" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -283,18 +768,18 @@
             android:layout_height="240dp" />
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            android:textColor="@android:color/white"
-            android:text="BOOK"
             android:id="@+id/book"
-            android:visibility="gone"
-            android:background="@color/redSquareColor"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:layout_margin="12dp"
-            android:layout_gravity="bottom|end|right"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end|right"
+            android:layout_margin="12dp"
+            android:background="@color/redSquareColor"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="BOOK"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
     </LinearLayout>
 </ScrollView>

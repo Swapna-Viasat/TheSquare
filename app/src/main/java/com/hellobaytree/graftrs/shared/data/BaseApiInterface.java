@@ -200,6 +200,12 @@ public interface BaseApiInterface {
     @POST("/workers/logout/")
     Call<ResponseObject<Logout>> logoutWorker();
 
+    @POST("/workers/{pk}/like/")
+    Call<ResponseObject<StatusMessageResponse>> likeWorker(@Path("pk") int workerId);
+
+    @POST("/workers/{pk}/unlike/")
+    Call<ResponseObject<StatusMessageResponse>> unlikeWorker(@Path("pk") int workerId);
+
     @POST("/workers/resend_verification_sms/")
     Call<ResponseObject<SMSSent>> resendSMSWorker(@Body HashMap<String, String> resendSMSRequest);
 
