@@ -34,6 +34,8 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.intercom.android.sdk.Intercom;
+import io.intercom.android.sdk.identity.Registration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,7 +133,10 @@ public class VerifyPhoneFragment extends Fragment {
                                 DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
                                     //
-
+                                    Intercom.client().registerIdentifiedUser(
+                                            Registration.create().withUserId(deviceEmail)
+                                    );
+                                    //
                                     try {
                                         Bundle bundle = new Bundle();
                                         bundle.putString("phone", editTextPhoneNumber.getText().toString());
