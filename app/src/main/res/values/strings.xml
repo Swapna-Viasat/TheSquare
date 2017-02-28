@@ -860,4 +860,6 @@
     <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
 
 
+    <string name="misc_intercom_key">android_sdk-70624f8b395b057a2078a8cc54ea9623d263bc96</string>
+    <string name="misc_intercom_app_id">ymo0avlj</string>
 </resources>
