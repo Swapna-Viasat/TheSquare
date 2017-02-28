@@ -493,7 +493,7 @@
     <string name="worker_reviews_attitude">Attitude to work and team</string>
     <string name="worker_reviews_safety">Safe worker</string>
     <string name="menu_worker_reviews">Reviews</string>
-    <string name="worker_request_review">Great! Every review improves your star rating! \nTell which employer you want to get a reference from and we\'ll send them a request by email.</string>
+    <string name="worker_request_review">Great! Every review improves your star rating! \nTell us employer you want to get a reference from and we\'ll send them a request by email.</string>
     <string name="worker_request_review_first_name">First Name*</string>
     <string name="worker_request_review_last_name">Last Name*</string>
     <string name="worker_request_email">Email Address*</string>
@@ -518,8 +518,8 @@
     <string name="employer_rate_worker">Please rate %s\'s \nperformance</string>
     <string name="employer_rate_submit">Done</string>
     <string name="employer_rate_again">Would you hire %s again?</string>
-    
-    <!-- Employer My Account --> 
+
+    <!-- Employer My Account -->
     <string name="employer_account_price_plan">My Price Plan</string>
 
     <!-- Settings -->
@@ -710,15 +710,29 @@
     <string name="payments_country">Country</string>
     <string name="payments_postcode">Postcode</string>
     <string name="payments_voucher">Voucher Code</string>
+    <string name="payments_cancel">Cancel my subscription</string>
+    <string name="payments_change_card">Change card details</string>
+    <string name="payments_topup">Need a top up?</string>
+    <string name="payments_more_booking">Need more booking credits? Top up now!</string>
+    <string name="payments_tip_title">Tip...</string>
+    <string name="payments_tip_body">If you\'re going to use all your credits every month you
+                should also consider upgrading - it\'s cheaper in the long run!</string>
+    <string name="payments_upgrade_now">Upgrade Now</string>
+    <string name="payments_terms_conditions">Terms &amp; Conditions apply</string>
+    <string name="payments_click_here">Click here</string>
 
     <string name="employer_payments">Subscription plan management</string>
     <string name="employer_payments_plan">Subscription Plan</string>
+    <string name="employer_payments_understanding">Understanding My Price Plan</string>
+    <string name="employer_payments_plan_mine">My Subscription Plan</string>
     <string name="employer_payments_card">Credit Card</string>
     <string name="employer_payments_current">Your current plan</string>
     <string name="employer_payments_try">Try it out for \u00A3250</string>
     <string name="employer_payments_try_text">1 job promotion for up to 1 week.
                             \nUp to 20 suitable candidate matches.</string>
     <string name="employer_payments_upgrade">Upgrade your plan</string>
+    <string name="employer_payments_upgrade_here">Upgrade here</string>
+    <string name="employer_payments_due_date">Bill due %s</string>
     <string name="employer_payments_upgrade_title">Subscribe for \u00A3500 / month</string>
     <string name="employer_payments_upgrade_text">
             Hire at any time, from anywhere on any device.
@@ -727,6 +741,30 @@
             \nTrack previous candidates &amp; hires.
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
+    <string name="payments_booking_credits">My Booking Credits</string>
+    <string name="payments_alt_title">If you are unable to pay by card, please enter the details below
+                to activate an invoice service</string>
+    <string name="payments_alt_spinner_title">Subscription plan</string>
+    <string name="payments_alt_name">Bill payer\'s name</string>
+    <string name="payments_alt_email">Bill payer\'s email</string>
+    <string name="payments_alt_order">Purchase Order Number (if needed)</string>
+    <string name="payments_alt_confirm">Confirm</string>
+    <string name="payments_alt_subtitle">We\'ll get an invoice to you and the bill payer
+                    automatically. The invoice will need to be paid by BACS. Once
+                    paid, you will be able to use The Square.
+                    \n\nAny queries, give us a call on 020 3868 6303 or email:
+                    accounts@thesquareapp.com</string>
+    <string name="payments_alt_note">Note: BACS payments require a minimum of six months subscription.</string>
+    <string name="payments_alt_popup_title">Good stuff!</string>
+    <string name="payments_alt_popup_text">An invoice is on its way to you and the bill payer.
+                        This will need to be paid before you can use The Square.</string>
+    <string name="payments_alt_popup_subtitle">See you Soon!</string>
+
+    <string name="payments_topups_display_bookings">%1$d / %2$d</string>
+    <string name="payments_plans_display_bookings">%1$d / %2$d</string>
+    <string name="payments_expiration_format">(Expires %s)</string>
+    <string name="payments_bill_due_format">Bill due %s</string>
+
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
     <string name="employer_payments_action">Upgrade</string>
@@ -784,4 +822,41 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- SHARING is CARING -->
+    <string name="share_generic">Hey, I\’ve just joined The Square. It\'s great, you should check it out </string>
+    <string name="share_description">
+        The Square is the first automated hiring app for the construction industry.
+        (It\'s a bit like Tinder but for construction jobs).
+        We\'re building the fastest growing network of skilled construction workers in the world.
+        Join now and be one of the first to benefit!
+    </string>
+
+    <string name="share_employer_subject">%s wants you to join them on The Square</string>
+    <string name="share_worker_subject">%s wants you to join them on The Square</string>
+
+    <string name="share_play_store_url">
+        https://play.google.com/store/apps/details?id=com.hellobaytree.graftrs.graftrs
+    </string>
+
+    <string name="share_employer_general_title">
+        Hey,
+        I\’ve just joined The Square.
+        It\’s the new app that matches you to the best quality construction workers when you need them.
+        It saves you a load of time, money and effort.
+        You should check it out.
+        Enjoy!
+    </string>
+    <string name="share_worker_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
+
+    <string name="share_worker_general_title">
+        Hey,
+        I\’ve just joined The Square.
+        It\’s the new app that matches you to the best paying construction jobs near you.
+        You should check it out.
+        Enjoy!
+    </string>
+    <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
+
+
 </resources>

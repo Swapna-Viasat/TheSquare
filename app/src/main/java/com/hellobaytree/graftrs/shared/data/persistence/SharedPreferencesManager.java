@@ -16,11 +16,12 @@ public class SharedPreferencesManager {
     private static final String TOKEN_USER = "token_user";
 
     private static final String WORKER_ID = "worker_id";
+    private static final String EMPLOYER_ID = "employer_id";
     private static final String COUNTRY_CODE_EMPLOYER = "country_code_employer";
     private static final String PHONE_NUMBER_EMPLOYER = "phone_number_employer";
     private static final String EMAIL_EMPLOYER = "email_employer";
-
-    private static final String EMPLOYER_ID = "employer_id";
+    private static final String WORKER_NAME = "worker_name";
+    private static final String EMPLOYER_NAME = "employer_name";
     private static final String COUNTRY_CODE_WORKER = "country_code_worker";
     private static final String PHONE_NUMBER_WORKER = "phone_number_worker";
     private static final String EMAIL_WORKER = "email_worker";
@@ -57,18 +58,19 @@ public class SharedPreferencesManager {
 
     //WORKER
 
-    public void persistSessionInfoWorker(String userToken, User user, String countryCode, String phone) {
-        persistSessionInfoWorker(userToken, user.getId(), countryCode, phone, user.getEmail());
+    public void persistSessionInfoWorker(String userToken, User user, String countryCode, String phone, String name) {
+        persistSessionInfoWorker(userToken, user.getId(), countryCode, phone, user.getEmail(), name);
     }
 
     public void persistSessionInfoWorker(String userToken, int worker_id, String country_code,
-                                         String phone_number, String email) {
+                                         String phone_number, String email, String name) {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putInt(WORKER_ID, worker_id);
         edit.putString(COUNTRY_CODE_WORKER, country_code);
         edit.putString(PHONE_NUMBER_WORKER, phone_number);
         edit.putString(EMAIL_WORKER, email);
         edit.putString(TOKEN_USER, userToken);
+        edit.putString(WORKER_NAME, name);
         edit.apply();
     }
 
@@ -77,8 +79,10 @@ public class SharedPreferencesManager {
         String countryCode = sharedPreferences.getString(COUNTRY_CODE_WORKER, "");
         String phoneNumber = sharedPreferences.getString(PHONE_NUMBER_WORKER, "");
         String email = sharedPreferences.getString(EMAIL_WORKER, "");
+        String name = sharedPreferences.getString(WORKER_NAME, "unknown");
         SessionInfo sessionInfo = new SessionInfo();
         sessionInfo.setUserId(workerId);
+        sessionInfo.name = name;
         sessionInfo.setCountryCode(countryCode);
         sessionInfo.setPhoneNumber(phoneNumber);
         sessionInfo.setEmail(email);
@@ -100,18 +104,22 @@ public class SharedPreferencesManager {
 
     //EMPLOYER
 
-    public void persistSessionInfoEmployer(String userToken, User user, String countryCode, String phone) {
-        persistSessionInfoEmployer(userToken, user.getId(), countryCode, phone, user.getEmail());
+    public void persistSessionInfoEmployer2(String userToken, User user,
+                                            String countryCode, String phone,
+                                            String name) {
+        persistSessionInfoEmployer(userToken, user.getId(),
+                countryCode, phone, user.getEmail(), name);
     }
 
     public void persistSessionInfoEmployer(String userToken, int employer_id, String country_code,
-                                           String phone_number, String email) {
+                                           String phone_number, String email, String name) {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putInt(EMPLOYER_ID, employer_id);
         edit.putString(COUNTRY_CODE_EMPLOYER, country_code);
         edit.putString(PHONE_NUMBER_EMPLOYER, phone_number);
         edit.putString(EMAIL_EMPLOYER, email);
         edit.putString(TOKEN_USER, userToken);
+        edit.putString(EMPLOYER_NAME, name);
         edit.apply();
     }
 
@@ -120,11 +128,13 @@ public class SharedPreferencesManager {
         String countryCode = sharedPreferences.getString(COUNTRY_CODE_EMPLOYER, "");
         String phoneNumber = sharedPreferences.getString(PHONE_NUMBER_EMPLOYER, "");
         String email = sharedPreferences.getString(EMAIL_EMPLOYER, "");
+        String name = sharedPreferences.getString(EMPLOYER_NAME, "unknown");
         SessionInfo sessionInfo = new SessionInfo();
         sessionInfo.setUserId(employerId);
         sessionInfo.setCountryCode(countryCode);
         sessionInfo.setPhoneNumber(phoneNumber);
         sessionInfo.setEmail(email);
+        sessionInfo.name = name;
         return sessionInfo;
     }
 

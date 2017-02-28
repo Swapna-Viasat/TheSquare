@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.hellobaytree.graftrs.employer.MainEmployerActivity;
 import com.hellobaytree.graftrs.employer.onboarding.OnboardingEmployerActivity;
@@ -18,6 +19,10 @@ import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.worker.main.ui.MainWorkerActivity;
 import com.hellobaytree.graftrs.worker.onboarding.OnboardingWorkerActivity;
 
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
+import io.branch.referral.util.LinkProperties;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,14 +36,45 @@ public class MainActivity extends Activity {
     public static final String TAG = "MainActivity";
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        Branch branch = Branch.getAutoInstance(this);
+        branch.initSession(new Branch.BranchUniversalReferralInitListener() {
+            @Override
+            public void onInitFinished(BranchUniversalObject branchUniversalObject,
+                                       LinkProperties linkProperties,
+                                       BranchError error) {
+                //
+                Log.d(TAG, "on init finished");
+                //
+                if (error == null) {
+                    //
+                    Log.d(TAG, "no errors");
+                } else {
+                    //
+                    Log.d(TAG, "errors");
+                }
+            }
+        }, this.getIntent().getData(), this);
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         if (TextUtils.isEmpty(SharedPreferencesManager.getInstance(this).getToken())) {
             startActivity(new Intent(this, StartActivity.class));
         } else {
             onTokenExists();
         }
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
     }
 
     private void onTokenExists() {

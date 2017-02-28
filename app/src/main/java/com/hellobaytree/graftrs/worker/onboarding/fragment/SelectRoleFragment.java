@@ -250,7 +250,7 @@ public class SelectRoleFragment extends Fragment
             } else {
                 roles.clear();
                 for (Role o : data) {
-                    if (o.name.contains(charSequence)) {
+                    if (o.name.toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         roles.add(o);
                     }
                 }

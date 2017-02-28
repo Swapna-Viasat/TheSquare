@@ -148,8 +148,6 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
                         .replace(R.id.container, JobMatchesFragment.newInstance())
                         .commit();
                 break;
-            case R.id.worker_tune:
-                break;
         }
         return true;
     }

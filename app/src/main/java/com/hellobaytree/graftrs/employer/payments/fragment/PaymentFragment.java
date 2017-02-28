@@ -6,9 +6,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.subscription.model.CreateCardRequest;
@@ -76,10 +80,31 @@ public class PaymentFragment extends Fragment {
         return view;
     }
 
+    private void setUpCreditCardNumberInput(JosefinSansEditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+            }
+        });
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //
+        setUpCreditCardNumberInput(number);
         plan = getArguments().getInt(Constants.KEY_SELECTED_PLAN);
     }
 
@@ -98,11 +123,17 @@ public class PaymentFragment extends Fragment {
                     public void onResponse(Call<ResponseObject> call,
                                            Response<ResponseObject> response) {
                         //
+                        // TODO:
+                        getActivity().getSupportFragmentManager()
+                                .popBackStack();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseObject> call, Throwable t) {
                         //
+                        // TODO:
+                        getActivity().getSupportFragmentManager()
+                                .popBackStack();
                     }
                 });
     }

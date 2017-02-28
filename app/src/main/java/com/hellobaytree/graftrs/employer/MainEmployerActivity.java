@@ -1,5 +1,6 @@
 package com.hellobaytree.graftrs.employer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -25,10 +26,12 @@ import com.hellobaytree.graftrs.employer.mygraftrs.fragment.MyGraftrsEmployerFra
 import com.hellobaytree.graftrs.employer.myjobs.fragment.JobsFragment;
 import com.hellobaytree.graftrs.employer.onboarding.OnboardingEmployerActivity;
 import com.hellobaytree.graftrs.employer.payments.PaymentsActivity;
+import com.hellobaytree.graftrs.employer.payments.fragment.PricePlanFragment;
 import com.hellobaytree.graftrs.employer.subscription.SubscriptionActivity;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 import com.hellobaytree.graftrs.shared.utils.Constants;
+import com.hellobaytree.graftrs.shared.utils.ShareUtils;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 
 import butterknife.ButterKnife;
@@ -94,6 +97,9 @@ public class MainEmployerActivity extends AppCompatActivity {
                     selectItem(getString(R.string.menu_employer_my_account),
                             navigationView.getMenu().getItem(2));
                     break;
+                case 3:
+                    selectItem(getString(R.string.employer_account_price_plan),
+                            navigationView.getMenu().getItem(3));
             }
 
         }
@@ -178,8 +184,14 @@ public class MainEmployerActivity extends AppCompatActivity {
         }
         if (title.equals(getString(R.string.employer_account_price_plan))) {
             //
-            Intent intent = new Intent(this, PaymentsActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, PaymentsActivity.class);
+//            startActivity(intent);
+//            return;
+            lastTab = 3;
+            fragment = PricePlanFragment.newInstance();
+        }
+        if (title.equals(getString(R.string.menu_worker_share))) {
+            ShareUtils.employerLink(this);
             return;
         }
 

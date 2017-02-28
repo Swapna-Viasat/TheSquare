@@ -12,8 +12,8 @@ android {
         applicationId "com.hellobaytree.graftrs.graftrs"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 15
-        versionName "1.0.14"
+        versionCode 16
+        versionName "1.0.15"
         multiDexEnabled true
     }
 
@@ -67,10 +67,10 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.jakewharton:butterknife:8.0.1'
-    compile 'com.google.android.gms:play-services-places:10.0.1'
-    compile 'com.google.android.gms:play-services-location:10.0.1'
-    compile 'com.google.android.gms:play-services-maps:10.0.1'
-    compile 'com.google.android.gms:play-services-analytics:10.0.1'
+    compile 'com.google.android.gms:play-services-places:10.2.0'
+    compile 'com.google.android.gms:play-services-location:10.2.0'
+    compile 'com.google.android.gms:play-services-maps:10.2.0'
+    compile 'com.google.android.gms:play-services-analytics:10.2.0'
     compile 'com.android.support:support-v13:23.4.0'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
@@ -82,7 +82,7 @@ dependencies {
     compile 'com.stripe:stripe-android:2.0.2'
     compile 'com.hbb20:ccp:1.7.1'
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+    compile 'io.branch.sdk.android:library:2.+'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
-    compile 'io.branch.sdk.android:library:2.+'
 }

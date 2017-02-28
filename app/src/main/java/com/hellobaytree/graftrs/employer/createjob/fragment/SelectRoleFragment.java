@@ -330,7 +330,7 @@ public class SelectRoleFragment extends Fragment
             } else {
                 filtered.clear();
                 for (Role o : data) {
-                    if (TextTools.contains(o.name, charSequence)) {
+                    if (TextTools.contains(o.name.toLowerCase(), charSequence.toString().toLowerCase())) {
                         filtered.add(o);
                     }
                 }
