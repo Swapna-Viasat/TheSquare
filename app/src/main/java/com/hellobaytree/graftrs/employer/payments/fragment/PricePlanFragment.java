@@ -22,6 +22,7 @@ import com.hellobaytree.graftrs.shared.utils.TextTools;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -190,7 +191,29 @@ public class PricePlanFragment extends Fragment {
 
     @OnClick(R.id.cancel)
     public void cancelPlan() {
-        Toast.makeText(getContext(), "Cancel", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Cancelling...", Toast.LENGTH_LONG).show();
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .cancelAll()
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+                            //
+                            Toast.makeText(getContext(), "Cancelled!", Toast.LENGTH_LONG);
+                            fetchEmployer();
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     @OnClick(R.id.change_card)
