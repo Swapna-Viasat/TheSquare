@@ -126,12 +126,23 @@ public class PricePlanFragment extends Fragment {
         }
     }
 
+    private void displayBillDueDate(String date) {
+        try {
+            dueDate.setText(String.format(getString(R.string.payments_bill_due_format), date));
+        } catch (IllegalStateException e) {
+            TextTools.log(TAG, "illegal state exception");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void populate(Employer employer) {
         //
         if (null != employer) {
             displayBookings(employer.maxForPlan, employer.bookedWithPlan,
                     employer.maxForTopups, employer.bookedWithTopups);
             if (null != employer.planExpiration) {
+                displayBillDueDate(employer.planExpiration);
                 displayPlanExpiration(employer.planExpiration);
             }
             if (null != employer.topupExpiration) {
