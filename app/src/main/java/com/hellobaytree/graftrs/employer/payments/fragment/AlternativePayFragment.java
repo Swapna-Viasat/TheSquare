@@ -2,10 +2,16 @@ package com.hellobaytree.graftrs.employer.payments.fragment;
 
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -43,6 +49,7 @@ public class AlternativePayFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             //
         }
@@ -54,6 +61,23 @@ public class AlternativePayFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_alternative_pay, container, false);
         ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_price_plan_nested, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.back:
+                getActivity().getSupportFragmentManager()
+                        .popBackStack();
+                return true;
+        }
+        return false;
     }
 
     @Override
