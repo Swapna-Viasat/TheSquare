@@ -38,7 +38,7 @@ public class MyGraftrsEmployerFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewPager.setAdapter(new MyGraftrsEmployerPagerAdapter(getChildFragmentManager(), getContext()));
-        viewPager.setOffscreenPageLimit(2);
+        //viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
@@ -49,11 +49,15 @@ public class MyGraftrsEmployerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar()
-                .setTitle("My Workers");
-        TextView textView = (TextView) ((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(0)).getChildAt(1);
-        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like_tab, 0);
-        int density = (int) getResources().getDisplayMetrics().density;
-        textView.setCompoundDrawablePadding(6 * density);
+        try {
+            ((AppCompatActivity) getActivity()).getSupportActionBar()
+                    .setTitle("My Workers");
+            TextView textView = (TextView) ((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(0)).getChildAt(1);
+            textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like_tab, 0);
+            int density = (int) getResources().getDisplayMetrics().density;
+            textView.setCompoundDrawablePadding(6 * density);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
