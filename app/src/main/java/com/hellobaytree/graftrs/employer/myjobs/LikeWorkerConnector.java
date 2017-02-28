@@ -69,7 +69,7 @@ public class LikeWorkerConnector {
 
         try {
             HttpRestServiceConsumer.getBaseApiClient()
-                    .unlikeJob(workerId)
+                    .unlikeWorker(workerId)
                     .enqueue(new retrofit2.Callback<ResponseObject<StatusMessageResponse>>() {
                         @Override
                         public void onResponse(Call<ResponseObject<StatusMessageResponse>> call,
