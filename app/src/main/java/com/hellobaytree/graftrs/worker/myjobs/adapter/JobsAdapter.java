@@ -37,7 +37,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
     private Context context;
 
     public JobsAdapter(List<Job> input, Context context,
-                             JobsAdapter.JobsActionListener listener) {
+                       JobsAdapter.JobsActionListener listener) {
         this.data = input;
         this.context = context;
         this.listener = listener;
@@ -45,6 +45,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
     public interface JobsActionListener {
         void onViewDetails(Job job);
+
         void onLikeJob(Job job);
     }
 
@@ -100,8 +101,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             holder.startDate
                     .setText(String.format(context.getString(R.string.item_match_format_starts),
                             String.valueOf(dateTime.getMonthOfYear()
-                            + "." + dateTime.getDayOfMonth()
-                            + "." + dateTime.getYear())));
+                                    + "." + dateTime.getDayOfMonth()
+                                    + "." + dateTime.getYear())));
 
             setLiked(job.liked, holder.liked);
             // holder.actionBlock.setVisibility(View.VISIBLE);
@@ -142,10 +143,11 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         if (job.application != null) {
             if (job.application.get(0).status.id == ApplicationStatus.STATUS_APPROVED)
                 result = R.drawable.workers_booked;
-            else if (job.application.get(0).status.id == ApplicationStatus.STATUS_PENDING)
-                result = R.drawable.workers_applied;
-            else if (job.application.get(0).isOffer)
-                result = R.drawable.workers_offered;
+            else if (job.application.get(0).status.id == ApplicationStatus.STATUS_PENDING) {
+                if (job.application.get(0).isOffer)
+                    result = R.drawable.workers_offered;
+                else result = R.drawable.workers_applied;
+            }
         }
         return result;
     }
@@ -155,19 +157,33 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
     }
 
     public static class JobHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.item_job_logo) ImageView logo;
-        @BindView(R.id.item_job_liked) ImageView liked;
-        @BindView(R.id.item_job_start_date) JosefinSansTextView startDate;
-        @BindView(R.id.item_job_location) JosefinSansTextView location;
-        @BindView(R.id.item_job_salary_period) JosefinSansTextView salaryPeriod;
-        @BindView(R.id.item_job_salary_number) JosefinSansTextView salary;
-        @BindView(R.id.item_job_occupation) JosefinSansTextView occupation;
-        @BindView(R.id.item_job_experience) JosefinSansTextView experience;
-        @BindView(R.id.item_job_status) JosefinSansTextView action;
-        @BindView(R.id.item_job_action_block) View actionBlock;
-        @BindView(R.id.item_job_company_name) JosefinSansTextView company;
-        @BindView(R.id.item_job_id) JosefinSansTextView id;
-        @BindView(R.id.banner) ImageView bannerImage;
+        @BindView(R.id.item_job_logo)
+        ImageView logo;
+        @BindView(R.id.item_job_liked)
+        ImageView liked;
+        @BindView(R.id.item_job_start_date)
+        JosefinSansTextView startDate;
+        @BindView(R.id.item_job_location)
+        JosefinSansTextView location;
+        @BindView(R.id.item_job_salary_period)
+        JosefinSansTextView salaryPeriod;
+        @BindView(R.id.item_job_salary_number)
+        JosefinSansTextView salary;
+        @BindView(R.id.item_job_occupation)
+        JosefinSansTextView occupation;
+        @BindView(R.id.item_job_experience)
+        JosefinSansTextView experience;
+        @BindView(R.id.item_job_status)
+        JosefinSansTextView action;
+        @BindView(R.id.item_job_action_block)
+        View actionBlock;
+        @BindView(R.id.item_job_company_name)
+        JosefinSansTextView company;
+        @BindView(R.id.item_job_id)
+        JosefinSansTextView id;
+        @BindView(R.id.banner)
+        ImageView bannerImage;
+
         public JobHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
