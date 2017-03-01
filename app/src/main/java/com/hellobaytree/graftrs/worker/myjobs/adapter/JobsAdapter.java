@@ -1,6 +1,7 @@
 package com.hellobaytree.graftrs.worker.myjobs.adapter;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
+import com.hellobaytree.graftrs.worker.jobmatches.model.ApplicationStatus;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.squareup.picasso.Picasso;
 
@@ -121,6 +123,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             });
             if (TextUtils.equals(job.status.name, "Old")) holder.liked.setVisibility(View.GONE);
             else holder.liked.setVisibility(View.VISIBLE);
+
+            if (getBannerImage(job) != 0) holder.bannerImage.setImageResource(getBannerImage(job));
+            else holder.bannerImage.setVisibility(View.GONE);
             //
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,6 +134,20 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
     private void setLiked(boolean liked, ImageView imageView) {
         imageView.setImageResource(liked ? R.drawable.ic_like_tab : R.drawable.ic_like);
+    }
+
+    @DrawableRes
+    private int getBannerImage(Job job) {
+        int result = 0;
+        if (job.application != null) {
+            if (job.application.get(0).status.id == ApplicationStatus.STATUS_APPROVED)
+                result = R.drawable.workers_booked;
+            else if (job.application.get(0).status.id == ApplicationStatus.STATUS_PENDING)
+                result = R.drawable.workers_applied;
+            else if (job.application.get(0).isOffer)
+                result = R.drawable.workers_offered;
+        }
+        return result;
     }
 
     public int getItemCount() {
@@ -148,6 +167,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         @BindView(R.id.item_job_action_block) View actionBlock;
         @BindView(R.id.item_job_company_name) JosefinSansTextView company;
         @BindView(R.id.item_job_id) JosefinSansTextView id;
+        @BindView(R.id.banner) ImageView bannerImage;
         public JobHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
