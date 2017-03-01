@@ -3,6 +3,7 @@ package com.hellobaytree.graftrs.worker.jobmatches.fragment;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -19,12 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,13 +32,17 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
+import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.jobdetails.JobDetailActivity;
+import com.hellobaytree.graftrs.worker.jobdetails.LikeJobConnector;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
+import com.hellobaytree.graftrs.worker.jobmatches.model.MatchesResponse;
 import com.hellobaytree.graftrs.worker.myaccount.ui.activity.MyAccountViewProfileActivity;
 import com.squareup.picasso.Picasso;
 
@@ -50,10 +51,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallback,
-        ConnectionCallbacks,
-        GoogleMap.OnMarkerClickListener {
+        GoogleMap.OnMarkerClickListener,
+        LikeJobConnector.Callback {
 
     @BindView(R.id.map_view)
     MapView mapView;
@@ -64,6 +68,7 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     private GoogleApiClient mGoogleApiClient;
     private List<Job> jobs;
     private Dialog dialog;
+    private LikeJobConnector likeJobConnector;
 
     public static JobMatchesMapFragment newInstance(Bundle bundle) {
         JobMatchesMapFragment fragment = new JobMatchesMapFragment();
@@ -76,19 +81,13 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        jobs = (ArrayList<Job>) getArguments().getSerializable("data");
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                    .addConnectionCallbacks(this)
                     .addApi(LocationServices.API)
                     .build();
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (CollectionUtils.isEmpty(jobs)) showNoMatchesDialog();
+        jobs = new ArrayList<>();
+        likeJobConnector = new LikeJobConnector(this);
     }
 
     private void showNoMatchesDialog() {
@@ -135,6 +134,32 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         }
     }
 
+    public void fetchJobMatches() {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        Call<MatchesResponse> call = HttpRestServiceConsumer.getBaseApiClient()
+                .getJobMatches(null, null);
+        call.enqueue(new Callback<MatchesResponse>() {
+            @Override
+            public void onResponse(Call<MatchesResponse> call, Response<MatchesResponse> response) {
+                DialogBuilder.cancelDialog(dialog);
+                if (null != response) {
+                    if (null != response.body()) {
+                        if (null != response.body().response && response.isSuccessful()) {
+                            jobs.clear();
+                            jobs.addAll(response.body().response);
+                            processJobs();
+                        } else HandleErrors.parseError(getContext(), dialog, response);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MatchesResponse> call, Throwable t) {
+                HandleErrors.parseFailureError(getContext(), dialog, t);
+            }
+        });
+    }
+
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_worker_matches_map, menu);
@@ -158,18 +183,46 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Intent intent = new Intent(getActivity(), JobDetailActivity.class);
-                intent.putExtra(JobDetailActivity.JOB_ARG, (int) Integer.valueOf(marker.getTitle()));
-                getActivity().startActivity(intent);
+                processOnWindowClick(marker);
             }
         });
-        map.setInfoWindowAdapter(new CustomInfoWindowAdapter((ArrayList) getArguments().getSerializable("data"), getActivity()));
         map.setOnMarkerClickListener(this);
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mGoogleApiClient.connect();
             TextTools.log(TAG, "connecting the google api client");
         }
+        fetchJobMatches();
+    }
+
+    private void processOnWindowClick(final Marker marker) {
+        CharSequence[] options = {getString(R.string.worker_job_like),
+                getString(R.string.worker_job_unlike),
+                getString(R.string.worker_job_open_details)};
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+        builder.setTitle("");
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        likeJobConnector.likeJob(getContext(), Integer.valueOf(marker.getTitle()));
+                        break;
+                    case 1:
+                        likeJobConnector.unlikeJob(getContext(), Integer.valueOf(marker.getTitle()));
+                        break;
+                    case 2:
+                        Intent intent = new Intent(getActivity(), JobDetailActivity.class);
+                        intent.putExtra(JobDetailActivity.JOB_ARG, (int) Integer.valueOf(marker.getTitle()));
+                        getActivity().startActivity(intent);
+                        break;
+                }
+            }
+        });
+
+        android.app.AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
@@ -204,39 +257,37 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         super.onLowMemory();
     }
 
-    @SuppressWarnings("unchecked")
-    public void onConnected(Bundle connectionHint) {
-        TextTools.log(TAG, "on google api client connected");
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            if (map != null && jobs != null) {
-                try {
-                    for (Job job : jobs) {
-                        if (job == null || job.location == null) continue;
+    private void processJobs() {
+        if (!CollectionUtils.isEmpty(jobs)) {
 
-                        map.addMarker(new MarkerOptions()
-                                .title(String.valueOf(job.id))
-                                .position(new LatLng(Double.valueOf(job.location.latitude),
-                                        Double.valueOf(job.location.longitude)))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin_active)));
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                if (map != null) {
+                    try {
+                        map.clear();
+                        map.setInfoWindowAdapter(new CustomInfoWindowAdapter(jobs, getActivity()));
 
-                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                new LatLng(Double.valueOf(job.location.latitude),
-                                        Double.valueOf(job.location.longitude)), 12));
+                        for (Job job : jobs) {
+                            if (job == null || job.location == null) continue;
+
+                            map.addMarker(new MarkerOptions()
+                                    .title(String.valueOf(job.id))
+                                    .position(new LatLng(Double.valueOf(job.location.latitude),
+                                            Double.valueOf(job.location.longitude)))
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin_active)));
+
+                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                    new LatLng(Double.valueOf(job.location.latitude),
+                                            Double.valueOf(job.location.longitude)), 12));
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        new AlertDialog.Builder(getContext()).setMessage("Something went wrong").show();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    new AlertDialog.Builder(getContext()).setMessage("Something went wrong").show();
                 }
             }
-        }
+        } else showNoMatchesDialog();
     }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
 
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -244,6 +295,11 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         // marker.showInfoWindow();
 
         return false;
+    }
+
+    @Override
+    public void onConnectorSuccess() {
+        fetchJobMatches();
     }
 
     class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
@@ -320,6 +376,8 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
                                     String.valueOf(job.budget));
                     ((JosefinSansTextView) view.findViewById(R.id.job_id))
                             .setText(String.valueOf(job.jobRef));
+                    ((ImageView) view.findViewById(R.id.likeImage))
+                            .setImageResource(job.liked ? R.drawable.ic_like_tab : R.drawable.ic_like);
                 }
             }
             return view;

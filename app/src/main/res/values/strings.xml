@@ -395,6 +395,9 @@
     <string name="worker_matches_menu_tune">tune</string>
     <string name="item_match_format_experience">%1$d %2$s experience</string>
     <string name="item_match_format_starts">Starts %s</string>
+    <string name="worker_job_like">Like job</string>
+    <string name="worker_job_unlike">Unlike job</string>
+    <string name="worker_job_open_details">Open job details</string>
 
     <!--Worker Matches Filter-->
     <string name="matches_filter_title">Filter &amp; Order By</string>
