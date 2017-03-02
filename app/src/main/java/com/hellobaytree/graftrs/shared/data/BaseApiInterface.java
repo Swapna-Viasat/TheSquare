@@ -75,6 +75,9 @@ public interface BaseApiInterface {
     @GET("/data/experience_qualifications/")
     Call<ResponseObject<List<ExperienceQualification>>> fetchExperienceQualifications();
 
+    @GET("/data/experience_qualifications/")
+    Call<ResponseObject<List<Qualification>>> fetchRequirements();
+
     @GET("/data/{pk}/role_qualifications/")
     Call<ResponseObject<List<Qualification>>> fetchRoleQualifications(@Path("pk") int roleId);
 

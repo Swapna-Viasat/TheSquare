@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.models.ExperienceQualification;
+import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 
 import java.util.ArrayList;
@@ -24,10 +25,10 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
 
     public static final String TAG = "ExperienceAdapter";
 
-    private List<ExperienceQualification> data = new ArrayList<>();
+    private List<Qualification> data = new ArrayList<>();
 
-    public ExperienceAdapter(List<ExperienceQualification> experienceQualifications) {
-        this.data = experienceQualifications;
+    public ExperienceAdapter(List<Qualification> requirements) {
+        this.data = requirements;
     }
 
     @Override
@@ -39,14 +40,14 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
 
     @Override
     public void onBindViewHolder(ExperienceHolder holder, int position) {
-        final ExperienceQualification experience = data.get(position);
-        holder.checkBox.setChecked(experience.selected);
-        holder.title.setText(experience.name);
+        final Qualification requirement = data.get(position);
+        holder.checkBox.setChecked(requirement.selected);
+        holder.title.setText(requirement.name);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (null != listener) {
-                    listener.onExperience(experience);
+                    listener.onRequirement(requirement);
                 }
             }
         });
@@ -75,6 +76,6 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Ex
     }
 
     public interface ExperienceListener {
-        void onExperience(ExperienceQualification experience);
+        void onRequirement(Qualification experience);
     }
 }

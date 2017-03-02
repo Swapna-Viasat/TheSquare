@@ -229,13 +229,24 @@ public class JobsListFragment extends Fragment
              * Loading qualifications.
              */
             if (null != job.qualifications) {
-                int[] qualificationIds = new int[job.qualifications.size()];
-                for (int i = 0; i < job.qualifications.size(); i++) {
-                    qualificationIds[i] = job.qualifications.get(i).id;
-                    qualificationStrings.add(job.qualifications.get(i).name);
+                if (!job.qualifications.isEmpty()) {
+                    // filtering out qualifications that are requirements
+                    List<Qualification> q2 = new ArrayList<>();
+                    for (Qualification q : job.qualifications) {
+                        if (!q.onExperience) {
+                            q2.add(q);
+                        }
+                    }
+                    int[] qualificationIds = new int[q2.size()];
+                    List<String> qualificationStrings = new ArrayList<>();
+                    for (int i = 0; i < q2.size(); i++) {
+                        qualificationIds[i] = q2.get(i).id;
+                        qualificationStrings.add(q2.get(i).name);
+                    }
+                    result.qualificationObjects = q2;
+                    result.qualifications = qualificationIds;
+                    result.qualificationStrings = qualificationStrings;
                 }
-                result.qualifications = qualificationIds;
-                result.qualificationStrings = qualificationStrings;
             }
 
             /**
@@ -252,9 +263,28 @@ public class JobsListFragment extends Fragment
             }
 
             /**
-             * Loading experience.
+             * Loading requirements.
              */
-            // TODO: what happened with experience qualifications ???
+            if (null != job.qualifications) {
+                if (!job.qualifications.isEmpty()) {
+                    // extracting the requirements from qualifications
+                    List<Qualification> q2 = new ArrayList<>();
+                    for (Qualification q : job.qualifications) {
+                        if (q.onExperience) {
+                            q2.add(q);
+                        }
+                    }
+                    int[] requirementIds = new int[q2.size()];
+                    List<String> requirementStrings = new ArrayList<>();
+                    for (int i = 0; i < q2.size(); i++) {
+                        requirementIds[i] = q2.get(i).id;
+                        requirementStrings.add(q2.get(i).name);
+                    }
+                    result.requirementObjects = q2;
+                    result.requirements = requirementIds;
+                    result.requirementStrings = requirementStrings;
+                }
+            }
 
             /**
              * Loading experience types.

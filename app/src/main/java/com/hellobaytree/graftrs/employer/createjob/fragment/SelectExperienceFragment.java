@@ -27,6 +27,7 @@ import com.hellobaytree.graftrs.shared.models.DataResponse;
 import com.hellobaytree.graftrs.shared.models.EnglishLevel;
 import com.hellobaytree.graftrs.shared.models.ExperienceQualification;
 import com.hellobaytree.graftrs.shared.models.ExperienceType;
+import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.models.Role;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
@@ -69,7 +70,7 @@ public class SelectExperienceFragment extends Fragment
     private FluencyAdapter fluencyAdapter;
     private List<EnglishLevel> levels = new ArrayList<>();
     private ExperienceAdapter experienceAdapter;
-    private List<ExperienceQualification> qualifications = new ArrayList<>();
+    private List<Qualification> requirements = new ArrayList<>();
 
     public static SelectExperienceFragment newInstance(CreateRequest request,
                                                        boolean singleEdit) {
@@ -165,9 +166,9 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void persistProgress() {
-        List<ExperienceQualification> selected = new ArrayList<>();
+        List<Qualification> selected = new ArrayList<>();
         selected.clear();
-        for (ExperienceQualification exp : qualifications) {
+        for (Qualification exp : requirements) {
             if (exp.selected) {
                 selected.add(exp);
             }
@@ -178,9 +179,9 @@ public class SelectExperienceFragment extends Fragment
             quals[i] = selected.get(i).id;
             strings.add(selected.get(i).name);
         }
-        createRequest.expQualifications = quals;
-        createRequest.expQualificationObjects = selected;
-        createRequest.expQualificationStrings = strings;
+        createRequest.requirements = quals;
+        createRequest.requirementObjects = selected;
+        createRequest.requirementStrings = strings;
 
         createRequest.english = english;
 
@@ -195,11 +196,11 @@ public class SelectExperienceFragment extends Fragment
     private void fetchData() {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
-                .fetchExperienceQualifications()
-                .enqueue(new Callback<ResponseObject<List<ExperienceQualification>>>() {
+                .fetchRequirements()
+                .enqueue(new Callback<ResponseObject<List<Qualification>>>() {
                     @Override
-                    public void onResponse(Call<ResponseObject<List<ExperienceQualification>>> call,
-                                           Response<ResponseObject<List<ExperienceQualification>>> response) {
+                    public void onResponse(Call<ResponseObject<List<Qualification>>> call,
+                                           Response<ResponseObject<List<Qualification>>> response) {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
                             populateExpQualifications(response.body().getResponse());
@@ -209,7 +210,7 @@ public class SelectExperienceFragment extends Fragment
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseObject<List<ExperienceQualification>>> call, Throwable t) {
+                    public void onFailure(Call<ResponseObject<List<Qualification>>> call, Throwable t) {
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
@@ -236,20 +237,20 @@ public class SelectExperienceFragment extends Fragment
                 });
     }
 
-    private void populateExpQualifications(List<ExperienceQualification> data) {
+    private void populateExpQualifications(List<Qualification> data) {
         try {
-            qualifications.clear();
-            qualifications.addAll(data);
-            if (null != createRequest && null != createRequest.expQualifications) {
-                for (ExperienceQualification expQ : data) {
-                    for (int id : createRequest.expQualifications) {
-                        if (expQ.id == id) {
-                            expQ.selected = true;
+            requirements.clear();
+            requirements.addAll(data);
+            if (null != createRequest && null != createRequest.requirements) {
+                for (Qualification requirement : data) {
+                    for (int id : createRequest.requirements) {
+                        if (requirement.id == id) {
+                            requirement.selected = true;
                         }
                     }
                 }
             }
-            experienceAdapter = new ExperienceAdapter(qualifications);
+            experienceAdapter = new ExperienceAdapter(requirements);
             experienceAdapter.setListener(this);
             others.setLayoutManager(new LinearLayoutManager(getContext()));
             others.setAdapter(experienceAdapter);
@@ -259,8 +260,8 @@ public class SelectExperienceFragment extends Fragment
 
         try {
             if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
-                for (ExperienceQualification e : qualifications) {
-                    for (int i : createRequest.expQualifications) {
+                for (Qualification e : requirements) {
+                    for (int i : createRequest.requirements) {
                         if (i == e.id) {
                             e.selected = true;
                         }
@@ -312,9 +313,9 @@ public class SelectExperienceFragment extends Fragment
             createRequest.englishLevelString = englishString;
             createRequest.experience = experience;
 
-            List<ExperienceQualification> selected = new ArrayList<>();
+            List<Qualification> selected = new ArrayList<>();
             selected.clear();
-            for (ExperienceQualification exp : qualifications) {
+            for (Qualification exp : requirements) {
                 if (exp.selected) {
                     selected.add(exp);
                 }
@@ -325,9 +326,9 @@ public class SelectExperienceFragment extends Fragment
                 quals[i] = selected.get(i).id;
                 strings.add(selected.get(i).name);
             }
-            createRequest.expQualifications = quals;
-            createRequest.expQualificationObjects = selected;
-            createRequest.expQualificationStrings = strings;
+            createRequest.requirements = quals;
+            createRequest.requirementObjects = selected;
+            createRequest.requirementStrings = strings;
 
             if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
                 //
@@ -387,7 +388,7 @@ public class SelectExperienceFragment extends Fragment
     }
 
     @Override
-    public void onExperience(ExperienceQualification experience) {
+    public void onRequirement(Qualification experience) {
         experience.selected = !experience.selected;
         experienceAdapter.notifyDataSetChanged();
     }
