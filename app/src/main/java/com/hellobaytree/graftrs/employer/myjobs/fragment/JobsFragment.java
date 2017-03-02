@@ -293,7 +293,12 @@ public class JobsFragment extends Fragment
                         //
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            showCreateDialog(response.body().response);
+
+                            if (response.body().response.isEmpty()) {
+                                create();
+                            } else {
+                                showCreateDialog(response.body().response);
+                            }
 
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
