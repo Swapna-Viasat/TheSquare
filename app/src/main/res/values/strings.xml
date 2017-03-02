@@ -22,7 +22,7 @@
     <string name="phone_verification_continue">Continue</string>
     <string name="phone_verification_validate_failed">Please enter a 4 digit code.</string>
 
-    <string name="sign_up_worker_step_personal_information_post_code_hint">Home postcode*</string>
+    <string name="sign_up_worker_step_personal_information_post_code_hint">Home address*</string>
     <string name="sign_up_worker_step_personal_information_email_hint">Email address</string>
     <string name="sign_up_worker_step_personal_information_last_name_hint">Last Name*</string>
     <string name="sign_up_worker_step_personal_information_first_name_hint">First Name*</string>
@@ -107,6 +107,7 @@
     <string name="validate_password_match">The password and confirmation password do not match</string>
     <string name="validate_zip">Please enter a valid postal code</string>
     <string name="validate_email">Please enter a valid email address</string>
+    <string name="empty_address">Please enter your address</string>
 
 
     <string name="sign_up_employer_step_company_title">Company information</string>
@@ -395,6 +396,9 @@
     <string name="worker_matches_menu_tune">tune</string>
     <string name="item_match_format_experience">%1$d %2$s experience</string>
     <string name="item_match_format_starts">Starts %s</string>
+    <string name="worker_job_like">Like job</string>
+    <string name="worker_job_unlike">Unlike job</string>
+    <string name="worker_job_open_details">Open job details</string>
 
     <!--Worker Matches Filter-->
     <string name="matches_filter_title">Filter &amp; Order By</string>

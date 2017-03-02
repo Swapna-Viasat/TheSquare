@@ -258,11 +258,11 @@ public interface BaseApiInterface {
     Call<ResponseObject<Worker[]>> getJobLiveWorkers(@Path("pk") int id);
 
     // TODO: extract url params into the method params
-    @GET("jobs/{pk}/workers/?fields=id,picture,applications,first_name,last_name,matched_role")
+    @GET("jobs/{pk}/workers/?fields=id,picture,applications,first_name,last_name,matched_role,liked")
     Call<JobWorkersResponse> fetchJobWorkers(@Path("pk") int id, @Query("status") int status);
 
     // TODO: extract url params into the method params
-    @GET("jobs/{pk}/workers/?fields=id,picture,applications,first_name,last_name,matched_role")
+    @GET("jobs/{pk}/workers/?fields=id,picture,applications,first_name,last_name,matched_role,liked")
     Call<JobWorkersResponse> fetchJobWorkerMatches(@Path("pk") int id);
 
     @POST("jobs/{pk}/like/")

@@ -39,10 +39,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.createjob.persistence.GsonConfig;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
-import com.hellobaytree.graftrs.shared.data.ZipCodeVerifier;
 import com.hellobaytree.graftrs.shared.data.model.Location;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
-import com.hellobaytree.graftrs.shared.data.model.ZipResponse;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.Constants;
@@ -51,6 +49,7 @@ import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.CommuteTimeSeekBar;
+import com.hellobaytree.graftrs.worker.onboarding.GeocodeRunnable;
 import com.hellobaytree.graftrs.worker.onboarding.OnGeoCodingFinishedListener;
 import com.hellobaytree.graftrs.worker.onboarding.ReverseGeocodeRunnable;
 import com.hellobaytree.graftrs.worker.onboarding.adapter.PlacesAutocompleteAdapter;
@@ -85,6 +84,8 @@ public class SelectLocationFragment extends Fragment
     private View rootView;
     private static final double londonLat = 51.5074;
     private static final double londonLong = 0.1278;
+
+    private Dialog dialog;
 
     @BindView(R.id.filter)
     TextView filter;
@@ -335,36 +336,12 @@ public class SelectLocationFragment extends Fragment
     private void moveToInitialLocation() {
         LatLng london = new LatLng(londonLat, londonLong);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(london, 13f));
-        if (currentWorker != null) centerOnPostalCode(currentWorker.zip);
+        if (currentWorker != null) centerOnAddress(currentWorker.address);
     }
 
-    private void centerOnPostalCode(String code) {
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        ZipCodeVerifier.getInstance()
-                .api()
-                .verify(code, ZipCodeVerifier.API_KEY)
-                .enqueue(new Callback<ZipResponse>() {
-                    @Override
-                    public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
-                        if (response.isSuccessful()) {
-                            DialogBuilder.cancelDialog(dialog);
-                            if (response.body().message == null) {
-
-                                googleMap.setOnCameraIdleListener(null);
-                                if (currentWorker != null) filter.setText(currentWorker.zip);
-                                LatLng latLng = new LatLng(response.body().lat, response.body().lang);
-
-                                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
-                                googleMap.setOnCameraIdleListener(cameraIdleListener);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ZipResponse> call, Throwable t) {
-                        DialogBuilder.cancelDialog(dialog);
-                    }
-                });
+    private void centerOnAddress(String address) {
+        dialog = DialogBuilder.showCustomDialog(getContext());
+        new Thread(new GeocodeRunnable(getContext(), address, this, dialog)).start();
     }
 
     private void startReverseGeoCoding(LatLng target) {
@@ -390,6 +367,26 @@ public class SelectLocationFragment extends Fragment
                 }
             });
         }
+    }
+
+    @Override
+    public void onGeoCodingFinished(final LatLng latLng) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
+            }
+        });
+    }
+
+    @Override
+    public void onGeoCodingFailed() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DialogBuilder.cancelDialog(dialog);
+            }
+        });
     }
 
     @Override

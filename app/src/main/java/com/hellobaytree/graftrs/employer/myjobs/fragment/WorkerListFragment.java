@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.employer.myjobs.LikeWorkerConnector;
 import com.hellobaytree.graftrs.employer.myjobs.activity.ViewWorkerProfileActivity;
 import com.hellobaytree.graftrs.employer.myjobs.adapter.WorkersAdapter;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
@@ -40,7 +41,7 @@ import retrofit2.Response;
  * Created by gherg on 12/30/2016.
  */
 
-public class WorkerListFragment extends Fragment implements WorkersAdapter.WorkersActionListener {
+public class WorkerListFragment extends Fragment implements WorkersAdapter.WorkersActionListener, LikeWorkerConnector.Callback {
 
     public static final String TAG = "WorkerListFragment";
 
@@ -55,6 +56,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
     View noMatches;
     private List<Worker> data = new ArrayList<>();
     private WorkersAdapter adapter;
+    private LikeWorkerConnector likeWorkerConnector;
 
     public static WorkerListFragment newInstance(int type, int jobId) {
         WorkerListFragment fragment = new WorkerListFragment();
@@ -81,6 +83,7 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
         adapter.registerAdapterDataObserver(observer);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setAdapter(adapter);
+        likeWorkerConnector = new LikeWorkerConnector(this);
     }
 
     @Override
@@ -268,6 +271,14 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
     }
 
     @Override
+    public void onLikeWorkerClick(Worker worker) {
+        if (worker != null) {
+            if (worker.liked) likeWorkerConnector.unlikeWorker(getContext(), worker.id);
+            else likeWorkerConnector.likeWorker(getContext(), worker.id);
+        }
+    }
+
+    @Override
     public void onBook(Worker worker) {
         //
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
@@ -325,4 +336,9 @@ public class WorkerListFragment extends Fragment implements WorkersAdapter.Worke
             }
         }
     };
+
+    @Override
+    public void onConnectorSuccess() {
+        fetchWorkers(getArguments().getInt(Constants.KEY_JOB_ID));
+    }
 }
