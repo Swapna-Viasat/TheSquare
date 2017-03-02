@@ -17,18 +17,26 @@ import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.createjob.persistence.GsonConfig;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
-import com.hellobaytree.graftrs.shared.data.ZipCodeVerifier;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
-import com.hellobaytree.graftrs.shared.data.model.ZipResponse;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.utils.Constants;
@@ -37,6 +45,7 @@ import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.KeyboardUtils;
 import com.hellobaytree.graftrs.shared.utils.MediaTools;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
+import com.hellobaytree.graftrs.worker.onboarding.adapter.PlacesAutocompleteAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -61,7 +70,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by gherg on 12/18/2016.
  */
 
-public class SelectWorkerInfoFragment extends Fragment {
+public class SelectWorkerInfoFragment extends Fragment implements PlacesAutocompleteAdapter.PlacesListener {
 
     public static final String TAG = "WorkerInfoFragment";
 
@@ -73,7 +82,7 @@ public class SelectWorkerInfoFragment extends Fragment {
     @BindView(R.id.last_name_input)
     TextInputLayout lastNameInput;
     @BindView(R.id.zip_layout)
-    TextInputLayout zipLayout;
+    TextView addressLayout;
     @BindView(R.id.email_layout)
     TextInputLayout emailLayout;
     @BindView(R.id.password_layout)
@@ -89,6 +98,8 @@ public class SelectWorkerInfoFragment extends Fragment {
     static final int REQUEST_IMAGE_SELECTION = 2;
     static final int REQUEST_PERMISSIONS = 3;
     static final int REQUEST_PERMISSION_READ_STORAGE = 4;
+
+    private GoogleApiClient googleApiClient;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -146,10 +157,20 @@ public class SelectWorkerInfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         workerId = SharedPreferencesManager.getInstance(getContext()).getWorkerId();
 
+        addressLayout.setOnClickListener(listener);
         if (null != getArguments().getSerializable(Constants.KEY_CURRENT_WORKER)) {
             currentWorker = (Worker) getArguments().getSerializable(Constants.KEY_CURRENT_WORKER);
             populate();
         }
+
+        buildGoogleApiClient();
+    }
+
+    private void buildGoogleApiClient() {
+        googleApiClient = new GoogleApiClient.Builder(getContext())
+                .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
+                .build();
     }
 
     private void populate() {
@@ -158,7 +179,7 @@ public class SelectWorkerInfoFragment extends Fragment {
             firstNameInput.getEditText().setText(currentWorker.firstName);
             lastNameInput.getEditText().setText(currentWorker.lastName);
             emailLayout.getEditText().setText(currentWorker.email);
-            zipLayout.getEditText().setText(currentWorker.zip);
+            addressLayout.setText(currentWorker.address);
 
             showProfileImage();
         } catch (Exception e) {
@@ -192,7 +213,7 @@ public class SelectWorkerInfoFragment extends Fragment {
                 break;
             case R.id.next:
                 if (validate()) {
-                    validateZip();
+                    patchWorker();
                 }
                 break;
         }
@@ -343,57 +364,14 @@ public class SelectWorkerInfoFragment extends Fragment {
                 .equals(password2Layout.getEditText().getText().toString())))) {
             password2Layout.setError(getString(R.string.validate_password_match));
             result = false;
+        } else if (TextUtils.isEmpty(addressLayout.getText().toString())) {
+            addressLayout.setError(getString(R.string.empty_address));
+            result = false;
         }
 
         if (!result) resetInputErrors.start();
 
         return result;
-    }
-
-    private void validateZip() {
-        if ((TextUtils.isEmpty(zipLayout.getEditText().getText().toString()))) {
-            zipLayout.setError(getString(R.string.validate_zip));
-        } else {
-            // Api call to validate postal code
-            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-
-            ZipCodeVerifier.getInstance()
-                    .api()
-                    .verify(zipLayout.getEditText().getText().toString(), ZipCodeVerifier.API_KEY)
-                    .enqueue(new Callback<ZipResponse>() {
-                        @Override
-                        public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
-                            DialogBuilder.cancelDialog(dialog);
-
-                            if (null != response.body()) {
-                                if (null != response.body().message) {
-                                    if (response.body().message.equals(ZipCodeVerifier.BAD_REQUEST)) {
-                                        new AlertDialog.Builder(getContext())
-                                                .setMessage(getString(R.string.validate_zip))
-                                                .show();
-                                    } else {
-                                        new AlertDialog.Builder(getContext())
-                                                .setMessage(getString(R.string.validate_zip))
-                                                .show();
-                                    }
-                                } else {
-                                    // all good
-                                    patchWorker();
-                                }
-                            } else {
-                                // response body null
-                                new AlertDialog.Builder(getContext())
-                                        .setMessage(getString(R.string.validate_zip))
-                                        .show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ZipResponse> call, Throwable t) {
-                            DialogBuilder.cancelDialog(dialog);
-                        }
-                    });
-        }
     }
 
     private void patchWorker() {
@@ -403,7 +381,7 @@ public class SelectWorkerInfoFragment extends Fragment {
         request.put("password", passwordLayout.getEditText().getText().toString());
         request.put("password2", password2Layout.getEditText().getText().toString());
         request.put("email", emailLayout.getEditText().getText().toString());
-        request.put("post_code", zipLayout.getEditText().getText().toString());
+        request.put("address", addressLayout.getText().toString());
         request.put("first_name", firstNameInput.getEditText().getText().toString());
         request.put("last_name", lastNameInput.getEditText().getText().toString());
         HttpRestServiceConsumer.getBaseApiClient()
@@ -457,7 +435,6 @@ public class SelectWorkerInfoFragment extends Fragment {
                 TextTools.resetInputLayout(emailLayout);
                 TextTools.resetInputLayout(lastNameInput);
                 TextTools.resetInputLayout(firstNameInput);
-                TextTools.resetInputLayout(zipLayout);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -467,6 +444,7 @@ public class SelectWorkerInfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        googleApiClient.connect();
         loadWorker();
         populate();
     }
@@ -474,6 +452,7 @@ public class SelectWorkerInfoFragment extends Fragment {
     @Override
     public void onPause() {
         persistProgress();
+        googleApiClient.disconnect();
         KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
@@ -491,12 +470,72 @@ public class SelectWorkerInfoFragment extends Fragment {
             currentWorker.firstName = firstNameInput.getEditText().getText().toString();
             currentWorker.lastName = lastNameInput.getEditText().getText().toString();
             currentWorker.email = emailLayout.getEditText().getText().toString();
-            currentWorker.zip = zipLayout.getEditText().getText().toString();
+            currentWorker.zip = addressLayout.getText().toString();
         }
 
         getActivity().getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, Context.MODE_PRIVATE)
                 .edit()
                 .putString(Constants.KEY_PERSISTED_WORKER, GsonConfig.buildDefault().toJson(currentWorker))
                 .apply();
+    }
+
+    private View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final Dialog dialog = new Dialog(getContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.autocomplete);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    getResources().getDisplayMetrics().heightPixels * 8 / 12);
+            ((TextView) dialog.findViewById(R.id.autocomplete_title))
+                    .setText(getString(R.string.create_job_address));
+
+            final PlacesAutocompleteAdapter adapter =
+                    new PlacesAutocompleteAdapter(getActivity(), googleApiClient);
+            adapter.setListener(SelectWorkerInfoFragment.this, dialog);
+
+
+            ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
+            listView.setAdapter(adapter);
+
+            final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
+            search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    //
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    adapter.getFilter().filter(s);
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+            search.setText(addressLayout.getText().toString());
+            dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addressLayout.setText(search.getText().toString());
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
+    };
+
+    @Override
+    public void onPlace(String id, String name, Dialog dialog) {
+        addressLayout.setText(name);
+        if (null != dialog) dialog.dismiss();
     }
 }
