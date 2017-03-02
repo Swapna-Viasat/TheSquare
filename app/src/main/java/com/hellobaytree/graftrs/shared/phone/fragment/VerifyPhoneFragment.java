@@ -35,6 +35,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.intercom.android.sdk.Intercom;
+import io.intercom.android.sdk.identity.Registration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -133,17 +135,17 @@ public class VerifyPhoneFragment extends Fragment {
                                 if (response.isSuccessful()) {
                                     //
 
-//
-//                                    Registration registration = Registration.create().withUserId("123456");
-//                                    Intercom.client().registerIdentifiedUser(registration);
+
+                                    Registration registration = Registration.create().withEmail("testing@intercom.com");
+                                    Intercom.client().registerIdentifiedUser(registration);
 
 
-//                                    Map<String, Object> userMap = new HashMap<>();
-//                                    userMap.put("email", deviceEmail);
-//                                    userMap.put("phone_number", editTextPhoneNumber.getText().toString());
-//                                    userMap.put("country_code", ccp.getSelectedCountryCodeWithPlus());
-//                                    Intercom.client().updateUser(userMap);
-                                    //
+                                    Map<String, Object> userMap = new HashMap<>();
+                                    userMap.put("email", deviceEmail);
+                                    userMap.put("phone_number", editTextPhoneNumber.getText().toString());
+                                    userMap.put("country_code", ccp.getSelectedCountryCodeWithPlus());
+                                    Intercom.client().logEvent("user_registered", userMap);
+
                                     try {
                                         Bundle bundle = new Bundle();
                                         bundle.putString("phone", editTextPhoneNumber.getText().toString());
@@ -224,6 +226,17 @@ public class VerifyPhoneFragment extends Fragment {
                                 DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
                                     ////
+
+
+                                    Registration registration = Registration.create().withEmail("testing@intercom.com");
+                                    Intercom.client().registerIdentifiedUser(registration);
+
+
+                                    Map<String, Object> userMap = new HashMap<>();
+                                    userMap.put("email", deviceEmail);
+                                    userMap.put("phone_number", editTextPhoneNumber.getText().toString());
+                                    userMap.put("country_code", ccp.getSelectedCountryCodeWithPlus());
+                                    Intercom.client().logEvent("user_registered", userMap);
 
                                     try {
                                         Bundle bundle = new Bundle();
