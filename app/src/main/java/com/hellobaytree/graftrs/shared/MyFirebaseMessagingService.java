@@ -16,7 +16,7 @@ import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 
 /**
  * Created by Vadim Goroshevsky
- * Copyright (c) 2016 FusionWorks. All rights reserved.
+ * Copyright (c) 2016 The Square Tech. All rights reserved.
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
