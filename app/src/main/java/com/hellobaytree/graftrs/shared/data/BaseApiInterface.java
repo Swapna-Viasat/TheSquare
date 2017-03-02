@@ -316,4 +316,7 @@ public interface BaseApiInterface {
 
     @DELETE("/payments/manage/cancel_all/")
     Call<ResponseBody> cancelAll();
+
+    @POST("/payments/manage/manual_subscription/")
+    Call<ResponseBody> submitAlternativePayment(@Body HashMap<String, Object> body);
 }

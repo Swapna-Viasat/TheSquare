@@ -41,7 +41,6 @@
                 android:layout_height="wrap_content" />
 
             <Spinner
-                android:background="@color/redSquareColor"
                 android:layout_margin="24dp"
                 android:id="@+id/payments_plan_spinner"
                 android:layout_gravity="end|right"
