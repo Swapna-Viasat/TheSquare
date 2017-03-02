@@ -30,12 +30,11 @@ import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.worker.signup.model.Worker;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.intercom.android.sdk.Intercom;
-import io.intercom.android.sdk.identity.Registration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -133,9 +132,17 @@ public class VerifyPhoneFragment extends Fragment {
                                 DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
                                     //
-                                    Intercom.client().registerIdentifiedUser(
-                                            Registration.create().withUserId(deviceEmail)
-                                    );
+
+//
+//                                    Registration registration = Registration.create().withUserId("123456");
+//                                    Intercom.client().registerIdentifiedUser(registration);
+
+
+//                                    Map<String, Object> userMap = new HashMap<>();
+//                                    userMap.put("email", deviceEmail);
+//                                    userMap.put("phone_number", editTextPhoneNumber.getText().toString());
+//                                    userMap.put("country_code", ccp.getSelectedCountryCodeWithPlus());
+//                                    Intercom.client().updateUser(userMap);
                                     //
                                     try {
                                         Bundle bundle = new Bundle();

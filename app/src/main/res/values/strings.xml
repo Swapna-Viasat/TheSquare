@@ -866,4 +866,6 @@
 
     <string name="misc_intercom_key">android_sdk-70624f8b395b057a2078a8cc54ea9623d263bc96</string>
     <string name="misc_intercom_app_id">ymo0avlj</string>
+    <string name="misc_intercom_key_test">android_sdk-c24dec1eea20225cd6fff8077f34d666dd5dacf5</string>
+    <string name="misc_intercom_app_id_test">xn56966s</string>
 </resources>
