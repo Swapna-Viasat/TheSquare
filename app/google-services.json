@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "860659444318",
+    "firebase_url": "https://the-square-e78c1.firebaseio.com",
+    "project_id": "the-square-e78c1",
+    "storage_bucket": "the-square-e78c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860659444318:android:8c6cba51149c8a71",
+        "android_client_info": {
+          "package_name": "com.hellobaytree.graftrs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860659444318-cfs0l3h0r8bohtr2fk2s0momd0f2d5c5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCap6qvJkgMZNlJgyGOyoTSF14JstGjMXw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860659444318:android:1eb4e00b47410576",
+        "android_client_info": {
+          "package_name": "com.hellobaytree.graftrs.graftrs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860659444318-cfs0l3h0r8bohtr2fk2s0momd0f2d5c5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCap6qvJkgMZNlJgyGOyoTSF14JstGjMXw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
