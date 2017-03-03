@@ -29,7 +29,6 @@ public class ReviewDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rating_view_safety) RatingView safety;
     @BindView(R.id.review_details_name) JosefinSansTextView name;
     @BindView(R.id.review_details_overview) JosefinSansTextView again;
-    @BindView(R.id.review_details_logo) ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,24 +67,7 @@ public class ReviewDetailsActivity extends AppCompatActivity {
         safety.makeStarsRed();
         safety.setRating((int) review.safe);
         TextTools.log(TAG, String.valueOf(review.safe));
-
         again.setVisibility(review.wouldHireAgain ? View.VISIBLE : View.GONE);
-
-        if (null != review.job) {
-            if (null != review.job.owner) {
-                if (null != review.job.owner.company) {
-                    if (null != review.job.owner.company.name) {
-                        name.setText(review.job.owner.company.name);
-                    }
-                    if (null != review.job.owner.company.logo) {
-                        Picasso.with(getBaseContext())
-                                .load(review.job.owner.company.logo)
-                                .into(logo);
-
-                    }
-                }
-            }
-        }
     }
 
     @OnClick(R.id.close)
