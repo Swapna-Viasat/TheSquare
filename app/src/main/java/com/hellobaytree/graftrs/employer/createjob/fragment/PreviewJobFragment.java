@@ -165,7 +165,7 @@ public class PreviewJobFragment extends Fragment {
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
             case R.id.preview_location:
-                fragment = SelectDetailsFragment.newInstance(createRequest, true);
+                fragment = SelectLocationFragment.newInstance(createRequest, true);
                 break;
             case R.id.job_details_description_label:
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
