@@ -277,7 +277,7 @@ public class PreviewJobFragment extends Fragment {
 
             startDate.setText(createRequest.date);
 
-            location.setText(createRequest.address);
+            location.setText(createRequest.locationName);
 
             if (null != createRequest.logo) {
                 Picasso.with(getContext())
