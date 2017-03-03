@@ -21,6 +21,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <!-- android:debuggable="true" -->
     <application
         android:name=".GraftrsApplication"

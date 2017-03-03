@@ -28,7 +28,7 @@ public class ReviewDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rating_view_safety) RatingView safety;
     @BindView(R.id.review_details_name) JosefinSansTextView name;
     @BindView(R.id.review_details_overview) JosefinSansTextView again;
-    @BindView(R.id.review_details_logo) ImageView logo;
+  //  @BindView(R.id.review_details_logo) ImageView logo;
 
     @BindView(R.id.field1) JosefinSansTextView field1;
     @BindView(R.id.field2) JosefinSansTextView field2;
@@ -45,42 +45,35 @@ public class ReviewDetailsActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        again.setText(getString(R.string.employer_reviews_work_again));
-        name.setText("Worker Name");
-        field1.setText(getString(R.string.employer_reviews_environment));
-        field2.setText(getString(R.string.employer_reviews_team));
-        field3.setText(getString(R.string.employer_reviews_pay));
-        field4.setText(getString(R.string.employer_reviews_induction));
+        field1.setText(getString(R.string.worker_reviews_quality));
+        field2.setText(getString(R.string.worker_reviews_attitude));
+        field3.setText(getString(R.string.worker_reviews_reliability));
+        field4.setText(getString(R.string.worker_reviews_safety));
 
         if (null != getIntent().getExtras()) {
             if (null != getIntent().getExtras().getSerializable("data")) {
                 Review review = (Review) getIntent().getExtras().getSerializable("data");
                 populate(review);
+
             }
         }
     }
 
     private void populate(Review review) {
         quality.makeStarsRed();
-        quality.setRating(review.environment);
+        quality.setRating(review.quality);
         attitude.makeStarsRed();
-        attitude.setRating(review.team);
+        attitude.setRating(review.attitude);
         reliability.makeStarsRed();
-        reliability.setRating(review.payers);
+        reliability.setRating(review.reliability);
         safety.makeStarsRed();
-        safety.setRating(review.induction);
+        safety.setRating(review.safe);
 
         again.setVisibility(review.wouldHireAgain ? View.VISIBLE : View.GONE);
+        again.setText(String.format(getString(R.string.employer_rate_again), review.workerSummary.name));
 
-        if (null != review.worker) {
-            if (null != review.worker.firstName && null != review.worker.lastName) {
-                name.setText(review.worker.firstName + " " + review.worker.lastName);
-            }
-            if (null != review.worker.picture) {
-                Picasso.with(getBaseContext())
-                        .load(review.worker.picture)
-                        .into(logo);
-            }
+        if (null != review.workerSummary.name) {
+                name.setText(review.workerSummary.name);
         }
     }
 

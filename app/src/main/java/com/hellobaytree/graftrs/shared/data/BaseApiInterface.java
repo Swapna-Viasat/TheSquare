@@ -285,6 +285,12 @@ public interface BaseApiInterface {
     @PATCH("/reviews/{pk}/")
     Call<ReviewUpdateResponse> updateReview(@Path("pk") int id, @Body Review review);
 
+    @POST("/reviews/request_review/")
+    Call<ReviewsResponse> requestReview(@Body Review review);
+
+    @GET("/workers/{pk}/")
+    Call<ResponseObject<com.hellobaytree.graftrs.shared.models.Worker>> getWorkerAggregateReview(@Path("pk") int id);
+
     //    APPLICATIONS
     @POST("/applications/{pk}/cancel_booking/")
     Call<ResponseObject<Application>> cancelBooking(@Path("pk") int id, @Body Feedback feedbackMessage);

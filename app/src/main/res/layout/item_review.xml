@@ -11,13 +11,13 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:background="@color/lightgraySquareColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Date -->
+        <!-- Requested By -->
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            android:id="@+id/item_review_date"
-            android:text="on 21st Feb 2016"
+            android:id="@+id/item_requested_by"
             android:textColor="@color/graySquareColor"
             android:textSize="12sp"
             android:layout_margin="12dp"
@@ -25,50 +25,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!-- Company Logo -->
+       <!-- &lt;!&ndash; Company Logo &ndash;&gt;
         <ImageView
             android:id="@+id/item_review_logo"
             android:layout_marginLeft="14dp"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="4dp"
             android:layout_width="78dp"
-            android:layout_height="42dp"/>
+            android:layout_height="42dp"/>-->
 
         <!-- Company Name -->
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:id="@+id/item_review_company"
             android:text="Company Name"
             android:textAllCaps="true"
-            android:textSize="18sp"
-            android:layout_marginLeft="14dp"
+            android:textSize="14sp"
+            android:layout_marginLeft="12dp"
             android:layout_marginTop="4dp"
             android:textColor="@color/redSquareColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!-- Position -->
+        <!-- Requested Date -->
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            android:id="@+id/item_review_position"
-            android:text="Bricklayer"
+            android:id="@+id/item_review_date"
             android:textStyle="italic"
-            android:textAllCaps="true"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="12dp"
             android:layout_marginTop="4dp"
-            android:textSize="16sp"
-            android:textColor="@color/blackSquareColor"
+            android:layout_marginBottom="10dp"
+           android:textColor="@color/graySquareColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!-- Rating -->
+       <!-- &lt;!&ndash; Rating &ndash;&gt;
         <com.hellobaytree.graftrs.shared.view.widget.RatingView
             android:id="@+id/item_review_rating"
             android:layout_marginLeft="14dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="22dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>-->
 
-        <!-- Pending layout -->
+     <!--   &lt;!&ndash; Pending layout &ndash;&gt;
         <RelativeLayout
             android:id="@+id/pending"
             android:visibility="gone"
@@ -101,6 +99,99 @@
                 app:josefin_style="semiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        </RelativeLayout>
+        </RelativeLayout>-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recieved_tab"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <!-- Quality of work -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/quality"
+                android:layout_gravity="center"
+                android:text="@string/worker_reviews_quality"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+                app:editable="no"
+                android:layout_gravity="center"
+                android:id="@+id/rating_view_quality"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginTop="12dp"
+                android:background="#ededed"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <!-- Reliability -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/reliability"
+                android:layout_gravity="center"
+                android:text="@string/worker_reviews_reliability"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+                app:editable="no"
+                android:layout_gravity="center"
+                android:id="@+id/rating_view_reliability"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginTop="12dp"
+                android:background="#ededed"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <!-- Attitude -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/attitude"
+                android:layout_gravity="center"
+                android:text="@string/worker_reviews_attitude"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+                app:editable="no"
+                android:layout_gravity="center"
+                android:id="@+id/rating_view_attitude"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginTop="12dp"
+                android:background="#ededed"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <!-- Safety -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/safety"
+                android:layout_gravity="center"
+                android:text="@string/worker_reviews_safety"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+                app:editable="no"
+                android:layout_gravity="center"
+                android:id="@+id/rating_view_safety"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

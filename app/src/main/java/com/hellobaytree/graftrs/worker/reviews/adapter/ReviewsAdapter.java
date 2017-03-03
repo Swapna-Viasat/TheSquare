@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.reviews.Review;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
@@ -28,10 +30,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
     private List<Review> data = new ArrayList<>();
     private ReviewsListener listener;
     private Context context;
+    private Worker worker;
+
 
     public interface ReviewsListener {
-        void onViewDetails(Review review);
-        void onCompleteReview(Review review);
+       // void onViewDetails(Review review);
+       // void onCompleteReview(Review review);
     }
 
     public ReviewsAdapter(List<Review> reviews, Context context, ReviewsListener reviewsListener) {
@@ -49,56 +53,28 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
     @Override
     public void onBindViewHolder(ReviewHolder holder, int position) {
         final Review review = data.get(position);
-        if (null != listener) {
+       /* if (null != listener) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onViewDetails(review);
                 }
             });
+        }*/
+
+
+
+        if (null != review.requestCompany &&  review.automatedRequest == "false") {
+            holder.company.setText(review.requestCompany);
+            if (null != review.dateReviewRequested)
+            holder.date.setText("Date Requested: "+review.dateReviewRequested);
+            holder.requestedby.setText(R.string.worker_reviews_requested_by_worker);
         }
-
-        if (null != review.job) {
-            if (null != review.job.role) {
-                if (null != review.job.role.name) {
-                    holder.position.setText(review.job.role.name);
-                }
-            }
-            if (null != review.job.owner) {
-                if (null != review.job.owner.company) {
-                    if (null != review.job.owner.company.name) {
-                        holder.company.setText(review.job.owner.company.name);
-                    }
-                    if (null != review.job.owner.company.logo) {
-                        Picasso.with(context)
-                                .load(review.job.owner.company.logo)
-                                .into(holder.logo);
-                    }
-                }
-            }
-        }
-
-        holder.ratingView.setRating((int) review.rating);
-
-        holder.ratingView.makeStarsRed();
-
-        if (review.status.id == Review.CAT_PENDING) {
-            if (review.type.id == Review.TYPE_RECEIVED) {
-                holder.ratingView.setVisibility(View.GONE);
-                holder.pending.setVisibility(View.VISIBLE);
-                holder.due.setText("Requested 4 days ago");
-                holder.action.setVisibility(View.GONE);
-            } else {
-                holder.ratingView.setVisibility(View.GONE);
-                holder.pending.setVisibility(View.VISIBLE);
-                holder.due.setText(String.format(context.getString(R.string.worker_review_due),
-                        4, context.getResources().getQuantityString(R.plurals.day_plural, 4)));
-                holder.action.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listener.onCompleteReview(review);
-                    }
-                });
+        if (null != review.company) {
+            if(review.automatedRequest == "true" && null != review.dateReviewRequested) {
+                holder.company.setText(review.company);
+                holder.date.setText("Date Requested: " + review.dateReviewRequested);
+                holder.requestedby.setText(R.string.worker_reviews_requested_by_square);
             }
         }
     }
@@ -109,15 +85,10 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
     }
 
     public static class ReviewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.due) JosefinSansTextView due;
-        @BindView(R.id.action_pending) JosefinSansTextView action;
-        @BindView(R.id.pending) RelativeLayout pending;
-        @BindView(R.id.item_review_date) JosefinSansTextView date;
-        @BindView(R.id.item_review_logo) ImageView logo;
         @BindView(R.id.item_review_company) JosefinSansTextView company;
-        @BindView(R.id.item_review_position) JosefinSansTextView position;
-        @BindView(R.id.item_review_rating) RatingView ratingView;
-        public ReviewHolder(View view) {
+        @BindView(R.id.item_requested_by) JosefinSansTextView requestedby;
+        @BindView(R.id.item_review_date) JosefinSansTextView date;
+       public ReviewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

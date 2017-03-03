@@ -57,4 +57,5 @@ public class Worker implements Serializable {
     @SerializedName("ni_number")
     public String niNumber;
     public List<Language> languages;
+    @SerializedName("review_data") public ReviewData reviewData;
 }

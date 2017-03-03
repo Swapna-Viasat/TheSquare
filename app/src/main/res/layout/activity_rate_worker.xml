@@ -18,7 +18,7 @@
             <ImageView
                 android:id="@+id/close"
                 android:layout_margin="12dp"
-                android:background="@drawable/ic_close"
+                android:background="@drawable/ic_arrow_back_black_24dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
 
@@ -32,6 +32,98 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+            <android.support.v7.widget.CardView
+                android:layout_margin="14dp"
+                card_view:elevation="8dp"
+                card_view:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@color/lightgraySquareColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/again"
+                        android:layout_margin="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <RadioGroup
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="24dp"
+                        android:id="@+id/radio_group"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:text="Yes"
+                            android:textSize="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RadioButton
+                            android:text="No"
+                            android:textSize="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RadioGroup>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/hired_view"
+                 android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <android.support.v7.widget.CardView
+                android:layout_margin="14dp"
+                card_view:elevation="8dp"
+                card_view:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:background="@color/lightgraySquareColor"
+                    android:layout_height="wrap_content">
+                  <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/got_hired"
+                        android:layout_margin="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <RadioGroup
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/radio_group_got_hired"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:text="Yes"
+                            android:textSize="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <RadioButton
+                            android:text="No"
+                            android:textSize="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RadioGroup>
+            </LinearLayout>
+
+           </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rate_your_worker"
+                android:visibility="visible"
+                android:orientation="vertical">
             <View
                 android:layout_marginTop="12dp"
                 android:background="#ededed"
@@ -125,52 +217,8 @@
                 android:background="#ededed"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
-
-            <android.support.v7.widget.CardView
-                android:layout_margin="14dp"
-                card_view:elevation="8dp"
-                card_view:orientation="vertical"
-                card_view:background="#e3e3e3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                        android:id="@+id/again"
-                        app:josefin_style="bold"
-                        android:layout_margin="14dp"
-                        android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <RadioGroup
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="14dp"
-                        android:id="@+id/radio_group"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <RadioButton
-                            android:text="Yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                        <RadioButton
-                            android:text="No"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </RadioGroup>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-
-
+            </LinearLayout>
+            </LinearLayout>
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

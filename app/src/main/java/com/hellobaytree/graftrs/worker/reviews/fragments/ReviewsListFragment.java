@@ -11,11 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
+import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
+import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
+import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.reviews.Review;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
+import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
+import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.reviews.ReviewsContract;
 import com.hellobaytree.graftrs.worker.reviews.ReviewsPresenter;
 import com.hellobaytree.graftrs.worker.reviews.activity.ReviewDetailsActivity;
@@ -28,6 +33,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Evgheni on 11/11/2016.
@@ -45,6 +53,19 @@ public class ReviewsListFragment extends Fragment
     @BindView(R.id.worker_reviews_rv)
     RecyclerView recyclerView;
     @BindView(R.id.reviews_no_data) LinearLayout noData;
+    private int workerId;
+    private Worker worker;
+    @BindView(R.id.rating_view_attitude)
+    RatingView attitude;
+    @BindView(R.id.rating_view_quality) RatingView quality;
+    @BindView(R.id.rating_view_reliability) RatingView reliability;
+    @BindView(R.id.rating_view_safety) RatingView safety;
+    @BindView(R.id.aggregate_worker_review) LinearLayout aggregate;
+    @BindView(R.id.review_details_turned_up_value) JosefinSansTextView turnedUpReviews;
+    @BindView(R.id.review_details_companies_turned_up_value) JosefinSansTextView companiesTurnedUpReviews;
+    @BindView(R.id.review_details_companies_reviews_value) JosefinSansTextView companyReviews;
+    @BindView(R.id.global) RatingView global;
+
 
     public static ReviewsListFragment newInstance(int category) {
         ReviewsListFragment reviewsListFragment = new ReviewsListFragment();
@@ -56,8 +77,9 @@ public class ReviewsListFragment extends Fragment
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        workerId = SharedPreferencesManager.getInstance(getContext()).getWorkerId();
         mUserActionListener = new ReviewsPresenter(this);
-       // progressDialog = new ProgressDialog.Builder(getActivity()).setMessage("Please wait").create();
+        progressDialog = new ProgressDialog.Builder(getActivity()).setMessage(getString(R.string.worker_jobs_wait_msg)).create();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,8 +105,8 @@ public class ReviewsListFragment extends Fragment
 
     @Override
     public void displayProgress(boolean show) {
-        /*if (show) progressDialog.show();
-        else progressDialog.dismiss();*/
+        if (show) progressDialog.show();
+        else progressDialog.dismiss();
     }
 
     @Override
@@ -96,25 +118,28 @@ public class ReviewsListFragment extends Fragment
     public void displayReviews(List<Review> reviews) {
         if (!data.isEmpty()) data.clear();
         if (getArguments().getInt("category") == Review.CAT_PENDING) {
+            aggregate.setVisibility(View.GONE);
             for (Review review : reviews) {
                 if (review.status.id == Review.CAT_PENDING) {
                     data.add(review);
                 }
             }
         } else if (getArguments().getInt("category") == Review.TAB_GIVEN) {
-            for (Review review : reviews) {
+            aggregate.setVisibility(View.GONE);
+           /* for (Review review : reviews) {
                 if (review.status.id == Review.CAT_PUBLISHED
                         && review.type.id == Review.TYPE_GIVEN) {
                     data.add(review);
                 }
-            }
+            }*/
         } else if (getArguments().getInt("category") == Review.TAB_RECEIVED) {
-            for (Review review : reviews) {
+           /* for (Review review : reviews) {
                 if (review.status.id == Review.CAT_PUBLISHED
                         && review.type.id == Review.TYPE_RECEIVED) {
                     data.add(review);
                 }
-            }
+            }*/
+           fetchAggregateReviews();
         }
         adapter.notifyDataSetChanged();
     }
@@ -130,15 +155,16 @@ public class ReviewsListFragment extends Fragment
         intent.putExtras(data); startActivity(intent);
     }
 
-    @Override
+
+    /*@Override
     public void onViewDetails(Review review) {
         mUserActionListener.fetchReview(review);
     }
-
-    @Override
+*/
+   /* @Override
     public void onCompleteReview(Review review) {
         Toast.makeText(getContext(), "on complete review", Toast.LENGTH_LONG).show();
-    }
+    }*/
 
     private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
         @Override
@@ -146,6 +172,11 @@ public class ReviewsListFragment extends Fragment
             super.onChanged();
             if (data.isEmpty()) noData.setVisibility(View.VISIBLE);
             else noData.setVisibility(View.GONE);
+
+            if((getArguments().getInt("category") == Review.TAB_GIVEN) || (getArguments().getInt("category") == Review.CAT_PENDING)) {
+                aggregate.setVisibility(View.GONE);
+                noData.setVisibility(View.GONE);
+            }
         }
     };
 
@@ -158,5 +189,43 @@ public class ReviewsListFragment extends Fragment
     private void openCreateRequest() {
         Intent intent = new Intent(getActivity(), ReviewRequestActivity.class);
         startActivity(intent);
+    }
+
+
+    public Worker fetchAggregateReviews() {
+      displayProgress(true);
+        HttpRestServiceConsumer.getBaseApiClient()
+                .getWorkerAggregateReview(workerId)
+                .enqueue(new Callback<ResponseObject<Worker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<Worker>> call,
+                                           Response<ResponseObject<Worker>> response) {
+                        if (response.isSuccessful()) {
+                            noData.setVisibility(View.GONE);
+                            displayProgress(false);
+                            aggregate.setVisibility(View.VISIBLE);
+                            worker = response.body().getResponse();
+                            companyReviews.setText(String.valueOf(worker.reviewData.reviewsCount));
+                            turnedUpReviews.setText(String.valueOf(worker.reviewData.showedToWorkTotal)+"%");
+                            companiesTurnedUpReviews.setText(String.valueOf(worker.reviewData.wouldWorkTotal)+"%");
+                            quality.makeStarsRed();
+                            quality.setRating(worker.reviewData.quality);
+                            attitude.makeStarsRed();
+                            attitude.setRating(worker.reviewData.attitude);
+                            reliability.makeStarsRed();
+                            reliability.setRating(worker.reviewData.reliability);
+                            safety.makeStarsRed();
+                            safety.setRating(worker.reviewData.safe);
+                            global.makeStarsRed();
+                            global.setRating(worker.reviewData.globalRating);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
+
+                    }
+                });
+        return worker;
     }
 }

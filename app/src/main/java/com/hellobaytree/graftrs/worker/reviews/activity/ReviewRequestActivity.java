@@ -7,12 +7,19 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
+import com.hellobaytree.graftrs.shared.reviews.Review;
+import com.hellobaytree.graftrs.shared.reviews.ReviewsResponse;
+import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Evgheni on 11/14/2016.
@@ -27,8 +34,6 @@ public class ReviewRequestActivity extends AppCompatActivity {
     JosefinSansEditText lastName;
     @BindView(R.id.get_company)
     JosefinSansEditText company;
-    @BindView(R.id.get_date)
-    JosefinSansEditText date;
     @BindView(R.id.get_email)
     JosefinSansEditText email;
     @BindView(R.id.get_mobile)
@@ -51,6 +56,7 @@ public class ReviewRequestActivity extends AppCompatActivity {
                 break;
             case R.id.request:
                 if (validate()) {
+                    createReviewRequest();
                     final Dialog dialog = new Dialog(this);
                     dialog.setContentView(R.layout.dialog_reference_request);
                     dialog.setCancelable(false); dialog.show();
@@ -58,6 +64,8 @@ public class ReviewRequestActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             dialog.dismiss();
+                            finish();
+
                         }
                     });
                     break;
@@ -78,10 +86,6 @@ public class ReviewRequestActivity extends AppCompatActivity {
             lastName.setError(getString(R.string.worker_request_field));
             return false;
         }
-        if (TextUtils.isEmpty(date.getText().toString())) {
-            date.setError(getString(R.string.worker_request_field));
-            return false;
-        }
         if (TextUtils.isEmpty(company.getText().toString())) {
             company.setError(getString(R.string.worker_request_field));
             return false;
@@ -95,4 +99,32 @@ public class ReviewRequestActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    public void createReviewRequest() {
+        Review review = new Review();
+
+        review.requestEmail = email.getText().toString();
+        review.requestFirstName = firstName.getText().toString();
+        review.requestLastName = lastName.getText().toString();
+        review.requestMobile = mobile.getText().toString();
+        review.requestCompany = company.getText().toString();
+
+        HttpRestServiceConsumer.getBaseApiClient().requestReview(review)
+                .enqueue(new Callback<ReviewsResponse>() {
+                    @Override
+                    public void onResponse(Call<ReviewsResponse> call,
+                                           Response<ReviewsResponse> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            TextTools.log(TAG,"succesfully created ");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ReviewsResponse> call, Throwable t) {
+
+                    }
+                });
+    }
+
 }

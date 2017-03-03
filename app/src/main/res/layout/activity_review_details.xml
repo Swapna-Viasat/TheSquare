@@ -17,22 +17,14 @@
             <ImageView
                 android:id="@+id/close"
                 android:layout_margin="12dp"
-                android:background="@drawable/ic_close"
+                android:background="@drawable/ic_arrow_back_black_24dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
 
-            <ImageView
-                android:layout_margin="12dp"
-                android:layout_gravity="center"
-                android:background="#ededed"
-                android:id="@+id/review_details_logo"
-                android:layout_width="90dp"
-                android:layout_height="60dp"/>
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/review_details_name"
                 android:layout_gravity="center"
-                android:text="Company name"
                 android:textAllCaps="true"
                 android:textColor="@color/redSquareColor"
                 android:textSize="20sp"

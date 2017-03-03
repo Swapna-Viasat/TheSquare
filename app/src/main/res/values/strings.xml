@@ -502,22 +502,31 @@
     <string name="worker_request_date">Date Worked</string>
     <string name="worker_request_error">You have to complete at least one</string>
     <string name="worker_request_field">This field is required</string>
-    <string name="worker_request_sent">Your reference request \nhas been sent.</string>
-    <string name="worker_request_sent_subtitle">We\'ll let you know when it comes in.</string>
+    <string name="worker_request_sent_subtitle">Your reference request \nhas been sent. we will let you know when it comes in.</string>
     <string name="worker_review_action">Complete review</string>
     <string name="worker_review_due">Due: %1$d %2$s left</string>
     <string name="worker_review_request">Go ahead and \nrequest a reference</string>
     <string name="worker_reviews_again">Would hire you again</string>
+    <string name="worker_reviews_requested_by_square">Requested by \n The Square</string>
+    <string name="worker_reviews_requested_by_worker">Requested by \n me</string>
+    <string name="worker_reviews_turned_up">of the time you turned up</string>
+    <string name="worker_reviews_companies_turned_up">of firms\nwould hire you again</string>
 
     <!-- Employer Reviews -->
     <string name="employer_reviews_work_again">Would work for you again</string>
+    <string name="employer_reviews_worker_again">Would you hire</string>
     <string name="employer_reviews_environment">Good work environment</string>
     <string name="employer_reviews_team">Good team</string>
     <string name="employer_reviews_pay">Good pay</string>
     <string name="employer_reviews_induction">Good induction &amp; training</string>
+    <string name="employer_reviews_on_worker_quality">Quality of work</string>
+    <string name="employer_reviews_on_worker_Reliability">Reliability</string>
+    <string name="employer_reviews_on_worker_attitude">Attitude towards work and team</string>
+    <string name="employer_reviews_on_worker_safe">Safe worker</string>
     <string name="employer_rate_worker">Please rate %s\'s \nperformance</string>
     <string name="employer_rate_submit">Done</string>
-    <string name="employer_rate_again">Would you hire %s again?</string>
+    <string name="employer_rate_again">Did you hire %s?</string>
+    <string name="worker_turned_up">Did %s turn up?</string>
 
     <!-- Employer My Account -->
     <string name="employer_account_price_plan">My Price Plan</string>
@@ -832,6 +841,7 @@
         Enjoy!
     </string>
     <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
+    <string name="title_activity_review_aggregate">ReviewAggregateActivity</string>
 
 
 </resources>

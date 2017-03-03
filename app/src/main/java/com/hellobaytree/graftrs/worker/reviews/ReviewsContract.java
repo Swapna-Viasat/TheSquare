@@ -1,5 +1,6 @@
 package com.hellobaytree.graftrs.worker.reviews;
 
+import com.hellobaytree.graftrs.shared.models.Worker;
 import com.hellobaytree.graftrs.shared.reviews.Review;
 
 import java.util.List;
@@ -14,8 +15,9 @@ public interface ReviewsContract {
         void displayError(String message);
         void displayProgress(boolean show);
         void displayReview(Review review);
-    }
+        }
     interface UserActionListener {
+
         void fetchReview(Review review);
         void fetchReviews();
     }
