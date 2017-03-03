@@ -67,10 +67,18 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.jakewharton:butterknife:8.0.1'
-    compile 'com.google.android.gms:play-services-places:10.2.0'
-    compile 'com.google.android.gms:play-services-location:10.2.0'
-    compile 'com.google.android.gms:play-services-maps:10.2.0'
-    compile 'com.google.android.gms:play-services-analytics:10.2.0'
+
+    compile 'com.google.android.gms:play-services-places:9.8.0'
+    compile 'com.google.android.gms:play-services-auth:9.8.0'
+    compile 'com.google.android.gms:play-services-identity:9.8.0'
+    compile 'com.google.android.gms:play-services-location:9.8.0'
+    compile 'com.google.android.gms:play-services-maps:9.8.0'
+    compile 'com.google.android.gms:play-services-analytics:9.8.0'
+
+    compile 'com.google.firebase:firebase-messaging:9.8.0'
+    compile 'com.google.firebase:firebase-core:9.8.0'
+
+
     compile 'com.android.support:support-v13:23.4.0'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
@@ -85,4 +93,11 @@ dependencies {
     compile 'io.branch.sdk.android:library:2.+'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
+
+    compile 'io.intercom.android:intercom-sdk:3.+'
+    compile 'io.intercom.android:intercom-sdk-base:3.+'
+    compile 'io.intercom.android:intercom-sdk-fcm:3.+'
+
 }
+
+apply plugin: 'com.google.gms.google-services'

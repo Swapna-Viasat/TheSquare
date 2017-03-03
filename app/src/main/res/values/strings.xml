@@ -22,7 +22,7 @@
     <string name="phone_verification_continue">Continue</string>
     <string name="phone_verification_validate_failed">Please enter a 4 digit code.</string>
 
-    <string name="sign_up_worker_step_personal_information_post_code_hint">Home postcode*</string>
+    <string name="sign_up_worker_step_personal_information_post_code_hint">Home address*</string>
     <string name="sign_up_worker_step_personal_information_email_hint">Email address</string>
     <string name="sign_up_worker_step_personal_information_last_name_hint">Last Name*</string>
     <string name="sign_up_worker_step_personal_information_first_name_hint">First Name*</string>
@@ -107,6 +107,7 @@
     <string name="validate_password_match">The password and confirmation password do not match</string>
     <string name="validate_zip">Please enter a valid postal code</string>
     <string name="validate_email">Please enter a valid email address</string>
+    <string name="empty_address">Please enter your address</string>
 
 
     <string name="sign_up_employer_step_company_title">Company information</string>
@@ -395,6 +396,9 @@
     <string name="worker_matches_menu_tune">tune</string>
     <string name="item_match_format_experience">%1$d %2$s experience</string>
     <string name="item_match_format_starts">Starts %s</string>
+    <string name="worker_job_like">Like job</string>
+    <string name="worker_job_unlike">Unlike job</string>
+    <string name="worker_job_open_details">Open job details</string>
 
     <!--Worker Matches Filter-->
     <string name="matches_filter_title">Filter &amp; Order By</string>
@@ -678,6 +682,9 @@
     <string name="worker_cscs_record_category">Record - Category</string>
     <string name="worker_english_level">Level of English</string>
     <string name="worker_contact_info">Contact info</string>
+    <string name="worker_experience_types">Type of experience</string>
+    <string name="worker_details_provided">Provided</string>
+    <string name="worker_details_not_provided">Not provided</string>
 
     <!-- Employer Account -->
     <string name="company_description">Company description</string>
@@ -748,6 +755,29 @@
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
     <string name="payments_booking_credits">My Booking Credits</string>
+    <string name="payments_alt_title">If you are unable to pay by card, please enter the details below
+                to activate an invoice service</string>
+    <string name="payments_alt_spinner_title">Subscription plan</string>
+    <string name="payments_alt_name">Bill payer\'s name</string>
+    <string name="payments_alt_email">Bill payer\'s email</string>
+    <string name="payments_alt_order">Purchase Order Number (if needed)</string>
+    <string name="payments_alt_confirm">Confirm</string>
+    <string name="payments_alt_subtitle">We\'ll get an invoice to you and the bill payer
+                    automatically. The invoice will need to be paid by BACS. Once
+                    paid, you will be able to use The Square.
+                    \n\nAny queries, give us a call on 020 3868 6303 or email:
+                    accounts@thesquareapp.com</string>
+    <string name="payments_alt_note">Note: BACS payments require a minimum of six months subscription.</string>
+    <string name="payments_alt_popup_title">Good stuff!</string>
+    <string name="payments_alt_popup_text">An invoice is on its way to you and the bill payer.
+                        This will need to be paid before you can use The Square.</string>
+    <string name="payments_alt_popup_subtitle">See you Soon!</string>
+
+    <string name="payments_topups_display_bookings">%1$d / %2$d</string>
+    <string name="payments_plans_display_bookings">%1$d / %2$d</string>
+    <string name="payments_expiration_format">(Expires %s)</string>
+    <string name="payments_bill_due_format">Bill due %s</string>
+    <string name="payments_cant_pay_cc">Can\'t pay by credit card? (Tap for options)</string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
@@ -844,4 +874,8 @@
     <string name="title_activity_review_aggregate">ReviewAggregateActivity</string>
 
 
+    <string name="misc_intercom_key">android_sdk-70624f8b395b057a2078a8cc54ea9623d263bc96</string>
+    <string name="misc_intercom_app_id">ymo0avlj</string>
+    <string name="misc_intercom_key_test">android_sdk-c24dec1eea20225cd6fff8077f34d666dd5dacf5</string>
+    <string name="misc_intercom_app_id_test">xn56966s</string>
 </resources>

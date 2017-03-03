@@ -75,6 +75,9 @@ public interface BaseApiInterface {
     @GET("/data/experience_qualifications/")
     Call<ResponseObject<List<ExperienceQualification>>> fetchExperienceQualifications();
 
+    @GET("/data/experience_qualifications/")
+    Call<ResponseObject<List<Qualification>>> fetchRequirements();
+
     @GET("/data/{pk}/role_qualifications/")
     Call<ResponseObject<List<Qualification>>> fetchRoleQualifications(@Path("pk") int roleId);
 
@@ -200,6 +203,12 @@ public interface BaseApiInterface {
     @POST("/workers/logout/")
     Call<ResponseObject<Logout>> logoutWorker();
 
+    @POST("/workers/{pk}/like/")
+    Call<ResponseObject<StatusMessageResponse>> likeWorker(@Path("pk") int workerId);
+
+    @POST("/workers/{pk}/unlike/")
+    Call<ResponseObject<StatusMessageResponse>> unlikeWorker(@Path("pk") int workerId);
+
     @POST("/workers/resend_verification_sms/")
     Call<ResponseObject<SMSSent>> resendSMSWorker(@Body HashMap<String, String> resendSMSRequest);
 
@@ -252,11 +261,11 @@ public interface BaseApiInterface {
     Call<ResponseObject<Worker[]>> getJobLiveWorkers(@Path("pk") int id);
 
     // TODO: extract url params into the method params
-    @GET("jobs/{pk}/workers/?fields=id,picture,applications,first_name,last_name,matched_role")
+    @GET("jobs/{pk}/workers/?fields=id,picture,applications,first_name,last_name,matched_role,liked")
     Call<JobWorkersResponse> fetchJobWorkers(@Path("pk") int id, @Query("status") int status);
 
     // TODO: extract url params into the method params
-    @GET("jobs/{pk}/workers/?fields=id,picture,applications,first_name,last_name,matched_role")
+    @GET("jobs/{pk}/workers/?fields=id,picture,applications,first_name,last_name,matched_role,liked")
     Call<JobWorkersResponse> fetchJobWorkerMatches(@Path("pk") int id);
 
     @POST("jobs/{pk}/like/")
@@ -316,4 +325,7 @@ public interface BaseApiInterface {
 
     @DELETE("/payments/manage/cancel_all/")
     Call<ResponseBody> cancelAll();
+
+    @POST("/payments/manage/manual_subscription/")
+    Call<ResponseBody> submitAlternativePayment(@Body HashMap<String, Object> body);
 }

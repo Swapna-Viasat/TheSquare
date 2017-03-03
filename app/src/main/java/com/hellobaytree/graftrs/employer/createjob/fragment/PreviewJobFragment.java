@@ -242,7 +242,7 @@ public class PreviewJobFragment extends Fragment {
             // lists
             description.setText(createRequest.description);
             skills.setText(TextTools.toBulletList(createRequest.skillStrings, true));
-            qualifications.setText(TextTools.toBulletList(createRequest.expQualificationStrings, true));
+            qualifications.setText(TextTools.toBulletList(createRequest.requirementStrings, true));
             qualifications2.setText(TextTools.toBulletList(createRequest.qualificationStrings, true));
             experienceTypes.setText(TextTools.toBulletList(createRequest.experienceTypeStrings, true));
             // salary
@@ -308,12 +308,13 @@ public class PreviewJobFragment extends Fragment {
             payload.put("trades", createRequest.trades);
             payload.put("experience", createRequest.experience);
             payload.put("english_level_id", createRequest.english);
+
             // beginning of wow
-            int[] quals = new int[createRequest.expQualifications.length +
+            int[] quals = new int[createRequest.requirements.length +
                     createRequest.qualifications.length];
             List<Integer> reqs = new ArrayList<>();
-            for (int i = 0; i < createRequest.expQualifications.length; i++) {
-                reqs.add(createRequest.expQualifications[i]);
+            for (int i = 0; i < createRequest.requirements.length; i++) {
+                reqs.add(createRequest.requirements[i]);
             }
             List<Integer> qual = new ArrayList<>();
             for (int i = 0; i < createRequest.qualifications.length; i++) {
@@ -325,9 +326,8 @@ public class PreviewJobFragment extends Fragment {
                 quals[i] = combined.get(i);
             }
             payload.put("qualifications", quals);
-            // payload.put("experience_qualifications", createRequest.expQualifications);
-            // payload.put("qualifications", createRequest.qualifications);
             // end of wow
+
             payload.put("skills", createRequest.skills);
             payload.put("experience_type", createRequest.experienceTypes);
             payload.put("description", createRequest.description);

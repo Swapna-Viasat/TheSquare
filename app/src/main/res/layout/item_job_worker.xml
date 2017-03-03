@@ -25,48 +25,65 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!-- Company Name -->
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                    android:id="@+id/item_job_company_name"
-                    android:textColor="@color/redSquareColor"
-                    android:textSize="12sp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginLeft="14dp"
-                    app:josefin_style="italic"
+                <RelativeLayout
+                    android:id="@+id/companyInfo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/banner">
 
-                <!-- Company Logo -->
-                <ImageView
-                    android:layout_marginTop="14dp"
-                    android:layout_below="@+id/item_job_company_name"
-                    android:background="@color/black_overlay"
-                    android:id="@+id/item_job_logo"
-                    android:layout_width="78dp"
-                    android:layout_height="42dp"
-                    android:layout_marginLeft="14dp" />
+                    <!-- Company Name -->
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/item_job_company_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="14dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_toLeftOf="@+id/item_job_liked"
+                        android:textColor="@color/redSquareColor"
+                        android:textSize="12sp"
+                        app:josefin_style="italic" />
 
-                <!-- Like Image -->
+                    <!-- Company Logo -->
+                    <ImageView
+                        android:id="@+id/item_job_logo"
+                        android:layout_width="78dp"
+                        android:layout_height="42dp"
+                        android:layout_below="@id/item_job_company_name"
+                        android:layout_margin="14dp"
+                        android:layout_marginTop="14dp"
+                        android:background="@color/black_overlay" />
+
+                    <!-- Like Image -->
+                    <ImageView
+                        android:id="@+id/item_job_liked"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_like"
+                        android:tint="@color/redSquareColor" />
+
+                </RelativeLayout>
+
                 <ImageView
-                    android:id="@+id/item_job_liked"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="end|right|top"
-                    android:layout_margin="14dp"
-                    android:src="@drawable/ic_like"
-                    android:tint="@color/redSquareColor"
+                    android:id="@+id/banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true" />
 
                 <!-- Occupation + experience -->
                 <LinearLayout
-                    android:id="@+id/occupation_experience"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/companyInfo"
                     android:layout_margin="14dp"
-                    android:orientation="vertical"
-                    android:layout_below="@+id/item_job_logo">
+                    android:orientation="vertical">
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/item_job_occupation"
@@ -91,12 +108,14 @@
 
                 <!-- Salary-->
                 <LinearLayout
-                    android:layout_below="@+id/item_job_liked"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="14dp"
+                    android:layout_below="@+id/banner"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
                     android:orientation="vertical">
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
@@ -118,28 +137,6 @@
                         android:textSize="22sp"
                         app:josefin_style="light" />
                 </LinearLayout>
-
-                <!-- Delete Button for Draft Item -->
-                <View
-                    android:layout_margin="14dp"
-                    android:id="@+id/delete_draft"
-                    android:visibility="gone"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/ic_trash"
-                    android:backgroundTint="@color/redSquareColor"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"/>
-
-                <!-- Awarded to -->
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                    android:id="@+id/awarded"
-                    android:visibility="gone"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/occupation_experience"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
             </RelativeLayout>
 
             <!-- Location and Start Date -->
@@ -152,12 +149,12 @@
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/item_job_id"
-                    android:textSize="12dp"
-                    app:josefin_style="italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end|right|center_vertical"
                     android:textColor="@android:color/holo_green_dark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="12dp"
+                    app:josefin_style="italic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,10 +194,10 @@
                         style="@style/caption_gray_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="62dp"
                         android:gravity="center"
                         android:paddingLeft="5dp"
                         android:paddingStart="5dp"
-                        android:layout_marginRight="62dp"
                         android:text="Holborn, London"
                         app:josefin_style="light" />
                 </LinearLayout>
@@ -209,11 +206,11 @@
 
         <!-- Action Block -->
         <FrameLayout
-            android:visibility="gone"
             android:id="@+id/item_job_action_block"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:visibility="gone">
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/item_job_status"

@@ -43,8 +43,12 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
 
     public interface WorkersActionListener {
         void onInvite(Worker worker);
+
         void onBook(Worker worker);
+
         void onViewWorkerProfile(Worker worker);
+
+        void onLikeWorkerClick(Worker worker);
     }
 
     @Override
@@ -84,7 +88,6 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
                     .into(holder.avatar);
         }
 
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +96,17 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
         });
 
         updateStatus(holder, worker);
+
+        holder.availableNow.setVisibility(worker.now ? View.VISIBLE : View.GONE);
+
+        setLiked(worker.liked, holder.likeImage);
+
+        holder.likeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) listener.onLikeWorkerClick(worker);
+            }
+        });
     }
 
     private void updateStatus(WorkerHolder workerHolder, final Worker worker) {
@@ -162,6 +176,10 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
         }
     }
 
+    private void setLiked(boolean liked, ImageView imageView) {
+        imageView.setImageResource(liked ? R.drawable.ic_like_tab : R.drawable.ic_like);
+    }
+
     @Override
     public int getItemCount() {
         return data.size();
@@ -183,6 +201,8 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
         View availableNow;
         @BindView(R.id.worker_avatar)
         CircleImageView avatar;
+        @BindView(R.id.likeImage)
+        ImageView likeImage;
 
         public WorkerHolder(View view) {
             super(view);

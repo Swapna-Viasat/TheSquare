@@ -41,12 +41,13 @@
                 android:layout_height="42dp"/>
 
             <ImageView
+                android:id="@+id/likeImage"
                 android:layout_gravity="end|right|top"
                 android:src="@drawable/ic_like"
                 android:tint="@color/redSquareColor"
                 android:layout_margin="14dp"
                 android:layout_width="32dp"
-                android:layout_height="32dp"/>
+                android:layout_height="32dp" />
 
             <!-- Occupation + experience -->
             <LinearLayout

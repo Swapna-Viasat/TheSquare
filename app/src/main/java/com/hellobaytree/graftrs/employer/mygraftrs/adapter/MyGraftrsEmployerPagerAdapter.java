@@ -13,7 +13,7 @@ import com.hellobaytree.graftrs.employer.mygraftrs.fragment.MyGraftrsFragment;
  */
 public class MyGraftrsEmployerPagerAdapter extends FragmentPagerAdapter {
 
-    private int MY_GRAFTRS_EMPLOYER_PAGES_COUNT = 2;
+    private int MY_GRAFTRS_EMPLOYER_PAGES_COUNT = 1;
     private Context mContext;
 
     public MyGraftrsEmployerPagerAdapter(FragmentManager fragmentManager, Context context) {
@@ -30,8 +30,8 @@ public class MyGraftrsEmployerPagerAdapter extends FragmentPagerAdapter {
 //                return MyGraftrsFragment.newInstance(PAGE_OFFERS);
             case 0:
                 return MyGraftrsFragment.newInstance(MyGraftrsFragment.PAGE_LIKED);
-            case 1:
-                return MyGraftrsFragment.newInstance(MyGraftrsFragment.PAGE_PREVIOUS);
+//            case 1:
+//                return MyGraftrsFragment.newInstance(MyGraftrsFragment.PAGE_PREVIOUS);
         }
         return null;
     }
@@ -50,8 +50,8 @@ public class MyGraftrsEmployerPagerAdapter extends FragmentPagerAdapter {
 //                return mContext.getResources().getString(R.string.employer_workers_applications);
             case 0 :
                 return mContext.getResources().getString(R.string.employer_workers_liked);
-            case 1 :
-                return mContext.getResources().getString(R.string.employer_workers_previous);
+//            case 1 :
+//                return mContext.getResources().getString(R.string.employer_workers_previous);
         }
         return null;
     }

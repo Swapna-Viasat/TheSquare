@@ -1,8 +1,7 @@
 package com.hellobaytree.graftrs.worker.jobmatches.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,9 +12,9 @@ import android.widget.ImageView;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
+import com.hellobaytree.graftrs.worker.jobmatches.model.ApplicationStatus;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -49,6 +48,21 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
     public void setData(List<Job> input) {
         this.data = input;
         notifyDataSetChanged();
+    }
+
+    @DrawableRes
+    private int getBannerImage(Job job) {
+        int result = 0;
+        if (job.application != null) {
+            if (job.application.get(0).status.id == ApplicationStatus.STATUS_APPROVED)
+                result = R.drawable.workers_booked;
+            else if (job.application.get(0).status.id == ApplicationStatus.STATUS_PENDING) {
+                if (job.application.get(0).isOffer)
+                    result = R.drawable.workers_offered;
+                else result = R.drawable.workers_applied;
+            }
+        }
+        return result;
     }
 
     public JobHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -113,6 +127,10 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
             }
             holder.companyName.setText(job.company.name);
             holder.jobId.setText(context.getString(R.string.job_id, job.jobRef));
+
+            if (getBannerImage(job) != 0) holder.bannerImage.setImageResource(getBannerImage(job));
+            else holder.bannerImage.setVisibility(View.GONE);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -147,6 +165,8 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
         JosefinSansTextView companyName;
         @BindView(R.id.job_id)
         JosefinSansTextView jobId;
+        @BindView(R.id.banner)
+        ImageView bannerImage;
 
         public JobHolder(View view) {
             super(view);

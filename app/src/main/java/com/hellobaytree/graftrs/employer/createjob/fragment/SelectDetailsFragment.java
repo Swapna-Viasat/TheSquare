@@ -257,26 +257,34 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
             payload.put("trades", request.trades);
             payload.put("experience", request.experience);
             payload.put("english_level_id", request.english);
+
             // beginning of wow
-            int[] quals = new int[request.expQualifications.length +
-                    request.qualifications.length];
-            List<Integer> reqs = new ArrayList<>();
-            for (int i = 0; i < request.expQualifications.length; i++) {
-                reqs.add(request.expQualifications[i]);
+            try {
+                //
+                int[] quals = new int[request.requirements.length +
+                        request.qualifications.length];
+                List<Integer> reqs = new ArrayList<>();
+                for (int i = 0; i < request.requirements.length; i++) {
+                    reqs.add(request.requirements[i]);
+                }
+                List<Integer> qual = new ArrayList<>();
+                for (int i = 0; i < request.qualifications.length; i++) {
+                    qual.add(request.qualifications[i]);
+                }
+                List<Integer> combined = new ArrayList<>();
+                combined.addAll(reqs); combined.addAll(qual);
+                for (int i = 0; i < combined.size(); i++) {
+                    quals[i] = combined.get(i);
+                }
+//                payload.put("update_filtered", "qualifications");
+//                payload.put("update_filtered", "requirements");
+                payload.put("qualifications", quals);
+                //
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            List<Integer> qual = new ArrayList<>();
-            for (int i = 0; i < request.qualifications.length; i++) {
-                qual.add(request.qualifications[i]);
-            }
-            List<Integer> combined = new ArrayList<>();
-            combined.addAll(reqs); combined.addAll(qual);
-            for (int i = 0; i < combined.size(); i++) {
-                quals[i] = combined.get(i);
-            }
-            payload.put("qualifications", quals);
-            // payload.put("experience_qualifications", request.expQualifications);
-            // payload.put("qualifications", request.qualifications);
             // end of wow
+
             payload.put("skills", request.skills);
             payload.put("experience_type", request.experienceTypes);
             payload.put("description", request.description);
@@ -300,8 +308,8 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
             payload.put("extra_notes", request.notes);
             payload.put("location", request.location);
             payload.put("location_name", request.locationName);
-            if (null != request.expQualifications) {
-                for (int exp : request.expQualifications) {
+            if (null != request.requirements) {
+                for (int exp : request.requirements) {
                     if (exp == 1) {
                         // this means we required a CSCS card
                         payload.put("cscs_required", true);

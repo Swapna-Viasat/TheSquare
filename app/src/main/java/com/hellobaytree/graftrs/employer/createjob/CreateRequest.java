@@ -32,9 +32,9 @@ public class CreateRequest implements Serializable {
     public List<Trade> tradeObjects;
     public List<String> tradeStrings;
     // experience qualifications
-    public int[] expQualifications;
-    public List<ExperienceQualification> expQualificationObjects;
-    public List<String> expQualificationStrings;
+    public int[] requirements;
+    public List<Qualification> requirementObjects;
+    public List<String> requirementStrings;
     // qualifications
     public int[] qualifications;
     public List<Qualification> qualificationObjects;

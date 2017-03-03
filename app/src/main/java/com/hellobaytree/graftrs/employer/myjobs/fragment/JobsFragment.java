@@ -24,6 +24,7 @@ import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.response.EmployerJobResponse;
 import com.hellobaytree.graftrs.shared.models.DataResponse;
 import com.hellobaytree.graftrs.shared.models.Job;
+import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.models.Skill;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
@@ -199,13 +200,20 @@ public class JobsFragment extends Fragment
              */
             if (null != job.qualifications) {
                 if (!job.qualifications.isEmpty()) {
-                    result.qualificationObjects = job.qualifications;
-                    int[] qualificationIds = new int[job.qualifications.size()];
-                    List<String> qualificationStrings = new ArrayList<>();
-                    for (int i = 0; i < job.qualifications.size(); i++) {
-                        qualificationIds[i] = job.qualifications.get(i).id;
-                        qualificationStrings.add(job.qualifications.get(i).name);
+                    // filtering out qualifications that are requirements
+                    List<Qualification> q2 = new ArrayList<>();
+                    for (Qualification q : job.qualifications) {
+                        if (!q.onExperience) {
+                            q2.add(q);
+                        }
                     }
+                    int[] qualificationIds = new int[q2.size()];
+                    List<String> qualificationStrings = new ArrayList<>();
+                    for (int i = 0; i < q2.size(); i++) {
+                        qualificationIds[i] = q2.get(i).id;
+                        qualificationStrings.add(q2.get(i).name);
+                    }
+                    result.qualificationObjects = q2;
                     result.qualifications = qualificationIds;
                     result.qualificationStrings = qualificationStrings;
                 }
@@ -228,9 +236,28 @@ public class JobsFragment extends Fragment
             }
 
             /**
-             * Loading experience.
+             * Loading requirements.
              */
-            // TODO: what happened with experience qualifications ???
+            if (null != job.qualifications) {
+                if (!job.qualifications.isEmpty()) {
+                    // extracting the requirements from qualifications
+                    List<Qualification> q2 = new ArrayList<>();
+                    for (Qualification q : job.qualifications) {
+                        if (q.onExperience) {
+                            q2.add(q);
+                        }
+                    }
+                    int[] requirementIds = new int[q2.size()];
+                    List<String> requirementStrings = new ArrayList<>();
+                    for (int i = 0; i < q2.size(); i++) {
+                        requirementIds[i] = q2.get(i).id;
+                        requirementStrings.add(q2.get(i).name);
+                    }
+                    result.requirementObjects = q2;
+                    result.requirements = requirementIds;
+                    result.requirementStrings = requirementStrings;
+                }
+            }
 
             /**
              * Loading experience types!
@@ -293,7 +320,12 @@ public class JobsFragment extends Fragment
                         //
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            showCreateDialog(response.body().response);
+
+                            if (response.body().response.isEmpty()) {
+                                create();
+                            } else {
+                                showCreateDialog(response.body().response);
+                            }
 
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);

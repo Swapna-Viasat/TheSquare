@@ -56,6 +56,13 @@ public class Worker implements Serializable {
     public Nationality nationality;
     @SerializedName("ni_number")
     public String niNumber;
-    public List<Language> languages;
-    @SerializedName("review_data") public ReviewData reviewData;
+    public List<Language> languages; 
+    @SerializedName("review_data") public ReviewData reviewData; 
+    public List<Device> devices;
+    public boolean liked;
+
+    public class Device implements Serializable {
+        @SerializedName("phone_number")
+        public String phoneNumber;
+    } 
 }
