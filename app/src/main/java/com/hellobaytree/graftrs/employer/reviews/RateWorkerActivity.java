@@ -70,15 +70,15 @@ public class RateWorkerActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case HIRE_AGAIN_NO:
+                    case R.id.radio_no:
                         //Toast.makeText(getApplicationContext(), "no", Toast.LENGTH_SHORT).show();
                         hireAgain = false;
-                        rateWorker.setVisibility(View.GONE);
+                        hiredView.setVisibility(View.GONE);
                         break;
-                    case HIRE_AGAIN_YES:
+                    case R.id.radio_yes:
                         //Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();
                         hireAgain = true;
-                        rateWorker.setVisibility(View.VISIBLE);
+                        hiredView.setVisibility(View.VISIBLE);
                         break;
                 }
             }
@@ -87,13 +87,13 @@ public class RateWorkerActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case GOT_HIRE_AGAIN_NO:
+                    case R.id.radio_no_got_hired:
                         gotHiredAgain = false;
-
+                        rateWorker.setVisibility(View.GONE);
                         break;
-                    case GOT_HIRE_AGAIN_YES:
+                    case R.id.radio_yes_got_hired:
                          gotHiredAgain = true;
-
+                        rateWorker.setVisibility(View.VISIBLE);
                         break;
                 }
             }

@@ -62,12 +62,14 @@
                         <RadioButton
                             android:text="Yes"
                             android:textSize="12dp"
+                            android:id="@+id/radio_yes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
                         <RadioButton
                             android:text="No"
                             android:textSize="12dp"
+                            android:id="@+id/radio_no"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </RadioGroup>
@@ -105,12 +107,14 @@
 
                         <RadioButton
                             android:text="Yes"
+                            android:id="@+id/radio_yes_got_hired"
                             android:textSize="12dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
                         <RadioButton
                             android:text="No"
+                            android:id="@+id/radio_no_got_hired"
                             android:textSize="12dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
