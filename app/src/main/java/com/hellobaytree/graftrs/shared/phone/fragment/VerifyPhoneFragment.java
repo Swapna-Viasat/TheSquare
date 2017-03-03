@@ -136,15 +136,9 @@ public class VerifyPhoneFragment extends Fragment {
                                     //
 
 
-                                    Registration registration = Registration.create().withEmail("testing@intercom.com");
+                                    TextTools.log(TAG, "running an intercom registration after worker registration");
+                                    Registration registration = Registration.create().withEmail(deviceEmail);
                                     Intercom.client().registerIdentifiedUser(registration);
-
-
-                                    Map<String, Object> userMap = new HashMap<>();
-                                    userMap.put("email", deviceEmail);
-                                    userMap.put("phone_number", editTextPhoneNumber.getText().toString());
-                                    userMap.put("country_code", ccp.getSelectedCountryCodeWithPlus());
-                                    Intercom.client().logEvent("user_registered", userMap);
 
                                     try {
                                         Bundle bundle = new Bundle();
@@ -187,6 +181,11 @@ public class VerifyPhoneFragment extends Fragment {
                                 if (response.isSuccessful()) {
                                     //
 
+
+                                    TextTools.log(TAG, "running an intercom registration after employer registration");
+                                    Registration registration = Registration.create().withEmail(deviceEmail);
+                                    Intercom.client().registerIdentifiedUser(registration);
+
                                     try {
                                         Bundle bundle = new Bundle();
                                         bundle.putString("phone", editTextPhoneNumber.getText().toString());
@@ -227,16 +226,16 @@ public class VerifyPhoneFragment extends Fragment {
                                 if (response.isSuccessful()) {
                                     ////
 
-
-                                    Registration registration = Registration.create().withEmail("testing@intercom.com");
+                                    TextTools.log(TAG, "running an intercom registration after login");
+                                    Registration registration = Registration.create().withEmail(deviceEmail);
                                     Intercom.client().registerIdentifiedUser(registration);
 
-
-                                    Map<String, Object> userMap = new HashMap<>();
-                                    userMap.put("email", deviceEmail);
-                                    userMap.put("phone_number", editTextPhoneNumber.getText().toString());
-                                    userMap.put("country_code", ccp.getSelectedCountryCodeWithPlus());
-                                    Intercom.client().logEvent("user_registered", userMap);
+//
+//                                    Map<String, Object> userMap = new HashMap<>();
+//                                    userMap.put("email", deviceEmail);
+//                                    userMap.put("phone_number", editTextPhoneNumber.getText().toString());
+//                                    userMap.put("country_code", ccp.getSelectedCountryCodeWithPlus());
+//                                    Intercom.client().logEvent("user_registered", userMap);
 
                                     try {
                                         Bundle bundle = new Bundle();

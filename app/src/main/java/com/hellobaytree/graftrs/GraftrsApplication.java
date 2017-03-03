@@ -28,7 +28,7 @@ public class GraftrsApplication extends MultiDexApplication {
 
 
         Intercom.initialize(this, getString(R.string.misc_intercom_key_test),
-                getString(R.string.misc_intercom_key_test));
+                getString(R.string.misc_intercom_app_id_test));
 
         googleAnalytics = GoogleAnalytics.getInstance(this);
         mTracker = getDefaultTracker();
