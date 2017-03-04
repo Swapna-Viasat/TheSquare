@@ -9,9 +9,11 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,7 +32,6 @@ import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.worker.signup.model.Worker;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,6 +78,7 @@ public class VerifyPhoneFragment extends Fragment {
             tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title);
             tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title);
         }
+        editTextPhoneNumber.setOnEditorActionListener(imeActionListener);
         return view;
     }
 
@@ -289,4 +291,16 @@ public class VerifyPhoneFragment extends Fragment {
         }
         return result;
     }
+
+    private TextView.OnEditorActionListener imeActionListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                validatePhone(v);
+                handled = true;
+            }
+            return handled;
+        }
+    };
 }
