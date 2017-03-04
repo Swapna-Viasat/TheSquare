@@ -5,13 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.reviews.Review;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
-import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -81,7 +78,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
                     .load(review.workerSummary.picture)
                     .into(holder.avatar);
         } else {
-            holder.avatar.setImageResource(R.drawable.ic_no_avatar);
+            holder.avatar.setImageResource(R.drawable.bob);
         }
 
         if (null != review.dateReviewRequested){

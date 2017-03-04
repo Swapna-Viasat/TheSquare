@@ -383,7 +383,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         if (!TextUtils.isEmpty(worker.picture)) {
             Picasso.with(getContext()).load(worker.picture).into(avatarImage);
         } else {
-            avatarImage.setImageResource(R.drawable.ic_no_avatar);
+            avatarImage.setImageResource(R.drawable.bob);
         }
     }
 

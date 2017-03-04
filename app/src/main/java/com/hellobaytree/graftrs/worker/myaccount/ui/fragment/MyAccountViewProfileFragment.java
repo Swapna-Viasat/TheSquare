@@ -325,7 +325,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
         if (!TextUtils.isEmpty(worker.picture)) {
             Picasso.with(getContext()).load(worker.picture).into(avatarImage);
         } else {
-            avatarImage.setImageResource(R.drawable.ic_no_avatar);
+            avatarImage.setImageResource(R.drawable.bob);
         }
     }
 
@@ -819,8 +819,8 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                             worker = response.body().getResponse();
                             Picasso.with(getContext())
                                     .load(worker.picture)
-                                    .error(R.drawable.ic_no_avatar)
-                                    .placeholder(R.drawable.ic_no_avatar)
+                                    .error(R.drawable.bob)
+                                    .placeholder(R.drawable.bob)
                                     .into(avatarImage);
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
