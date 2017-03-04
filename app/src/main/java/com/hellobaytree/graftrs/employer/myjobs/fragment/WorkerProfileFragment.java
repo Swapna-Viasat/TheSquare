@@ -167,6 +167,9 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @BindView(R.id.likeImage)
     ImageView likeImage;
 
+    @BindView(R.id.workerBioLayout)
+    View workerBioLayout;
+
     private static final String KEY_WORKER_ID = "KEY_WORKER_ID";
 
     private static final int VERIFICATION_NONE = 1;     // Verification hasn't been requested yet.
@@ -468,7 +471,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     }
 
     private void fillWorkerBio() {
-        if (!TextUtils.isEmpty(worker.bio)) bioView.setText(worker.bio);
+        if (!TextUtils.isEmpty(worker.bio)) {
+            workerBioLayout.setVisibility(View.VISIBLE);
+            bioView.setText(worker.bio);
+        } else workerBioLayout.setVisibility(View.GONE);
     }
 
     private void initMap() {
