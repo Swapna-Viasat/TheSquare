@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -91,8 +90,6 @@ public class SelectWorkerInfoFragment extends Fragment implements PlacesAutocomp
     TextInputLayout password2Layout;
     @BindView(R.id.avatar)
     CircleImageView avatar;
-    @BindView(R.id.avatarPlaceholder)
-    ImageView avatarPlaceholder;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_SELECTION = 2;
@@ -189,26 +186,21 @@ public class SelectWorkerInfoFragment extends Fragment implements PlacesAutocomp
 
     private void showProfileImage() {
         if (currentWorker != null && currentWorker.picture != null) {
-            avatar.setVisibility(View.VISIBLE);
-            avatarPlaceholder.setVisibility(View.GONE);
-
             Picasso.with(getContext())
                     .load(currentWorker.picture)
                     .fit()
                     .centerCrop()
+                    .placeholder(R.drawable.bob)
+                    .error(R.drawable.bob)
                     .into(avatar);
-        } else {
-            avatar.setVisibility(View.GONE);
-            avatarPlaceholder.setVisibility(View.VISIBLE);
         }
 
     }
 
-    @OnClick({R.id.avatar, R.id.avatarPlaceholder, R.id.next})
+    @OnClick({R.id.avatar, R.id.next})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar:
-            case R.id.avatarPlaceholder:
                 showChooserDialog();
                 break;
             case R.id.next:
