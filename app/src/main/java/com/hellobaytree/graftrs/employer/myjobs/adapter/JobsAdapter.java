@@ -212,7 +212,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
     public void bindDraft(JobHolder holder, final Job job) {
         holder.actions.setVisibility(View.GONE);
         holder.remove.setVisibility(View.VISIBLE);
-        holder.startLocationFrame.setVisibility(View.GONE);
+        //holder.startLocationFrame.setVisibility(View.GONE);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

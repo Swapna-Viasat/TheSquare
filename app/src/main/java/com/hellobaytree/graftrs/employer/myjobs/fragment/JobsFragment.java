@@ -80,6 +80,8 @@ public class JobsFragment extends Fragment
                     .setDisplayHomeAsUpEnabled(true);
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setTitle("My Jobs");
+            // default to live jobs
+            viewPager.setCurrentItem(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
