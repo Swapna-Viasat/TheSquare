@@ -26,7 +26,6 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:background="@drawable/ic_logo_placeholder"
                     android:id="@+id/employer_account_logo"
                     android:layout_width="142dp"
                     android:layout_height="82dp" />
@@ -300,7 +299,6 @@
 
             <!-- Subscription Plan Management -->
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/employer_account_subscription_plan_management"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
