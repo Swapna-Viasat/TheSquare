@@ -324,6 +324,7 @@ public class JobsListFragment extends Fragment
             result.contactPhoneNumber = job.contactPhoneNumber;
             result.address = job.address;
             result.logo = job.company.logo;
+            result.notes = job.notes;
 
         } catch (Exception e) {
             e.printStackTrace();
