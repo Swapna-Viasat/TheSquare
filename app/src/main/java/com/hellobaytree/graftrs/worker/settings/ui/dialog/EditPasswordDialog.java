@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
@@ -112,4 +113,13 @@ public class EditPasswordDialog extends DialogFragment {
             }
         }
     };
+
+    @Override
+    public void onResume() {
+        Window window = getDialog().getWindow();
+        ViewGroup.LayoutParams params = window.getAttributes();
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes((WindowManager.LayoutParams) params);
+        super.onResume();
+    }
 }
