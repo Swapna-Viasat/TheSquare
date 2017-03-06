@@ -70,7 +70,7 @@ public class ReviewDetailsActivity extends AppCompatActivity {
         safety.setRating(review.safe);
 
         again.setVisibility(review.wouldHireAgain ? View.VISIBLE : View.GONE);
-        again.setText(String.format(getString(R.string.employer_rate_again), review.workerSummary.name));
+        again.setText(String.format(getString(R.string.employer_rate_given), review.workerSummary.name));
 
         if (null != review.workerSummary.name) {
                 name.setText(review.workerSummary.name);
