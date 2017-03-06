@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:background="@drawable/ic_logo_placeholder"
                     android:id="@+id/employer_account_logo"
                     android:layout_width="142dp"
                     android:layout_height="82dp" />

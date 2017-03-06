@@ -1,6 +1,10 @@
 package com.hellobaytree.graftrs.employer.account;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -58,7 +62,13 @@ import static android.app.Activity.RESULT_OK;
  * 
  */
 public class AccountFragment extends Fragment {
+
     private static final String TAG = "AccountFragment";
+
+    private static final int LOGO_TAKE_PICTURE = 333;
+    private static final int LOGO_PICK_GALLERY = 334;
+    static final int REQUEST_PERMISSIONS = 3;
+    static final int REQUEST_PERMISSION_READ_STORAGE = 4;
 
     @BindView(R.id.employer_account_logo) ImageView logo;
     @BindView(R.id.employer_account_name) TextView name;
@@ -226,8 +236,79 @@ public class AccountFragment extends Fragment {
 
     @OnClick(R.id.employer_account_logo)
     public void logo() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 333);
+        showChooserDialog();
+    }
+
+
+    private void showChooserDialog() {
+        CharSequence[] options = {getString(R.string.onboarding_take_photo),
+                getString(R.string.onboarding_choose_from_gallery),
+                getString(R.string.onboarding_cancel)};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getString(R.string.onboarding_add_photo));
+
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        openCamera();
+                        break;
+                    case 1:
+                        openGallery();
+                        break;
+                    case 2:
+                        dialog.cancel();
+                        break;
+                }
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void openCamera() {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            dispatchTakePictureIntent();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSIONS);
+        }
+    }
+
+    private void openGallery() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            dispatchOpenGalleryIntent();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSION_READ_STORAGE);
+        }
+    }
+
+    private void dispatchTakePictureIntent() {
+        try {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, LOGO_TAKE_PICTURE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void dispatchOpenGalleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                getString(R.string.onboarding_select_image)),
+                LOGO_PICK_GALLERY);
     }
 
     private void prepPicture(Bitmap bitmap) {
@@ -245,14 +326,36 @@ public class AccountFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == 333) {
+            if (requestCode == LOGO_TAKE_PICTURE) {
                 try {
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     prepPicture(bitmap);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else if (requestCode == LOGO_PICK_GALLERY) {
+                //
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSIONS:
+                if (grantResults.length > 1 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                        grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    dispatchTakePictureIntent();
+                }
+                break;
+            case REQUEST_PERMISSION_READ_STORAGE:
+                if (grantResults.length > 1 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    dispatchOpenGalleryIntent();
+                }
+                break;
         }
     }
 }
