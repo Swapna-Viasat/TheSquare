@@ -20,6 +20,8 @@ public class CreateRequest implements Serializable {
 
     public int id;
     public Calendar rawDate;
+    public boolean detailsLowerPart;
+
 
     public int status;
     public int role;

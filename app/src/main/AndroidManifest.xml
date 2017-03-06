@@ -247,7 +247,18 @@
             android:name=".employer.myjobs.activity.ViewWorkerProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBarMain" />
+            android:theme="@style/AppTheme.NoActionBarMain">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="thesquare"
+                    android:host="worker"
+                    android:path="/viewWorker"/>
+            </intent-filter>
+        </activity>
 
         <!-- Used for Google Play Store Campaign Measurement -->
         <receiver

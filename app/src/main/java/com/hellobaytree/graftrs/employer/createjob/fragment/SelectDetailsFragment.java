@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +31,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -149,7 +151,21 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
 
         request = (CreateRequest) getArguments().getSerializable("request");
 
-        TextTools.log(TAG, request.location.toString());
+        CountDownTimer timer = new CountDownTimer(200, 200) {
+            @Override
+            public void onTick(long l) {
+                //
+            }
+
+            @Override
+            public void onFinish() {
+                getView().scrollTo(0, getView().getHeight());
+            }
+        };
+        if (request.detailsLowerPart) {
+            timer.start();
+        }
+
 
         selectedRole = request.roleObject;
 

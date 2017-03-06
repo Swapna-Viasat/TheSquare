@@ -120,6 +120,7 @@ public class PreviewJobFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createRequest = (CreateRequest) getArguments().getSerializable("request");
+        createRequest.detailsLowerPart = false;
         mapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -159,6 +160,7 @@ public class PreviewJobFragment extends Fragment {
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
             case R.id.preview_reporting_to:
+                createRequest.detailsLowerPart = true;
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
             case R.id.preview_start_date:
