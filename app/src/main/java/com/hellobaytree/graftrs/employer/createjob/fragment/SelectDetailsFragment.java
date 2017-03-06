@@ -458,7 +458,8 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                 break;
         }
 
-        request.description = tempDescription;
+        request.description = (!tempDescription.equals("")) ?
+                tempDescription : description.getText().toString();
         request.contactName = contact.getText().toString();
         //
         request.contactPhone = ccp.getSelectedCountryCodeWithPlus() + " "

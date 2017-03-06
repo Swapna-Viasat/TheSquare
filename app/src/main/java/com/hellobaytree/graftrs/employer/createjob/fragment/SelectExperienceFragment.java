@@ -102,6 +102,7 @@ public class SelectExperienceFragment extends Fragment
 
         if (null != createRequest) {
             int i = createRequest.experience;
+            experience = i;
             seekBar.setProgress(i);
             years.setText(String.valueOf(i)
                     + ((seekBar.getMax() == i) ? "+ " : " ")
