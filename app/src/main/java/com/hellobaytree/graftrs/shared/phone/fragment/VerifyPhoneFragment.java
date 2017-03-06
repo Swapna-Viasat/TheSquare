@@ -2,6 +2,7 @@ package com.hellobaytree.graftrs.shared.phone.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -50,12 +51,18 @@ public class VerifyPhoneFragment extends Fragment {
 
     public static final String TAG = "VerifyPhoneFragment";
 
-    @BindView(R.id.tvAskForPhoneFirstTitle) TextView tvAskForPhoneFirstTitle;
-    @BindView(R.id.tvAskForPhoneSecondTitle) TextView tvAskForPhoneSecondTitle;
-    @BindView(R.id.ccp) CountryCodePicker ccp;
-    @BindView(R.id.askForPhonePhoneNumberEditText) EditText editTextPhoneNumber;
+    @BindView(R.id.tvAskForPhoneFirstTitle)
+    TextView tvAskForPhoneFirstTitle;
+    @BindView(R.id.tvAskForPhoneSecondTitle)
+    TextView tvAskForPhoneSecondTitle;
+    @BindView(R.id.ccp)
+    CountryCodePicker ccp;
+    @BindView(R.id.askForPhonePhoneNumberEditText)
+    EditText editTextPhoneNumber;
     @BindView(R.id.askForPhonePhoneNumberEditTextWrapper)
     TextInputLayout phoneLayout;
+
+    private int action;
 
     public static VerifyPhoneFragment newInstance(int key) {
         VerifyPhoneFragment fragment = new VerifyPhoneFragment();
@@ -70,11 +77,13 @@ public class VerifyPhoneFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_verify_phone, container, false);
         ButterKnife.bind(this, view);
-        if (getActivity().getIntent().getIntExtra(Constants.KEY_VERIFY_PHONE, 1)
-                == Constants.KEY_VERIFY_PHONE_LOGIN){
+
+        action = getActivity().getIntent().getIntExtra(Constants.KEY_VERIFY_PHONE, 1);
+
+        if (action == Constants.KEY_VERIFY_PHONE_LOGIN) {
             tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title_welcome_back);
             tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title_reconfirm);
-        }else{
+        } else {
             tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title);
             tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title);
         }
@@ -125,8 +134,7 @@ public class VerifyPhoneFragment extends Fragment {
             registrationRequest.put("phone_number", editTextPhoneNumber.getText().toString());
             registrationRequest.put("country_code", ccp.getSelectedCountryCodeWithPlus());
 
-            if (getActivity().getIntent().getIntExtra(Constants.KEY_VERIFY_PHONE, 1)
-                    == Constants.KEY_VERIFY_PHONE_WORKER) {
+            if (action == Constants.KEY_VERIFY_PHONE_WORKER) {
                 HttpRestServiceConsumer.getBaseApiClient()
                         .registrationWorker(registrationRequest)
                         .enqueue(new Callback<ResponseObject<Worker>>() {
@@ -162,7 +170,14 @@ public class VerifyPhoneFragment extends Fragment {
 
                                     //
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
+                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            action = Constants.KEY_VERIFY_PHONE_LOGIN;
+                                            tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title_welcome_back);
+                                            tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title_reconfirm);
+                                        }
+                                    });
                                 }
                             }
 
@@ -171,8 +186,7 @@ public class VerifyPhoneFragment extends Fragment {
                                 HandleErrors.parseFailureError(getContext(), dialog, t);
                             }
                         });
-            } else if (getActivity().getIntent().getIntExtra(Constants.KEY_VERIFY_PHONE, 1)
-                    == Constants.KEY_VERIFY_PHONE_EMPLOYER) {
+            } else if (action == Constants.KEY_VERIFY_PHONE_EMPLOYER) {
                 HttpRestServiceConsumer.getBaseApiClient()
                         .registrationEmployer(registrationRequest)
                         .enqueue(new Callback<ResponseObject<Employer>>() {
@@ -207,7 +221,14 @@ public class VerifyPhoneFragment extends Fragment {
 
                                     //
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
+                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            action = Constants.KEY_VERIFY_PHONE_LOGIN;
+                                            tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title_welcome_back);
+                                            tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title_reconfirm);
+                                        }
+                                    });
                                 }
                             }
 
@@ -216,8 +237,7 @@ public class VerifyPhoneFragment extends Fragment {
                                 HandleErrors.parseFailureError(getContext(), dialog, t);
                             }
                         });
-            } else if (getActivity().getIntent().getIntExtra(Constants.KEY_VERIFY_PHONE, 1)
-                    == Constants.KEY_VERIFY_PHONE_LOGIN) {
+            } else if (action == Constants.KEY_VERIFY_PHONE_LOGIN) {
                 HttpRestServiceConsumer.getBaseApiClient()
                         .loginUser(registrationRequest)
                         .enqueue(new Callback<ResponseObject<LoginUser>>() {
