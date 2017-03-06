@@ -35,6 +35,7 @@ public class Job implements Serializable {
     // added new fields
     @SerializedName("contact_phone_number") public long contactPhoneNumber;
     @SerializedName("contact_country_code") public int contactCountryCode;
+    @SerializedName("extra_notes") public String notes;
     //
     @SerializedName("workers_quantity") public int workersQuantity;
     @SerializedName("location_name") public String locationName;

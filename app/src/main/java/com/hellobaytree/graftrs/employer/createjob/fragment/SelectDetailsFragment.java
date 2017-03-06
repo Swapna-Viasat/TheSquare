@@ -191,6 +191,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
 
             try {
                 if (null != request.description) description.setText(request.description);
+                if (null != request.notes) extra.setText(request.notes);
                 if (null != request.date) {
                     tempDate = request.date;
                     editDate.setText(tempDate.split("-")[2] + "-"
