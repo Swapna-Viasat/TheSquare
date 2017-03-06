@@ -97,6 +97,7 @@ public class SelectWorkerInfoFragment extends Fragment implements PlacesAutocomp
     static final int REQUEST_PERMISSION_READ_STORAGE = 4;
 
     private GoogleApiClient googleApiClient;
+    private boolean initialized;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -175,8 +176,9 @@ public class SelectWorkerInfoFragment extends Fragment implements PlacesAutocomp
 
             firstNameInput.getEditText().setText(currentWorker.firstName);
             lastNameInput.getEditText().setText(currentWorker.lastName);
-            emailLayout.getEditText().setText(currentWorker.email);
             addressLayout.setText(currentWorker.address);
+            if (initialized)
+                emailLayout.getEditText().setText(currentWorker.email);
 
             showProfileImage();
         } catch (Exception e) {
@@ -400,6 +402,7 @@ public class SelectWorkerInfoFragment extends Fragment implements PlacesAutocomp
     }
 
     private void proceed(Worker worker) {
+        initialized = true;
         if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
