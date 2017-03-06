@@ -73,6 +73,10 @@ public class RateWorkerActivity extends AppCompatActivity {
                     case R.id.radio_no:
                         //Toast.makeText(getApplicationContext(), "no", Toast.LENGTH_SHORT).show();
                         hireAgain = false;
+                        attitude.setValue(0);
+                        quality.setValue(0);
+                        reliability.setValue(0);
+                        safety.setValue(0);
                         hiredView.setVisibility(View.GONE);
                         break;
                     case R.id.radio_yes:
@@ -89,6 +93,10 @@ public class RateWorkerActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.radio_no_got_hired:
                         gotHiredAgain = false;
+                        attitude.setValue(0);
+                        quality.setValue(0);
+                        reliability.setValue(0);
+                        safety.setValue(0);
                         rateWorker.setVisibility(View.GONE);
                         break;
                     case R.id.radio_yes_got_hired:

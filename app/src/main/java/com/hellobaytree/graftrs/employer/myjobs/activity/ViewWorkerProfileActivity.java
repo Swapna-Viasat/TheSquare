@@ -1,6 +1,7 @@
 package com.hellobaytree.graftrs.employer.myjobs.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.myjobs.fragment.WorkerProfileFragment;
@@ -40,6 +42,18 @@ public class ViewWorkerProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int workerId = intent.getIntExtra(WORKER_ID, 0);
         int jobId = intent.getIntExtra(Constants.KEY_JOB_ID, 0);
+
+//        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+//            if (null != intent.getData()) {
+//                Uri uri = intent.getData();
+//                String one = uri.getQueryParameter("key");
+//                Toast.makeText(this, String.valueOf(one), Toast.LENGTH_LONG).show();
+//            } else {
+//                Toast.makeText(this, "intent's data is null", Toast.LENGTH_LONG).show();
+//            }
+//        } else {
+//            Toast.makeText(this, "intent action isn't view", Toast.LENGTH_LONG).show();
+//        }
 
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

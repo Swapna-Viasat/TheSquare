@@ -124,7 +124,7 @@ public class DateUtils {
     }
 
     public static String monthShort(int month) {
-        String[] months = {"Jan", "Feb", "Mar", "Apr",
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May",
                 "Jun", "Jul", "Aug", "Sep", "Oct",
                 "Nov", "Dec"};
         return months[month];

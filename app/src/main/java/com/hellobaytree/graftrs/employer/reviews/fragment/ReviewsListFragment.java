@@ -53,7 +53,7 @@ public class ReviewsListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUserActionListener = new ReviewsPresenter(this);
-        progressDialog = new ProgressDialog.Builder(getActivity()).setMessage("Please wait").create();
+        progressDialog = new ProgressDialog.Builder(getActivity()).setMessage(R.string.worker_jobs_wait_msg).create();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -80,6 +80,8 @@ public class JobsFragment extends Fragment
                     .setDisplayHomeAsUpEnabled(true);
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setTitle("My Jobs");
+            // default to live jobs
+            viewPager.setCurrentItem(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -169,10 +171,10 @@ public class JobsFragment extends Fragment
             result.overtimeValue = job.overtimeRate;
             String englishString = "Basic";
             switch (job.english) {
-                case 2:
+                case 3:
                     englishString = "Fluent";
                     break;
-                case 3:
+                case 4:
                     englishString = "Native";
                     break;
             }

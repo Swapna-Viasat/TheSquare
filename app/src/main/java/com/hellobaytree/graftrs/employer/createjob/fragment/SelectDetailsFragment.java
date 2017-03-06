@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +31,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -80,7 +82,8 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by gherg on 12/6/2016.
  */
 
-public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.DetailsListener {
+public class SelectDetailsFragment extends Fragment
+        implements JobDetailsDialog.DetailsListener {
 
     public static final String TAG = "SelectDetailsFragment";
 
@@ -149,7 +152,25 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
 
         request = (CreateRequest) getArguments().getSerializable("request");
 
-        TextTools.log(TAG, request.location.toString());
+        CountDownTimer timer = new CountDownTimer(200, 200) {
+            @Override
+            public void onTick(long l) {
+                //
+            }
+
+            @Override
+            public void onFinish() {
+                try {
+                    getView().scrollTo(0, getView().getHeight());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        if (request.detailsLowerPart) {
+            timer.start();
+        }
+
 
         selectedRole = request.roleObject;
 
@@ -171,6 +192,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
 
             try {
                 if (null != request.description) description.setText(request.description);
+                if (null != request.notes) extra.setText(request.notes);
                 if (null != request.date) {
                     tempDate = request.date;
                     editDate.setText(tempDate.split("-")[2] + "-"
@@ -256,7 +278,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
             payload.put("workers_quantity", selectedRole.amountWorkers);
             payload.put("trades", request.trades);
             payload.put("experience", request.experience);
-            payload.put("english_level_id", request.english);
+            payload.put("english_level", request.english);
 
             // beginning of wow
             try {
@@ -438,7 +460,8 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
                 break;
         }
 
-        request.description = tempDescription;
+        request.description = (!tempDescription.equals("")) ?
+                tempDescription : description.getText().toString();
         request.contactName = contact.getText().toString();
         //
         request.contactPhone = ccp.getSelectedCountryCodeWithPlus() + " "

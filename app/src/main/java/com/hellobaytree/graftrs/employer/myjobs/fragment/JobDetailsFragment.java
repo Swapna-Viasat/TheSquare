@@ -35,6 +35,7 @@ import com.hellobaytree.graftrs.employer.myjobs.dialog.ViewMoreDialog;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.models.Job;
+import com.hellobaytree.graftrs.shared.models.Qualification;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
@@ -187,16 +188,17 @@ public class JobDetailsFragment extends Fragment
             result.contactCountryCode = job.contactCountryCode;
             result.contactPhoneNumber = job.contactPhoneNumber;
             result.address = job.address;
+            result.notes = job.notes;
             result.description = job.description;
             result.english = job.english;
             result.overtime = job.payOvertime;
             result.overtimeValue = job.overtimeRate;
             String englishString = "Basic";
             switch (job.english) {
-                case 2:
+                case 3:
                     englishString = "Fluent";
                     break;
-                case 3:
+                case 4:
                     englishString = "Native";
                     break;
             }
@@ -224,13 +226,20 @@ public class JobDetailsFragment extends Fragment
              */
             if (null != job.qualifications) {
                 if (!job.qualifications.isEmpty()) {
-                    result.qualificationObjects = job.qualifications;
-                    int[] qualificationIds = new int[job.qualifications.size()];
-                    List<String> qualificationStrings = new ArrayList<>();
-                    for (int i = 0; i < job.qualifications.size(); i++) {
-                        qualificationIds[i] = job.qualifications.get(i).id;
-                        qualificationStrings.add(job.qualifications.get(i).name);
+                    // filtering out qualifications that are requirements
+                    List<Qualification> q2 = new ArrayList<>();
+                    for (Qualification q : job.qualifications) {
+                        if (!q.onExperience) {
+                            q2.add(q);
+                        }
                     }
+                    int[] qualificationIds = new int[q2.size()];
+                    List<String> qualificationStrings = new ArrayList<>();
+                    for (int i = 0; i < q2.size(); i++) {
+                        qualificationIds[i] = q2.get(i).id;
+                        qualificationStrings.add(q2.get(i).name);
+                    }
+                    result.qualificationObjects = q2;
                     result.qualifications = qualificationIds;
                     result.qualificationStrings = qualificationStrings;
                 }
@@ -253,9 +262,28 @@ public class JobDetailsFragment extends Fragment
             }
 
             /**
-             * Loading experience.
+             * Loading requirements.
              */
-            // TODO: what happened with experience qualifications ???
+            if (null != job.qualifications) {
+                if (!job.qualifications.isEmpty()) {
+                    // extracting the requirements from qualifications
+                    List<Qualification> q2 = new ArrayList<>();
+                    for (Qualification q : job.qualifications) {
+                        if (q.onExperience) {
+                            q2.add(q);
+                        }
+                    }
+                    int[] requirementIds = new int[q2.size()];
+                    List<String> requirementStrings = new ArrayList<>();
+                    for (int i = 0; i < q2.size(); i++) {
+                        requirementIds[i] = q2.get(i).id;
+                        requirementStrings.add(q2.get(i).name);
+                    }
+                    result.requirementObjects = q2;
+                    result.requirements = requirementIds;
+                    result.requirementStrings = requirementStrings;
+                }
+            }
 
             /**
              * Loading experience types!
