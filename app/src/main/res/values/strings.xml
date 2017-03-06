@@ -530,6 +530,7 @@
     <string name="employer_rate_worker">Please rate %s\'s \nperformance</string>
     <string name="employer_rate_submit">Done</string>
     <string name="employer_rate_again">Did you hire %s?</string>
+    <string name="employer_rate_given">%s rating</string>
     <string name="worker_turned_up">Did %s turn up?</string>
 
     <!-- Employer My Account -->
