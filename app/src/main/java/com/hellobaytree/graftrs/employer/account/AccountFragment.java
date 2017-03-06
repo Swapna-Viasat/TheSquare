@@ -28,8 +28,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.employer.createjob.dialog.CRNDialog;
 import com.hellobaytree.graftrs.employer.payments.PaymentsActivity;
 import com.hellobaytree.graftrs.employer.payments.fragment.PricePlanFragment;
 import com.hellobaytree.graftrs.employer.reviews.ReviewsActivity;
@@ -38,6 +40,7 @@ import com.hellobaytree.graftrs.employer.subscription.SubscriptionActivity;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.models.Employer;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.MediaTools;
@@ -385,5 +388,32 @@ public class AccountFragment extends Fragment {
                 }
                 break;
         }
+    }
+
+    @OnClick(R.id.employer_account_name)
+    public void onChangeCRN() {
+        CRNDialog crnDialog = CRNDialog.newInstance(new CRNDialog.CRNListener() {
+            @Override
+            public void onResult(boolean success) {
+                if (success) {
+                    //
+                    Toast.makeText(getContext(), "CRN updated successfully!", Toast.LENGTH_LONG).show();
+                    fetchEmployer();
+                    //
+                } else {
+                    new AlertDialog.Builder(getContext())
+                            .setMessage("This Company Registration " +
+                                    "Number doesn't seem right, please try again...")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .show();
+                }
+            }
+        });
+        crnDialog.show(getChildFragmentManager(), "");
     }
 }

@@ -82,7 +82,8 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by gherg on 12/6/2016.
  */
 
-public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.DetailsListener {
+public class SelectDetailsFragment extends Fragment
+        implements JobDetailsDialog.DetailsListener {
 
     public static final String TAG = "SelectDetailsFragment";
 
