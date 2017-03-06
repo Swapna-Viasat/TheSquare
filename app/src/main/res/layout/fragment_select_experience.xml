@@ -21,7 +21,6 @@
 
     <ScrollView
         android:layout_below="@+id/top"
-        android:layout_marginBottom="76dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -399,22 +398,21 @@
                 android:id="@+id/english"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <!-- Next -->
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:background="@color/redSquareColor"
+                android:text="Next"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:padding="18dp"
+                android:textAllCaps="true"
+                android:id="@+id/next"
+                android:textColor="@android:color/white"
+                app:josefin_style="semiBold"
+                android:layout_margin="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
-
-    <!-- Next -->
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-        android:background="@color/redSquareColor"
-        android:text="Next"
-        android:layout_alignParentBottom="true"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:padding="18dp"
-        android:textAllCaps="true"
-        android:id="@+id/next"
-        android:textColor="@android:color/white"
-        app:josefin_style="semiBold"
-        android:layout_margin="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </RelativeLayout>
