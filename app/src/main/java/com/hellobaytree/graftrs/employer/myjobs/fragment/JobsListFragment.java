@@ -202,10 +202,10 @@ public class JobsListFragment extends Fragment
             result.overtimeValue = job.overtimeRate;
             String englishString = "Basic";
             switch (job.english) {
-                case 2:
+                case 3:
                     englishString = "Fluent";
                     break;
-                case 3:
+                case 4:
                     englishString = "Native";
                     break;
             }

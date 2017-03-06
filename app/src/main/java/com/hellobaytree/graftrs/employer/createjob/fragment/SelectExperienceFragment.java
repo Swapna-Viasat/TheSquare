@@ -309,6 +309,7 @@ public class SelectExperienceFragment extends Fragment
     @OnClick(R.id.next)
     public void next() {
         if (validate()) {
+            TextTools.log(TAG, "English level " + String.valueOf(english));
             createRequest.english = english;
             createRequest.englishLevelString = englishString;
             createRequest.experience = experience;

@@ -159,7 +159,11 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
 
             @Override
             public void onFinish() {
-                getView().scrollTo(0, getView().getHeight());
+                try {
+                    getView().scrollTo(0, getView().getHeight());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         };
         if (request.detailsLowerPart) {
@@ -272,7 +276,7 @@ public class SelectDetailsFragment extends Fragment implements JobDetailsDialog.
             payload.put("workers_quantity", selectedRole.amountWorkers);
             payload.put("trades", request.trades);
             payload.put("experience", request.experience);
-            payload.put("english_level_id", request.english);
+            payload.put("english_level", request.english);
 
             // beginning of wow
             try {
