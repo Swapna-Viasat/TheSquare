@@ -183,6 +183,7 @@ public class JobsListFragment extends Fragment
     };
 
     private CreateRequest prepareDraftDetails(Job job) {
+        TextTools.log(TAG, "preparing draft details");
         CreateRequest result = new CreateRequest();
         try {
 

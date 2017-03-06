@@ -19,6 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/banner_cancelled"
                 android:layout_alignParentEnd="true"
@@ -58,9 +59,9 @@
                     android:textColor="@android:color/holo_green_dark"
                     android:textAllCaps="true"
                     android:elevation="4dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginRight="14dp"
-                    android:layout_marginBottom="6dp"
+                    android:paddingTop="14dp"
+                    android:paddingRight="14dp"
+                    android:paddingBottom="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
