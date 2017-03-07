@@ -120,6 +120,7 @@ public class PreviewJobFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createRequest = (CreateRequest) getArguments().getSerializable("request");
+        createRequest.detailsLowerPart = false;
         mapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -159,13 +160,14 @@ public class PreviewJobFragment extends Fragment {
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
             case R.id.preview_reporting_to:
+                createRequest.detailsLowerPart = true;
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
             case R.id.preview_start_date:
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
             case R.id.preview_location:
-                fragment = SelectDetailsFragment.newInstance(createRequest, true);
+                fragment = SelectLocationFragment.newInstance(createRequest, true);
                 break;
             case R.id.job_details_description_label:
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
@@ -307,7 +309,7 @@ public class PreviewJobFragment extends Fragment {
             payload.put("workers_quantity", (createRequest.roleObject).amountWorkers);
             payload.put("trades", createRequest.trades);
             payload.put("experience", createRequest.experience);
-            payload.put("english_level_id", createRequest.english);
+            payload.put("english_level", createRequest.english);
 
             // beginning of wow
             int[] quals = new int[createRequest.requirements.length +

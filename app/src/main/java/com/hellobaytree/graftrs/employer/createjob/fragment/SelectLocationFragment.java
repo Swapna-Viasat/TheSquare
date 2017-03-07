@@ -248,13 +248,23 @@ public class SelectLocationFragment extends Fragment
         TextTools.log(TAG, request.location.toString());
         request.locationName = filter.getText().toString();
 
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                .replace(R.id.create_job_content,
-                        SelectDetailsFragment.newInstance(request, false))
-                .addToBackStack("")
-                .commit();
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
+            //
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame, PreviewJobFragment.newInstance(request))
+                    .commit();
+            //
+        } else {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
+                    .replace(R.id.create_job_content,
+                            SelectDetailsFragment.newInstance(request, false))
+                    .addToBackStack("")
+                    .commit();
+        }
+
     }
 
     private void buildGoogleApiClient() {

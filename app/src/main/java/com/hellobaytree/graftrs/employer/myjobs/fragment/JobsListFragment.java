@@ -183,6 +183,7 @@ public class JobsListFragment extends Fragment
     };
 
     private CreateRequest prepareDraftDetails(Job job) {
+        TextTools.log(TAG, "preparing draft details");
         CreateRequest result = new CreateRequest();
         try {
 
@@ -202,10 +203,10 @@ public class JobsListFragment extends Fragment
             result.overtimeValue = job.overtimeRate;
             String englishString = "Basic";
             switch (job.english) {
-                case 2:
+                case 3:
                     englishString = "Fluent";
                     break;
-                case 3:
+                case 4:
                     englishString = "Native";
                     break;
             }
@@ -324,6 +325,7 @@ public class JobsListFragment extends Fragment
             result.contactPhoneNumber = job.contactPhoneNumber;
             result.address = job.address;
             result.logo = job.company.logo;
+            result.notes = job.notes;
 
         } catch (Exception e) {
             e.printStackTrace();

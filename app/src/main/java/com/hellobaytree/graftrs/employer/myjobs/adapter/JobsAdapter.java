@@ -139,6 +139,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
         @BindView(R.id.item_match_start_location) FrameLayout startLocationFrame;
         @BindView(R.id.banner_cancelled) ImageView cancelled;
+        @BindView(R.id.view_more) JosefinSansTextView editDraft;
 
         @BindView(R.id.item_job_location) JosefinSansTextView location;
         @BindView(R.id.item_job_occupation) JosefinSansTextView occupation;
@@ -212,8 +213,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
     public void bindDraft(JobHolder holder, final Job job) {
         holder.actions.setVisibility(View.GONE);
         holder.remove.setVisibility(View.VISIBLE);
-        holder.startLocationFrame.setVisibility(View.GONE);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.editDraft.setVisibility(View.VISIBLE);
+        holder.editDraft.setText("Edit");
+        holder.editDraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (null != listener) {

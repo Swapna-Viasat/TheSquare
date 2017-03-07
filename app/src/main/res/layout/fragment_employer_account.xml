@@ -42,6 +42,10 @@
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/employer_account_name"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:drawablePadding="4dp"
+                    android:drawableRight="@drawable/ic_mode_edit_black_24dp"
+                    android:drawableTint="@android:color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="true"
@@ -299,7 +303,6 @@
 
             <!-- Subscription Plan Management -->
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/employer_account_subscription_plan_management"
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="12dp"
