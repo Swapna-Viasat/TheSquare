@@ -21,6 +21,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.createjob.persistence.GsonConfig;
@@ -30,6 +37,7 @@ import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.data.model.ZipResponse;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.models.Worker;
+import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
@@ -42,6 +50,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -371,9 +380,8 @@ public class SelectWorkerInfoFragment extends Fragment {
                                                 .setMessage(getString(R.string.validate_zip))
                                                 .show();
                                     }
-                                } else {
-                                    // all good
-                                    patchWorker();
+                                } else if (!CollectionUtils.isEmpty(response.body().addresses)) {
+                                    showAddressDialog(response.body().addresses);
                                 }
                             } else {
                                 // response body null
@@ -391,7 +399,7 @@ public class SelectWorkerInfoFragment extends Fragment {
         }
     }
 
-    private void patchWorker() {
+    private void patchWorker(String address) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
 
         HashMap<String, Object> request = new HashMap<>();
@@ -401,6 +409,7 @@ public class SelectWorkerInfoFragment extends Fragment {
         request.put("post_code", zipLayout.getEditText().getText().toString());
         request.put("first_name", firstNameInput.getEditText().getText().toString());
         request.put("last_name", lastNameInput.getEditText().getText().toString());
+        request.put("address", address);
         HttpRestServiceConsumer.getBaseApiClient()
                 .patchWorker(workerId, request)
                 .enqueue(new Callback<ResponseObject<Worker>>() {
@@ -494,5 +503,42 @@ public class SelectWorkerInfoFragment extends Fragment {
                 .edit()
                 .putString(Constants.KEY_PERSISTED_WORKER, GsonConfig.buildDefault().toJson(currentWorker))
                 .apply();
+    }
+
+    private void showAddressDialog(final List<String> result) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.autocomplete);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                getResources().getDisplayMetrics().heightPixels * 8 / 12);
+        ((TextView) dialog.findViewById(R.id.autocomplete_title))
+                .setText(getString(R.string.create_job_address));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, result);
+        ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
+        final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                search.setText(result.get(position));
+            }
+        });
+
+        dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // all good
+                patchWorker(search.getText().toString());
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

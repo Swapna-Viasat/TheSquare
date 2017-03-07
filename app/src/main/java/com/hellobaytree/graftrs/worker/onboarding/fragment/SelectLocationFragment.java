@@ -368,9 +368,7 @@ public class SelectLocationFragment extends Fragment
     }
 
     private void startReverseGeoCoding(LatLng target) {
-        if (mapInitialized)
-            new Thread(new ReverseGeocodeRunnable(getContext(), target, this)).start();
-        else mapInitialized = true;
+        new Thread(new ReverseGeocodeRunnable(getContext(), target, this)).start();
     }
 
     @Override
@@ -383,12 +381,14 @@ public class SelectLocationFragment extends Fragment
                 addressLabel.append(address.getAddressLine(i)).append(i < maxLine ? ", " : "");
             }
 
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    filter.setText(addressLabel);
-                }
-            });
+            if (mapInitialized)
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        filter.setText(addressLabel);
+                    }
+                });
+            else mapInitialized = true;
         }
     }
 
@@ -409,7 +409,6 @@ public class SelectLocationFragment extends Fragment
                         currentWorker.location.getLongitude());
 
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
-                googleMap.setOnCameraIdleListener(cameraIdleListener);
 
                 centerMapLocation = currentWorker.location;
                 seekCommute.setRate(currentWorker.commuteTime);
