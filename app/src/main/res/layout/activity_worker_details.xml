@@ -232,7 +232,7 @@
                 <ImageView
                     android:layout_margin="14dp"
                     android:id="@+id/worker_details_avatar"
-                    android:background="@drawable/ic_no_avatar"
+                    android:background="@drawable/bob"
                     android:layout_width="120dp"
                     android:layout_height="120dp"/>
 

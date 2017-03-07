@@ -2,47 +2,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteSquareColor" >
+    android:background="@color/whiteSquareColor">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="25dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="25dp">
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:id="@+id/tvAskForPhoneFirstTitle"
+            style="@style/light_big_dark_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            style="@style/light_big_dark_text"
-            app:josefin_style="light"
             android:paddingBottom="10dp"
-            android:text="@string/phone_verification_first_title" />
+            android:text="@string/phone_verification_first_title"
+            app:josefin_style="light" />
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:id="@+id/tvAskForPhoneSecondTitle"
+            style="@style/subheader_gray_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            style="@style/subheader_gray_text"
             android:layout_marginBottom="30dp"
+            android:gravity="center"
             android:text="@string/phone_verification_second_title" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
-            android:layout_marginBottom="15dp">
+            android:orientation="horizontal">
 
             <com.hbb20.CountryCodePicker
                 android:id="@+id/ccp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:defaultNameCode="GB"
-                app:keyboardAutoPopOnSearch="true"/>
+                app:keyboardAutoPopOnSearch="true" />
 
 
             <android.support.design.widget.TextInputLayout
@@ -53,49 +53,44 @@
                 app:hintEnabled="false">
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    android:id="@+id/askForPhonePhoneNumberEditText"
+                    style="@style/square_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    style="@style/square_edit_text"
                     android:hint="@string/phone_verification_phone_text"
-                    android:textColorHint="#999999"
-                    android:id="@+id/askForPhonePhoneNumberEditText"
                     android:inputType="number"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
+                    android:textColorHint="#999999" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            style="@style/caption_dark_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            style="@style/caption_dark_text"
-            android:layout_marginTop="40dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
             android:text="@string/phone_verification_third_title" />
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
             android:id="@+id/terms"
             style="@style/caption_dark_text"
-            app:josefin_style="bold"
-            android:layout_marginBottom="30dp"
-            android:text="@string/phone_verification_third_title_bold" />
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="@string/phone_verification_third_title_bold"
+            app:josefin_style="bold" />
 
-            <Button
-                android:id="@+id/verify"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                style="@style/BaseButton"
-                android:text="@string/phone_verification_button_text"/>
-        </LinearLayout>
+        <Button
+            android:id="@+id/verify"
+            style="@style/BaseButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/phone_verification_button_text" />
+
     </LinearLayout>
 </FrameLayout>

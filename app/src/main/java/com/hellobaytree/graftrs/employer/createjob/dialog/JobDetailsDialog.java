@@ -6,11 +6,14 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodInfo;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.hellobaytree.graftrs.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -98,5 +101,14 @@ public class JobDetailsDialog extends DialogFragment {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        Window window = getDialog().getWindow();
+        ViewGroup.LayoutParams params = window.getAttributes();
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes((WindowManager.LayoutParams) params);
+        super.onResume();
     }
 }

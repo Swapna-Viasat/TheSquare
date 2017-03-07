@@ -21,7 +21,7 @@
             android:layout_height="90dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:background="@drawable/ic_no_avatar"
+            android:background="@drawable/bob"
             android:tint="@android:color/darker_gray" />
 
         <!-- Name, Occupation, Rating -->

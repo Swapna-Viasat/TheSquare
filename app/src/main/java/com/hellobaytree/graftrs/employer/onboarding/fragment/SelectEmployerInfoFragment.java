@@ -15,7 +15,6 @@ import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.MainEmployerActivity;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
-import com.hellobaytree.graftrs.shared.models.DataResponse;
 import com.hellobaytree.graftrs.shared.models.Employer;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
@@ -88,7 +87,6 @@ public class SelectEmployerInfoFragment extends Fragment {
 
             firstNameInput.getEditText().setText(employer.firstName);
             lastNameInput.getEditText().setText(employer.lastName);
-            emailInput.getEditText().setText(employer.email);
             titleInput.getEditText().setText(employer.jobTitle);
 //            companyNumberInput.getEditText().setText(employer.compan);
             passwordInput.getEditText().setHint("Create password*");
@@ -175,6 +173,7 @@ public class SelectEmployerInfoFragment extends Fragment {
 
         return result;
     }
+
     private CountDownTimer resetInputErrors = new CountDownTimer(2000, 2000) {
         @Override
         public void onTick(long l) {

@@ -1,79 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:background="@color/redSquareColor"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/actionLayout"
+        android:orientation="vertical">
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            app:josefin_style="italic"
-            android:layout_margin="8dp"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:text="Cancel"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/autocomple_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            app:josefin_style="italic"
-            android:text="Title"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
             android:id="@+id/autocomplete_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Title"
+            android:textColor="@color/blackSquareColor"
+            android:textSize="18sp"
+            app:josefin_style="bold" />
 
         <ProgressBar
-            android:visibility="gone"
-            android:layout_centerInParent="true"
             android:id="@+id/progress"
             android:layout_width="22dp"
-            android:layout_height="22dp" />
+            android:layout_height="22dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/autocomplete_search"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@android:color/transparent"
+            android:inputType="textCapWords|textNoSuggestions"
+            android:padding="6dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <ListView
+            android:id="@+id/autocomplete_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/actionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            app:josefin_style="italic"
+            android:id="@+id/autocomple_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_cancel"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/onboarding_cancel"
+            android:textAllCaps="true"
+            android:textColor="@color/redSquareColor"
             android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:text="Done"
-            android:layout_alignParentRight="true"
+            app:josefin_style="bold" />
+
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:id="@+id/autocomple_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
-
-    <View
-        android:background="@android:color/darker_gray"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-
-    <EditText
-        android:padding="6dp"
-        android:inputType="textCapWords|textNoSuggestions"
-        android:background="@android:color/transparent"
-        android:id="@+id/autocomplete_search"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"/>
-
-    <View
-        android:background="@android:color/darker_gray"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-
-    <ListView
-        android:id="@+id/autocomplete_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
+            style="@style/BaseButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="@string/employer_rate_submit"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:josefin_style="bold" />
+    </LinearLayout>
+</RelativeLayout>

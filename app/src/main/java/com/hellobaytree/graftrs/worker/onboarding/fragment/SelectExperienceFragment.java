@@ -432,6 +432,11 @@ public class SelectExperienceFragment extends Fragment
         String regnum = dataResponse.getResponse().registrationNumber;
         populateCscsStatus(dataResponse.getResponse().verificationStatus);
         if (!regnum.isEmpty()) {
+
+            for (EditText e : reg) {
+                e.removeTextChangedListener(regListener);
+            }
+
             final char ca[] = regnum.toCharArray();
             ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
                 @Override
@@ -458,11 +463,19 @@ public class SelectExperienceFragment extends Fragment
                 }
             };
             ButterKnife.apply(reg, ENABLED, true);
+
+            for (EditText e : reg) {
+                e.addTextChangedListener(regListener);
+            }
         }
     }
 
     private void populateNis() {
         if (currentWorker != null && !TextUtils.isEmpty(currentWorker.niNumber)) {
+            for (EditText e : nis) {
+                e.removeTextChangedListener(nisListener);
+            }
+
             final char ni[] = currentWorker.niNumber.toCharArray();
             ButterKnife.Setter<JosefinSansEditText, Boolean> ENABLED = new ButterKnife.Setter<JosefinSansEditText, Boolean>() {
                 @Override
@@ -491,6 +504,10 @@ public class SelectExperienceFragment extends Fragment
                 }
             };
             ButterKnife.apply(nis, ENABLED, true);
+
+            for (EditText e : nis) {
+                e.addTextChangedListener(nisListener);
+            }
         }
     }
 

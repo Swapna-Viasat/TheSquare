@@ -28,6 +28,7 @@ import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 import com.hellobaytree.graftrs.shared.models.Worker;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.ShareUtils;
@@ -153,6 +154,9 @@ public class MainWorkerActivity extends AppCompatActivity {
                 SharedPreferencesManager.getInstance(this).deleteToken();
                 SharedPreferencesManager.getInstance(this).deleteSessionInfoWorker();
                 SharedPreferencesManager.getInstance(this).deleteIsInComingSoon();
+
+                getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, MODE_PRIVATE).edit().clear().apply();
+
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
