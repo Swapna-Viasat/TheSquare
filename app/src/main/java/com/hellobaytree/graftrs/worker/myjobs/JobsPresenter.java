@@ -33,7 +33,7 @@ public class JobsPresenter implements JobsContract.UserActionsListener {
                 fetchJobs(Application.STATUS_APPROVED, false, false);
                 break;
             case Job.TYPE_OFFER:
-                fetchJobs(null, false, false);
+                fetchJobs(Application.STATUS_PENDING, false, false);
                 break;
             case Job.TYPE_COMPLETED:
                 fetchJobs(Application.STATUS_ENDED_CONTRACT, false, false);
