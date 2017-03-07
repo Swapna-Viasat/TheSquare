@@ -280,7 +280,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             if (!CollectionUtils.isEmpty(worker.languages)) {
                 List<String> languageNames = new ArrayList<>();
                 for (Language l : worker.languages) languageNames.add(l.name);
-                languagesView.setText(TextTools.toBulletList(languageNames, true));
+                languagesView.setText(TextUtils.join(", ", languageNames));
             }
         }
     }
