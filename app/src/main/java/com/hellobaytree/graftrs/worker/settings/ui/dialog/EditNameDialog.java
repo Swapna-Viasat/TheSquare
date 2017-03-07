@@ -26,6 +26,8 @@ import butterknife.OnClick;
 
 public class EditNameDialog extends DialogFragment {
     private static final String TAG = "EditNameDialog";
+    private static final String KEY_FIRST_NAME = "KEY_FIRST_NAME";
+    private static final String KEY_LAST_NAME = "KEY_LAST_NAME";
 
     @BindView(R.id.nameLayout)
     TextInputLayout nameLayout;
@@ -33,13 +35,18 @@ public class EditNameDialog extends DialogFragment {
     TextInputLayout surnameLayout;
 
     private NameChangedListener listener;
+    private String firstName, lastName;
 
     public interface NameChangedListener {
         void onNameChanged(String name, String surname);
     }
 
-    public static EditNameDialog newInstance(NameChangedListener listener) {
+    public static EditNameDialog newInstance(String firstName, String lastName, NameChangedListener listener) {
         EditNameDialog dialog = new EditNameDialog();
+        Bundle args = new Bundle();
+        args.putString(KEY_FIRST_NAME, firstName);
+        args.putString(KEY_LAST_NAME, lastName);
+        dialog.setArguments(args);
         dialog.listener = listener;
         return dialog;
     }
@@ -47,6 +54,8 @@ public class EditNameDialog extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firstName = getArguments().getString(KEY_FIRST_NAME);
+        lastName = getArguments().getString(KEY_LAST_NAME);
     }
 
     @Override
@@ -62,7 +71,8 @@ public class EditNameDialog extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        if (!TextUtils.isEmpty(firstName)) nameLayout.getEditText().setText(firstName);
+        if (!TextUtils.isEmpty(lastName)) surnameLayout.getEditText().setText(lastName);
     }
 
     @OnClick({R.id.done, R.id.cancel})
