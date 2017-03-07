@@ -15,7 +15,7 @@ import com.hellobaytree.graftrs.shared.utils.TextTools;
 
 import java.util.Map;
 
-import io.intercom.android.sdk.push.IntercomPushClient;
+//import io.intercom.android.sdk.push.IntercomPushClient;
 
 /**
  * Created by gherg on 3/1/17.
@@ -25,17 +25,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public static final String TAG = "myFirebase: ";
 
-    private final IntercomPushClient intercomPushClient = new IntercomPushClient();
+//    private final IntercomPushClient intercomPushClient = new IntercomPushClient();
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         TextTools.log(TAG, "from: " + remoteMessage.getFrom());
 
         //
-        Map message = remoteMessage.getData();
-        if (intercomPushClient.isIntercomPush(message)) {
-            intercomPushClient.handlePush(getApplication(), message);
-        } else {
+//        Map message = remoteMessage.getData();
+//        if (intercomPushClient.isIntercomPush(message)) {
+//            intercomPushClient.handlePush(getApplication(), message);
+//        } else {
 
             if (remoteMessage.getData().size() > 0) {
                 TextTools.log(TAG, "payload: " + remoteMessage.getData());
@@ -45,7 +45,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
 
             sendNotification(remoteMessage.getNotification().getBody());
-        }
+//        }
     }
 
     private void sendNotification(String messageBody) {

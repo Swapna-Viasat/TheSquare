@@ -12,7 +12,7 @@ import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager
 
 import io.branch.referral.Branch;
 import io.fabric.sdk.android.Fabric;
-import io.intercom.android.sdk.Intercom;
+//import io.intercom.android.sdk.Intercom;
 
 public class GraftrsApplication extends MultiDexApplication {
 
@@ -26,9 +26,9 @@ public class GraftrsApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-
-        Intercom.initialize(this, getString(R.string.misc_intercom_key_test),
-                getString(R.string.misc_intercom_app_id_test));
+//
+//        Intercom.initialize(this, getString(R.string.misc_intercom_key_test),
+//                getString(R.string.misc_intercom_app_id_test));
 
         googleAnalytics = GoogleAnalytics.getInstance(this);
         mTracker = getDefaultTracker();
