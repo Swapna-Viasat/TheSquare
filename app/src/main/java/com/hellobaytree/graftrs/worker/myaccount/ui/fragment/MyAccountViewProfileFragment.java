@@ -55,6 +55,7 @@ import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditCscsDetailsDialog;
 import com.hellobaytree.graftrs.worker.onboarding.SingleEditActivity;
+import com.hellobaytree.graftrs.worker.settings.ui.dialog.EditNameDialog;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
 
@@ -86,9 +87,6 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
         EditCscsDetailsDialog.OnCscsDetailsUpdatedListener, View.OnClickListener {
 
     private static final int REQUEST_EDIT_PROFILE = 100;
-
-    @BindView(R.id.worker_view_profile_edit)
-    ImageView editWorker;
 
     @BindView(R.id.worker_view_profile_avatar)
     CircleImageView avatarImage;
@@ -593,11 +591,6 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
         }
     }
 
-    @OnClick(R.id.worker_view_profile_edit)
-    void profileEdit() {
-        editProfile(Constants.KEY_ONBOARDING_DETAILS);
-    }
-
     @OnClick(R.id.worker_profile_bio_edit)
     void bioEdit() {
         editAccountDetailsDialog = EditAccountDetailsDialog
@@ -739,6 +732,26 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @OnClick(R.id.worker_view_profile_name)
+    void editName() {
+        String firstName = null;
+        String lastName = null;
+        if (worker != null) {
+            firstName = worker.firstName;
+            lastName = worker.lastName;
+        }
+
+        EditNameDialog.newInstance(firstName, lastName, new EditNameDialog.NameChangedListener() {
+            @Override
+            public void onNameChanged(String name, String surname) {
+                HashMap<String, Object> payload = new HashMap<>();
+                payload.put("first_name", name);
+                payload.put("last_name", surname);
+                patchWorker(payload);
+            }
+        }).show(getFragmentManager(), "");
     }
 
     private void openCamera() {
