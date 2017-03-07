@@ -132,6 +132,7 @@ public class MainActivity extends Activity {
                             SharedPreferencesManager.getInstance(MainActivity.this).deleteToken();
                             SharedPreferencesManager.getInstance(MainActivity.this).deleteSessionInfoEmployer();
                             SharedPreferencesManager.getInstance(MainActivity.this).deleteIsInComingSoon();
+                            getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, MODE_PRIVATE).edit().clear().apply();
                             startActivity(new Intent(MainActivity.this, StartActivity.class));
                             //
                         } else {

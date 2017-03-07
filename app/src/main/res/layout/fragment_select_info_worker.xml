@@ -29,21 +29,6 @@
             android:gravity="center"
             android:text="@string/sign_up_worker_step_personal_information_title_2" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/avatarPlaceholder"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/upload_picture" />
-
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/avatar"
                 android:layout_width="120dp"
@@ -51,8 +36,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:visibility="gone" />
-        </RelativeLayout>
+                android:src="@drawable/bob" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/first_name_input"
@@ -87,13 +71,21 @@
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
-
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/zip_layout"
-            style="@style/square_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/sign_up_worker_step_personal_information_post_code_hint" />
+            app:hintEnabled="false">
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                android:id="@+id/zip"
+                style="@style/square_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sign_up_worker_step_personal_information_post_code_hint"
+                android:inputType="textCapWords"
+                android:maxLines="1" />
+        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/email_layout"

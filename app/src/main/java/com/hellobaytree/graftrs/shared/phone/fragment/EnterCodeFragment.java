@@ -2,6 +2,7 @@ package com.hellobaytree.graftrs.shared.phone.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -202,7 +203,17 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                     }
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
+                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            getActivity().getSupportFragmentManager()
+                                                    .beginTransaction()
+                                                    .replace(R.id.phone_verify_content, VerifyPhoneFragment
+                                                            .newInstance(Constants.KEY_VERIFY_PHONE_LOGIN))
+                                                    .addToBackStack("")
+                                                    .commit();
+                                        }
+                                    });
                                 }
                             }
 
@@ -225,7 +236,7 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                     String name = response.body().getResponse()
                                             .getUser().getFirst_name() + " " +
                                             response.body().getResponse()
-                                            .getUser().getLast_name();
+                                                    .getUser().getLast_name();
 
                                     SharedPreferencesManager.getInstance(getContext())
                                             .persistSessionInfoWorker(response.body().getResponse().getToken(),
@@ -239,7 +250,17 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                     }
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
+                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            getActivity().getSupportFragmentManager()
+                                                    .beginTransaction()
+                                                    .replace(R.id.phone_verify_content, VerifyPhoneFragment
+                                                            .newInstance(Constants.KEY_VERIFY_PHONE_LOGIN))
+                                                    .addToBackStack("")
+                                                    .commit();
+                                        }
+                                    });
                                 }
                             }
 

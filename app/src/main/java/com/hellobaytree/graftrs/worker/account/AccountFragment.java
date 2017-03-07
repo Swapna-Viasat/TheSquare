@@ -225,7 +225,7 @@ public class AccountFragment extends Fragment {
             if (!TextUtils.isEmpty(worker.picture)) {
                 Picasso.with(getContext()).load(worker.picture).into(avatar);
             } else {
-                avatar.setImageResource(R.drawable.ic_no_avatar);
+                avatar.setImageResource(R.drawable.bob);
             }
             name.setText(worker.firstName + " " + worker.lastName);
             if (worker.roles.size() > 0) ocupation.setText(worker.roles.get(0).name);

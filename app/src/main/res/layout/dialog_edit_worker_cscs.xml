@@ -5,55 +5,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:josefin_style="italic" />
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/redSquareColor">
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/activity_cscs" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:id="@+id/cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_cancel"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="@string/onboarding_cancel"
-            android:textColor="@android:color/white"
+            android:textAllCaps="true"
+            android:textColor="@color/redSquareColor"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:josefin_style="italic" />
-
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:josefin_style="italic" />
+            app:josefin_style="bold" />
 
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:id="@+id/done"
-            android:layout_width="wrap_content"
+            style="@style/BaseButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="8dp"
-            android:text="@string/verify"
+            android:layout_weight="1"
+            android:text="@string/employer_rate_submit"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:josefin_style="italic" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
-
-    <include layout="@layout/activity_cscs" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+            app:josefin_style="bold" />
+    </LinearLayout>
 </LinearLayout>

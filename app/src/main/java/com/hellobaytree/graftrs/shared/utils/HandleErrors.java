@@ -81,6 +81,9 @@ public class HandleErrors {
                 //
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), listener);
+            } else if (responseError.getError().getMessage().contains("already registered") || responseError.getError().getMessage().contains("We already have email address")) {
+                DialogBuilder.showStandardDialog(context, "Error",
+                        responseError.getError().getMessage(), listener);
             } else {
                 DialogBuilder.showStandardDialog(context, "Error", responseError.getError().getMessage());
             }
