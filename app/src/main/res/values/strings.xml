@@ -175,6 +175,7 @@
     <string name="menu_worker_my_jobs">My Jobs</string>
     <string name="menu_worker_my_messages">My Messages</string>
     <string name="menu_worker_my_account">My Account</string>
+    <string name="menu_worker_help">Help</string>
     <string name="menu_worker_share">Share The Square</string>
     <string name="menu_worker_log_out">Log out</string>
     <string name="menu_worker_edit_profile">Edit Profile</string>
@@ -880,4 +881,7 @@
     <string name="misc_intercom_app_id">ymo0avlj</string>
     <string name="misc_intercom_key_test">android_sdk-c24dec1eea20225cd6fff8077f34d666dd5dacf5</string>
     <string name="misc_intercom_app_id_test">xn56966s</string>
+
+    <!-- Help Worker -->
+    <string name="my_account_worker_help_title">Help</string>
 </resources>
