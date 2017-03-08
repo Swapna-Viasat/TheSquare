@@ -21,7 +21,9 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
@@ -40,6 +42,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -203,13 +206,50 @@ public class MainWorkerActivity extends AppCompatActivity {
                         DialogBuilder.cancelDialog(dialog);
 
                         if (response.isSuccessful()) {
-                            currentWorker = response.body().getResponse();
-                            populateAvailabilitySwitch();
+                            if (null != response.body()) {
+                                if (null != response.body().getResponse()) {
+                                    currentWorker = response.body().getResponse();
+                                    populateAvailabilitySwitch();
+                                    if (null != currentWorker.email) {
+                                        sendFirebaseTokenToBackend(currentWorker.email);
+                                    }
+                                }
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(MainWorkerActivity.this, dialog, t);
+                    }
+                });
+    }
+
+    private void sendFirebaseTokenToBackend(String email) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(this);
+        HashMap<String, Object> body = new HashMap<>();
+        String fbToken = FirebaseInstanceId.getInstance().getToken();
+        body.put("firebase_token", fbToken);
+        body.put("email", email);
+        HttpRestServiceConsumer.getBaseApiClient()
+                .sendWorkerToken(body)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            //
+                            DialogBuilder.cancelDialog(dialog);
+                            Toast.makeText(MainWorkerActivity
+                                    .this, "Registered with Firebase!", Toast.LENGTH_LONG).show();
+                        } else {
+                            HandleErrors.parseError(MainWorkerActivity.this, dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         HandleErrors.parseFailureError(MainWorkerActivity.this, dialog, t);
                     }
                 });

@@ -328,4 +328,13 @@ public interface BaseApiInterface {
 
     @POST("/payments/manage/manual_subscription/")
     Call<ResponseBody> submitAlternativePayment(@Body HashMap<String, Object> body);
+
+    /**
+     * Firebase token!
+     */
+    @POST("/workers/link_firebase/")
+    Call<ResponseBody> sendWorkerToken(@Body HashMap<String, Object> body);
+
+    @POST("/employers/link_firebase/")
+    Call<ResponseBody> sendEmployerToken(@Body HashMap<String, Object> body);
 }

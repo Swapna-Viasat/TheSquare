@@ -40,6 +40,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (remoteMessage.getData().size() > 0) {
                 TextTools.log(TAG, "payload: " + remoteMessage.getData());
             }
+
+
             if (remoteMessage.getNotification() != null) {
                 TextTools.log(TAG, "body: " + remoteMessage.getNotification().getBody());
             }
