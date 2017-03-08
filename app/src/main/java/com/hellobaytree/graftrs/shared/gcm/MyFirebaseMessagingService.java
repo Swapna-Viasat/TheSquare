@@ -10,9 +10,11 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 
+import java.util.HashMap;
 import java.util.Map;
 
 //import io.intercom.android.sdk.push.IntercomPushClient;
@@ -24,30 +26,77 @@ import java.util.Map;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public static final String TAG = "myFirebase: ";
-
-//    private final IntercomPushClient intercomPushClient = new IntercomPushClient();
+    private String employerEmail;
+    private String workerEmail;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         TextTools.log(TAG, "from: " + remoteMessage.getFrom());
 
-        //
-//        Map message = remoteMessage.getData();
-//        if (intercomPushClient.isIntercomPush(message)) {
-//            intercomPushClient.handlePush(getApplication(), message);
-//        } else {
-
-            if (remoteMessage.getData().size() > 0) {
-                TextTools.log(TAG, "payload: " + remoteMessage.getData());
+        try {
+            employerEmail = SharedPreferencesManager.getInstance(getApplicationContext())
+                    .loadSessionInfoEmployer().getEmail();
+            if (null != employerEmail) {
+                TextTools.log(TAG, "employer email: " + employerEmail);
             }
+            workerEmail = SharedPreferencesManager.getInstance(getApplicationContext())
+                    .loadSessionInfoWorker().getEmail();
+            if (null != workerEmail) {
+                TextTools.log(TAG, "worker email: " + workerEmail);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        if (remoteMessage.getData().size() > 0) {
+            TextTools.log(TAG, "payload: " + remoteMessage.getData());
+            Map<String, String> body = remoteMessage.getData();
+            if (null != body.get("email")) {
+                String receivedEmail = body.get("email");
+                if (null != workerEmail) {
+                    //
+                    if (workerEmail.equals(receivedEmail)) {
+                        proceed(remoteMessage);
+                        sendDataNotification("dfdfdfdfdfd");
+                    }
+                }
+                if (null != employerEmail) {
+                    //
+                    if (employerEmail.equals(receivedEmail)) {
+                        proceed(remoteMessage);
+                        sendDataNotification("234324234");
+                    }
+                }
+            }
+        }
+    }
 
-            if (remoteMessage.getNotification() != null) {
+    private void proceed(RemoteMessage remoteMessage) {
+        if (remoteMessage.getNotification() != null) {
+            if (null != remoteMessage.getNotification().getBody()) {
                 TextTools.log(TAG, "body: " + remoteMessage.getNotification().getBody());
+                sendNotification(remoteMessage.getNotification().getBody());
             }
+        }
+    }
 
-            sendNotification(remoteMessage.getNotification().getBody());
-//        }
+    private void sendDataNotification(String messageBody) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
+                        .setContentTitle("The Square Construction")
+                        .setContentText(messageBody)
+                        .setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notificationBuilder.build());
     }
 
     private void sendNotification(String messageBody) {
@@ -59,7 +108,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
                 .setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
-                .setContentTitle("FCM Message")
+                .setContentTitle("The Square Construction")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

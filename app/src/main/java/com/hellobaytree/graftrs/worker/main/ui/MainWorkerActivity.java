@@ -58,6 +58,7 @@ public class MainWorkerActivity extends AppCompatActivity {
 
     private SwitchCompat availableNowSwitch;
     private Worker currentWorker;
+    private Call<ResponseBody> sendToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,31 +227,31 @@ public class MainWorkerActivity extends AppCompatActivity {
     }
 
     private void sendFirebaseTokenToBackend(String email) {
-        final Dialog dialog = DialogBuilder.showCustomDialog(this);
+//        final Dialog dialog = DialogBuilder.showCustomDialog(this);
         HashMap<String, Object> body = new HashMap<>();
         String fbToken = FirebaseInstanceId.getInstance().getToken();
         body.put("firebase_token", fbToken);
         body.put("email", email);
-        HttpRestServiceConsumer.getBaseApiClient()
-                .sendWorkerToken(body)
-                .enqueue(new Callback<ResponseBody>() {
+        sendToken = HttpRestServiceConsumer.getBaseApiClient()
+                .sendWorkerToken(body);
+        sendToken.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call,
                                            Response<ResponseBody> response) {
                         //
                         if (response.isSuccessful()) {
                             //
-                            DialogBuilder.cancelDialog(dialog);
-                            Toast.makeText(MainWorkerActivity
-                                    .this, "Registered with Firebase!", Toast.LENGTH_LONG).show();
+//                            DialogBuilder.cancelDialog(dialog);
+//                            Toast.makeText(MainWorkerActivity
+//                                    .this, "Registered with Firebase!", Toast.LENGTH_LONG).show();
                         } else {
-                            HandleErrors.parseError(MainWorkerActivity.this, dialog, response);
+//                            HandleErrors.parseError(MainWorkerActivity.this, dialog, response);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        HandleErrors.parseFailureError(MainWorkerActivity.this, dialog, t);
+//                        HandleErrors.parseFailureError(MainWorkerActivity.this, dialog, t);
                     }
                 });
     }
