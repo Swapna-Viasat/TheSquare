@@ -4,9 +4,11 @@ package com.hellobaytree.graftrs.shared.utils;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -61,7 +63,7 @@ public class TextTools {
         StringBuilder stringBuilder = new StringBuilder();
         try {
             for (String string : listItems) {
-                stringBuilder.append(Html.fromHtml("<span style=\"color:blue\"> &#8226; </span>") + string + (vertical ? "\n" : " "));
+                stringBuilder.append(formatHtml("<span style=\"color:blue\"> &#8226; </span>") + string + (vertical ? "\n" : " "));
             }
         } catch (Exception e) {
         }
@@ -99,5 +101,16 @@ public class TextTools {
     public static boolean contains(String value1, String value2) {
         return !(value1 == null || value2 == null)
                 && value1.trim().toLowerCase().contains(value2.trim().toLowerCase());
+    }
+
+    @SuppressWarnings("deprecation")
+    public static Spanned formatHtml(String input) {
+        Spanned result;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            result = Html.fromHtml(input, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(input);
+        }
+        return result;
     }
 }
