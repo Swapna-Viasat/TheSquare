@@ -83,6 +83,12 @@ public class MainWorkerActivity extends AppCompatActivity {
         fetchMe();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        sendToken.cancel();
+    }
+
     private void setToolbar() {
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();

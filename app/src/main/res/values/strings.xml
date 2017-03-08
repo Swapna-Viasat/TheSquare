@@ -838,7 +838,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- SHARING is CARING -->
-    <string name="share_generic">Hey, I\'ve just joined The Square. It\'s great! You should check it out </string>
+    <string name="share_generic">Hey, I\'ve just joined The Square Construction.
+        It\'s great! You should check it out... </string>
     <string name="share_description">
         The Square Construction is the first automated hiring app for the industry
         (a bit like Tinder but for construction jobs).
