@@ -195,26 +195,31 @@ public class DialogBuilder {
     }
 
     public static void afterShowSetProperties(AlertDialog.Builder builder, Context context) {
-        if (context == null) return;
-        Typeface typeFaceSemiBold = Typeface.createFromAsset(context.getAssets(), "fonts/JosefinSans-SemiBold.ttf");
-        Typeface typeFaceBold = Typeface.createFromAsset(context.getAssets(), "fonts/JosefinSans-Bold.ttf");
-        AlertDialog alert = builder.create();
-        alert.show();
-        TextView tvMessage = (TextView) alert.findViewById(android.R.id.message);
-        tvMessage.setTypeface(typeFaceSemiBold);
 
-        TextView tvTitle = (TextView) alert.findViewById(android.R.id.title);
-        if (tvTitle != null)
-            tvTitle.setTypeface(typeFaceBold);
+        try {
+            if (context == null) return;
+            Typeface typeFaceSemiBold = Typeface.createFromAsset(context.getAssets(), "fonts/JosefinSans-SemiBold.ttf");
+            Typeface typeFaceBold = Typeface.createFromAsset(context.getAssets(), "fonts/JosefinSans-Bold.ttf");
+            AlertDialog alert = builder.create();
+            alert.show();
+            TextView tvMessage = (TextView) alert.findViewById(android.R.id.message);
+            tvMessage.setTypeface(typeFaceSemiBold);
 
-        Button positiveButton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
-        positiveButton.setTextColor(ContextCompat.getColor(context, R.color.redSquareColor));
-        positiveButton.setTypeface(typeFaceBold);
+            TextView tvTitle = (TextView) alert.findViewById(android.R.id.title);
+            if (tvTitle != null)
+                tvTitle.setTypeface(typeFaceBold);
 
-        Button negativeButton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
-        if (negativeButton != null) {
-            negativeButton.setTextColor(ContextCompat.getColor(context, R.color.redSquareColor));
-            negativeButton.setTypeface(typeFaceBold);
+            Button positiveButton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+            positiveButton.setTextColor(ContextCompat.getColor(context, R.color.redSquareColor));
+            positiveButton.setTypeface(typeFaceBold);
+
+            Button negativeButton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+            if (negativeButton != null) {
+                negativeButton.setTextColor(ContextCompat.getColor(context, R.color.redSquareColor));
+                negativeButton.setTypeface(typeFaceBold);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -265,6 +265,17 @@ public class SelectDetailsFragment extends Fragment
         }
     }
 
+
+    private DialogInterface.OnClickListener gotoPaymentsListener =
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    unfinished = false;
+                    getActivity().finish();
+                    getActivity().startActivity(new Intent(getActivity(), MainEmployerActivity.class));
+                }
+            };
+
     private void callApi(int status) {
 
         if (validate()) {
@@ -369,7 +380,7 @@ public class SelectDetailsFragment extends Fragment
 
                                 } else {
                                     HandleErrors.parseError(getContext(),
-                                            dialog, response, showCRNDialog);
+                                            dialog, response, gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
                                 //

@@ -5,6 +5,7 @@
 
 package com.hellobaytree.graftrs.shared.utils;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -56,6 +57,7 @@ public class HandleErrors {
 
     public static void parseError(Context context, Dialog dialog,
                                   Response<?> response,
+                                  final DialogInterface.OnClickListener gotoPaymentListener,
                                   final DialogInterface.OnClickListener listener) {
         if (dialog != null) {
             Log.d(TAG, String.valueOf(dialog.hashCode()));
@@ -81,6 +83,11 @@ public class HandleErrors {
                 //
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), listener);
+            } else if (responseError.getError().code == 101) {
+                // no active subscription
+                DialogBuilder.showStandardDialog(context, "Error",
+                        responseError.getError().getMessage(), gotoPaymentListener);
+                //
             } else if (responseError.getError().getMessage().contains("already registered") || responseError.getError().getMessage().contains("We already have email address")) {
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), listener);

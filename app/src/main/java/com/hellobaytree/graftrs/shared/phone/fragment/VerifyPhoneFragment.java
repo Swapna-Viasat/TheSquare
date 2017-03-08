@@ -170,7 +170,9 @@ public class VerifyPhoneFragment extends Fragment {
 
                                     //
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                    HandleErrors.parseError(getContext(), dialog, response,
+                                            null,
+                                            new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             action = Constants.KEY_VERIFY_PHONE_LOGIN;
@@ -215,7 +217,9 @@ public class VerifyPhoneFragment extends Fragment {
 
                                     //
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                    HandleErrors.parseError(getContext(), dialog, response,
+                                            null,
+                                            new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             action = Constants.KEY_VERIFY_PHONE_LOGIN;
