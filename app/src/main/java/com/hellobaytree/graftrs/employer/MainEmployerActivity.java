@@ -19,6 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.account.AccountFragment;
 import com.hellobaytree.graftrs.employer.createjob.CreateJobActivity;
@@ -70,6 +73,9 @@ public class MainEmployerActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "main employer activity resumed");
+
+//        String token = FirebaseInstanceId.getInstance().getToken();
+//        TextTools.log("tokennnnnn", token);
 
         // checking if the employer wasn't in the process of creating a job
         // when last left the app
