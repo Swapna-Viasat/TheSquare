@@ -24,6 +24,7 @@ import com.hellobaytree.graftrs.employer.signup.model.Employer;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.LoginUser;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
+import com.hellobaytree.graftrs.shared.settings.fragments.SettingsTermsConditionsFragment;
 import com.hellobaytree.graftrs.shared.start.activity.TermsActivity;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DataUtils;
@@ -99,6 +100,11 @@ public class VerifyPhoneFragment extends Fragment {
     @OnClick(R.id.terms)
     public void openTerms() {
         startActivity(new Intent(getActivity(), TermsActivity.class));
+     /*   getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame, SettingsTermsConditionsFragment.newInstance())
+                .addToBackStack("contact")
+                .commit();*/
     }
 
     @OnClick(R.id.verify)
