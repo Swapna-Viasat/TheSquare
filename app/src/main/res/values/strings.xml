@@ -578,6 +578,7 @@
 
     <!-- Employer create job -->
     <string name="create_job_5">Oops, you have already selected 5!</string>
+    <string name="create_job_3">Oops, you have already selected 3!</string>
     <string name="create_job_role">What kind of worker are you looking for?</string>
     <string name="create_job_trade">What trade experience are you looking for from your %s ?</string>
     <string name="create_job_qualifications">Are there any qualifications you are looking for?</string>

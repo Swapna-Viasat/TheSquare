@@ -1,8 +1,10 @@
 package com.hellobaytree.graftrs.employer.createjob.fragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -102,7 +104,7 @@ public class SelectTradeFragment extends Fragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_select_trade, container, false);
+        View view = inflater.inflate(R.layout.fragment_select_trades, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -226,8 +228,36 @@ public class SelectTradeFragment extends Fragment
 
     @Override
     public void onTradeChecked(final Trade trade) {
-        trade.selected = !trade.selected;
-        adapter.notifyDataSetChanged();
+        int numSelected = 0;
+        for (Trade trade1 : trades) {
+            if (trade1.selected) {
+                numSelected++;
+            }
+        }
+
+        if (numSelected > 2) {
+            if (trade.selected) {
+                // deselect still possible of course
+                trade.selected = !trade.selected;
+                adapter.notifyDataSetChanged();
+                //
+            } else {
+                new AlertDialog.Builder(getContext())
+                        .setMessage(getString(R.string.create_job_3))
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .create().show();
+            }
+        } else {
+            // no problems - select
+            trade.selected = !trade.selected;
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
     private TextWatcher filterTextWatcher = new TextWatcher() {
