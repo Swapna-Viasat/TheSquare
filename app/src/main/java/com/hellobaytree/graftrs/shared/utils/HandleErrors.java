@@ -77,7 +77,7 @@ public class HandleErrors {
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(),
                         onOkClickCallback);
-            } else if (responseError.getError().code == 103) {
+            } else if (responseError.getError().code == 102) {
                 //
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), listener);
