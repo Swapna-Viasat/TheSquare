@@ -838,12 +838,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- SHARING is CARING -->
-    <string name="share_generic">Hey, I\’ve just joined The Square. It\'s great, you should check it out </string>
+    <string name="share_generic">Hey, I\'ve just joined The Square. It\'s great! You should check it out </string>
     <string name="share_description">
-        The Square is the first automated hiring app for the construction industry.
-        (It\'s a bit like Tinder but for construction jobs).
+        The Square Construction is the first automated hiring app for the industry
+        (a bit like Tinder but for construction jobs).
         We\'re building the fastest growing network of skilled construction workers in the world.
-        Join now and be one of the first to benefit!
+        Be one of the first to benefit!
     </string>
 
     <string name="share_employer_subject">%s wants you to join them on The Square</string>
@@ -870,7 +870,7 @@
         You should check it out.
         Enjoy!
     </string>
-    <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
+    <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share2.png</string>
     <string name="title_activity_review_aggregate">ReviewAggregateActivity</string>
 
 
