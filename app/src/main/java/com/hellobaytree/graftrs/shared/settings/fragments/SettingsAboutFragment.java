@@ -57,7 +57,11 @@ public class SettingsAboutFragment extends Fragment {
     public void toggles(View view) {
         switch (view.getId()) {
             case R.id.about:
-                Toast.makeText(getContext(), "about", Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, SettingsAboutInfoFragment.newInstance())
+                        .addToBackStack("contact")
+                        .commit();
                 break;
             case R.id.faq:
                 Toast.makeText(getContext(), "faq", Toast.LENGTH_SHORT).show();

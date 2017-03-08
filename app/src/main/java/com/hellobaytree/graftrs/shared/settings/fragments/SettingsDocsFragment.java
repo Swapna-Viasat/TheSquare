@@ -1,13 +1,16 @@
 package com.hellobaytree.graftrs.shared.settings.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -50,17 +53,25 @@ public class SettingsDocsFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().setTitle(getString(R.string.settings));
+        getActivity().setTitle(getString(R.string.employer_settings_terms));
     }
 
     @OnClick({R.id.tc, R.id.pp})
     public void click(View view) {
         switch (view.getId()) {
             case R.id.tc:
-                Toast.makeText(getContext(), "tc", Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, SettingsTermsConditionsFragment.newInstance())
+                        .addToBackStack("contact")
+                        .commit();
                 break;
             case R.id.pp:
-                Toast.makeText(getContext(), "pp", Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame, SettingsPrivacyFragment.newInstance())
+                        .addToBackStack("contact")
+                        .commit();
                 break;
         }
     }
