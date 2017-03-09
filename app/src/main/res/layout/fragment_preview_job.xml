@@ -99,7 +99,7 @@
                                 android:textSize="16sp"
                                 android:textAllCaps="true"
                                 app:josefin_style="italic"
-                                android:textColor="@color/graySquareColor"
+                                android:textColor="@color/blackSquareColor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -178,7 +178,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Starts 18th Feb"
                                 android:gravity="center"
-                                style="@style/caption_gray_text"
+                                style="@style/caption_black_text"
                                 app:josefin_style="light"
                                 android:paddingLeft="5dp"
                                 android:paddingStart="5dp"
@@ -201,7 +201,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                style="@style/caption_gray_text"
+                                style="@style/caption_black_text"
                                 app:josefin_style="light"
                                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
                                 android:drawableTint="@color/blackSquareColor"
@@ -238,7 +238,7 @@
                 android:id="@+id/job_details_description"
                 android:textSize="14sp"
                 app:josefin_style="italic"
-                android:textColor="@color/graySquareColor"
+                android:textColor="@color/blackSquareColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -259,7 +259,7 @@
                 android:id="@+id/job_details_qualifications2"
                 android:textSize="14sp"
                 app:josefin_style="italic"
-                android:textColor="@color/graySquareColor"
+                android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -279,7 +279,7 @@
                 android:id="@+id/job_details_qualifications"
                 android:textSize="14sp"
                 app:josefin_style="italic"
-                android:textColor="@color/graySquareColor"
+                android:textColor="@color/blackSquareColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -299,7 +299,7 @@
                 android:id="@+id/job_details_english_level"
                 android:textSize="14sp"
                 app:josefin_style="italic"
-                android:textColor="@color/graySquareColor"
+                android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -320,7 +320,7 @@
                 android:id="@+id/job_details_skills"
                 android:textSize="14sp"
                 app:josefin_style="italic"
-                android:textColor="@color/graySquareColor"
+                android:textColor="@color/blackSquareColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -340,7 +340,7 @@
                 android:id="@+id/job_details_experience_types"
                 android:textSize="14sp"
                 app:josefin_style="italic"
-                android:textColor="@color/graySquareColor"
+                android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -360,7 +360,7 @@
                 android:id="@+id/job_details_overtime"
                 app:josefin_style="italic"
                 android:textSize="14sp"
-                android:textColor="@color/graySquareColor"
+                android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

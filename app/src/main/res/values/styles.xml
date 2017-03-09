@@ -224,6 +224,11 @@
         <item name="android:textColor">@color/darkSquareColor</item>
     </style>
 
+    <style name="caption_black_text">
+        <item name="android:textSize">@dimen/caption_text_size</item>
+        <item name="android:textColor">@color/blackSquareColor</item>
+    </style>
+
     <style name="caption_gray_text">
         <item name="android:textSize">@dimen/caption_text_size</item>
         <item name="android:textColor">@color/graySquareColor</item>
