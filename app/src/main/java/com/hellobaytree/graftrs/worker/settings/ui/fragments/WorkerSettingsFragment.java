@@ -79,15 +79,15 @@ public class WorkerSettingsFragment extends SettingsFragment {
         fetchMe();
     }
 
-    @OnClick({R.id.phone, R.id.social, R.id.terms, R.id.about, R.id.share, R.id.logout, R.id.notify,
+    @OnClick({R.id.phone, R.id.terms, R.id.about, R.id.share, R.id.logout, R.id.notify,
             R.id.editEmail, R.id.editZip, R.id.pass, R.id.nameLabel})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.phone:
                 break;
-            case R.id.social:
+           /* case R.id.social:
                 openSocialSettings();
-                break;
+                break;*/
             case R.id.terms:
                 openTerms();
                 break;

@@ -59,18 +59,18 @@ public class SettingsFragment extends Fragment {
         populateData();
     }
 
-    @OnClick({R.id.phone, R.id.social, R.id.terms, R.id.about, R.id.share, R.id.logout})
+    @OnClick({R.id.phone, R.id.terms, R.id.about, R.id.share, R.id.logout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.phone:
                 break;
-            case R.id.social:
+          /*  case R.id.social:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frame, SettingsSocialFragment.newInstance())
                         .addToBackStack("social")
                         .commit();
-                break;
+                break;*/
             case R.id.terms:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
