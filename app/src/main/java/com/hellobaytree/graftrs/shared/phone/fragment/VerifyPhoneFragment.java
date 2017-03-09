@@ -38,8 +38,8 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.intercom.android.sdk.Intercom;
-import io.intercom.android.sdk.identity.Registration;
+//import io.intercom.android.sdk.Intercom;
+//import io.intercom.android.sdk.identity.Registration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -149,12 +149,6 @@ public class VerifyPhoneFragment extends Fragment {
                                                    Response<ResponseObject<Worker>> response) {
                                 DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
-                                    //
-
-
-                                    TextTools.log(TAG, "running an intercom registration after worker registration");
-                                    Registration registration = Registration.create().withEmail(deviceEmail);
-                                    Intercom.client().registerIdentifiedUser(registration);
 
                                     try {
                                         Bundle bundle = new Bundle();
@@ -176,7 +170,9 @@ public class VerifyPhoneFragment extends Fragment {
 
                                     //
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                    HandleErrors.parseError(getContext(), dialog, response,
+                                            null,
+                                            new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             action = Constants.KEY_VERIFY_PHONE_LOGIN;
@@ -201,12 +197,6 @@ public class VerifyPhoneFragment extends Fragment {
                                                    Response<ResponseObject<Employer>> response) {
                                 DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
-                                    //
-
-
-                                    TextTools.log(TAG, "running an intercom registration after employer registration");
-                                    Registration registration = Registration.create().withEmail(deviceEmail);
-                                    Intercom.client().registerIdentifiedUser(registration);
 
                                     try {
                                         Bundle bundle = new Bundle();
@@ -227,7 +217,9 @@ public class VerifyPhoneFragment extends Fragment {
 
                                     //
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                    HandleErrors.parseError(getContext(), dialog, response,
+                                            null,
+                                            new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             action = Constants.KEY_VERIFY_PHONE_LOGIN;
@@ -252,18 +244,6 @@ public class VerifyPhoneFragment extends Fragment {
                                                    Response<ResponseObject<LoginUser>> response) {
                                 DialogBuilder.cancelDialog(dialog);
                                 if (response.isSuccessful()) {
-                                    ////
-
-                                    TextTools.log(TAG, "running an intercom registration after login");
-                                    Registration registration = Registration.create().withEmail(deviceEmail);
-                                    Intercom.client().registerIdentifiedUser(registration);
-
-//
-//                                    Map<String, Object> userMap = new HashMap<>();
-//                                    userMap.put("email", deviceEmail);
-//                                    userMap.put("phone_number", editTextPhoneNumber.getText().toString());
-//                                    userMap.put("country_code", ccp.getSelectedCountryCodeWithPlus());
-//                                    Intercom.client().logEvent("user_registered", userMap);
 
                                     try {
                                         Bundle bundle = new Bundle();

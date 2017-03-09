@@ -1,6 +1,7 @@
 package com.hellobaytree.graftrs.worker.settings.ui.fragments;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.hellobaytree.graftrs.shared.settings.fragments.SettingsAboutFragment;
 import com.hellobaytree.graftrs.shared.settings.fragments.SettingsDocsFragment;
 import com.hellobaytree.graftrs.shared.settings.fragments.SettingsFragment;
 import com.hellobaytree.graftrs.shared.settings.fragments.SettingsSocialFragment;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
@@ -53,6 +55,9 @@ public class WorkerSettingsFragment extends SettingsFragment {
     @BindView(R.id.zipValue)
     JosefinSansTextView zipTextView;
 
+    @BindView(R.id.nameValue)
+    JosefinSansTextView nameTextView;
+
     private Worker currentWorker;
 
     public static WorkerSettingsFragment newInstance() {
@@ -78,6 +83,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
         getActivity().setTitle(R.string.settings);
         fetchMe();
     }
+
 
     @OnClick({R.id.phone, R.id.terms, R.id.about, R.id.share, R.id.logout, R.id.notify,
             R.id.editEmail, R.id.editZip, R.id.pass, R.id.nameLabel})
@@ -112,7 +118,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
             case R.id.pass:
                 editPassword();
                 break;
-            case R.id.nameLabel:
+            case R.id.editNameIcon:
                 editName();
         }
     }
@@ -215,7 +221,14 @@ public class WorkerSettingsFragment extends SettingsFragment {
     }
 
     private void editName() {
-        EditNameDialog.newInstance(new EditNameDialog.NameChangedListener() {
+        String firstName = null;
+        String lastName = null;
+        if (currentWorker != null) {
+            firstName = currentWorker.firstName;
+            lastName = currentWorker.lastName;
+        }
+
+        EditNameDialog.newInstance(firstName, lastName, new EditNameDialog.NameChangedListener() {
             @Override
             public void onNameChanged(String name, String surname) {
                 HashMap<String, Object> payload = new HashMap<>();
@@ -253,6 +266,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
         SharedPreferencesManager.getInstance(getContext()).deleteToken();
         SharedPreferencesManager.getInstance(getContext()).deleteSessionInfoEmployer();
         SharedPreferencesManager.getInstance(getContext()).deleteIsInComingSoon();
+        getActivity().getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, Context.MODE_PRIVATE).edit().clear().apply();
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -265,6 +279,13 @@ public class WorkerSettingsFragment extends SettingsFragment {
         if (currentWorker != null) {
             if (!TextUtils.isEmpty(currentWorker.zip)) zipTextView.setText(currentWorker.zip);
             if (!TextUtils.isEmpty(currentWorker.email)) emailTextView.setText(currentWorker.email);
+
+            StringBuilder workerName = new StringBuilder();
+            if (!TextUtils.isEmpty(currentWorker.firstName))
+                workerName.append(currentWorker.firstName);
+            if (!TextUtils.isEmpty(currentWorker.lastName))
+                workerName.append(" ").append(currentWorker.lastName);
+            nameTextView.setText(workerName);
         }
     }
 
@@ -280,7 +301,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
 
     private void fetchMe() {
         try {
-            List<String> requiredFields = Arrays.asList("post_code", "email");
+            List<String> requiredFields = Arrays.asList("post_code", "email", "first_name", "last_name");
 
             final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
             HttpRestServiceConsumer.getBaseApiClient()

@@ -197,13 +197,13 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                                     currentCountryCode, currentPhone, name);
 
                                     if (response.body().getResponse().getUser().isOnboarding_done()) {
-                                        startActivity(new Intent(getContext(), MainEmployerActivity.class));
+                                        startAnotherActivity(new Intent(getContext(), MainEmployerActivity.class));
                                     } else {
-                                        startActivity(new Intent(getActivity(), OnboardingEmployerActivity.class));
+                                        startAnotherActivity(new Intent(getActivity(), OnboardingEmployerActivity.class));
                                     }
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                    HandleErrors.parseError(getContext(), dialog, response, null, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             getActivity().getSupportFragmentManager()
@@ -244,13 +244,14 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                                     currentCountryCode, currentPhone, name);
 
                                     if (response.body().getResponse().getUser().isOnboarding_done()) {
-                                        startActivity(new Intent(getContext(), MainWorkerActivity.class));
+                                        startAnotherActivity(new Intent(getContext(), MainWorkerActivity.class));
                                     } else {
-                                        startActivity(new Intent(getActivity(), OnboardingWorkerActivity.class));
+                                        startAnotherActivity(new Intent(getActivity(), OnboardingWorkerActivity.class));
                                     }
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, new DialogInterface.OnClickListener() {
+                                    HandleErrors.parseError(getContext(), dialog, response, null,
+                                            new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             getActivity().getSupportFragmentManager()
@@ -458,4 +459,10 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
             }
         }
     };
+
+    private void startAnotherActivity(Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        getActivity().finish();
+    }
 }

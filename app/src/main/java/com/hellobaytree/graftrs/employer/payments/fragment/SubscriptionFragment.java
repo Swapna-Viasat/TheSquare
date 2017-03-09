@@ -2,6 +2,7 @@ package com.hellobaytree.graftrs.employer.payments.fragment;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.payments.adapter.PaymentsAdapter;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 
@@ -88,8 +90,8 @@ public class SubscriptionFragment extends Fragment {
     @OnClick(R.id.payments_continue)
     public void proceed() {
 
-        getActivity().getSupportFragmentManager()
-                .popBackStack();
+//        getActivity().getSupportFragmentManager()
+//                .popBackStack();
 //
 //        ((TextView) getActivity().findViewById(R.id.payments_subscription_label))
 //                .setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
@@ -100,11 +102,13 @@ public class SubscriptionFragment extends Fragment {
 //        ((ImageView) getActivity().findViewById(R.id.payments_cards))
 //                .setColorFilter(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
 //
-//        getActivity().
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.payments_content, PaymentFragment.newInstance(selectedPlan))
-//                .commit();
+
+        getActivity().
+                getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_employer_content, PaymentFragment.newInstance(selectedPlan))
+                .addToBackStack("")
+                .commit();
 
 //        //
 //        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());

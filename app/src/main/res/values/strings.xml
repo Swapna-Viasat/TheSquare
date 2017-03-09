@@ -579,6 +579,7 @@
 
     <!-- Employer create job -->
     <string name="create_job_5">Oops, you have already selected 5!</string>
+    <string name="create_job_3">Oops, you have already selected 3!</string>
     <string name="create_job_role">What kind of worker are you looking for?</string>
     <string name="create_job_trade">What trade experience are you looking for from your %s ?</string>
     <string name="create_job_qualifications">Are there any qualifications you are looking for?</string>
@@ -839,12 +840,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- SHARING is CARING -->
-    <string name="share_generic">Hey, I\’ve just joined The Square. It\'s great, you should check it out </string>
+    <string name="share_generic">Hey, I\'ve just joined The Square Construction.
+        It\'s great! You should check it out... </string>
     <string name="share_description">
-        The Square is the first automated hiring app for the construction industry.
-        (It\'s a bit like Tinder but for construction jobs).
+        The Square Construction is the first automated hiring app for the industry
+        (a bit like Tinder but for construction jobs).
         We\'re building the fastest growing network of skilled construction workers in the world.
-        Join now and be one of the first to benefit!
+        Be one of the first to benefit!
     </string>
 
     <string name="share_employer_subject">%s wants you to join them on The Square</string>
@@ -856,8 +858,8 @@
 
     <string name="share_employer_general_title">
         Hey,
-        I\’ve just joined The Square.
-        It\’s the new app that matches you to the best quality construction workers when you need them.
+        I\'ve just joined The Square.
+        It\'s the new app that matches you to the best quality construction workers when you need them.
         It saves you a load of time, money and effort.
         You should check it out.
         Enjoy!
@@ -866,12 +868,12 @@
 
     <string name="share_worker_general_title">
         Hey,
-        I\’ve just joined The Square.
-        It\’s the new app that matches you to the best paying construction jobs near you.
+        I\'ve just joined The Square.
+        It\'s the new app that matches you to the best paying construction jobs near you.
         You should check it out.
         Enjoy!
     </string>
-    <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
+    <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share2.png</string>
     <string name="title_activity_review_aggregate">ReviewAggregateActivity</string>
 
 

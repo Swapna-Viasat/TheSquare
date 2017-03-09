@@ -19,6 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.account.AccountFragment;
 import com.hellobaytree.graftrs.employer.createjob.CreateJobActivity;
@@ -26,15 +29,26 @@ import com.hellobaytree.graftrs.employer.mygraftrs.fragment.MyGraftrsEmployerFra
 import com.hellobaytree.graftrs.employer.myjobs.fragment.JobsFragment;
 import com.hellobaytree.graftrs.employer.onboarding.OnboardingEmployerActivity;
 import com.hellobaytree.graftrs.employer.payments.PaymentsActivity;
+import com.hellobaytree.graftrs.employer.payments.fragment.PaymentFragment;
 import com.hellobaytree.graftrs.employer.payments.fragment.PricePlanFragment;
+import com.hellobaytree.graftrs.employer.payments.fragment.SubscriptionFragment;
 import com.hellobaytree.graftrs.employer.subscription.SubscriptionActivity;
+import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
+import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
 import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
+import com.hellobaytree.graftrs.shared.models.Employer;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.ShareUtils;
 import com.hellobaytree.graftrs.shared.utils.TextTools;
 
+import java.util.HashMap;
+
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by juanmaggi on 10/6/16.
@@ -46,6 +60,8 @@ public class MainEmployerActivity extends AppCompatActivity {
     public static final String TAG = "MainEmployer";
 
     private int lastTab;
+    private Call<ResponseObject<Employer>> fetchMe;
+    private Call<ResponseBody> sendToken;
 
     private DrawerLayout drawerEmployerLayout;
     private NavigationView navigationView;
@@ -66,18 +82,76 @@ public class MainEmployerActivity extends AppCompatActivity {
 
     }
 
+    private void fetchMe() {
+        //
+        fetchMe = HttpRestServiceConsumer.getBaseApiClient().meEmployer();
+        fetchMe.enqueue(new Callback<ResponseObject<Employer>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<Employer>> call,
+                                           Response<ResponseObject<Employer>> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            if (null != response.body()) {
+                                if (null != response.body().getResponse()) {
+                                    if (null != response.body().getResponse().email) {
+                                        sendFirebaseTokenToBackend(response.body().getResponse().email);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<Employer>> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void sendFirebaseTokenToBackend(String email) {
+        //
+        HashMap<String, Object> body = new HashMap<>();
+        String fbToken = FirebaseInstanceId.getInstance().getToken();
+        body.put("firebase_token", fbToken);
+        body.put("email", email);
+        sendToken = HttpRestServiceConsumer.getBaseApiClient().sendEmployerToken(body);
+        sendToken.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+                //
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                //
+            }
+        });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         Log.d(TAG, "main employer activity resumed");
+        fetchMe();
 
         // checking if the employer wasn't in the process of creating a job
         // when last left the app
         if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
                 .getBoolean(Constants.KEY_UNFINISHED, false)) {
             ///
-            Log.d(TAG, "resume create job flow");
+            TextTools.log(TAG, "resume create job flow");
             startActivity(new Intent(this, CreateJobActivity.class));
+            ///
+        } else if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
+                .getBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, false)) {
+            ///
+            TextTools.log(TAG, "we have a draft job not published because no plan was setup");
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_employer_content, SubscriptionFragment.newInstance())
+                    .addToBackStack("")
+                    .commit();
             ///
         } else {
             int currentTab =
@@ -113,6 +187,12 @@ public class MainEmployerActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+        if (null != fetchMe) {
+            fetchMe.cancel();
+        }
+        if (null != sendToken) {
+            sendToken.cancel();
+        }
         getSharedPreferences(Constants.EMPLOYER, MODE_PRIVATE)
                 .edit()
                 .putInt(Constants.EMPLOYER_CURRENT_TAB, lastTab)
