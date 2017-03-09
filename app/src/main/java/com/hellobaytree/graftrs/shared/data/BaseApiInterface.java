@@ -164,7 +164,7 @@ public interface BaseApiInterface {
     @POST("/employers/login/")
     Call<ResponseObject<Employer>> loginEmployer(@Body HashMap<String, String> loginRequest);
 
-    @GET("/employers/{pk}/workers")
+    @GET("/employers/{pk}/workers/?like=true")
     Call<ResponseObject<List<com.hellobaytree.graftrs.employer.mygraftrs.model.Worker>>>
     fetchWorkers(@Path("pk") int id);
 
