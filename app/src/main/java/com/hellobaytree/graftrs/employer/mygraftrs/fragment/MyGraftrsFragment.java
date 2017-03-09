@@ -70,7 +70,9 @@ public class MyGraftrsFragment extends Fragment
     }
 
     @Nullable @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_graftrs_stub, null);
         ButterKnife.bind(this, view); return view;
     }

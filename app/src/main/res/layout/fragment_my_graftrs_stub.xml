@@ -21,10 +21,9 @@
     <View
         android:visibility="gone"
         android:layout_marginTop="80dp"
-        android:layout_marginLeft="24dp"
         android:id="@+id/no_matches"
         android:layout_gravity="center"
-        android:background="@drawable/ic_no_matches"
+        android:background="@drawable/bob"
         android:layout_width="140dp"
-        android:layout_height="120dp"/>
+        android:layout_height="140dp"/>
 </LinearLayout>
