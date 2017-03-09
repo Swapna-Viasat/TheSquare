@@ -29,7 +29,9 @@ import com.hellobaytree.graftrs.employer.mygraftrs.fragment.MyGraftrsEmployerFra
 import com.hellobaytree.graftrs.employer.myjobs.fragment.JobsFragment;
 import com.hellobaytree.graftrs.employer.onboarding.OnboardingEmployerActivity;
 import com.hellobaytree.graftrs.employer.payments.PaymentsActivity;
+import com.hellobaytree.graftrs.employer.payments.fragment.PaymentFragment;
 import com.hellobaytree.graftrs.employer.payments.fragment.PricePlanFragment;
+import com.hellobaytree.graftrs.employer.payments.fragment.SubscriptionFragment;
 import com.hellobaytree.graftrs.employer.subscription.SubscriptionActivity;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
@@ -138,8 +140,18 @@ public class MainEmployerActivity extends AppCompatActivity {
         if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
                 .getBoolean(Constants.KEY_UNFINISHED, false)) {
             ///
-            Log.d(TAG, "resume create job flow");
+            TextTools.log(TAG, "resume create job flow");
             startActivity(new Intent(this, CreateJobActivity.class));
+            ///
+        } else if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
+                .getBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, false)) {
+            ///
+            TextTools.log(TAG, "we have a draft job not published because no plan was setup");
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_employer_content, SubscriptionFragment.newInstance())
+                    .addToBackStack("")
+                    .commit();
             ///
         } else {
             int currentTab =

@@ -2,7 +2,9 @@ package com.hellobaytree.graftrs.employer.payments.fragment;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -16,8 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.employer.MainEmployerActivity;
 import com.hellobaytree.graftrs.employer.subscription.model.CreateCardRequest;
 import com.hellobaytree.graftrs.employer.subscription.model.CreateCardResponse;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
@@ -58,6 +62,8 @@ public class PaymentFragment extends Fragment {
     @BindView(R.id.country) JosefinSansEditText country;
     @BindView(R.id.postcode) JosefinSansEditText postcode;
     private int plan;
+    private boolean draftJobInLimbo;
+    private int draftJobInLimboId;
 
     public static PaymentFragment newInstance(int selectedPlan) {
         PaymentFragment fragment = new PaymentFragment();
@@ -110,6 +116,17 @@ public class PaymentFragment extends Fragment {
         //
         setUpCreditCardNumberInput(number);
         plan = getArguments().getInt(Constants.KEY_SELECTED_PLAN);
+
+        draftJobInLimbo = getActivity()
+                .getSharedPreferences(Constants.CREATE_JOB_FLOW, Context.MODE_PRIVATE)
+                .getBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, false);
+        draftJobInLimboId = getActivity()
+                .getSharedPreferences(Constants.CREATE_JOB_FLOW, Context.MODE_PRIVATE)
+                .getInt(Constants.DRAFT_JOB_ID, 0);
+//
+//        Toast.makeText(getContext(), "selected plan: " +
+//                String.valueOf(plan) + "  and the draft job id is " +
+//                draftJobInLimboId, Toast.LENGTH_LONG).show();
     }
 
 
@@ -138,6 +155,9 @@ public class PaymentFragment extends Fragment {
         body.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
         body.put("stripe_source_token", "dfdfdf");
         body.put("payment_detail", plan);
+        if (draftJobInLimbo) {
+            body.put("job_id", draftJobInLimboId);
+        }
         HttpRestServiceConsumer.getBaseApiClient()
                 .setupPayment(body)
                 .enqueue(new Callback<ResponseObject>() {
@@ -146,18 +166,36 @@ public class PaymentFragment extends Fragment {
                                            Response<ResponseObject> response) {
                         //
                         // TODO:
-                        getActivity().getSupportFragmentManager()
-                                .popBackStack();
+                        if (response.isSuccessful()) {
+                            if (draftJobInLimbo) {
+                                //
+                                exit();
+                                //
+                            } else {
+                                exit();
+                            }
+                        } else {
+                            exit();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseObject> call, Throwable t) {
                         //
-                        // TODO:
-                        getActivity().getSupportFragmentManager()
-                                .popBackStack();
+                        exit();
                     }
                 });
+    }
+
+    private void exit() {
+        getActivity()
+                .getSharedPreferences(Constants.CREATE_JOB_FLOW, Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, false)
+                .remove(Constants.DRAFT_JOB_ID)
+                .commit();
+        getActivity().finish();
+        getActivity().startActivity(new Intent(getActivity(), MainEmployerActivity.class));
     }
 
     private Card getCard() {

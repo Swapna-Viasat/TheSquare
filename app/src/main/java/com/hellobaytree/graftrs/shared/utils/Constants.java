@@ -23,6 +23,8 @@ public class Constants {
     public static final String KEY_JOB_ID = "key_job_id";
 
     public static final String CREATE_JOB_FLOW = "create_job_flow";
+    public static final String DRAFT_JOB_AWAIT_PLAN = "job_draft_await_plan";
+    public static final String DRAFT_JOB_ID = "job_draft_id";
     public static final String KEY_STEP = "step_create_job_flow_abandoned";
     public static final String KEY_UNFINISHED = "create_job_flow_unfinished";
     public static final String KEY_REQUEST = "create_job_request_object";
