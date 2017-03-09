@@ -542,11 +542,12 @@
     <!-- Employer Settings -->
     <string name="settings">Settings</string>
     <string name="employer_settings_phone">Phone Number:</string>
+    <string name="employer_settings_email">Email: </string>
     <string name="employer_settings_social">Social Networks</string>
     <string name="settings_notifications">Notifications</string>
     <string name="employer_settings_terms">Terms &amp; Privacy</string>
     <string name="employer_settings_about">About &amp; Help</string>
-    <string name="employer_settings_share">Share the Square</string>
+    <string name="employer_settings_share">Share The Square</string>
     <string name="employer_settings_logout">Log out</string>
     <string name="employer_settings_sync_fb">Sync with Facebook</string>
     <string name="employer_settings_sync_twtr">Sync with Twitter</string>
@@ -566,6 +567,7 @@
     <string name="employer_settings_my_subscriptions">My Subscriptions</string>
     <string name="employer_settings_security">Security</string>
     <string name="employer_security_save">Save</string>
+    <string name="employer_password_update_success">Great! We have now updated your password.</string>
 
     <!-- Worker Settings -->
     <string name="new_job_matches">New job matches</string>
