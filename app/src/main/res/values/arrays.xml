@@ -7,6 +7,12 @@
         <item>Platinum</item>
     </string-array>
 
+    <string-array name="spinner_plans_extended">
+        <item>Basic £499 + VAT per month</item>
+        <item>Standard £999 + VAT per month</item>
+        <item>Platinum £1749 + VAT per month</item>
+    </string-array>
+
     <string-array name="spinner_test">
         <item>Array Item One</item>
         <item>Array Item Two</item>

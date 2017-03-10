@@ -762,11 +762,12 @@
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
     <string name="payments_booking_credits">My Booking Credits</string>
-    <string name="payments_alt_title">If you are unable to pay by card, please enter the details below
+    <string name="payments_alt_title">Please enter the details below
                 to activate an invoice service</string>
+    <string name="payments_alt_error">Oops. Please fill in all the details first!</string>
     <string name="payments_alt_spinner_title">Subscription plan</string>
-    <string name="payments_alt_name">Bill payer\'s name</string>
-    <string name="payments_alt_email">Bill payer\'s email</string>
+    <string name="payments_alt_name">Bill payer\'s name *</string>
+    <string name="payments_alt_email">Bill payer\'s email *</string>
     <string name="payments_alt_order">Purchase Order Number (if needed)</string>
     <string name="payments_alt_confirm">Confirm</string>
     <string name="payments_alt_subtitle">We\'ll get an invoice to you and the bill payer

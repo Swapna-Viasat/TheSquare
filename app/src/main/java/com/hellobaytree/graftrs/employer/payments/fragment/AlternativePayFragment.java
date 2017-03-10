@@ -98,13 +98,13 @@ public class AlternativePayFragment extends Fragment {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setDisplayHomeAsUpEnabled(true);
             ((AppCompatActivity) getActivity()).getSupportActionBar()
-                    .setTitle("Alternative Payments");
+                    .setTitle("Alternative Payment");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.spinner_plans, android.R.layout.simple_spinner_item);
+                R.array.spinner_plans_extended, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         planSpinner.setAdapter(adapter);
 
@@ -155,23 +155,28 @@ public class AlternativePayFragment extends Fragment {
         boolean result = true;
 
         if (nameInput.getText().toString().equals("")) {
+            nameInput.setError("Please enter a name...");
             result = false;
         }
 
         if (emailInput.getText().toString().equals("")) {
+            emailInput.setError("Please enter an email...");
             result = false;
         }
 
-        if (orderInput.getText().toString().equals("")) {
-            result = false;
-        }
+//        if (orderInput.getText().toString().equals("")) {
+//            orderInput.setError("Please enter an order number...");
+//            result = false;
+//        }
 
+        if (!result) Toast.makeText(getContext(),
+                getString(R.string.payments_alt_error), Toast.LENGTH_LONG).show();
         return result;
     }
 
     private void showSuccessPopup() {
 
-        final Dialog dialog = new Dialog(getContext(), android.R.style.Theme_NoTitleBar);
+        final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_alt_pay_done);
         dialog.setCancelable(false);
         dialog.findViewById(R.id.pay_alt_close).setOnClickListener(new View.OnClickListener() {
