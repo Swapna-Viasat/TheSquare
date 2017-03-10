@@ -497,7 +497,7 @@
     <string name="worker_reviews_attitude">Attitude to work and team</string>
     <string name="worker_reviews_safety">Safe worker</string>
     <string name="menu_worker_reviews">Reviews</string>
-    <string name="worker_request_review">Great! Every review improves your star rating! \nTell us employer you want to get a reference from and we\'ll send them a request by email.</string>
+    <string name="worker_request_review">Great! Every review improves your star rating! \nTell us which employer you want to get a reference from? We\'ll send them an email request now.</string>
     <string name="worker_request_review_first_name">First Name*</string>
     <string name="worker_request_review_last_name">Last Name*</string>
     <string name="worker_request_email">Email Address*</string>
@@ -506,7 +506,7 @@
     <string name="worker_request_date">Date Worked</string>
     <string name="worker_request_error">You have to complete at least one</string>
     <string name="worker_request_field">This field is required</string>
-    <string name="worker_request_sent_subtitle">Your reference request \nhas been sent. we will let you know when it comes in.</string>
+    <string name="worker_request_sent_subtitle">Brilliant! \n Your reference request has been sent. We will let you know when it comes in.</string>
     <string name="worker_review_action">Complete review</string>
     <string name="worker_review_due">Due: %1$d %2$s left</string>
     <string name="worker_review_request">Go ahead and \nrequest a reference</string>
