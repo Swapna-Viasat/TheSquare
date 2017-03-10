@@ -10,8 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.employer.settings.dialog.UpdateEmailDialog;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.AccountType;
 import com.hellobaytree.graftrs.shared.data.model.Logout;
@@ -20,6 +22,7 @@ import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager
 import com.hellobaytree.graftrs.shared.main.activity.MainActivity;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
+import com.hellobaytree.graftrs.shared.utils.ShareUtils;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 
 import butterknife.BindView;
@@ -29,10 +32,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment
+        implements UpdateEmailDialog.UpdateEmailListener {
 
     @BindView(R.id.phoneValue)
     JosefinSansTextView phoneValueTextView;
+    @BindView(R.id.emailValue)
+    JosefinSansTextView emailValueTextView;
+    private UpdateEmailDialog updateEmailDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,18 +66,27 @@ public class SettingsFragment extends Fragment {
         populateData();
     }
 
-    @OnClick({R.id.phone, R.id.terms, R.id.about, R.id.share, R.id.logout})
+    @Override
+    public void onEmailUpdate(String email) {
+        updateEmailDialog.dismiss();
+        emailValueTextView.setText(email);
+    }
+
+    @OnClick({R.id.phone, R.id.email, R.id.terms,
+            R.id.about, R.id.share, R.id.logout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.phone:
                 break;
-          /*  case R.id.social:
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frame, SettingsSocialFragment.newInstance())
-                        .addToBackStack("social")
-                        .commit();
-                break;*/
+            case R.id.email:
+                //
+                updateEmailDialog = UpdateEmailDialog.newInstance(
+                        emailValueTextView.getText().toString(),
+                        this
+                );
+                updateEmailDialog.setCancelable(false);
+                updateEmailDialog.show(getChildFragmentManager(), "updateEmail");
+                break;
             case R.id.terms:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
@@ -86,12 +102,7 @@ public class SettingsFragment extends Fragment {
                         .commit();
                 break;
             case R.id.share:
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("text/plain");
-                share.putExtra(Intent.EXTRA_SUBJECT, "The Square App");
-                // TODO: add play store link
-                share.putExtra(Intent.EXTRA_TEXT, "Check out in the Play Store");
-                getActivity().startActivity(Intent.createChooser(share, "Share Via "));
+                ShareUtils.employerLink(getContext());
                 break;
             case R.id.logout:
                 DialogBuilder.afterShowSetProperties(new AlertDialog.Builder(getActivity())
@@ -150,14 +161,18 @@ public class SettingsFragment extends Fragment {
         if (getAccountType() != null) {
             String phone;
             String countryCode;
+            String email;
             if (getAccountType() == AccountType.employer) {
+                email = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getEmail();
                 phone = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getPhoneNumber();
                 countryCode = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getCountryCode();
             } else {
+                email = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoWorker().getEmail();
                 phone = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoWorker().getPhoneNumber();
                 countryCode = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoWorker().getCountryCode();
             }
             phoneValueTextView.setText(countryCode + phone);
+            emailValueTextView.setText(email);
         }
     }
 

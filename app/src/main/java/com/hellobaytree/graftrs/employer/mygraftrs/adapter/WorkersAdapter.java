@@ -68,50 +68,50 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
 
 
 
-        switch (worker.status.id) {
-            case Worker.STATUS_APPLIED:
-                holder.workerAction.setText("");
-                holder.workerLabel.setImageResource(R.drawable.workers_applied);
-                break;
-            case Worker.STATUS_BOOKED:
-                holder.workerAction.setText(context.getString(R.string.employer_workers_cancel));
-                holder.workerLabel.setImageResource(R.drawable.workers_booked);
-                break;
-            case Worker.STATUS_DECLINED:
-                holder.workerAction.setText(context.getString(R.string.employer_workers_invite));
-                holder.workerLabel.setImageResource(R.drawable.workers_declined);
-                break;
-            case Worker.STATUS_OFFERED:
-                holder.workerAction.setText(context.getString(R.string.employer_workers_end));
-                holder.workerLabel.setImageResource(R.drawable.workers_offered);
-                break;
-            case Worker.STATUS_PREVIOUS:
-                holder.workerLabel.setVisibility(View.GONE);
-                holder.workerAction.setText(context.getString(R.string.employer_workers_invite));
-        }
+//        switch (worker.status.id) {
+//            case Worker.STATUS_APPLIED:
+//                holder.workerAction.setText("");
+//                holder.workerLabel.setImageResource(R.drawable.workers_applied);
+//                break;
+//            case Worker.STATUS_BOOKED:
+//                holder.workerAction.setText(context.getString(R.string.employer_workers_cancel));
+//                holder.workerLabel.setImageResource(R.drawable.workers_booked);
+//                break;
+//            case Worker.STATUS_DECLINED:
+//                holder.workerAction.setText(context.getString(R.string.employer_workers_invite));
+//                holder.workerLabel.setImageResource(R.drawable.workers_declined);
+//                break;
+//            case Worker.STATUS_OFFERED:
+//                holder.workerAction.setText(context.getString(R.string.employer_workers_end));
+//                holder.workerLabel.setImageResource(R.drawable.workers_offered);
+//                break;
+//            case Worker.STATUS_PREVIOUS:
+//                holder.workerLabel.setVisibility(View.GONE);
+//                holder.workerAction.setText(context.getString(R.string.employer_workers_invite));
+//        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onViewDetails(worker);
             }
         });
-        holder.workerAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onEndContract(worker);
-                switch (((TextView) v).getText().toString()) {
-                    case "Cancel Booking":
-                        listener.onCancelBooking(worker);
-                        break;
-                    case "Quick Invite":
-                        listener.onQuickInvite(worker);
-                        break;
-                    case "End Contract":
-                        listener.onEndContract(worker);
-                        break;
-                }
-            }
-        });
+//        holder.workerAction.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listener.onEndContract(worker);
+//                switch (((TextView) v).getText().toString()) {
+//                    case "Cancel Booking":
+//                        listener.onCancelBooking(worker);
+//                        break;
+//                    case "Quick Invite":
+//                        listener.onQuickInvite(worker);
+//                        break;
+//                    case "End Contract":
+//                        listener.onEndContract(worker);
+//                        break;
+//                }
+//            }
+//        });
     }
 
     @Override

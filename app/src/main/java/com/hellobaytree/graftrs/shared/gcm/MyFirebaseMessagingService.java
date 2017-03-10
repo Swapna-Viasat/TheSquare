@@ -56,7 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 if (null != workerEmail) {
                     //
                     if (workerEmail.equals(receivedEmail)) {
-                        proceed(remoteMessage);
+                        //proceed(remoteMessage);
                         sendDataNotification((null != body.get("message")) ?
                                 body.get("message") : "");
                     }
@@ -64,7 +64,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 if (null != employerEmail) {
                     //
                     if (employerEmail.equals(receivedEmail)) {
-                        proceed(remoteMessage);
+                        //proceed(remoteMessage);
                         sendDataNotification((null != body.get("message")) ?
                                 body.get("message") : "");
                     }

@@ -542,11 +542,12 @@
     <!-- Employer Settings -->
     <string name="settings">Settings</string>
     <string name="employer_settings_phone">Phone Number:</string>
+    <string name="employer_settings_email">Email: </string>
     <string name="employer_settings_social">Social Networks</string>
     <string name="settings_notifications">Notifications</string>
     <string name="employer_settings_terms">Terms &amp; Privacy</string>
     <string name="employer_settings_about">About &amp; Help</string>
-    <string name="employer_settings_share">Share the Square</string>
+    <string name="employer_settings_share">Share The Square</string>
     <string name="employer_settings_logout">Log out</string>
     <string name="employer_settings_sync_fb">Sync with Facebook</string>
     <string name="employer_settings_sync_twtr">Sync with Twitter</string>
@@ -566,6 +567,7 @@
     <string name="employer_settings_my_subscriptions">My Subscriptions</string>
     <string name="employer_settings_security">Security</string>
     <string name="employer_security_save">Save</string>
+    <string name="employer_password_update_success">Great! We have now updated your password.</string>
 
     <!-- Worker Settings -->
     <string name="new_job_matches">New job matches</string>
@@ -620,6 +622,9 @@
     <string name="create_job_preview2">Preview</string>
     <string name="create_job_publish">Promote Job</string>
     <string name="create_job_apprentice">What type of %s are you looking for?</string>
+
+    <!-- Employer Liked Workers -->
+    <string name="employer_liked">The workers you like will appear here...</string>
 
     <!-- Misc -->
     <string name="pound_sterling">£</string>
@@ -746,7 +751,7 @@
     <string name="employer_payments_try_text">1 job promotion for up to 1 week.
                             \nUp to 20 suitable candidate matches.</string>
     <string name="employer_payments_upgrade">Upgrade your plan</string>
-    <string name="employer_payments_upgrade_here">Upgrade here</string>
+    <string name="employer_payments_upgrade_here">Choose your plan</string>
     <string name="employer_payments_due_date">Bill due %s</string>
     <string name="employer_payments_upgrade_title">Subscribe for \u00A3500 / month</string>
     <string name="employer_payments_upgrade_text">
@@ -778,8 +783,12 @@
     <string name="payments_topups_display_bookings">%1$d / %2$d</string>
     <string name="payments_plans_display_bookings">%1$d / %2$d</string>
     <string name="payments_expiration_format">(Expires %s)</string>
-    <string name="payments_bill_due_format">Bill due %s</string>
+    <string name="payments_bill_due_format">Renews on %s</string>
     <string name="payments_cant_pay_cc">Can\'t pay by credit card? (Tap for options)</string>
+    <string name="payments_cancel_title">Sorry you want to leave us...</string>
+    <string name="payments_cancel_subtitle">You will be able to use your remaining booking
+                        credits, but your plan will not renew next month.
+                        \n\nAre you sure you wish to cancel? </string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
