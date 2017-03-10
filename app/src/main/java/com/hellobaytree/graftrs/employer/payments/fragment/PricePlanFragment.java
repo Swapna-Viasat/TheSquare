@@ -202,6 +202,26 @@ public class PricePlanFragment extends Fragment {
 
     @OnClick(R.id.cancel)
     public void cancelPlan() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_cancel_plan);
+        dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                proceedWithCancelling();
+            }
+        });
+        dialog.show();
+    }
+
+    private void proceedWithCancelling() {
         Toast.makeText(getContext(), "Cancelling...", Toast.LENGTH_LONG).show();
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
