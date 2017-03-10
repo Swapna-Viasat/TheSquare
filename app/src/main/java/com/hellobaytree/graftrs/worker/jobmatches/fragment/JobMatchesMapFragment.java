@@ -46,8 +46,10 @@ import com.hellobaytree.graftrs.worker.jobmatches.model.MatchesResponse;
 import com.hellobaytree.graftrs.worker.myaccount.ui.activity.MyAccountViewProfileActivity;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -368,12 +370,13 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
                     if (null != job.budgetType) {
                         if (null != job.budgetType.name) {
                             ((JosefinSansTextView) view.findViewById(R.id.period))
-                                    .setText("Per " + job.budgetType.name);
+                                    .setText("PER " + job.budgetType.name);
                         }
                     }
                     ((JosefinSansTextView) view.findViewById(R.id.salary))
-                            .setText(context.getString(R.string.pound_sterling) + " " +
-                                    String.valueOf(job.budget));
+                            .setText(String.valueOf("£" +
+                                    String.valueOf(NumberFormat
+                                            .getInstance(Locale.UK).format(Double.valueOf(job.budget)))));
                     ((JosefinSansTextView) view.findViewById(R.id.job_id))
                             .setText(String.valueOf(job.jobRef));
                     ((ImageView) view.findViewById(R.id.likeImage))
