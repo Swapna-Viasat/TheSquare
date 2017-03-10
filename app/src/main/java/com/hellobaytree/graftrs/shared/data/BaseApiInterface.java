@@ -164,6 +164,7 @@ public interface BaseApiInterface {
     @POST("/employers/login/")
     Call<ResponseObject<Employer>> loginEmployer(@Body HashMap<String, String> loginRequest);
 
+    // TODO: when adding other tabs to "my workers" move the params out
     @GET("/employers/{pk}/workers/?like=true")
     Call<ResponseObject<List<com.hellobaytree.graftrs.employer.mygraftrs.model.Worker>>>
     fetchWorkers(@Path("pk") int id);
