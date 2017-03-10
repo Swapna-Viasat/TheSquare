@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.text.SpannableString;
@@ -472,19 +473,26 @@ public class SelectDetailsFragment extends Fragment
                         public void onResponse(Call<ResponseObject<Job>> call,
                                                Response<ResponseObject<Job>> response) {
                             try {
-
                                 DialogBuilder.cancelDialog(dialog);
 
                                 if (response.isSuccessful()) {
                                     unfinished = false;
 
                                     if (getActivity() instanceof PreviewJobActivity) {
+//                                        FragmentManager fm = getActivity().getSupportFragmentManager();
+//                                        for (int i = 0; i < fm.getBackStackEntryCount(); i++) {
+//                                            fm.popBackStack();
+//                                        }
                                         getActivity().getSupportFragmentManager()
                                                 .beginTransaction()
                                                 .replace(R.id.frame,
                                                         JobDetailsFragment.newInstance(response.body().getResponse().id))
                                                 .commit();
                                     } else if (getActivity() instanceof CreateJobActivity) {
+//                                        FragmentManager fm = getActivity().getSupportFragmentManager();
+//                                        for (int i = 0; i < fm.getBackStackEntryCount(); i++) {
+//                                            fm.popBackStack();
+//                                        }
                                         getActivity().getSupportFragmentManager()
                                                 .beginTransaction()
                                                 .replace(R.id.create_job_content,
