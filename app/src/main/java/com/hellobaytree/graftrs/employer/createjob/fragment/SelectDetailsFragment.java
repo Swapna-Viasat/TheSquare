@@ -65,6 +65,7 @@ import com.jzxiang.pickerview.listener.OnDateSetListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -820,6 +821,7 @@ public class SelectDetailsFragment extends Fragment
     }
 
     private void selectTime() {
+        Date random6AMdate = new Date(2017, 1, 1, 6, 0);
         com.jzxiang.pickerview.TimePickerDialog timePickerDialog
                 = new com.jzxiang.pickerview.TimePickerDialog
                 .Builder()
@@ -843,7 +845,7 @@ public class SelectDetailsFragment extends Fragment
                         }
                     }
                 })
-                .setCurrentMillseconds(System.currentTimeMillis())
+                .setCurrentMillseconds(random6AMdate.getTime())
                 .setThemeColor(ContextCompat.getColor(getContext(), R.color.redSquareColor))
                 .setType(Type.HOURS_MINS)
                 .build();
