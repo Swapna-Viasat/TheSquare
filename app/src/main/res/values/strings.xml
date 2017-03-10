@@ -623,6 +623,9 @@
     <string name="create_job_publish">Promote Job</string>
     <string name="create_job_apprentice">What type of %s are you looking for?</string>
 
+    <!-- Employer Liked Workers -->
+    <string name="employer_liked">The workers you like will appear here...</string>
+
     <!-- Misc -->
     <string name="pound_sterling">£</string>
     <string name="min_hourly">£3.5</string>
