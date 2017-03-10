@@ -42,12 +42,14 @@
 
             <ImageView
                 android:id="@+id/likeImage"
-                android:layout_gravity="end|right|top"
+                android:layout_gravity="end"
                 android:src="@drawable/ic_like"
                 android:tint="@color/redSquareColor"
-                android:layout_margin="14dp"
-                android:layout_width="32dp"
-                android:layout_height="32dp" />
+                android:paddingTop="15dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="14dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
 
             <!-- Occupation + experience -->
             <LinearLayout
@@ -78,38 +80,36 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
+
+                <!-- Salary-->
             <LinearLayout
                 android:layout_gravity="bottom|end|right"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_marginTop="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp">
 
-                <!-- Salary-->
-                <LinearLayout
-                    android:id="@+id/salary_layout"
-                    android:orientation="vertical"
-                    android:layout_margin="14dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                        android:id="@+id/period"
-                        android:textSize="16sp"
-                        app:josefin_style="light"
-                        android:textColor="@color/redSquareColor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/salary"
                         android:textSize="22sp"
                         android:text="\u00A3 165"
                         app:josefin_style="light"
                         android:textAllCaps="true"
                         android:textColor="@color/redSquareColor"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/period"
+                        android:textSize="16sp"
+                        android:textAllCaps="true"
+                        app:josefin_style="light"
+                        android:textColor="@color/redSquareColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-                </LinearLayout>
+
             </LinearLayout>
 
         </FrameLayout>
@@ -151,7 +151,7 @@
                     android:text="Starts 18th Feb"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     app:josefin_style="light"
                     android:paddingLeft="5dp"
                     android:paddingStart="5dp"
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     app:josefin_style="light"
                     android:paddingLeft="5dp"
                     android:paddingStart="5dp"
