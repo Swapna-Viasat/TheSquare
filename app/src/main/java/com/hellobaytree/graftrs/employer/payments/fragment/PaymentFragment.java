@@ -76,7 +76,7 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         if (getArguments() != null) {
             //
         }
@@ -129,23 +129,23 @@ public class PaymentFragment extends Fragment {
 //                draftJobInLimboId, Toast.LENGTH_LONG).show();
     }
 
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_price_plan_nested, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.back:
-                getActivity().getSupportFragmentManager()
-                        .popBackStack();
-                return true;
-        }
-        return false;
-    }
+//
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu_price_plan_nested, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.back:
+//                getActivity().getSupportFragmentManager()
+//                        .popBackStack();
+//                return true;
+//        }
+//        return false;
+//    }
 
     @OnClick(R.id.confirm)
     public void submit() {
@@ -300,4 +300,5 @@ public class PaymentFragment extends Fragment {
                     }
                 });
     }
+
 }

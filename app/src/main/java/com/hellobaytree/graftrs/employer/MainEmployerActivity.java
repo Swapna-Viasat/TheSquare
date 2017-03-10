@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -209,7 +210,8 @@ public class MainEmployerActivity extends AppCompatActivity {
             if (child instanceof TextView) {
                 toolbarTitle = (TextView) child;
                 // set my custom font
-                Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/JosefinSans-Italic.ttf");
+                Typeface typeface = Typeface.createFromAsset(getAssets(),
+                        "fonts/JosefinSans-Italic.ttf");
                 toolbarTitle.setTypeface(typeface);
                 break;
             }
@@ -217,10 +219,28 @@ public class MainEmployerActivity extends AppCompatActivity {
 
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            final Drawable menu = ContextCompat.getDrawable(this, R.drawable.ic_menu_black_24dp);
-            menu.setColorFilter(ContextCompat.getColor(this, R.color.redSquareColor), PorterDuff.Mode.SRC_ATOP);
+            final Drawable menu = ContextCompat
+                    .getDrawable(this, R.drawable.ic_menu_black_24dp);
+            menu.setColorFilter(ContextCompat
+                    .getColor(this, R.color.redSquareColor), PorterDuff.Mode.SRC_ATOP);
+            final Drawable backArrow = ContextCompat
+                    .getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
+            backArrow.setColorFilter(ContextCompat
+                    .getColor(this, R.color.redSquareColor), PorterDuff.Mode.SRC_ATOP);
             ab.setHomeAsUpIndicator(menu);
             ab.setDisplayHomeAsUpEnabled(true);
+
+            getSupportFragmentManager()
+                    .addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+                        @Override
+                        public void onBackStackChanged() {
+                            if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                                ab.setHomeAsUpIndicator(menu);
+                            } else {
+                                ab.setHomeAsUpIndicator(backArrow);
+                            }
+                        }
+                    });
         }
     }
     private void setupDrawerContent(NavigationView navigationView) {
@@ -241,7 +261,11 @@ public class MainEmployerActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                drawerEmployerLayout.openDrawer(GravityCompat.START);
+                if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                    drawerEmployerLayout.openDrawer(GravityCompat.START);
+                } else {
+                    getSupportFragmentManager().popBackStack();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

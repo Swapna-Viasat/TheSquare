@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.payments.adapter.PaymentsAdapter;
@@ -56,7 +57,7 @@ public class SubscriptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         if (getArguments() != null) {
             //
         }
@@ -69,23 +70,23 @@ public class SubscriptionFragment extends Fragment {
         ButterKnife.bind(this, view);
         return view;
     }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_price_plan_nested, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.back:
-                getActivity().getSupportFragmentManager()
-                        .popBackStack();
-                return true;
-        }
-        return false;
-    }
+//
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu_price_plan_nested, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.back:
+//                getActivity().getSupportFragmentManager()
+//                        .popBackStack();
+//                return true;
+//        }
+//        return false;
+//    }
 
     @OnClick(R.id.payments_continue)
     public void proceed() {
@@ -226,5 +227,11 @@ public class SubscriptionFragment extends Fragment {
                 }
             }
         }
+    }
+
+
+    @OnClick(R.id.understanding)
+    public void understanding() {
+        Toast.makeText(getContext(), "understanding", Toast.LENGTH_LONG).show();
     }
 }
