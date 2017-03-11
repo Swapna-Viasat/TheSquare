@@ -454,6 +454,10 @@
     <string name="job_experience_value">%d years</string>
     <string name="job_availability_immediately">Immediately</string>
     <string name="job_id">Job ID: %s</string>
+    <string name="job_cancel">Are you sure you want to cancel this job? </string>
+    <string name="job_details_offered_amount"><font color="#1CA996">%d</font> workers offered</string>
+    <string name="job_details_applied_amount">%d workers applied</string>
+    <string name="job_details_booked_amount">%d workers booked</string>
 
     <!-- My Accounts -->
     <string name="view_profile">View Profile</string>

@@ -67,7 +67,7 @@
                     android:paddingTop="14dp"
                     android:text="View More"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/holo_green_dark"
+                    android:textColor="@color/greenSquareColor"
                     android:textSize="14sp"
                     android:visibility="gone" />
 
@@ -110,6 +110,34 @@
                         android:textColor="@color/blackSquareColor"
                         android:textSize="16sp"
                         app:josefin_style="light" />
+                </LinearLayout>
+
+                <!-- Stats -->
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_below="@+id/occupation_experience"
+                    android:id="@+id/item_job_stats"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/item_job_applied"
+                        android:textAllCaps="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/item_job_offered"
+                        android:textAllCaps="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/item_job_booked"
+                        android:textAllCaps="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 <!-- Salary-->
