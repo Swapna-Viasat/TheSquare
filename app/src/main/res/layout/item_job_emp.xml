@@ -114,6 +114,7 @@
 
                 <!-- Stats -->
                 <LinearLayout
+                    android:layout_marginLeft="14dp"
                     android:visibility="gone"
                     android:layout_below="@+id/occupation_experience"
                     android:id="@+id/item_job_stats"
@@ -124,18 +125,21 @@
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/item_job_applied"
                         android:textAllCaps="true"
+                        android:textSize="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/item_job_offered"
                         android:textAllCaps="true"
+                        android:textSize="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/item_job_booked"
                         android:textAllCaps="true"
+                        android:textSize="10sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -238,7 +242,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|right|center_vertical"
-                    android:textColor="@android:color/holo_green_dark"
+                    android:textColor="@color/greenSquareColor"
                     android:textSize="12dp"
                     app:josefin_style="italic" />
 
