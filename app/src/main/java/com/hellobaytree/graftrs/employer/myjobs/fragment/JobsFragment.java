@@ -322,11 +322,22 @@ public class JobsFragment extends Fragment
                         //
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
+                            List<Job> oldJobs = new ArrayList<>();
 
                             if (response.body().response.isEmpty()) {
                                 create();
                             } else {
-                                showCreateDialog(response.body().response);
+                                for (Job job : response.body().response) {
+                                    if (job.status.id == 3) {
+                                        oldJobs.add(job);
+                                    }
+                                }
+
+                                if (oldJobs.isEmpty()) {
+                                    create();
+                                } else {
+                                    showCreateDialog(oldJobs);
+                                }
                             }
 
                         } else {

@@ -52,7 +52,7 @@
                     android:layout_height="1dp"/>
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                    android:text="(PER MONTH)"
+                    android:text="(valid for 30 days)"
                     android:layout_marginTop="4dp"
                     android:textSize="8sp"
                     app:josefin_style="italic"
@@ -104,7 +104,7 @@
 
         <!-- Action Continue -->
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            android:text="@string/payments_continue"
+            android:text="Top up now"
             android:textSize="18sp"
             android:id="@+id/continue_top_up"
             android:textColor="@android:color/white"
