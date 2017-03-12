@@ -42,6 +42,9 @@ public class Job implements Serializable {
     @SerializedName("cscs_required") public boolean cscsRequired;
     @SerializedName("private") public boolean privateJob;
     @SerializedName("is_apprenticeship") public boolean isApprenticeship;
+    @SerializedName("accepted_applications") public int amountBooked;
+    @SerializedName("count_applications") public int amountApplied;
+    @SerializedName("count_offers") public int amountOfferred;
     public Owner owner;
 
     public List<Skill> skills;

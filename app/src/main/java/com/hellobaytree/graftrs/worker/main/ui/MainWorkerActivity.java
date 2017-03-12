@@ -21,7 +21,9 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
@@ -33,6 +35,7 @@ import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.ShareUtils;
 import com.hellobaytree.graftrs.worker.account.AccountFragment;
+import com.hellobaytree.graftrs.worker.help.HelpFragment;
 import com.hellobaytree.graftrs.worker.jobmatches.fragment.JobMatchesFragment;
 import com.hellobaytree.graftrs.worker.myjobs.fragment.JobsFragment;
 
@@ -40,6 +43,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,6 +59,7 @@ public class MainWorkerActivity extends AppCompatActivity {
 
     private SwitchCompat availableNowSwitch;
     private Worker currentWorker;
+    private Call<ResponseBody> sendToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,12 @@ public class MainWorkerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         fetchMe();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sendToken.cancel();
     }
 
     private void setToolbar() {
@@ -146,6 +157,10 @@ public class MainWorkerActivity extends AppCompatActivity {
                 fragment = AccountFragment.newInstance();
                 setToolbarTitle(getString(R.string.my_account_worker_title));
                 break;
+            case R.id.nav_worker_help:
+                fragment = HelpFragment.newInstance();
+                setToolbarTitle(getString(R.string.my_account_worker_help_title));
+                break;
             case R.id.nav_worker_share:
                 ShareUtils.workerLink(this);
                 break;
@@ -203,14 +218,51 @@ public class MainWorkerActivity extends AppCompatActivity {
                         DialogBuilder.cancelDialog(dialog);
 
                         if (response.isSuccessful()) {
-                            currentWorker = response.body().getResponse();
-                            populateAvailabilitySwitch();
+                            if (null != response.body()) {
+                                if (null != response.body().getResponse()) {
+                                    currentWorker = response.body().getResponse();
+                                    populateAvailabilitySwitch();
+                                    if (null != currentWorker.email) {
+                                        sendFirebaseTokenToBackend(currentWorker.email);
+                                    }
+                                }
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
                         HandleErrors.parseFailureError(MainWorkerActivity.this, dialog, t);
+                    }
+                });
+    }
+
+    private void sendFirebaseTokenToBackend(String email) {
+//        final Dialog dialog = DialogBuilder.showCustomDialog(this);
+        HashMap<String, Object> body = new HashMap<>();
+        String fbToken = FirebaseInstanceId.getInstance().getToken();
+        body.put("firebase_token", fbToken);
+        body.put("email", email);
+        sendToken = HttpRestServiceConsumer.getBaseApiClient()
+                .sendWorkerToken(body);
+        sendToken.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            //
+//                            DialogBuilder.cancelDialog(dialog);
+//                            Toast.makeText(MainWorkerActivity
+//                                    .this, "Registered with Firebase!", Toast.LENGTH_LONG).show();
+                        } else {
+//                            HandleErrors.parseError(MainWorkerActivity.this, dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                        HandleErrors.parseFailureError(MainWorkerActivity.this, dialog, t);
                     }
                 });
     }

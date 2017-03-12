@@ -24,7 +24,9 @@ import com.hellobaytree.graftrs.employer.mygraftrs.adapter.WorkersAdapter;
 import com.hellobaytree.graftrs.employer.mygraftrs.model.Worker;
 import com.hellobaytree.graftrs.employer.mygraftrs.presenter.WorkerContract;
 import com.hellobaytree.graftrs.employer.mygraftrs.presenter.WorkersPresenter;
+import com.hellobaytree.graftrs.employer.myjobs.activity.ViewWorkerProfileActivity;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 
 import java.util.ArrayList;
@@ -66,11 +68,14 @@ public class MyGraftrsFragment extends Fragment
         dialog = new Dialog(getContext());
         calendar = Calendar.getInstance();
         presenter = new WorkersPresenter(this);
-        josefineSans = Typeface.createFromAsset(getActivity().getAssets(), "fonts/JosefinSans-Italic.ttf");
+        josefineSans = Typeface.createFromAsset(getActivity()
+                .getAssets(), "fonts/JosefinSans-Italic.ttf");
     }
 
     @Nullable @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_graftrs_stub, null);
         ButterKnife.bind(this, view); return view;
     }
@@ -123,7 +128,17 @@ public class MyGraftrsFragment extends Fragment
 
     // Adapter callbacks
     public void onViewDetails(final Worker worker) {
-        startActivity(new Intent(getActivity(), WorkerDetailsActivity.class));
+        if (worker != null) {
+            Intent viewWorkerProfileIntent = new Intent(getContext(),
+                    ViewWorkerProfileActivity.class);
+            viewWorkerProfileIntent.putExtra(ViewWorkerProfileActivity.WORKER_ID, worker.id);
+
+            viewWorkerProfileIntent.putExtra(Constants.KEY_JOB_ID,
+                    getArguments().getInt(Constants.KEY_JOB_ID));
+
+            getActivity().startActivity(viewWorkerProfileIntent);
+        }
+        //startActivity(new Intent(getActivity(), WorkerDetailsActivity.class));
     }
     public void onQuickInvite(final Worker worker) {
         dialog.setContentView(R.layout.dialog_quick_invite);

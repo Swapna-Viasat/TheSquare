@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.text.SpannableString;
@@ -65,6 +66,7 @@ import com.jzxiang.pickerview.listener.OnDateSetListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -265,6 +267,130 @@ public class SelectDetailsFragment extends Fragment
         }
     }
 
+
+    private DialogInterface.OnClickListener gotoPaymentsListener =
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    saveDraftThenSelectPlan();
+                }
+            };
+
+    private void saveDraftThenSelectPlan() {
+
+        if (validate()) {
+
+            loadRequest();
+
+            HashMap<String, Object> payload = new HashMap<>();
+            payload.put("id", request.id);
+            payload.put("status", Constants.JOB_STATUS_DRAFT);
+            payload.put("role", selectedRole.id);
+            payload.put("workers_quantity", selectedRole.amountWorkers);
+            payload.put("trades", request.trades);
+            payload.put("experience", request.experience);
+            payload.put("english_level", request.english);
+
+            // beginning of wow
+            try {
+                //
+                int[] quals = new int[request.requirements.length +
+                        request.qualifications.length];
+                List<Integer> reqs = new ArrayList<>();
+                for (int i = 0; i < request.requirements.length; i++) {
+                    reqs.add(request.requirements[i]);
+                }
+                List<Integer> qual = new ArrayList<>();
+                for (int i = 0; i < request.qualifications.length; i++) {
+                    qual.add(request.qualifications[i]);
+                }
+                List<Integer> combined = new ArrayList<>();
+                combined.addAll(reqs); combined.addAll(qual);
+                for (int i = 0; i < combined.size(); i++) {
+                    quals[i] = combined.get(i);
+                }
+//                payload.put("update_filtered", "qualifications");
+//                payload.put("update_filtered", "requirements");
+                payload.put("qualifications", quals);
+                //
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // end of wow
+
+            payload.put("skills", request.skills);
+            payload.put("experience_type", request.experienceTypes);
+            payload.put("description", request.description);
+            payload.put("budget_type", budgetType);
+            payload.put("budget", request.budget);
+            payload.put("pay_overtime", request.overtime);
+            payload.put("pay_overtime_value", request.overtimeValue);
+            payload.put("contact_name", request.contactName);
+
+            payload.put("contact_phone", request.contactPhone);
+
+            payload.put("address", request.address);
+            if (null != request.date && null != request.time) {
+                payload.put("start_datetime", request.date + "T" + request.time + "+00:00");
+                TextTools.log(TAG, String.valueOf(payload.get("start_datetime")));
+            }
+            if (null != request.rawDate) {
+                payload.put("start_datetime", DateUtils.toPayloadDate(request.rawDate));
+            }
+
+            payload.put("extra_notes", request.notes);
+            payload.put("location", request.location);
+            payload.put("location_name", request.locationName);
+            if (null != request.requirements) {
+                for (int exp : request.requirements) {
+                    if (exp == 1) {
+                        // this means we required a CSCS card
+                        payload.put("cscs_required", true);
+                    }
+                }
+            }
+
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            HttpRestServiceConsumer.getBaseApiClient()
+                    .createJob(payload)
+                    .enqueue(new Callback<ResponseObject<Job>>() {
+                        @Override
+                        public void onResponse(Call<ResponseObject<Job>> call,
+                                               Response<ResponseObject<Job>> response) {
+                            try {
+                                DialogBuilder.cancelDialog(dialog);
+                                if (response.isSuccessful()) {
+                                    getActivity().getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
+                                            .edit()
+                                            .putBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, true)
+                                            .putInt(Constants.DRAFT_JOB_ID, response.body().getResponse().id)
+                                            .commit();
+                                    unfinished = false;
+                                    getActivity().finish();
+                                    getActivity().startActivity(new Intent(getActivity(), MainEmployerActivity.class));
+                                    //////////////////////////////
+                                } else {
+                                    HandleErrors.parseError(getContext(),
+                                            dialog, response, gotoPaymentsListener, showCRNDialog);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseObject<Job>> call, Throwable t) {
+                            try {
+                                HandleErrors.parseFailureError(getContext(), dialog, t);
+                            } catch (Exception e) {
+                                //
+                            }
+                        }
+                    });
+        }
+    }
+
+
     private void callApi(int status) {
 
         if (validate()) {
@@ -347,19 +473,26 @@ public class SelectDetailsFragment extends Fragment
                         public void onResponse(Call<ResponseObject<Job>> call,
                                                Response<ResponseObject<Job>> response) {
                             try {
-
                                 DialogBuilder.cancelDialog(dialog);
 
                                 if (response.isSuccessful()) {
                                     unfinished = false;
 
                                     if (getActivity() instanceof PreviewJobActivity) {
+//                                        FragmentManager fm = getActivity().getSupportFragmentManager();
+//                                        for (int i = 0; i < fm.getBackStackEntryCount(); i++) {
+//                                            fm.popBackStack();
+//                                        }
                                         getActivity().getSupportFragmentManager()
                                                 .beginTransaction()
                                                 .replace(R.id.frame,
                                                         JobDetailsFragment.newInstance(response.body().getResponse().id))
                                                 .commit();
                                     } else if (getActivity() instanceof CreateJobActivity) {
+//                                        FragmentManager fm = getActivity().getSupportFragmentManager();
+//                                        for (int i = 0; i < fm.getBackStackEntryCount(); i++) {
+//                                            fm.popBackStack();
+//                                        }
                                         getActivity().getSupportFragmentManager()
                                                 .beginTransaction()
                                                 .replace(R.id.create_job_content,
@@ -369,7 +502,7 @@ public class SelectDetailsFragment extends Fragment
 
                                 } else {
                                     HandleErrors.parseError(getContext(),
-                                            dialog, response, showCRNDialog);
+                                            dialog, response, gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
                                 //
@@ -696,6 +829,7 @@ public class SelectDetailsFragment extends Fragment
     }
 
     private void selectTime() {
+        Date random6AMdate = new Date(2017, 1, 1, 6, 0);
         com.jzxiang.pickerview.TimePickerDialog timePickerDialog
                 = new com.jzxiang.pickerview.TimePickerDialog
                 .Builder()
@@ -719,7 +853,7 @@ public class SelectDetailsFragment extends Fragment
                         }
                     }
                 })
-                .setCurrentMillseconds(System.currentTimeMillis())
+                .setCurrentMillseconds(random6AMdate.getTime())
                 .setThemeColor(ContextCompat.getColor(getContext(), R.color.redSquareColor))
                 .setType(Type.HOURS_MINS)
                 .build();

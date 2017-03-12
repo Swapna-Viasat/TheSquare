@@ -12,6 +12,7 @@
        android:layout_marginTop="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
+        android:textSize="18dp"
         android:text="@string/worker_request_sent_subtitle"
         android:textAlignment="center"
         android:textColor="@color/blackSquareColor" />

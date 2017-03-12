@@ -175,6 +175,7 @@
     <string name="menu_worker_my_jobs">My Jobs</string>
     <string name="menu_worker_my_messages">My Messages</string>
     <string name="menu_worker_my_account">My Account</string>
+    <string name="menu_worker_help">Help</string>
     <string name="menu_worker_share">Share The Square</string>
     <string name="menu_worker_log_out">Log out</string>
     <string name="menu_worker_edit_profile">Edit Profile</string>
@@ -428,14 +429,14 @@
     <string name="job_details_turn_up_address">Address to turn up at</string>
     <string name="job_details_date_arrival">Date &amp; time to arrive</string>
     <string name="job_details_notes">Anything else to note</string>
-    <string name="job_details_experience">Experience: </string>
+    <string name="job_details_experience">Experience </string>
     <string name="job_details_english_level">Level of English</string>
     <string name="job_details_overtime">Overtime</string>
     <string name="job_details_overtime_text">£%d per hour</string>
-    <string name="job_details_mandatory_requirements">Requirements: </string>
-    <string name="job_details_qualifications">Qualifications: </string>
-    <string name="job_details_experience_types">Types of experience: </string>
-    <string name="job_details_availability">Availability: </string>
+    <string name="job_details_mandatory_requirements">Requirements </string>
+    <string name="job_details_qualifications">Qualifications </string>
+    <string name="job_details_experience_types">Types of experience </string>
+    <string name="job_details_availability">Availability </string>
     <string name="job_details_booking_canceled">Booking canceled!</string>
     <string name="job_like">Like</string>
     <string name="job_unlike">Unlike</string>
@@ -453,6 +454,10 @@
     <string name="job_experience_value">%d years</string>
     <string name="job_availability_immediately">Immediately</string>
     <string name="job_id">Job ID: %s</string>
+    <string name="job_cancel">Are you sure you want to cancel this job? </string>
+    <string name="job_details_offered_amount">%d workers offered</string>
+    <string name="job_details_applied_amount">%d workers applied</string>
+    <string name="job_details_booked_amount">%d workers booked</string>
 
     <!-- My Accounts -->
     <string name="view_profile">View Profile</string>
@@ -496,7 +501,7 @@
     <string name="worker_reviews_attitude">Attitude to work and team</string>
     <string name="worker_reviews_safety">Safe worker</string>
     <string name="menu_worker_reviews">Reviews</string>
-    <string name="worker_request_review">Great! Every review improves your star rating! \nTell us employer you want to get a reference from and we\'ll send them a request by email.</string>
+    <string name="worker_request_review">Great! Every review improves your star rating! \nTell us which employer you want to get a reference from? We\'ll send them an email request now.</string>
     <string name="worker_request_review_first_name">First Name*</string>
     <string name="worker_request_review_last_name">Last Name*</string>
     <string name="worker_request_email">Email Address*</string>
@@ -505,7 +510,7 @@
     <string name="worker_request_date">Date Worked</string>
     <string name="worker_request_error">You have to complete at least one</string>
     <string name="worker_request_field">This field is required</string>
-    <string name="worker_request_sent_subtitle">Your reference request \nhas been sent. we will let you know when it comes in.</string>
+    <string name="worker_request_sent_subtitle">Brilliant! \n Your reference request has been sent. We will let you know when it comes in.</string>
     <string name="worker_review_action">Complete review</string>
     <string name="worker_review_due">Due: %1$d %2$s left</string>
     <string name="worker_review_request">Go ahead and \nrequest a reference</string>
@@ -541,11 +546,12 @@
     <!-- Employer Settings -->
     <string name="settings">Settings</string>
     <string name="employer_settings_phone">Phone Number:</string>
+    <string name="employer_settings_email">Email: </string>
     <string name="employer_settings_social">Social Networks</string>
     <string name="settings_notifications">Notifications</string>
     <string name="employer_settings_terms">Terms &amp; Privacy</string>
     <string name="employer_settings_about">About &amp; Help</string>
-    <string name="employer_settings_share">Share the Square</string>
+    <string name="employer_settings_share">Share The Square</string>
     <string name="employer_settings_logout">Log out</string>
     <string name="employer_settings_sync_fb">Sync with Facebook</string>
     <string name="employer_settings_sync_twtr">Sync with Twitter</string>
@@ -565,6 +571,7 @@
     <string name="employer_settings_my_subscriptions">My Subscriptions</string>
     <string name="employer_settings_security">Security</string>
     <string name="employer_security_save">Save</string>
+    <string name="employer_password_update_success">Great! We have now updated your password.</string>
 
     <!-- Worker Settings -->
     <string name="new_job_matches">New job matches</string>
@@ -578,6 +585,7 @@
 
     <!-- Employer create job -->
     <string name="create_job_5">Oops, you have already selected 5!</string>
+    <string name="create_job_3">Oops, you have already selected 3!</string>
     <string name="create_job_role">What kind of worker are you looking for?</string>
     <string name="create_job_trade">What trade experience are you looking for from your %s ?</string>
     <string name="create_job_qualifications">Are there any qualifications you are looking for?</string>
@@ -618,6 +626,9 @@
     <string name="create_job_preview2">Preview</string>
     <string name="create_job_publish">Promote Job</string>
     <string name="create_job_apprentice">What type of %s are you looking for?</string>
+
+    <!-- Employer Liked Workers -->
+    <string name="employer_liked">The workers you like will appear here...</string>
 
     <!-- Misc -->
     <string name="pound_sterling">£</string>
@@ -744,7 +755,7 @@
     <string name="employer_payments_try_text">1 job promotion for up to 1 week.
                             \nUp to 20 suitable candidate matches.</string>
     <string name="employer_payments_upgrade">Upgrade your plan</string>
-    <string name="employer_payments_upgrade_here">Upgrade here</string>
+    <string name="employer_payments_upgrade_here">Choose your plan</string>
     <string name="employer_payments_due_date">Bill due %s</string>
     <string name="employer_payments_upgrade_title">Subscribe for \u00A3500 / month</string>
     <string name="employer_payments_upgrade_text">
@@ -755,11 +766,12 @@
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
     <string name="payments_booking_credits">My Booking Credits</string>
-    <string name="payments_alt_title">If you are unable to pay by card, please enter the details below
+    <string name="payments_alt_title">Please enter the details below
                 to activate an invoice service</string>
+    <string name="payments_alt_error">Oops. Please fill in all the details first!</string>
     <string name="payments_alt_spinner_title">Subscription plan</string>
-    <string name="payments_alt_name">Bill payer\'s name</string>
-    <string name="payments_alt_email">Bill payer\'s email</string>
+    <string name="payments_alt_name">Bill payer\'s name *</string>
+    <string name="payments_alt_email">Bill payer\'s email *</string>
     <string name="payments_alt_order">Purchase Order Number (if needed)</string>
     <string name="payments_alt_confirm">Confirm</string>
     <string name="payments_alt_subtitle">We\'ll get an invoice to you and the bill payer
@@ -776,8 +788,12 @@
     <string name="payments_topups_display_bookings">%1$d / %2$d</string>
     <string name="payments_plans_display_bookings">%1$d / %2$d</string>
     <string name="payments_expiration_format">(Expires %s)</string>
-    <string name="payments_bill_due_format">Bill due %s</string>
+    <string name="payments_bill_due_format">Renews on %s</string>
     <string name="payments_cant_pay_cc">Can\'t pay by credit card? (Tap for options)</string>
+    <string name="payments_cancel_title">Sorry you want to leave us...</string>
+    <string name="payments_cancel_subtitle">You will be able to use your remaining booking
+                        credits, but your plan will not renew next month.
+                        \n\nAre you sure you wish to cancel? </string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
@@ -838,12 +854,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- SHARING is CARING -->
-    <string name="share_generic">Hey, I\’ve just joined The Square. It\'s great, you should check it out </string>
+    <string name="share_generic">Hey, I\'ve just joined The Square Construction.
+        It\'s great! You should check it out... </string>
     <string name="share_description">
-        The Square is the first automated hiring app for the construction industry.
-        (It\'s a bit like Tinder but for construction jobs).
+        The Square Construction is the first automated hiring app for the industry
+        (a bit like Tinder but for construction jobs).
         We\'re building the fastest growing network of skilled construction workers in the world.
-        Join now and be one of the first to benefit!
+        Be one of the first to benefit!
     </string>
 
     <string name="share_employer_subject">%s wants you to join them on The Square</string>
@@ -855,8 +872,8 @@
 
     <string name="share_employer_general_title">
         Hey,
-        I\’ve just joined The Square.
-        It\’s the new app that matches you to the best quality construction workers when you need them.
+        I\'ve just joined The Square.
+        It\'s the new app that matches you to the best quality construction workers when you need them.
         It saves you a load of time, money and effort.
         You should check it out.
         Enjoy!
@@ -865,12 +882,12 @@
 
     <string name="share_worker_general_title">
         Hey,
-        I\’ve just joined The Square.
-        It\’s the new app that matches you to the best paying construction jobs near you.
+        I\'ve just joined The Square.
+        It\'s the new app that matches you to the best paying construction jobs near you.
         You should check it out.
         Enjoy!
     </string>
-    <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
+    <string name="share_employer_general_image_url">https://www.thesquareapp.tech/assets/img/share2.png</string>
     <string name="title_activity_review_aggregate">ReviewAggregateActivity</string>
 
 
@@ -878,4 +895,7 @@
     <string name="misc_intercom_app_id">ymo0avlj</string>
     <string name="misc_intercom_key_test">android_sdk-c24dec1eea20225cd6fff8077f34d666dd5dacf5</string>
     <string name="misc_intercom_app_id_test">xn56966s</string>
+
+    <!-- Help Worker -->
+    <string name="my_account_worker_help_title">Help</string>
 </resources>

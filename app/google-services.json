@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "952322282381",
-    "firebase_url": "https://thesquaremessaging.firebaseio.com",
-    "project_id": "thesquaremessaging",
-    "storage_bucket": "thesquaremessaging.appspot.com"
+    "project_number": "957883700798",
+    "firebase_url": "https://thesquareapi.firebaseio.com",
+    "project_id": "thesquareapi",
+    "storage_bucket": "thesquareapi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:952322282381:android:1eb4e00b47410576",
+        "mobilesdk_app_id": "1:957883700798:android:1eb4e00b47410576",
         "android_client_info": {
           "package_name": "com.hellobaytree.graftrs.graftrs"
         }
       },
       "oauth_client": [
         {
-          "client_id": "952322282381-t6trhfa9c209297rembluesqorcvnp9q.apps.googleusercontent.com",
+          "client_id": "957883700798-41deedi2q9kbtgpjf1trtmfm9aq4b32j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB6zRAF7OS7G3s5v2OBUh32aNKBG8U-K3I"
+          "current_key": "AIzaSyDiLf58Y019Mj5I_20_je72wlCW58EWSXU"
         }
       ],
       "services": {

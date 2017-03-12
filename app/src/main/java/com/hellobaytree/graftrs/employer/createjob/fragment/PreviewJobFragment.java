@@ -426,6 +426,67 @@ public class PreviewJobFragment extends Fragment {
         callApi(Constants.JOB_STATUS_LIVE);
     }
 
+    private DialogInterface.OnClickListener gotoPaymentsListener =
+            new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    saveDraftThenSelectPlan();
+                }
+            };
+
+    private void saveDraftThenSelectPlan() {
+        try {
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            HttpRestServiceConsumer.getBaseApiClient()
+                    .createJob(loadRequest(Constants.JOB_STATUS_DRAFT))
+                    .enqueue(new Callback<ResponseObject<Job>>() {
+                        @Override
+                        public void onResponse(Call<ResponseObject<Job>> call,
+                                               Response<ResponseObject<Job>> response) {
+                            try {
+
+                                DialogBuilder.cancelDialog(dialog);
+
+                                if (response.isSuccessful()) {
+                                    getActivity().getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
+                                            .edit()
+                                            .putBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, true)
+                                            .putInt(Constants.DRAFT_JOB_ID, response.body().getResponse().id)
+                                            .commit();
+                                    discard();
+                                } else {
+                                    HandleErrors.parseError(getContext(), dialog, response,
+                                            gotoPaymentsListener, showCRNDialog);
+                                }
+                            } catch (Exception e) {
+                                //
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseObject<Job>> call, Throwable t) {
+                            try {
+                                HandleErrors.parseFailureError(getContext(), dialog, t);
+                            } catch (Exception e) {
+                                //
+                            }
+                        }
+                    });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            new AlertDialog.Builder(getContext())
+                    .setMessage("Something went wrong!")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .show();
+        }
+    }
+
     private void callApi(int status) {
         try {
             final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
@@ -456,7 +517,8 @@ public class PreviewJobFragment extends Fragment {
                                             .commit();
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, showCRNDialog);
+                                    HandleErrors.parseError(getContext(), dialog, response,
+                                            gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
                                 //
@@ -492,13 +554,8 @@ public class PreviewJobFragment extends Fragment {
             new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialogInterface, int id) {
-                    //
                     if (null != dialogInterface) {
-
-                        Log.d(TAG, String.valueOf(dialogInterface.hashCode()));
-                        //
                         dialogInterface.dismiss();
-
                     }
                     CRNDialog.newInstance(new CRNDialog.CRNListener() {
                         @Override
@@ -519,7 +576,6 @@ public class PreviewJobFragment extends Fragment {
                             }
                         }
                     }).show(getChildFragmentManager(), "");
-
                 }
             };
 }

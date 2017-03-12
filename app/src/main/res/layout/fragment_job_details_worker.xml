@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"/>
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/reportingToAddressTextView"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:layout_marginTop="2dp"
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"/>
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/dateToArriveTextView"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                         android:layout_height="wrap_content"/>
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/elseToNoteTextView"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:text="@string/employer_worker_details_bio_placeholder"
@@ -215,7 +215,7 @@
                         android:id="@+id/job_details_description"
                         android:textSize="14sp"
                         app:josefin_style="italic"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -234,7 +234,7 @@
                         android:id="@+id/job_details_qualifications2"
                         android:textSize="14sp"
                         app:josefin_style="italic"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -252,7 +252,7 @@
                         android:id="@+id/job_details_qualifications"
                         android:textSize="14sp"
                         app:josefin_style="italic"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -270,7 +270,7 @@
                         android:id="@+id/job_details_english_level"
                         android:textSize="14sp"
                         app:josefin_style="italic"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -289,7 +289,7 @@
                         android:id="@+id/job_details_skills"
                         android:textSize="14sp"
                         app:josefin_style="italic"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -307,7 +307,7 @@
                         android:id="@+id/job_details_experience_types"
                         android:textSize="14sp"
                         app:josefin_style="italic"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -325,7 +325,7 @@
                         android:id="@+id/job_details_overtime"
                         app:josefin_style="italic"
                         android:textSize="14sp"
-                        android:textColor="@color/graySquareColor"
+                        android:textColor="@color/blackSquareColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>

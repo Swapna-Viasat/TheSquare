@@ -82,12 +82,13 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_profile_bio_text"
-                style="@style/caption_gray_text"
+                style="@style/caption_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/worker_profile_bio_title"
                 android:layout_marginTop="8dp"
                 android:hint="@string/employer_worker_details_bio_placeholder"
+                android:textColorHint="@color/blackSquareColor"
                 android:textSize="14sp"
                 app:josefin_style="italic" />
         </RelativeLayout>
@@ -123,7 +124,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_profile_nationality_value"
-                style="@style/caption_gray_text"
+                style="@style/caption_dark_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/worker_profile_languages_title"
@@ -141,7 +142,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_profile_english_value"
-                style="@style/caption_gray_text"
+                style="@style/caption_dark_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/worker_profile_languages_title"
@@ -162,7 +163,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_profile_languages_value"
-                style="@style/caption_gray_text"
+                style="@style/caption_dark_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/worker_profile_languages_title"
@@ -205,7 +206,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_profile_birthday_value"
-                style="@style/caption_gray_text"
+                style="@style/caption_dark_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/worker_profile_birthday_title"
@@ -482,7 +483,7 @@
 
             <ImageView
                 android:id="@+id/worker_profile_passport_value"
-                style="@style/caption_gray_text"
+                style="@style/caption_black_text"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_below="@id/worker_profile_passport_title"
@@ -520,7 +521,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_details_bullet_list_experience"
-                style="@style/caption_gray_text"
+                style="@style/caption_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/worker_profile_experience_title"
@@ -568,7 +569,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_details_bullet_list_requirements"
-                style="@style/caption_gray_text"
+                style="@style/caption_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/worker_profile_requirements_title"
@@ -608,7 +609,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_details_bullet_list_skills"
-                style="@style/caption_gray_text"
+                style="@style/caption_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/worker_profile_skills_title"
@@ -648,7 +649,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_details_bullet_list_experience_type"
-                style="@style/caption_gray_text"
+                style="@style/caption_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/worker_profile_experience_type_title"
@@ -688,7 +689,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_details_bullet_list_companies"
-                style="@style/caption_gray_text"
+                style="@style/caption_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/worker_profile_companies_title"
@@ -728,7 +729,7 @@
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_details_preferred_location"
-                style="@style/caption_gray_text"
+                style="@style/caption_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/worker_profile_location_title"

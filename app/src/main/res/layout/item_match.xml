@@ -166,7 +166,7 @@
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/item_match_start_date"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
@@ -186,7 +186,7 @@
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/item_match_location"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

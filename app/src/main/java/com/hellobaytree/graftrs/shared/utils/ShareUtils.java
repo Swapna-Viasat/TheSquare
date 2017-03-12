@@ -24,7 +24,7 @@ public class ShareUtils {
         BranchUniversalObject object = new BranchUniversalObject()
                 .setCanonicalIdentifier("worker/12345")
                 //
-                .setTitle(context.getString(R.string.share_worker_general_title))
+                .setTitle(context.getString(R.string.share_description))
                 //.setContentDescription(context.getString(R.string.share_description))
                 //
                 .setContentImageUrl(context.getString(R.string.share_worker_general_image_url))
@@ -34,8 +34,8 @@ public class ShareUtils {
         LinkProperties linkProperties = new LinkProperties()
                 .setChannel("")
                 .setFeature("")
-                .addControlParameter("$desktop_url", "http://www.thesquare.tech/")
-                .addControlParameter("$ios_url", "http://www.thesquare.tech/")
+                .addControlParameter("$desktop_url", "http://www.thesquareapp.tech/")
+                .addControlParameter("$ios_url", "http://www.thesquareapp.tech/")
                 .addControlParameter("$android_url", context.getString(R.string.share_play_store_url));
         object.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
             @Override
@@ -66,7 +66,7 @@ public class ShareUtils {
         BranchUniversalObject object = new BranchUniversalObject()
                 .setCanonicalIdentifier("employer/12345")
                 //
-                .setTitle(context.getString(R.string.share_employer_general_title))
+                .setTitle(context.getString(R.string.share_description))
                 //.setContentDescription(context.getString(R.string.share_description))
                 //
                 .setContentImageUrl(context.getString(R.string.share_employer_general_image_url))
@@ -76,8 +76,8 @@ public class ShareUtils {
         LinkProperties linkProperties = new LinkProperties()
                 .setChannel("")
                 .setFeature("")
-                .addControlParameter("$desktop_url", "http://www.thesquare.tech/")
-                .addControlParameter("$ios_url", "http://www.thesquare.tech/")
+                .addControlParameter("$desktop_url", "http://www.thesquareapp.tech/")
+                .addControlParameter("$ios_url", "http://www.thesquareapp.tech/")
                 .addControlParameter("$android_url", context.getString(R.string.share_play_store_url));
         object.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
             @Override

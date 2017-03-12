@@ -2,6 +2,7 @@ package com.hellobaytree.graftrs.employer.payments.fragment;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -15,11 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.payments.adapter.PaymentsAdapter;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
+import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 
@@ -54,7 +57,7 @@ public class SubscriptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         if (getArguments() != null) {
             //
         }
@@ -67,29 +70,29 @@ public class SubscriptionFragment extends Fragment {
         ButterKnife.bind(this, view);
         return view;
     }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_price_plan_nested, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.back:
-                getActivity().getSupportFragmentManager()
-                        .popBackStack();
-                return true;
-        }
-        return false;
-    }
+//
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu_price_plan_nested, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.back:
+//                getActivity().getSupportFragmentManager()
+//                        .popBackStack();
+//                return true;
+//        }
+//        return false;
+//    }
 
     @OnClick(R.id.payments_continue)
     public void proceed() {
 
-        getActivity().getSupportFragmentManager()
-                .popBackStack();
+//        getActivity().getSupportFragmentManager()
+//                .popBackStack();
 //
 //        ((TextView) getActivity().findViewById(R.id.payments_subscription_label))
 //                .setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
@@ -100,11 +103,13 @@ public class SubscriptionFragment extends Fragment {
 //        ((ImageView) getActivity().findViewById(R.id.payments_cards))
 //                .setColorFilter(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
 //
-//        getActivity().
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.payments_content, PaymentFragment.newInstance(selectedPlan))
-//                .commit();
+
+        getActivity().
+                getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_employer_content, PaymentFragment.newInstance(selectedPlan))
+                .addToBackStack("")
+                .commit();
 
 //        //
 //        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
@@ -222,5 +227,11 @@ public class SubscriptionFragment extends Fragment {
                 }
             }
         }
+    }
+
+
+    @OnClick(R.id.understanding)
+    public void understanding() {
+        Toast.makeText(getContext(), "understanding", Toast.LENGTH_LONG).show();
     }
 }

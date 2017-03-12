@@ -41,7 +41,9 @@ import retrofit2.Response;
  * Created by gherg on 12/30/2016.
  */
 
-public class WorkerListFragment extends Fragment implements WorkersAdapter.WorkersActionListener, LikeWorkerConnector.Callback {
+public class WorkerListFragment extends Fragment
+        implements WorkersAdapter.WorkersActionListener,
+        LikeWorkerConnector.Callback {
 
     public static final String TAG = "WorkerListFragment";
 

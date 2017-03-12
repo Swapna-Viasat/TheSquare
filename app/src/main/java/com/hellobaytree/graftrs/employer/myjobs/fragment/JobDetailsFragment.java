@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -82,6 +83,12 @@ public class JobDetailsFragment extends Fragment
     @BindView(R.id.item_job_id) JosefinSansTextView id;
     @BindView(R.id.view_more) JosefinSansTextView viewMore;
     @BindView(R.id.toggle_edit) Switch toggleEdit;
+
+    @BindView(R.id.item_job_applied) TextView amountApplied;
+    @BindView(R.id.item_job_offered) TextView amountOfferred;
+    @BindView(R.id.item_job_booked) TextView amountBooked;
+    @BindView(R.id.item_job_stats) LinearLayout stats;
+
 
     private JobDetailsPagerAdapter adapter;
 
@@ -534,6 +541,17 @@ public class JobDetailsFragment extends Fragment
                 e.printStackTrace();
             }
         }
+
+        stats.setVisibility(View.VISIBLE);
+        amountApplied.setText(String
+                .format(getString(R.string.job_details_applied_amount),
+                        job.amountApplied));
+        amountOfferred.setText(String
+                .format(getString(R.string.job_details_offered_amount),
+                        job.amountOfferred));
+        amountBooked.setText(String
+                .format(getString(R.string.job_details_booked_amount),
+                        job.amountApplied));
     }
 
 }

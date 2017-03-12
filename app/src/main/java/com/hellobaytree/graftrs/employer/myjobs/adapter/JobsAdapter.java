@@ -87,7 +87,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         if (null != job.start) {
             try {
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                SimpleDateFormat simpleDateFormat =
+                        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                 Date date = simpleDateFormat.parse(job.start);
                 calendar.setTime(date);
                 String startString = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) +

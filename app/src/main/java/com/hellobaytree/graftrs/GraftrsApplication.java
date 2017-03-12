@@ -1,18 +1,24 @@
 package com.hellobaytree.graftrs;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.hellobaytree.graftrs.shared.data.persistence.SharedPreferencesManager;
+import com.hellobaytree.graftrs.shared.utils.TextTools;
 
 import io.branch.referral.Branch;
 import io.fabric.sdk.android.Fabric;
-import io.intercom.android.sdk.Intercom;
+//import io.intercom.android.sdk.Intercom;
 
 public class GraftrsApplication extends MultiDexApplication {
 
@@ -27,8 +33,8 @@ public class GraftrsApplication extends MultiDexApplication {
         super.onCreate();
 
 
-        Intercom.initialize(this, getString(R.string.misc_intercom_key_test),
-                getString(R.string.misc_intercom_app_id_test));
+//        Intercom.initialize(this, getString(R.string.misc_intercom_key_test),
+//                getString(R.string.misc_intercom_app_id_test));
 
         googleAnalytics = GoogleAnalytics.getInstance(this);
         mTracker = getDefaultTracker();

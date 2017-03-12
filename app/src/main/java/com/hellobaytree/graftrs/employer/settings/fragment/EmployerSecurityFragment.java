@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
@@ -81,6 +82,9 @@ public class EmployerSecurityFragment extends Fragment {
                                             //
                                             if (response.isSuccessful()) {
                                                 DialogBuilder.cancelDialog(dialog);
+                                                Toast.makeText(getContext(),
+                                                        getString(R.string.employer_password_update_success),
+                                                        Toast.LENGTH_LONG).show();
                                                 getActivity().getSupportFragmentManager()
                                                         .popBackStack();
                                             } else {

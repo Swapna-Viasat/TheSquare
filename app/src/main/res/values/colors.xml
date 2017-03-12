@@ -23,4 +23,5 @@
     <color name="transparentSquareColor">#00000000</color>
     <color name="lightgraySquareColor">#F0F0F0</color>
     <color name="black_overlay">#66000000</color>
+    <color name="greenSquareColor">#1CA996</color>
 </resources>

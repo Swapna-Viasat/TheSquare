@@ -261,7 +261,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+               <!-- <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/social"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -273,7 +273,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@android:color/darker_gray" />
+                    android:background="@android:color/darker_gray" />-->
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/notify"
