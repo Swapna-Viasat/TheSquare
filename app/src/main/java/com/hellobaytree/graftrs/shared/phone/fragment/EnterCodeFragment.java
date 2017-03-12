@@ -194,7 +194,7 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                     SharedPreferencesManager.getInstance(getContext())
                                             .persistSessionInfoEmployer2(response.body().getResponse().getToken(),
                                                     response.body().getResponse().getUser(),
-                                                    currentCountryCode, currentPhone, name);
+                                                    currentCountryCode, currentPhone, name, "");
 
                                     if (response.body().getResponse().getUser().isOnboarding_done()) {
                                         startAnotherActivity(new Intent(getContext(), MainEmployerActivity.class));
@@ -241,7 +241,7 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                     SharedPreferencesManager.getInstance(getContext())
                                             .persistSessionInfoWorker(response.body().getResponse().getToken(),
                                                     response.body().getResponse().getUser(),
-                                                    currentCountryCode, currentPhone, name);
+                                                    currentCountryCode, currentPhone, name, "");
 
                                     if (response.body().getResponse().getUser().isOnboarding_done()) {
                                         startAnotherActivity(new Intent(getContext(), MainWorkerActivity.class));

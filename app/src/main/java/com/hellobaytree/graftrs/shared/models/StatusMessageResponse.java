@@ -11,7 +11,7 @@ public class StatusMessageResponse implements Serializable {
 
     public MessageResponse response;
 
-    private class MessageResponse {
+    public class MessageResponse {
         public String message;
     }
 }

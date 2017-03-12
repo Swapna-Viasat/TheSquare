@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="Welcome back!"
+        android:textSize="28sp" />
+
+    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="(Please enter your email and password)"
+        android:textSize="20sp"
+        app:josefin_style="light" />
+
+    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@color/lightgraySquareColor"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="@color/black_overlay"
+        android:textColorHint="@color/black_overlay"
+        android:textSize="16sp"
+        app:josefin_style="light" />
+
+    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@color/lightgraySquareColor"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="@color/black_overlay"
+        android:textColorHint="@color/black_overlay"
+        android:textSize="16sp"
+        app:josefin_style="light" />
+
+    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        android:id="@+id/loginButton"
+        style="@style/BaseButton"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="20dp"
+        android:text="Log in"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:josefin_style="light" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal">
+
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Forgotten your password?"
+            android:textSize="14sp"
+            app:josefin_style="light" />
+
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            android:id="@+id/forgotPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click here!"
+            android:textSize="14sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/redSquareColor"
+            app:josefin_style="light" />
+
+        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=")"
+            android:textSize="14sp"
+            app:josefin_style="light" />
+    </LinearLayout>
+
+</LinearLayout>

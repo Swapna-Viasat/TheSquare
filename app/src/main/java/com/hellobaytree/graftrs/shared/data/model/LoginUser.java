@@ -10,6 +10,8 @@ public class LoginUser {
     private String phone_number;
     private String email;
     private int user_type;
+    public User user;
+    public String token;
 
     public int getId() {
         return id;

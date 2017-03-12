@@ -3,6 +3,8 @@ package com.hellobaytree.graftrs.shared.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by juanmaggi on 27/10/16.
  */
@@ -17,6 +19,8 @@ public class User implements Parcelable {
     protected String email;
     protected boolean onboarding_done;
     protected boolean onboarding_skipped;
+    @SerializedName("user_type")
+    public int userType;
 
     public User() {
 

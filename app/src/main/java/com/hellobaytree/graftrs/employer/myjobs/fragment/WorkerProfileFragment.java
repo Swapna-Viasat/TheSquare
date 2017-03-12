@@ -399,7 +399,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillWorkerPosition() {
         String role = "";
-        if (!CollectionUtils.isEmpty(worker.roles)) role = worker.roles.get(0).name;
+        if (worker.matchedRole != null) role = worker.matchedRole.name;
         positionView.setText(role);
 
         String positionString = getString(R.string.role_year_experience, worker.yearsExperience,

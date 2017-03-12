@@ -79,14 +79,8 @@ public class VerifyPhoneFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         action = getActivity().getIntent().getIntExtra(Constants.KEY_VERIFY_PHONE, 1);
-
-        if (action == Constants.KEY_VERIFY_PHONE_LOGIN) {
-            tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title_welcome_back);
-            tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title_reconfirm);
-        } else {
-            tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title);
-            tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title);
-        }
+        tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title);
+        tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title);
         editTextPhoneNumber.setOnEditorActionListener(imeActionListener);
         return view;
     }

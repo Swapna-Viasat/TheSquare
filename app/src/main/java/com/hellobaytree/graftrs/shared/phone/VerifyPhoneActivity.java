@@ -7,10 +7,10 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.phone.fragment.EmailLoginFragment;
 import com.hellobaytree.graftrs.shared.phone.fragment.VerifyPhoneFragment;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 
@@ -38,10 +38,14 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         int i = getIntent().getIntExtra(Constants.KEY_VERIFY_PHONE, 1);
 
         try {
-            getSupportFragmentManager()
+            if (i == Constants.KEY_VERIFY_PHONE_LOGIN)
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.phone_verify_content, new EmailLoginFragment())
+                        .commit();
+            else getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.phone_verify_content,
-                            VerifyPhoneFragment.newInstance(i))
+                    .replace(R.id.phone_verify_content, VerifyPhoneFragment.newInstance(i))
                     .commit();
         } catch (Exception e) {
             e.printStackTrace();

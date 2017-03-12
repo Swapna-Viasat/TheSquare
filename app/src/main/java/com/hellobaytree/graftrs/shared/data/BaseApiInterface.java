@@ -117,6 +117,9 @@ public interface BaseApiInterface {
     @POST("/users/login/")
     Call<ResponseObject<LoginUser>> loginUser(@Body HashMap<String, String> loginRequest);
 
+    @POST("/users/forgot_password/")
+    Call<StatusMessageResponse> forgotPassword(@Body HashMap<String, String> submitRequest);
+
     @GET("/users/me/")
     Call<ResponseObject<com.hellobaytree.graftrs.shared.models.Worker>> meWorker();
 
