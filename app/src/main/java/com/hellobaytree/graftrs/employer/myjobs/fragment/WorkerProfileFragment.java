@@ -38,7 +38,6 @@ import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
-import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.shared.view.widget.StrikeJosefinSansTextView;
@@ -257,7 +256,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
             if (!CollectionUtils.isEmpty(worker.languages)) {
                 List<String> languageNames = new ArrayList<>();
                 for (Language l : worker.languages) languageNames.add(l.name);
-                languagesView.setText(TextTools.toBulletList(languageNames, true));
+                languagesView.setText(TextUtils.join(", ", languageNames));
             }
 
             fillPassportImage();
@@ -497,7 +496,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillLocationName() {
         if (worker != null)
-            locationView.setText(worker.address);
+            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip));
     }
 
     private void drawMarker() {
