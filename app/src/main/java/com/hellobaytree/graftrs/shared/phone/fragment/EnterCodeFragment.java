@@ -208,8 +208,7 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                         public void onClick(DialogInterface dialog, int which) {
                                             getActivity().getSupportFragmentManager()
                                                     .beginTransaction()
-                                                    .replace(R.id.phone_verify_content, VerifyPhoneFragment
-                                                            .newInstance(Constants.KEY_VERIFY_PHONE_LOGIN))
+                                                    .replace(R.id.phone_verify_content, new EmailLoginFragment())
                                                     .addToBackStack("")
                                                     .commit();
                                         }
@@ -252,16 +251,15 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                 } else {
                                     HandleErrors.parseError(getContext(), dialog, response, null,
                                             new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            getActivity().getSupportFragmentManager()
-                                                    .beginTransaction()
-                                                    .replace(R.id.phone_verify_content, VerifyPhoneFragment
-                                                            .newInstance(Constants.KEY_VERIFY_PHONE_LOGIN))
-                                                    .addToBackStack("")
-                                                    .commit();
-                                        }
-                                    });
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    getActivity().getSupportFragmentManager()
+                                                            .beginTransaction()
+                                                            .replace(R.id.phone_verify_content, new EmailLoginFragment())
+                                                            .addToBackStack("")
+                                                            .commit();
+                                                }
+                                            });
                                 }
                             }
 

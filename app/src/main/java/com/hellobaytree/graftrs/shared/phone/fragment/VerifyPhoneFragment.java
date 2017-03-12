@@ -22,9 +22,7 @@ import com.hbb20.CountryCodePicker;
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.signup.model.Employer;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
-import com.hellobaytree.graftrs.shared.data.model.LoginUser;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
-import com.hellobaytree.graftrs.shared.settings.fragments.SettingsTermsConditionsFragment;
 import com.hellobaytree.graftrs.shared.start.activity.TermsActivity;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DataUtils;
@@ -38,11 +36,12 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-//import io.intercom.android.sdk.Intercom;
-//import io.intercom.android.sdk.identity.Registration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+//import io.intercom.android.sdk.Intercom;
+//import io.intercom.android.sdk.identity.Registration;
 
 /**
  * Created by gherg on 12/27/2016.
@@ -211,68 +210,13 @@ public class VerifyPhoneFragment extends Fragment {
 
                                     //
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response,
-                                            null,
-                                            new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            action = Constants.KEY_VERIFY_PHONE_LOGIN;
-                                            tvAskForPhoneFirstTitle.setText(R.string.phone_verification_first_title_welcome_back);
-                                            tvAskForPhoneSecondTitle.setText(R.string.phone_verification_second_title_reconfirm);
-                                        }
-                                    });
+                                    HandleErrors.parseError(getContext(), dialog, response);
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseObject<Employer>> call, Throwable t) {
                                 HandleErrors.parseFailureError(getContext(), dialog, t);
-                            }
-                        });
-            } else if (action == Constants.KEY_VERIFY_PHONE_LOGIN) {
-                HttpRestServiceConsumer.getBaseApiClient()
-                        .loginUser(registrationRequest)
-                        .enqueue(new Callback<ResponseObject<LoginUser>>() {
-                            @Override
-                            public void onResponse(Call<ResponseObject<LoginUser>> call,
-                                                   Response<ResponseObject<LoginUser>> response) {
-                                DialogBuilder.cancelDialog(dialog);
-                                if (response.isSuccessful()) {
-
-                                    try {
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("phone", editTextPhoneNumber.getText().toString());
-                                        bundle.putString("country", ccp.getSelectedCountryCodeWithPlus());
-                                        bundle.putString("email", deviceEmail);
-
-                                        if (response.body().getResponse().getUser_type() == 1) {
-                                            TextTools.log(TAG, "emp");
-                                            // TODO: extract the ints into constants
-                                            // actually, redo this shit (the response object) later
-                                            bundle.putInt(Constants.KEY_VERIFY_PHONE, Constants.KEY_VERIFY_PHONE_EMPLOYER);
-                                        } else if (response.body().getResponse().getUser_type() == 2) {
-                                            TextTools.log(TAG, "worker");
-                                            bundle.putInt(Constants.KEY_VERIFY_PHONE, Constants.KEY_VERIFY_PHONE_WORKER);
-                                        }
-
-                                        getActivity().getSupportFragmentManager()
-                                                .beginTransaction()
-                                                .replace(R.id.phone_verify_content, EnterCodeFragment
-                                                        .newInstance(bundle))
-                                                .addToBackStack("")
-                                                .commit();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    ////
-                                } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseObject<LoginUser>> call, Throwable t) {
-
                             }
                         });
             }

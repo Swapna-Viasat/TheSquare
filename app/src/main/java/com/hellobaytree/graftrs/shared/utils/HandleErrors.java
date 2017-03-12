@@ -5,7 +5,6 @@
 
 package com.hellobaytree.graftrs.shared.utils;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -88,7 +87,7 @@ public class HandleErrors {
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), gotoPaymentListener);
                 //
-            } else if (responseError.getError().getMessage().contains("already registered") || responseError.getError().getMessage().contains("We already have email address")) {
+            } else if (responseError.getError().getMessage().contains("We already have email address")) {
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), listener);
             } else {
