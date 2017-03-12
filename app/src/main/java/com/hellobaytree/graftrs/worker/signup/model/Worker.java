@@ -9,7 +9,6 @@ import com.hellobaytree.graftrs.shared.data.model.Role;
 import com.hellobaytree.graftrs.shared.data.model.SinglePreference;
 import com.hellobaytree.graftrs.shared.data.model.User;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -154,8 +153,6 @@ public class Worker extends User {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(id);
-        out.writeString(country_code);
-        out.writeString(phone_number);
         out.writeString(first_name);
         out.writeString(last_name);
         out.writeString(picture);
@@ -185,8 +182,6 @@ public class Worker extends User {
     private Worker(Parcel in) {
         Parcelable[] parcelableArray;
         id = in.readInt();
-        country_code = in.readString();
-        phone_number = in.readString();
         first_name = in.readString();
         last_name = in.readString();
         picture = in.readString();

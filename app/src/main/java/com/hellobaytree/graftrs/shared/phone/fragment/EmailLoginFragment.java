@@ -138,7 +138,9 @@ public class EmailLoginFragment extends Fragment {
         SharedPreferencesManager.getInstance(getContext())
                 .persistSessionInfoWorker(response.body().getResponse().token,
                         response.body().getResponse().user,
-                        "", emailInput.getText().toString(), name, passwordInput.getText().toString());
+                        response.body().getResponse().user.getCountryCode(),
+                        response.body().getResponse().user.getPhoneNumber(),
+                        name, passwordInput.getText().toString());
         if (response.body().getResponse().user.isOnboarding_done()) {
             startAnotherActivity(new Intent(getContext(), MainWorkerActivity.class));
         } else {
@@ -155,7 +157,9 @@ public class EmailLoginFragment extends Fragment {
         SharedPreferencesManager.getInstance(getContext())
                 .persistSessionInfoEmployer2(response.body().getResponse().token,
                         response.body().getResponse().user,
-                        "", emailInput.getText().toString(), name, passwordInput.getText().toString());
+                        response.body().getResponse().user.getCountryCode(),
+                        response.body().getResponse().user.getPhoneNumber(),
+                        name, passwordInput.getText().toString());
         if (response.body().getResponse().user.isOnboarding_done()) {
             startAnotherActivity(new Intent(getContext(), MainEmployerActivity.class));
         } else {

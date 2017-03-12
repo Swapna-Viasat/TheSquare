@@ -3,7 +3,6 @@ package com.hellobaytree.graftrs.employer.signup.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
 import com.hellobaytree.graftrs.shared.data.model.User;
 
 /**
@@ -84,8 +83,6 @@ public class Employer extends User {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(id);
-        out.writeString(country_code);
-        out.writeString(phone_number);
         out.writeString(first_name);
         out.writeString(last_name);
         out.writeString(picture);
@@ -105,8 +102,6 @@ public class Employer extends User {
 
     private Employer(Parcel in) {
         id = in.readInt();
-        country_code = in.readString();
-        phone_number = in.readString();
         first_name = in.readString();
         last_name = in.readString();
         picture = in.readString();
