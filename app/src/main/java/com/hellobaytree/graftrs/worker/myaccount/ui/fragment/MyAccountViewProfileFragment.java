@@ -184,6 +184,9 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     @BindView(R.id.worker_profile_english_value)
     TextView englishLevel;
 
+    @BindView(R.id.worker_details_preferred_commute_time)
+    TextView commuteTimeView;
+
     //nationality, date of birth, languages spoken, nis, photo of passport
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_SELECTION = 2;
@@ -411,8 +414,10 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     }
 
     private void fillLocationName() {
-        if (worker != null)
+        if (worker != null) {
             locationView.setText(worker.address);
+            commuteTimeView.setText(getString(R.string.worker_commute_time, worker.commuteTime));
+        }
     }
 
     private void drawMarker() {

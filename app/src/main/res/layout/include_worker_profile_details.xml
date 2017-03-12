@@ -728,11 +728,22 @@
                 android:textColor="@color/blackSquareColor" />
 
             <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                android:id="@+id/worker_details_preferred_location"
+                android:id="@+id/worker_details_preferred_commute_time"
                 style="@style/caption_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/worker_profile_location_title"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                app:josefin_style="italic" />
+
+            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                android:id="@+id/worker_details_preferred_location"
+                style="@style/caption_black_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/worker_details_preferred_commute_time"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:textSize="14sp"
