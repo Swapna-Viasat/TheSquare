@@ -312,25 +312,43 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillExperienceTypes() {
         experienceTypesView.removeAllViews();
-        if (!CollectionUtils.isEmpty(worker.experienceTypes)) {
-            if (!CollectionUtils.isEmpty(job.experienceTypes)) {
-                for (ExperienceType experienceType : worker.experienceTypes) {
-                    View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
-                    ImageView status = (ImageView) item.findViewById(R.id.status);
-                    StrikeJosefinSansTextView text = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
-                    status.setPadding(0, 0, 0, 0);
-                    text.setText(experienceType.name);
-                    text.setStrikeVisibility(true);
-                    status.setImageResource(R.drawable.ic_clear_black_24dp);
+        if (!CollectionUtils.isEmpty(job.experienceTypes)) {
+            if (!CollectionUtils.isEmpty(worker.experienceTypes)) {
 
-                    for (ExperienceType jobExperienceType : job.experienceTypes) {
-                        if (experienceType.id == jobExperienceType.id) {
-                            text.setStrikeVisibility(false);
-                            status.setImageResource(R.drawable.red_bullet);
-                            status.setPadding(2, 2, 2, 2);
-                        }
-                    }
-                    experienceTypesView.addView(item);
+                List<String> matchedItems = new ArrayList<>();
+                List<String> workerItems = new ArrayList<>();
+                List<String> unmatchedItems = new ArrayList<>();
+
+                List<String> jobExperienceTypes = new ArrayList<>();
+                List<String> workerExperienceTypes = new ArrayList<>();
+
+                for (ExperienceType jobExperienceType : job.experienceTypes) {
+                    jobExperienceTypes.add(jobExperienceType.name);
+                }
+
+                for (ExperienceType workerExperienceType : worker.experienceTypes) {
+                    workerExperienceTypes.add(workerExperienceType.name);
+                }
+
+                for (String jobExpType : jobExperienceTypes) {
+                    if (workerExperienceTypes.contains(jobExpType)) matchedItems.add(jobExpType);
+                    else unmatchedItems.add(jobExpType);
+                }
+
+                for (String workerExpType : workerExperienceTypes) {
+                    if (!matchedItems.contains(workerExpType)) workerItems.add(workerExpType);
+                }
+
+                for (String matchedItem : matchedItems) {
+                    populateWithMatchedItem(experienceTypesView, matchedItem);
+                }
+
+                for (String workerItem : workerItems) {
+                    populateWithMatchedItem(experienceTypesView, workerItem);
+                }
+
+                for (String unmatchedItem : unmatchedItems) {
+                    populateWithUnmatchedItem(experienceTypesView, unmatchedItem);
                 }
             }
         }
@@ -414,26 +432,79 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void fillExperienceAndQualifications() {
         experienceView.removeAllViews();
         requirementsView.removeAllViews();
-        if (!CollectionUtils.isEmpty(worker.qualifications)) {
-            if (!CollectionUtils.isEmpty(job.qualifications)) {
-                for (Qualification qualification : worker.qualifications) {
-                    View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
-                    ImageView status = (ImageView) item.findViewById(R.id.status);
-                    StrikeJosefinSansTextView text = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
-                    status.setPadding(0, 0, 0, 0);
-                    text.setText(qualification.name);
-                    text.setStrikeVisibility(true);
-                    status.setImageResource(R.drawable.ic_clear_black_24dp);
+        if (!CollectionUtils.isEmpty(job.qualifications)) {
+            if (!CollectionUtils.isEmpty(worker.qualifications)) {
 
-                    for (Qualification jobQualification : job.qualifications) {
-                        if (qualification.id == jobQualification.id) {
-                            text.setStrikeVisibility(false);
-                            status.setImageResource(R.drawable.red_bullet);
-                            status.setPadding(2, 2, 2, 2);
-                        }
-                    }
-                    if (qualification.onExperience) requirementsView.addView(item);
-                    else experienceView.addView(item);
+                List<String> matchedQualifications = new ArrayList<>();
+                List<String> workerUnmatchedQualifications = new ArrayList<>();
+                List<String> unmatchedQualifications = new ArrayList<>();
+
+                List<String> matchedRequirements = new ArrayList<>();
+                List<String> workerUnmatchedRequirements = new ArrayList<>();
+                List<String> unmatchedRequirements = new ArrayList<>();
+
+                List<String> jobQualifications = new ArrayList<>();
+                List<String> workerQualifications = new ArrayList<>();
+                List<String> jobRequirements = new ArrayList<>();
+                List<String> workerRequirements = new ArrayList<>();
+
+                for (Qualification jobQualification : job.qualifications) {
+                    if (jobQualification.onExperience) jobRequirements.add(jobQualification.name);
+                    else
+                        jobQualifications.add(jobQualification.name);
+                }
+
+                for (Qualification workerQualification : worker.qualifications) {
+                    if (workerQualification.onExperience)
+                        workerRequirements.add(workerQualification.name);
+                    else
+                        workerQualifications.add(workerQualification.name);
+                }
+
+                for (String jobQualification : jobQualifications) {
+                    if (workerQualifications.contains(jobQualification))
+                        matchedQualifications.add(jobQualification);
+                    else unmatchedQualifications.add(jobQualification);
+                }
+
+                for (String workerQualification : workerQualifications) {
+                    if (!matchedQualifications.contains(workerQualification))
+                        workerUnmatchedQualifications.add(workerQualification);
+                }
+
+                for (String matchedItem : matchedQualifications) {
+                    populateWithMatchedItem(experienceView, matchedItem);
+                }
+
+                for (String workerItem : workerUnmatchedQualifications) {
+                    populateWithMatchedItem(experienceView, workerItem);
+                }
+
+                for (String unmatchedItem : unmatchedQualifications) {
+                    populateWithUnmatchedItem(experienceView, unmatchedItem);
+                }
+
+                for (String jobRequirement : jobRequirements) {
+                    if (workerRequirements.contains(jobRequirement))
+                        matchedRequirements.add(jobRequirement);
+                    else unmatchedRequirements.add(jobRequirement);
+                }
+
+                for (String workerRequirement : workerRequirements) {
+                    if (!matchedRequirements.contains(workerRequirement))
+                        workerUnmatchedRequirements.add(workerRequirement);
+                }
+
+                for (String matchedItem : matchedRequirements) {
+                    populateWithMatchedItem(requirementsView, matchedItem);
+                }
+
+                for (String workerItem : workerUnmatchedRequirements) {
+                    populateWithMatchedItem(requirementsView, workerItem);
+                }
+
+                for (String unmatchedItem : unmatchedRequirements) {
+                    populateWithUnmatchedItem(requirementsView, unmatchedItem);
                 }
             }
         }
@@ -441,25 +512,42 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillSkills() {
         skillsView.removeAllViews();
-        if (!CollectionUtils.isEmpty(worker.skills)) {
-            if (!CollectionUtils.isEmpty(job.skills)) {
-                for (Skill skill : worker.skills) {
-                    View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
-                    ImageView status = (ImageView) item.findViewById(R.id.status);
-                    StrikeJosefinSansTextView text = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
-                    status.setPadding(0, 0, 0, 0);
-                    text.setText(skill.name);
-                    text.setStrikeVisibility(true);
-                    status.setImageResource(R.drawable.ic_clear_black_24dp);
+        if (!CollectionUtils.isEmpty(job.skills)) {
+            if (!CollectionUtils.isEmpty(worker.skills)) {
+                List<String> matchedItems = new ArrayList<>();
+                List<String> workerItems = new ArrayList<>();
+                List<String> unmatchedItems = new ArrayList<>();
 
-                    for (Skill jobSkill : job.skills) {
-                        if (skill.id == jobSkill.id) {
-                            text.setStrikeVisibility(false);
-                            status.setImageResource(R.drawable.red_bullet);
-                            status.setPadding(2, 2, 2, 2);
-                        }
-                    }
-                    skillsView.addView(item);
+                List<String> jobSkills = new ArrayList<>();
+                List<String> workerSkills = new ArrayList<>();
+
+                for (Skill jobSkill : job.skills) {
+                    jobSkills.add(jobSkill.name);
+                }
+
+                for (Skill workerSkill : worker.skills) {
+                    workerSkills.add(workerSkill.name);
+                }
+
+                for (String jobSkill : jobSkills) {
+                    if (workerSkills.contains(jobSkill)) matchedItems.add(jobSkill);
+                    else unmatchedItems.add(jobSkill);
+                }
+
+                for (String workerSkill : workerSkills) {
+                    if (!matchedItems.contains(workerSkill)) workerItems.add(workerSkill);
+                }
+
+                for (String matchedSkill : matchedItems) {
+                    populateWithMatchedItem(skillsView, matchedSkill);
+                }
+
+                for (String workerItem : workerItems) {
+                    populateWithMatchedItem(skillsView, workerItem);
+                }
+
+                for (String unmatchedItem : unmatchedItems) {
+                    populateWithUnmatchedItem(skillsView, unmatchedItem);
                 }
             }
         }
@@ -848,5 +936,31 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @Override
     public void onConnectorSuccess() {
         fetchWorker();
+    }
+
+    private void populateWithMatchedItem(LinearLayout layout, String text) {
+        if (TextUtils.isEmpty(text) || layout == null) return;
+
+        View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
+        ImageView status = (ImageView) item.findViewById(R.id.status);
+        StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
+        textView.setText(text);
+        textView.setStrikeVisibility(false);
+        status.setImageResource(R.drawable.red_bullet);
+        status.setPadding(2, 2, 2, 2);
+        layout.addView(item);
+    }
+
+    private void populateWithUnmatchedItem(LinearLayout layout, String text) {
+        if (TextUtils.isEmpty(text) || layout == null) return;
+
+        View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
+        ImageView status = (ImageView) item.findViewById(R.id.status);
+        StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
+        status.setPadding(0, 0, 0, 0);
+        textView.setText(text);
+        textView.setStrikeVisibility(true);
+        status.setImageResource(R.drawable.ic_clear_black_24dp);
+        layout.addView(item);
     }
 }
