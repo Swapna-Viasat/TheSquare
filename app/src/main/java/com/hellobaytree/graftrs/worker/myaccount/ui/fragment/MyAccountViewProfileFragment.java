@@ -895,9 +895,17 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             case VERIFICATION_VALID:
                 if (worker != null) fetchCscsDetails(worker.id);
                 break;
+            case VERIFICATION_FAILED:
+                DialogBuilder.showStandardDialog(getContext(), "Error", getString(R.string.cscs_status_infrastructure_issue));
+                break;
+            case VERIFICATION_INVALID:
+                DialogBuilder.showStandardDialog(getContext(), "Error", getString(R.string.cscs_status_carddetails_invalid));
+                break;
             default:
-                DialogBuilder.showStandardDialog(getContext(), "", getString(R.string.verified_cscs_failed));
+                DialogBuilder.showStandardDialog(getContext(), "Error", getString(R.string.verified_cscs_failed));
+                break;
         }
+
     }
 
     @Override
