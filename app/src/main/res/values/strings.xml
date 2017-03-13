@@ -626,6 +626,7 @@
     <string name="create_job_preview2">Preview</string>
     <string name="create_job_publish">Promote Job</string>
     <string name="create_job_apprentice">What type of %s are you looking for?</string>
+    <string name="create_job_abandon">Are you sure you want to exit?</string>
 
     <!-- Employer Liked Workers -->
     <string name="employer_liked">The workers you like will appear here...</string>

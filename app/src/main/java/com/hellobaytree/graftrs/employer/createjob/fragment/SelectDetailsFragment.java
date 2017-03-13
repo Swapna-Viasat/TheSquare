@@ -746,37 +746,68 @@ public class SelectDetailsFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.createJobCancel:
-                AlertDialog dialog = new AlertDialog.Builder(getContext())
-                        .setMessage("Are you sure you want to exit?")
-                        .setNegativeButton("Save as draft", new DialogInterface.OnClickListener() {
+
+                final Dialog abandonDialog = new Dialog(getContext());
+                abandonDialog.setCancelable(false);
+                abandonDialog.setContentView(R.layout.dialog_abandon_post);
+                abandonDialog.findViewById(R.id.abandon_dismiss)
+                        .setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                callApi(Constants.JOB_STATUS_DRAFT);
+                            public void onClick(View v) {
+                                abandonDialog.dismiss();
                             }
-                        })
-                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                        });
+                abandonDialog.findViewById(R.id.abandon_abandon)
+                        .setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
+                            public void onClick(View v) {
+                                abandonDialog.dismiss();
                                 unfinished = false;
                                 getActivity().finish();
                                 getActivity().startActivity(new Intent(getActivity(), MainEmployerActivity.class));
                             }
-                        })
-                        .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+                        });
+                abandonDialog.findViewById(R.id.abandon_save)
+                        .setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
+                            public void onClick(View v) {
+                                abandonDialog.dismiss();
+                                callApi(Constants.JOB_STATUS_DRAFT);
                             }
-                        })
-                        .setCancelable(false).create();
-                        dialog.show();
+                        });
+                abandonDialog.show();
 
-                TextView message = (TextView) dialog.findViewById(android.R.id.message);
-                message.setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-                message.setTypeface(Typeface.createFromAsset(getActivity()
-                        .getAssets(), "fonts/JosefinSans-Italic.ttf"));
+//                AlertDialog dialog = new AlertDialog.Builder(getContext())
+//                        .setMessage("Are you sure you want to exit?")
+//                        .setNegativeButton("Save as draft", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                                callApi(Constants.JOB_STATUS_DRAFT);
+//                            }
+//                        })
+//                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                                unfinished = false;
+//                                getActivity().finish();
+//                                getActivity().startActivity(new Intent(getActivity(), MainEmployerActivity.class));
+//                            }
+//                        })
+//                        .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                dialogInterface.dismiss();
+//                            }
+//                        })
+//                        .setCancelable(false).create();
+//                        dialog.show();
+//
+//                TextView message = (TextView) dialog.findViewById(android.R.id.message);
+//                message.setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
+//                message.setTypeface(Typeface.createFromAsset(getActivity()
+//                        .getAssets(), "fonts/JosefinSans-Italic.ttf"));
                 break;
         }
         return super.onOptionsItemSelected(item);
