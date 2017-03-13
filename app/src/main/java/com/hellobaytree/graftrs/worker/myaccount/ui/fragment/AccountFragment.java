@@ -1,4 +1,4 @@
-package com.hellobaytree.graftrs.worker.account;
+package com.hellobaytree.graftrs.worker.myaccount.ui.fragment;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;

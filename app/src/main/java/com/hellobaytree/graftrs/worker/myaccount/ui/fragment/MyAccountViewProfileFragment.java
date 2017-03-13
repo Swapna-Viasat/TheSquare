@@ -55,6 +55,7 @@ import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditCscsDetailsDialog;
 import com.hellobaytree.graftrs.worker.onboarding.SingleEditActivity;
+import com.hellobaytree.graftrs.worker.reviews.activity.ReviewActivity;
 import com.hellobaytree.graftrs.worker.settings.ui.dialog.EditNameDialog;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
@@ -673,6 +674,11 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                             DialogBuilder.showStandardDialog(getContext(), "", getString(R.string.validate_email));
                     }
                 }).show(getFragmentManager(), "");
+    }
+
+    @OnClick(R.id.worker_view_profile_rating)
+    void openReviews() {
+        startActivity(new Intent(getActivity(), ReviewActivity.class));
     }
 
     @Override

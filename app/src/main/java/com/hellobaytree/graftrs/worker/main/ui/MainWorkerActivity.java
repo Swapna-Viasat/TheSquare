@@ -21,7 +21,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.hellobaytree.graftrs.R;
@@ -34,7 +33,7 @@ import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
 import com.hellobaytree.graftrs.shared.utils.ShareUtils;
-import com.hellobaytree.graftrs.worker.account.AccountFragment;
+import com.hellobaytree.graftrs.worker.myaccount.ui.fragment.AccountFragment;
 import com.hellobaytree.graftrs.worker.help.HelpFragment;
 import com.hellobaytree.graftrs.worker.jobmatches.fragment.JobMatchesFragment;
 import com.hellobaytree.graftrs.worker.myjobs.fragment.JobsFragment;
