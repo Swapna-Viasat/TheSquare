@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputLayout;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 
 import com.hellobaytree.graftrs.BuildConfig;
@@ -112,5 +113,25 @@ public class TextTools {
             result = Html.fromHtml(input);
         }
         return result;
+    }
+
+    public static String encode(String text) {
+        try {
+            byte[] data = text.getBytes("UTF-8");
+            return Base64.encodeToString(data, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String decode(String encoded) {
+        try {
+            byte[] data = Base64.decode(encoded, Base64.DEFAULT);
+            return new String(data, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

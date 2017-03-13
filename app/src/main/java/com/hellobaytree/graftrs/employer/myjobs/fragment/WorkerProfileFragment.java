@@ -1,9 +1,11 @@
 package com.hellobaytree.graftrs.employer.myjobs.fragment;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.myjobs.LikeWorkerConnector;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
 import com.hellobaytree.graftrs.shared.data.model.ResponseObject;
+import com.hellobaytree.graftrs.shared.data.model.response.QuickInviteResponse;
 import com.hellobaytree.graftrs.shared.models.Application;
 import com.hellobaytree.graftrs.shared.models.Company;
 import com.hellobaytree.graftrs.shared.models.ExperienceType;
@@ -38,7 +41,6 @@ import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DateUtils;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
-import com.hellobaytree.graftrs.shared.utils.TextTools;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.shared.view.widget.StrikeJosefinSansTextView;
@@ -47,6 +49,7 @@ import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -257,7 +260,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
             if (!CollectionUtils.isEmpty(worker.languages)) {
                 List<String> languageNames = new ArrayList<>();
                 for (Language l : worker.languages) languageNames.add(l.name);
-                languagesView.setText(TextTools.toBulletList(languageNames, true));
+                languagesView.setText(TextUtils.join(", ", languageNames));
             }
 
             fillPassportImage();
@@ -399,7 +402,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillWorkerPosition() {
         String role = "";
-        if (!CollectionUtils.isEmpty(worker.roles)) role = worker.roles.get(0).name;
+        if (worker.matchedRole != null) role = worker.matchedRole.name;
         positionView.setText(role);
 
         String positionString = getString(R.string.role_year_experience, worker.yearsExperience,
@@ -497,7 +500,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillLocationName() {
         if (worker != null)
-            locationView.setText(worker.address);
+            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip));
     }
 
     private void drawMarker() {
@@ -573,7 +576,8 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                 if (currentApplication != null) {
                     if (currentApplication.status != null)
                         if (currentApplication.status.id == ApplicationStatus.STATUS_PENDING) {
-                            onApplied(currentApplication.id);
+                            if (!currentApplication.isOffer) onApplied(currentApplication.id);
+                            else onOffered();
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {
                             onBooked();
                         } else onApplicationNull();
@@ -589,6 +593,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void onApplied(final int applicationId) {
         book.setVisibility(View.VISIBLE);
+        book.setText("BOOK");
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -633,6 +638,59 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         booked = false;
         bookedBanner.setVisibility(View.GONE);
         contactWorkerLayout.setVisibility(View.GONE);
+        book.setText("OFFER JOB");
+        book.setVisibility(View.VISIBLE);
+        book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onInvite();
+            }
+        });
+    }
+
+    private void onOffered() {
+        book.setVisibility(View.GONE);
+    }
+
+    //TODO move strings into resources
+    private void onInvite() {
+        new AlertDialog.Builder(getContext(), R.style.DialogTheme)
+                .setMessage("Are you sure you'd like to offer this job to "
+                        + ((null != worker.firstName) ? worker.firstName : "...") + "?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        inviteWorker(worker.id, jobId);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).show();
+    }
+
+    private void inviteWorker(int workerId, int jobId) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        final HashMap<String, Object> body = new HashMap<>();
+        body.put("job_id", jobId);
+        HttpRestServiceConsumer.getBaseApiClient()
+                .quickInvite(body, workerId)
+                .enqueue(new Callback<QuickInviteResponse>() {
+                    @Override
+                    public void onResponse(Call<QuickInviteResponse> call,
+                                           Response<QuickInviteResponse> response) {
+                        DialogBuilder.cancelDialog(dialog);
+                        fetchWorker();
+                    }
+
+                    @Override
+                    public void onFailure(Call<QuickInviteResponse> call, Throwable t) {
+                        DialogBuilder.cancelDialog(dialog);
+                    }
+                });
     }
 
     private void fetchCscsDetails(int currentWorkerId) {

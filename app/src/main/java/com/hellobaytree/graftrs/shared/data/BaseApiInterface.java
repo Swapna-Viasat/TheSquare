@@ -15,6 +15,7 @@ import com.hellobaytree.graftrs.shared.data.model.response.EmployerJobResponse;
 import com.hellobaytree.graftrs.shared.data.model.response.JobWorkersResponse;
 import com.hellobaytree.graftrs.shared.data.model.response.QuickInviteResponse;
 import com.hellobaytree.graftrs.shared.models.Company;
+import com.hellobaytree.graftrs.shared.models.ContactCategory;
 import com.hellobaytree.graftrs.shared.models.DataResponse;
 import com.hellobaytree.graftrs.shared.models.EnglishLevel;
 import com.hellobaytree.graftrs.shared.models.ExperienceQualification;
@@ -116,6 +117,9 @@ public interface BaseApiInterface {
 
     @POST("/users/login/")
     Call<ResponseObject<LoginUser>> loginUser(@Body HashMap<String, String> loginRequest);
+
+    @POST("/users/forgot_password/")
+    Call<StatusMessageResponse> forgotPassword(@Body HashMap<String, String> submitRequest);
 
     @GET("/users/me/")
     Call<ResponseObject<com.hellobaytree.graftrs.shared.models.Worker>> meWorker();
@@ -338,4 +342,13 @@ public interface BaseApiInterface {
 
     @POST("/employers/link_firebase/")
     Call<ResponseBody> sendEmployerToken(@Body HashMap<String, Object> body);
+
+    /**
+     * Contact
+     */
+    @GET("/data/contact_categories/")
+    Call<ResponseObject<List<ContactCategory>>> fetchContactCategories();
+
+    @POST("/contact/")
+    Call<StatusMessageResponse> postContactMessage(@Body HashMap<String, String> body);
 }

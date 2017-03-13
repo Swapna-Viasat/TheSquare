@@ -55,6 +55,7 @@ import com.hellobaytree.graftrs.shared.view.widget.RatingView;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
 import com.hellobaytree.graftrs.worker.myaccount.ui.dialog.EditCscsDetailsDialog;
 import com.hellobaytree.graftrs.worker.onboarding.SingleEditActivity;
+import com.hellobaytree.graftrs.worker.reviews.activity.ReviewActivity;
 import com.hellobaytree.graftrs.worker.settings.ui.dialog.EditNameDialog;
 import com.hellobaytree.graftrs.worker.signup.model.CSCSCardWorker;
 import com.squareup.picasso.Picasso;
@@ -183,6 +184,9 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     @BindView(R.id.worker_profile_english_value)
     TextView englishLevel;
+
+    @BindView(R.id.worker_details_preferred_commute_time)
+    TextView commuteTimeView;
 
     //nationality, date of birth, languages spoken, nis, photo of passport
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -411,8 +415,10 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     }
 
     private void fillLocationName() {
-        if (worker != null)
-            locationView.setText(worker.address);
+        if (worker != null) {
+            locationView.setText(worker.zip);
+            commuteTimeView.setText(getString(R.string.worker_commute_time, worker.commuteTime));
+        }
     }
 
     private void drawMarker() {
@@ -670,6 +676,11 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                 }).show(getFragmentManager(), "");
     }
 
+    @OnClick(R.id.worker_view_profile_rating)
+    void openReviews() {
+        startActivity(new Intent(getActivity(), ReviewActivity.class));
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
@@ -884,9 +895,17 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             case VERIFICATION_VALID:
                 if (worker != null) fetchCscsDetails(worker.id);
                 break;
+            case VERIFICATION_FAILED:
+                DialogBuilder.showStandardDialog(getContext(), "Error", getString(R.string.cscs_status_infrastructure_issue));
+                break;
+            case VERIFICATION_INVALID:
+                DialogBuilder.showStandardDialog(getContext(), "Error", getString(R.string.cscs_status_carddetails_invalid));
+                break;
             default:
-                DialogBuilder.showStandardDialog(getContext(), "", getString(R.string.verified_cscs_failed));
+                DialogBuilder.showStandardDialog(getContext(), "Error", getString(R.string.verified_cscs_failed));
+                break;
         }
+
     }
 
     @Override

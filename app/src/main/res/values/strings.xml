@@ -696,6 +696,8 @@
     <string name="worker_experience_types">Type of experience</string>
     <string name="worker_details_provided">Provided</string>
     <string name="worker_details_not_provided">Not provided</string>
+    <string name="worker_commute_time">I will travel up to %d mins from their address</string>
+    <string name="employer_view_worker_commute_time">Will travel up to %1$d mins from %2$s</string>
 
     <!-- Employer Account -->
     <string name="company_description">Company description</string>

@@ -6,6 +6,7 @@ import android.provider.Settings;
 
 import com.hellobaytree.graftrs.shared.data.model.SessionInfo;
 import com.hellobaytree.graftrs.shared.data.model.User;
+import com.hellobaytree.graftrs.shared.utils.TextTools;
 
 
 public class SharedPreferencesManager {
@@ -19,12 +20,14 @@ public class SharedPreferencesManager {
     private static final String EMPLOYER_ID = "employer_id";
     private static final String COUNTRY_CODE_EMPLOYER = "country_code_employer";
     private static final String PHONE_NUMBER_EMPLOYER = "phone_number_employer";
-    private static final String EMAIL_EMPLOYER = "email_employer";
+    private static final String EMAIL = "email";
     private static final String WORKER_NAME = "worker_name";
     private static final String EMPLOYER_NAME = "employer_name";
     private static final String COUNTRY_CODE_WORKER = "country_code_worker";
     private static final String PHONE_NUMBER_WORKER = "phone_number_worker";
-    private static final String EMAIL_WORKER = "email_worker";
+
+    //TODO: this is absolutely insecure. Should discuss
+    private static final String PASS = "live_id";
 
     private static final String IS_IN_COMING_SOON = "is_in_coming_soon";
 
@@ -58,19 +61,20 @@ public class SharedPreferencesManager {
 
     //WORKER
 
-    public void persistSessionInfoWorker(String userToken, User user, String countryCode, String phone, String name) {
-        persistSessionInfoWorker(userToken, user.getId(), countryCode, phone, user.getEmail(), name);
+    public void persistSessionInfoWorker(String userToken, User user, String countryCode, String phone, String name, String pass) {
+        persistSessionInfoWorker(userToken, user.getId(), countryCode, phone, user.getEmail(), name, pass);
     }
 
     public void persistSessionInfoWorker(String userToken, int worker_id, String country_code,
-                                         String phone_number, String email, String name) {
+                                         String phone_number, String email, String name, String pass) {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putInt(WORKER_ID, worker_id);
         edit.putString(COUNTRY_CODE_WORKER, country_code);
         edit.putString(PHONE_NUMBER_WORKER, phone_number);
-        edit.putString(EMAIL_WORKER, email);
+        edit.putString(EMAIL, email);
         edit.putString(TOKEN_USER, userToken);
         edit.putString(WORKER_NAME, name);
+        edit.putString(PASS, TextTools.encode(pass));
         edit.apply();
     }
 
@@ -78,7 +82,7 @@ public class SharedPreferencesManager {
         int workerId = sharedPreferences.getInt(WORKER_ID, -1);
         String countryCode = sharedPreferences.getString(COUNTRY_CODE_WORKER, "");
         String phoneNumber = sharedPreferences.getString(PHONE_NUMBER_WORKER, "");
-        String email = sharedPreferences.getString(EMAIL_WORKER, "");
+        String email = sharedPreferences.getString(EMAIL, "");
         String name = sharedPreferences.getString(WORKER_NAME, "unknown");
         SessionInfo sessionInfo = new SessionInfo();
         sessionInfo.setUserId(workerId);
@@ -98,7 +102,6 @@ public class SharedPreferencesManager {
         edit.remove(WORKER_ID);
         edit.remove(COUNTRY_CODE_WORKER);
         edit.remove(PHONE_NUMBER_WORKER);
-        edit.remove(EMAIL_WORKER);
         edit.apply();
     }
 
@@ -106,20 +109,21 @@ public class SharedPreferencesManager {
 
     public void persistSessionInfoEmployer2(String userToken, User user,
                                             String countryCode, String phone,
-                                            String name) {
+                                            String name, String pass) {
         persistSessionInfoEmployer(userToken, user.getId(),
-                countryCode, phone, user.getEmail(), name);
+                countryCode, phone, user.getEmail(), name, pass);
     }
 
     public void persistSessionInfoEmployer(String userToken, int employer_id, String country_code,
-                                           String phone_number, String email, String name) {
+                                           String phone_number, String email, String name, String pass) {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putInt(EMPLOYER_ID, employer_id);
         edit.putString(COUNTRY_CODE_EMPLOYER, country_code);
         edit.putString(PHONE_NUMBER_EMPLOYER, phone_number);
-        edit.putString(EMAIL_EMPLOYER, email);
+        edit.putString(EMAIL, email);
         edit.putString(TOKEN_USER, userToken);
         edit.putString(EMPLOYER_NAME, name);
+        edit.putString(PASS, TextTools.encode(pass));
         edit.apply();
     }
 
@@ -127,7 +131,7 @@ public class SharedPreferencesManager {
         int employerId = sharedPreferences.getInt(EMPLOYER_ID, -1);
         String countryCode = sharedPreferences.getString(COUNTRY_CODE_EMPLOYER, "");
         String phoneNumber = sharedPreferences.getString(PHONE_NUMBER_EMPLOYER, "");
-        String email = sharedPreferences.getString(EMAIL_EMPLOYER, "");
+        String email = sharedPreferences.getString(EMAIL, "");
         String name = sharedPreferences.getString(EMPLOYER_NAME, "unknown");
         SessionInfo sessionInfo = new SessionInfo();
         sessionInfo.setUserId(employerId);
@@ -147,7 +151,6 @@ public class SharedPreferencesManager {
         edit.remove(EMPLOYER_ID);
         edit.remove(COUNTRY_CODE_EMPLOYER);
         edit.remove(PHONE_NUMBER_EMPLOYER);
-        edit.remove(EMAIL_EMPLOYER);
         edit.apply();
     }
 
@@ -181,5 +184,13 @@ public class SharedPreferencesManager {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.remove(IS_LOGIN);
         edit.apply();
+    }
+
+    public String getPass() {
+        return TextTools.decode(sharedPreferences.getString(PASS, ""));
+    }
+
+    public String getEmail() {
+        return sharedPreferences.getString(EMAIL, "");
     }
 }

@@ -3,20 +3,34 @@ package com.hellobaytree.graftrs.shared.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
+
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by juanmaggi on 27/10/16.
  */
 public class User implements Parcelable {
 
     protected int id;
-    protected String country_code;
-    protected String phone_number;
     protected String first_name;
     protected String last_name;
     protected String picture;
     protected String email;
     protected boolean onboarding_done;
     protected boolean onboarding_skipped;
+    @SerializedName("user_type")
+    public int userType;
+    public List<Device> devices;
+
+    public class Device implements Serializable {
+        @SerializedName("phone_number")
+        public String phoneNumber;
+        @SerializedName("country_code")
+        public String countryCode;
+    }
 
     public User() {
 
@@ -30,20 +44,22 @@ public class User implements Parcelable {
         this.id = id;
     }
 
-    public String getCountry_code() {
-        return country_code;
+    public String getCountryCode() {
+        String result = "";
+        if (!CollectionUtils.isEmpty(devices)) {
+            if (devices.get(0) != null)
+                result = devices.get(0).countryCode;
+        }
+        return result;
     }
 
-    public void setCountry_code(String country_code) {
-        this.country_code = country_code;
-    }
-
-    public String getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public String getPhoneNumber() {
+        String result = "";
+        if (!CollectionUtils.isEmpty(devices)) {
+            if (devices.get(0) != null)
+                result = devices.get(0).phoneNumber;
+        }
+        return result;
     }
 
     public String getFirst_name() {
@@ -103,8 +119,6 @@ public class User implements Parcelable {
     @Override
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(id);
-        out.writeString(country_code);
-        out.writeString(phone_number);
         out.writeString(first_name);
         out.writeString(last_name);
         out.writeString(picture);
@@ -115,8 +129,6 @@ public class User implements Parcelable {
 
     private User(Parcel in) {
         id = in.readInt();
-        country_code = in.readString();
-        phone_number = in.readString();
         first_name = in.readString();
         last_name = in.readString();
         picture = in.readString();
