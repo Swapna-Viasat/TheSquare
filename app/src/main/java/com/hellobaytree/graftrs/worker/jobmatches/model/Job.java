@@ -91,7 +91,21 @@ public class Job implements Serializable {
         List<String> result = new ArrayList<>();
         if (qualifications != null) {
             for (Job.Qualification qualification : qualifications) {
-                result.add(qualification.name);
+                if (!qualification.onExperience) {
+                    result.add(qualification.name);
+                }
+            }
+        }
+        return result;
+    }
+
+    public List<String> getRequirementsList() {
+        List<String> result = new ArrayList<>();
+        if (qualifications != null) {
+            for (Job.Qualification qualification : qualifications) {
+                if (qualification.onExperience) {
+                    result.add(qualification.name);
+                }
             }
         }
         return result;
@@ -100,6 +114,7 @@ public class Job implements Serializable {
     public class Qualification implements Serializable {
         public String name;
         public int id;
+        @SerializedName("on_experience") public boolean onExperience;
     }
 
     public class Skill implements Serializable {
