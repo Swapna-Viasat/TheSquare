@@ -768,6 +768,7 @@
             android:layout_width="match_parent"
             android:layout_height="240dp" />
 
+
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
             android:id="@+id/book"
             android:layout_width="match_parent"
