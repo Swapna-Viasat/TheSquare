@@ -9,11 +9,16 @@ import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 
 public class MediaTools {
 
@@ -138,6 +143,19 @@ public class MediaTools {
         } finally {
             if (cursor != null)
                 cursor.close();
+        }
+        return null;
+    }
+
+    @Nullable
+    public static String encodeToBase64(Bitmap bitmap) {
+        try {
+            if (bitmap == null) return null;
+            ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, byteArrayOS);
+            return "data:image/jpeg;base64," + Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

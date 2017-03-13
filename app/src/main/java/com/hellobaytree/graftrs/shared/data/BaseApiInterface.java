@@ -15,6 +15,7 @@ import com.hellobaytree.graftrs.shared.data.model.response.EmployerJobResponse;
 import com.hellobaytree.graftrs.shared.data.model.response.JobWorkersResponse;
 import com.hellobaytree.graftrs.shared.data.model.response.QuickInviteResponse;
 import com.hellobaytree.graftrs.shared.models.Company;
+import com.hellobaytree.graftrs.shared.models.ContactCategory;
 import com.hellobaytree.graftrs.shared.models.DataResponse;
 import com.hellobaytree.graftrs.shared.models.EnglishLevel;
 import com.hellobaytree.graftrs.shared.models.ExperienceQualification;
@@ -341,4 +342,13 @@ public interface BaseApiInterface {
 
     @POST("/employers/link_firebase/")
     Call<ResponseBody> sendEmployerToken(@Body HashMap<String, Object> body);
+
+    /**
+     * Contact
+     */
+    @GET("/data/contact_categories/")
+    Call<ResponseObject<List<ContactCategory>>> fetchContactCategories();
+
+    @POST("/contact/")
+    Call<StatusMessageResponse> postContactMessage(@Body HashMap<String, String> body);
 }

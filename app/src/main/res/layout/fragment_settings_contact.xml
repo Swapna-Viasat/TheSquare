@@ -10,19 +10,27 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
+
+        <Spinner
+            android:layout_marginLeft="-5dp"
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-            android:text="@string/employer_settings_describe"
+            android:text="Tell us more..."
             android:textSize="18sp"
+            android:layout_marginTop="10dp"
             app:josefin_style="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
         <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+            android:id="@+id/messageInput"
             android:hint="@string/employer_settings_message"
             android:textColorHint="@color/graySquareColor"
             android:layout_marginTop="16dp"
-            android:inputType="text|textNoSuggestions|textMultiLine|textCapWords"
+            android:inputType="text|textNoSuggestions|textCapWords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
