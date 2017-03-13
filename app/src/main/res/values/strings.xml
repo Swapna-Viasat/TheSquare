@@ -627,6 +627,9 @@
     <string name="create_job_publish">Promote Job</string>
     <string name="create_job_apprentice">What type of %s are you looking for?</string>
     <string name="create_job_abandon">Are you sure you want to exit?</string>
+    <string name="offer_job_confirm">Nice one! \n\n
+                Your job has been offered to %s. \n
+                They\'ll confirm their interest soon.</string>
 
     <!-- Employer Liked Workers -->
     <string name="employer_liked">The workers you like will appear here...</string>

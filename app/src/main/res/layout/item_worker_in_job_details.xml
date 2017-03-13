@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="10dp"
-        android:text="Quick Invite"
+        android:text="offer job"
         android:textAllCaps="true"
         android:textColor="@color/redSquareColor"
         android:textSize="14sp"

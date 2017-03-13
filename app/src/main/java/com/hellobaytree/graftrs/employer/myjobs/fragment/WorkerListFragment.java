@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.employer.myjobs.LikeWorkerConnector;
@@ -248,7 +249,8 @@ public class WorkerListFragment extends Fragment
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        inviteWorker(worker.id, getArguments().getInt(Constants.KEY_JOB_ID));
+                        inviteWorker(worker.id, worker.firstName,
+                                getArguments().getInt(Constants.KEY_JOB_ID));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -307,7 +309,23 @@ public class WorkerListFragment extends Fragment
                 });
     }
 
-    private void inviteWorker(int workerId, int jobId) {
+    private void showWorkerInviteSent(String workerName) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_offer_confirm);
+        ((TextView) dialog.findViewById(R.id.dialog_offer_job_confirm))
+                .setText(String.format(getString(R.string.offer_job_confirm),
+                        workerName));
+        dialog.findViewById(R.id.offer_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void inviteWorker(int workerId, final String name, int jobId) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         final HashMap<String, Object> body = new HashMap<>();
         body.put("job_id", jobId);
@@ -318,6 +336,7 @@ public class WorkerListFragment extends Fragment
                     public void onResponse(Call<QuickInviteResponse> call,
                                            Response<QuickInviteResponse> response) {
                         DialogBuilder.cancelDialog(dialog);
+                        showWorkerInviteSent(name);
                         fetchWorkers(getArguments().getInt(Constants.KEY_JOB_ID));
                     }
 
