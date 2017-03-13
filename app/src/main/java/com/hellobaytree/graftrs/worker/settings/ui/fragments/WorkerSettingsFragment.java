@@ -10,6 +10,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hellobaytree.graftrs.R;
 import com.hellobaytree.graftrs.shared.data.HttpRestServiceConsumer;
@@ -24,6 +31,7 @@ import com.hellobaytree.graftrs.shared.settings.fragments.SettingsAboutFragment;
 import com.hellobaytree.graftrs.shared.settings.fragments.SettingsDocsFragment;
 import com.hellobaytree.graftrs.shared.settings.fragments.SettingsFragment;
 import com.hellobaytree.graftrs.shared.settings.fragments.SettingsSocialFragment;
+import com.hellobaytree.graftrs.shared.utils.CollectionUtils;
 import com.hellobaytree.graftrs.shared.utils.Constants;
 import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.utils.HandleErrors;
@@ -59,6 +67,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
     JosefinSansTextView nameTextView;
 
     private Worker currentWorker;
+    private String address;
 
     public static WorkerSettingsFragment newInstance() {
         return new WorkerSettingsFragment();
@@ -199,7 +208,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
     }
 
     private void editPostCode() {
-        EditAccountDetailsDialog.newInstance("Post code", zipTextView.getText().toString(), false,
+        EditAccountDetailsDialog.newInstance("Post code", currentWorker.zip, false,
                 new EditAccountDetailsDialog.InputFinishedListener() {
                     @Override
                     public void onDone(String input, boolean onlyDigits) {
@@ -277,7 +286,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
         populatePhoneNumber();
 
         if (currentWorker != null) {
-            if (!TextUtils.isEmpty(currentWorker.zip)) zipTextView.setText(currentWorker.zip);
+            fillAddress();
             if (!TextUtils.isEmpty(currentWorker.email)) emailTextView.setText(currentWorker.email);
 
             StringBuilder workerName = new StringBuilder();
@@ -287,6 +296,13 @@ public class WorkerSettingsFragment extends SettingsFragment {
                 workerName.append(" ").append(currentWorker.lastName);
             nameTextView.setText(workerName);
         }
+    }
+
+    private void fillAddress() {
+        StringBuilder address = new StringBuilder();
+        if (!TextUtils.isEmpty(currentWorker.address)) address.append(currentWorker.address);
+        if (!TextUtils.isEmpty(currentWorker.zip)) address.append(", ").append(currentWorker.zip);
+        zipTextView.setText(address.toString());
     }
 
     private void populatePhoneNumber() {
@@ -301,7 +317,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
 
     private void fetchMe() {
         try {
-            List<String> requiredFields = Arrays.asList("post_code", "email", "first_name", "last_name");
+            List<String> requiredFields = Arrays.asList("post_code", "email", "first_name", "last_name", "address");
 
             final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
             HttpRestServiceConsumer.getBaseApiClient()
@@ -380,10 +396,10 @@ public class WorkerSettingsFragment extends SettingsFragment {
                                             .show();
                                 }
                             } else {
+                                if (!CollectionUtils.isEmpty(response.body().addresses)) {
+                                    showAddressDialog(zipCode, response.body().addresses);
+                                }
                                 // all good
-                                HashMap<String, Object> payload = new HashMap<>();
-                                payload.put("post_code", zipCode);
-                                patchWorker(payload);
                             }
                         } else {
                             // response body null
@@ -398,5 +414,46 @@ public class WorkerSettingsFragment extends SettingsFragment {
                         DialogBuilder.cancelDialog(dialog);
                     }
                 });
+    }
+
+    private void showAddressDialog(final String zipCode, final List<String> result) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.autocomplete);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                getResources().getDisplayMetrics().heightPixels * 8 / 12);
+        ((TextView) dialog.findViewById(R.id.autocomplete_title))
+                .setText(getString(R.string.create_job_address));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, result);
+        ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
+        final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                search.setText(result.get(position));
+            }
+        });
+
+        dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // all good
+                address = search.getText().toString();
+                HashMap<String, Object> payload = new HashMap<>();
+                payload.put("post_code", zipCode);
+                if (address != null) payload.put("address", address.replace(", , , ,", ", "));
+                patchWorker(payload);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

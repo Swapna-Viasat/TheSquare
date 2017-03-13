@@ -415,7 +415,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     private void fillLocationName() {
         if (worker != null) {
-            locationView.setText(worker.address);
+            locationView.setText(worker.zip);
             commuteTimeView.setText(getString(R.string.worker_commute_time, worker.commuteTime));
         }
     }
