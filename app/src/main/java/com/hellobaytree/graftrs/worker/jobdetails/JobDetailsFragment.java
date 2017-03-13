@@ -170,6 +170,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             try {
                 description.setText(currentJob.description);
                 skills.setText(TextTools.toBulletList(currentJob.getSkillsList(), true));
+                qualifications.setText(TextTools.toBulletList(currentJob.getRequirementsList(), true));
                 qualifications2.setText(TextTools.toBulletList(currentJob.getQualificationsList(), true));
                 experienceTypes.setText(TextTools.toBulletList(currentJob.getExperienceTypesList(), true));
             } catch (Exception e) {
