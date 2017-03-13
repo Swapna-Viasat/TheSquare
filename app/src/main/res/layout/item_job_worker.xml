@@ -78,33 +78,34 @@
                     android:layout_alignParentRight="true" />
 
                 <!-- Occupation + experience -->
-                <LinearLayout
+
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/item_job_occupation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/companyInfo"
-                    android:layout_margin="14dp"
-                    android:orientation="vertical">
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginTop="14dp"
+                    android:text="Bricklayer"
+                    android:textAllCaps="true"
+                    android:textColor="@color/redSquareColor"
+                    android:textSize="20sp"
+                    app:josefin_style="light" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                        android:id="@+id/item_job_occupation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bricklayer"
-                        android:textAllCaps="true"
-                        android:textColor="@color/redSquareColor"
-                        android:textSize="20sp"
-                        app:josefin_style="light" />
-
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                        android:id="@+id/item_job_experience"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="6 years experience"
-                        android:textAllCaps="true"
-                        android:textColor="@color/blackSquareColor"
-                        android:textSize="16sp"
-                        app:josefin_style="light" />
-                </LinearLayout>
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/item_job_experience"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_job_occupation"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:text="6 years experience"
+                    android:textAllCaps="true"
+                    android:textColor="@color/blackSquareColor"
+                    android:textSize="16sp"
+                    app:josefin_style="light" />
 
                 <!-- Salary-->
                 <LinearLayout
@@ -113,19 +114,10 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/banner"
+                    android:layout_below="@+id/item_job_occupation"
                     android:layout_marginLeft="14dp"
                     android:layout_marginRight="14dp"
                     android:orientation="vertical">
-
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                        android:id="@+id/item_job_salary_period"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="true"
-                        android:textColor="@color/redSquareColor"
-                        android:textSize="16sp"
-                        app:josefin_style="light" />
 
                     <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                         android:id="@+id/item_job_salary_number"
@@ -135,6 +127,15 @@
                         android:textAllCaps="true"
                         android:textColor="@color/redSquareColor"
                         android:textSize="22sp"
+                        app:josefin_style="light" />
+
+                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/item_job_salary_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        android:textColor="@color/redSquareColor"
+                        android:textSize="16sp"
                         app:josefin_style="light" />
                 </LinearLayout>
             </RelativeLayout>

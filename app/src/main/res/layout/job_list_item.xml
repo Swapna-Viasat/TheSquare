@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -44,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/salary_layout"
                 android:orientation="vertical">
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
@@ -75,20 +77,22 @@
                 android:orientation="vertical">
 
                 <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/job_item_payment_rate"
+                    style="@style/title_red_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:josefin_style="light"
+                    tools:text="40 000" />
+
+                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
                     android:id="@+id/job_item_payment_rate_per"
                     style="@style/body_red_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:textColor="@color/redSquareColor"
-                    app:josefin_style="light" />
-
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-                    android:id="@+id/job_item_payment_rate"
-                    style="@style/title_red_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:josefin_style="light" />
+                    app:josefin_style="light"
+                    tools:text="Per hour" />
             </LinearLayout>
 
         </RelativeLayout>
