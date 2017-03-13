@@ -36,7 +36,6 @@ public class JobsListFragment extends Fragment
     public static final String TAG = "JobListFragment";
     private int jobType;
     private JobsPresenter presenter;
-    private ProgressDialog progressDialog;
     private JobsAdapter jobsAdapter;
     private List<Job> jobs = new ArrayList<>();
     private LikeJobConnector likeJobConnector;
@@ -73,8 +72,6 @@ public class JobsListFragment extends Fragment
         super.onCreate(savedInstanceState);
         jobType = getArguments().getInt("type");
         presenter = new JobsPresenter(getActivity(), this);
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(getString(R.string.worker_jobs_wait_msg));
         jobsAdapter = new JobsAdapter(jobs, getContext(), this);
         likeJobConnector = new LikeJobConnector(this);
     }
@@ -113,13 +110,6 @@ public class JobsListFragment extends Fragment
     }
 
     public void displayProgress(boolean show) {
-        if (null != progressDialog) {
-            if (show) {
-                progressDialog.show();
-            } else {
-                progressDialog.dismiss();
-            }
-        }
     }
 
     private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
