@@ -902,4 +902,6 @@
 
     <!-- Help Worker -->
     <string name="my_account_worker_help_title">Help</string>
+    <string name="help_no_matches">Oops! I\'m afraid we cant answer that. Please contact us here..</string>
+    <string name="help_contact_us">Still need help? Contact us here.</string>
 </resources>

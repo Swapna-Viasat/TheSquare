@@ -35,6 +35,7 @@ import construction.thesquare.shared.reviews.Review;
 import construction.thesquare.shared.reviews.ReviewResponse;
 import construction.thesquare.shared.reviews.ReviewUpdateResponse;
 import construction.thesquare.shared.reviews.ReviewsResponse;
+import construction.thesquare.worker.help.model.HelpWorkerResponse;
 import construction.thesquare.worker.jobmatches.model.Application;
 import construction.thesquare.worker.jobmatches.model.MatchesResponse;
 import construction.thesquare.worker.jobmatches.model.Ordering;
@@ -350,4 +351,10 @@ public interface BaseApiInterface {
 
     @POST("/contact/")
     Call<StatusMessageResponse> postContactMessage(@Body HashMap<String, String> body);
+
+    /**
+     * Help
+     */
+    @GET("/faq/")
+    Call<HelpWorkerResponse> getSearchData(@Query("search") String search);
 }
