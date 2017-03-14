@@ -6,5 +6,5 @@
 package construction.thesquare;
 
 public class FlavorSettings {
-    public static final String API_URL = "http://alpha.api.thesquareapp.tech";
+    public static final String API_URL = "http://alpha.api.thesquareapp.com";
 }
