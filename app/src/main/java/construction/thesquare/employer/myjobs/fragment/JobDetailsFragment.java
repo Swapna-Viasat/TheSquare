@@ -499,7 +499,6 @@ public class JobDetailsFragment extends Fragment
             if (null != job.owner.picture) {
                 name.setVisibility(View.GONE);
             } else {
-
                 name.setVisibility(View.VISIBLE);
             }
         }

@@ -67,14 +67,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
         if (null != job.owner) {
             if (null != job.owner.picture) {
-                holder.logo.setVisibility(View.VISIBLE);
                 holder.companyName.setVisibility(View.GONE);
-                Picasso.with(holder.itemView.getContext())
-                        .load(job.owner.picture)
-                        .fit()
-                        .into(holder.logo);
             } else {
-                holder.logo.setVisibility(View.GONE);
                 holder.companyName.setVisibility(View.VISIBLE);
             }
         }
@@ -127,7 +121,18 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             if (null != job.company.name) {
                 holder.companyName.setText(job.company.name);
             }
+            if (null != job.company.logo) {
+                holder.logo.setVisibility(View.VISIBLE);
+                Picasso.with(holder.itemView.getContext())
+                        .load(job.owner.picture)
+                        .fit()
+                        .into(holder.logo);
+            } else {
+                holder.logo.setVisibility(View.GONE);
+            }
         }
+
+
         holder.jobId.setText("Job ref ID: " + job.jobRef);
     }
 
