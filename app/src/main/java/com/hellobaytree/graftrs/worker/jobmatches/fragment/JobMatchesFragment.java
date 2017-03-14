@@ -1,6 +1,7 @@
 package com.hellobaytree.graftrs.worker.jobmatches.fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView;
 import com.hellobaytree.graftrs.worker.jobmatches.JobMatchesFilterListener;
 import com.hellobaytree.graftrs.worker.jobmatches.MatchesContract;
@@ -49,7 +51,7 @@ public class JobMatchesFragment extends Fragment
     JosefinSansTextView counter;
     @BindView(R.id.no_matches)
     View noMatches;
-    private AlertDialog progressDialog;
+    private Dialog dialog;
 
     public static JobMatchesFragment newInstance() {
         JobMatchesFragment fragment = new JobMatchesFragment();
@@ -73,6 +75,11 @@ public class JobMatchesFragment extends Fragment
 
     @Override
     public void displayProgress(boolean show) {
+        if (show) {
+            dialog = DialogBuilder.showCustomDialog(getContext());
+        } else {
+            DialogBuilder.cancelDialog(dialog);
+        }
     }
 
     @Override
