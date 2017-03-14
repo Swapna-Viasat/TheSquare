@@ -4,7 +4,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:text="@string/employer_dialog_contract_end"
         android:textSize="18sp"
         android:layout_marginTop="28dp"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"/>
 
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:text="@string/employer_dialog_contract_comments"
         android:textSize="12sp"
         android:layout_marginTop="18dp"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+    <construction.thesquare.shared.view.widget.JosefinSansEditText
         android:id="@+id/dialog_comments_edit"
         android:inputType="text|textMultiLine|textCapSentences"
         android:lines="5"

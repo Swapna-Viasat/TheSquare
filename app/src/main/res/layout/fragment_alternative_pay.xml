@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.hellobaytree.graftrs.employer.payments.fragment.AlternativePayFragment">
+    tools:context="construction.thesquare.employer.payments.fragment.AlternativePayFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- Title -->
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:textColor="@color/redSquareColor"
             android:textSize="20sp"
             app:josefin_style="light"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/payments_alt_spinner_title"
                 android:textSize="16sp"
                 app:josefin_style="light"
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:text="@string/payments_alt_name"
                     android:textSize="16sp"
                     app:josefin_style="light"
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/alt_pay_name_input"
                     android:layout_marginLeft="24dp"
                     app:josefin_style="light"
@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:text="@string/payments_alt_email"
                     android:textSize="16sp"
                     app:josefin_style="light"
@@ -113,7 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/alt_pay_email_input"
                     android:layout_marginLeft="24dp"
                     app:josefin_style="light"
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:text="@string/payments_alt_order"
                     android:textSize="16sp"
                     android:id="@+id/order_title"
@@ -152,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/alt_pay_order_input"
                     android:layout_marginLeft="24dp"
                     app:josefin_style="light"
@@ -173,7 +173,7 @@
             android:layout_height="wrap_content">
 
             <!-- Confirm -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/payments_alt_confirm"
                 android:text="@string/payments_alt_confirm"
                 android:gravity="center"
@@ -187,7 +187,7 @@
                 android:layout_height="wrap_content" />
 
             <!-- Subtitle -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textColor="@color/redSquareColor"
                 android:textSize="16sp"
                 app:josefin_style="light"
@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content" />
 
             <!-- Note -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/payments_alt_note"
                 android:textColor="@color/redSquareColor"
                 android:textSize="16sp"

@@ -1,0 +1,23 @@
+package construction.thesquare.worker.reviews;
+
+import java.util.List;
+
+import construction.thesquare.shared.reviews.Review;
+
+/**
+ * Created by Evgheni on 11/11/2016.
+ */
+
+public interface ReviewsContract {
+    interface View {
+        void displayReviews(List<Review> data);
+        void displayError(String message);
+        void displayProgress(boolean show);
+        void displayReview(Review review);
+        }
+    interface UserActionListener {
+
+        void fetchReview(Review review);
+        void fetchReviews();
+    }
+}

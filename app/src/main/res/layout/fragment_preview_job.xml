@@ -28,7 +28,7 @@
                 android:layout_height="24dp"/>
 
             <!-- Title -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="Preview Job Post"
                 android:layout_gravity="center_vertical"
                 android:textSize="22sp"
@@ -82,7 +82,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            <construction.thesquare.shared.view.widget.JosefinSansTextView
                                 android:id="@+id/preview_occupation"
                                 android:textSize="20sp"
                                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
@@ -94,7 +94,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            <construction.thesquare.shared.view.widget.JosefinSansTextView
                                 android:id="@+id/preview_trades"
                                 android:textSize="16sp"
                                 android:textAllCaps="true"
@@ -103,7 +103,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            <construction.thesquare.shared.view.widget.JosefinSansTextView
                                 android:id="@+id/preview_experience"
                                 android:textSize="16sp"
                                 app:josefin_style="light"
@@ -128,7 +128,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            <construction.thesquare.shared.view.widget.JosefinSansTextView
                                 android:id="@+id/preview_salary_period"
                                 android:textSize="16sp"
                                 app:josefin_style="light"
@@ -137,7 +137,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            <construction.thesquare.shared.view.widget.JosefinSansTextView
                                 android:id="@+id/preview_salary_number"
                                 android:textSize="22sp"
                                 android:text="\u00A3 165"
@@ -172,7 +172,7 @@
                                 android:layout_height="wrap_content"
                                 android:tint="@color/redSquareColor"
                                 android:src="@drawable/ic_date_range_black_24dp"/>
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            <construction.thesquare.shared.view.widget.JosefinSansTextView
                                 android:id="@+id/preview_start_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginStart="5dp"
                                 android:src="@drawable/ic_place_black_24dp"/>
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                            <construction.thesquare.shared.view.widget.JosefinSansTextView
                                 android:id="@+id/preview_location"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -223,7 +223,7 @@
             android:layout_height="wrap_content">
 
             <!-- Description -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_description"
                 android:id="@+id/job_details_description_label"
                 android:textSize="16sp"
@@ -234,7 +234,7 @@
                 android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_description"
                 android:textSize="14sp"
                 app:josefin_style="italic"
@@ -243,7 +243,7 @@
                 android:layout_height="wrap_content"/>
 
             <!-- Qualifications -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_qualifications"
                 android:id="@+id/job_details_qualifications_label"
                 android:textSize="16sp"
@@ -255,7 +255,7 @@
                 android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_qualifications2"
                 android:textSize="14sp"
                 app:josefin_style="italic"
@@ -264,7 +264,7 @@
                 android:layout_height="wrap_content" />
 
             <!-- Requirements -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_mandatory_requirements"
                 android:id="@+id/job_details_reqs_label"
                 android:textSize="16sp"
@@ -275,7 +275,7 @@
                 android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_qualifications"
                 android:textSize="14sp"
                 app:josefin_style="italic"
@@ -284,7 +284,7 @@
                 android:layout_height="wrap_content"/>
 
             <!-- English Level -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_english_level"
                 android:id="@+id/job_details_english_level_label"
                 android:textSize="16sp"
@@ -295,7 +295,7 @@
                 android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_english_level"
                 android:textSize="14sp"
                 app:josefin_style="italic"
@@ -304,7 +304,7 @@
                 android:layout_height="wrap_content" />
 
             <!-- Skills -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/skills_required2"
                 android:id="@+id/job_details_skills_label"
                 android:textSize="16sp"
@@ -316,7 +316,7 @@
                 android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_skills"
                 android:textSize="14sp"
                 app:josefin_style="italic"
@@ -325,7 +325,7 @@
                 android:layout_height="wrap_content"/>
 
             <!-- Experience Types -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_experience_types"
                 android:id="@+id/job_details_experience_types_label"
                 android:textSize="16sp"
@@ -336,7 +336,7 @@
                 android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_experience_types"
                 android:textSize="14sp"
                 app:josefin_style="italic"
@@ -345,7 +345,7 @@
                 android:layout_height="wrap_content" />
 
             <!-- Overtime -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_overtime"
                 android:id="@+id/job_details_overtime_label"
                 android:textSize="16sp"
@@ -356,7 +356,7 @@
                 android:textColor="@color/blackSquareColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_overtime"
                 app:josefin_style="italic"
                 android:textSize="14sp"
@@ -384,7 +384,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:text="@string/job_details_reporting_to"
                     android:layout_marginBottom="6dp"
                     android:id="@+id/preview_reporting_to"
@@ -409,7 +409,7 @@
                     android:background="@drawable/ic_message"/>
             </RelativeLayout>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_owner"
                 android:textColor="@color/graySquareColor"
                 android:textSize="16dp"
@@ -418,7 +418,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_owner_phone"
                 android:textColor="@color/graySquareColor"
                 android:textSize="16dp"
@@ -428,7 +428,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_turn_up_address"
                 android:textColor="@android:color/white"
                 android:textSize="18dp"
@@ -440,7 +440,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_owner_address"
                 android:textColor="@color/graySquareColor"
                 android:textSize="16dp"
@@ -450,7 +450,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_date_arrival"
                 android:textColor="@android:color/white"
                 android:textSize="18dp"
@@ -462,7 +462,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_date"
                 android:textColor="@color/graySquareColor"
                 android:textSize="16dp"
@@ -470,7 +470,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/job_details_notes"
                 android:textColor="@android:color/white"
                 android:textSize="18dp"
@@ -482,7 +482,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/job_details_notes"
                 android:textColor="@color/graySquareColor"
                 android:textSize="16dp"
@@ -493,7 +493,7 @@
         </LinearLayout>
 
         <!-- Action -->
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/publish"
             android:layout_margin="12dp"
             android:background="@color/redSquareColor"

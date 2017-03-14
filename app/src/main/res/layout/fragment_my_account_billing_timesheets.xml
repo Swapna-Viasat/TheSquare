@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/medium_padding"
     android:paddingStart="@dimen/medium_padding"
-    tools:context="com.hellobaytree.graftrs.worker.myaccount.ui.activity.MyAccountBillingActivity$PlaceholderFragment">
+    tools:context="construction.thesquare.worker.myaccount.ui.activity.MyAccountBillingActivity$PlaceholderFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

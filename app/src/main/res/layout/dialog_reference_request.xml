@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -17,7 +17,7 @@
         android:textAlignment="center"
         android:textColor="@color/blackSquareColor" />
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:id="@+id/close"
         android:layout_width="30dp"
         android:layout_height="30dp"

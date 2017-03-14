@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:text="@string/employer_jobs_new"
         android:textSize="20sp"
         android:textColor="@color/blackSquareColor"
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_centerVertical="true"
             android:text="@string/employer_jobs_create"
             android:id="@+id/new_text"
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_centerVertical="true"
             android:id="@+id/duplicate_text"
             android:maxLines="1"
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/cancel"
             android:textAllCaps="true"
             android:textColor="@color/redSquareColor"
@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/ok"
             android:textAllCaps="true"
             android:textColor="@color/redSquareColor"

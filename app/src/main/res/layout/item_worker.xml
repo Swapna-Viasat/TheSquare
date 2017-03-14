@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_name"
                 android:text="Matt R"
                 android:textStyle="bold"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_occupation"
                 android:text="Banksman"
                 android:textAllCaps="true"
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="no"
                 android:layout_marginTop="-10dp"
                 android:id="@+id/worker_rating"
@@ -86,7 +86,7 @@
         android:layout_height="80dp"/>
 
     <!-- Available immediately -->
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:id="@+id/worker_additional_info"
         android:text="Available Immediately"
         android:layout_gravity="bottom|left"

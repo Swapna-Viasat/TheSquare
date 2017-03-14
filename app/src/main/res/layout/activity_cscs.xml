@@ -24,7 +24,7 @@
             android:padding="20dp">
 
             <!-- Surname -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/onboarding_cscs_surname"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 app:hintEnabled="false">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/surname"
@@ -46,7 +46,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <!-- Registration -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/onboarding_cscs_registration"
@@ -59,7 +59,7 @@
                 android:orientation="horizontal"
                 android:weightSum="8">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/reg_01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.5"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/reg_02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.5"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/reg_03"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.5"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/reg_04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.5"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/reg_05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.5"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/reg_06"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.5"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/reg_07"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.5"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/reg_08"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
             </LinearLayout>
 
         </LinearLayout>
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

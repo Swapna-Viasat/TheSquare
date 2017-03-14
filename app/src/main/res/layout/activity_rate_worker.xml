@@ -22,7 +22,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/review_details_name"
                 app:josefin_style="light"
                 android:layout_gravity="center"
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/again"
                         android:layout_margin="14dp"
                         android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:background="@color/lightgraySquareColor"
                     android:layout_height="wrap_content">
-                  <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                  <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/got_hired"
                         android:layout_margin="14dp"
                         android:layout_width="wrap_content"
@@ -135,14 +135,14 @@
                 android:layout_height="1dp"/>
 
             <!-- Quality of work -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_gravity="center"
                 android:text="@string/worker_reviews_quality"
                 android:layout_marginTop="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="yes"
                 android:layout_gravity="center"
                 android:id="@+id/rating_view_quality"
@@ -157,14 +157,14 @@
                 android:layout_height="1dp"/>
 
             <!-- Reliability -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_gravity="center"
                 android:text="@string/worker_reviews_reliability"
                 android:layout_marginTop="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="yes"
                 android:layout_gravity="center"
                 android:id="@+id/rating_view_reliability"
@@ -179,14 +179,14 @@
                 android:layout_height="1dp"/>
 
             <!-- Attitude -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_gravity="center"
                 android:text="@string/worker_reviews_attitude"
                 android:layout_marginTop="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="yes"
                 android:layout_gravity="center"
                 android:id="@+id/rating_view_attitude"
@@ -201,14 +201,14 @@
                 android:layout_height="1dp"/>
 
             <!-- Safety -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_gravity="center"
                 android:text="@string/worker_reviews_safety"
                 android:layout_marginTop="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="yes"
                 android:layout_gravity="center"
                 android:id="@+id/rating_view_safety"
@@ -223,7 +223,7 @@
                 android:layout_height="1dp"/>
             </LinearLayout>
             </LinearLayout>
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/redSquareColor"

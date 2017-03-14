@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <!--<android.support.v4.view.ViewPager-->
-    <com.hellobaytree.graftrs.shared.start.SignUpViewPager
+    <construction.thesquare.shared.start.SignUpViewPager
         android:id="@+id/viewPagerWizard"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             style="@style/subheader_white_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:background="@drawable/ic_circle_close" />
     </FrameLayout>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:id="@+id/job_matches_counter"
         style="@style/subheader_white_text"
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

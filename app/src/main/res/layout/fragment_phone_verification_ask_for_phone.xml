@@ -12,7 +12,7 @@
         android:padding="25dp"
         android:orientation="vertical">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/tvAskForPhoneFirstTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             android:paddingBottom="10dp"
             android:text="@string/phone_verification_first_title" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/tvAskForPhoneSecondTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_weight="4"
                 app:hintEnabled="false">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -69,7 +69,7 @@
         </LinearLayout>
         <!--android:background="@drawable/underlined_666"-->
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -78,7 +78,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/phone_verification_third_title" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

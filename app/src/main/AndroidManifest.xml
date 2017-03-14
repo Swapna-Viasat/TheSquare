@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hellobaytree.graftrs">
+    package="construction.thesquare">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -25,7 +25,7 @@
 
     <!-- android:debuggable="true" -->
     <application
-        android:name=".GraftrsApplication"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon_app"
         android:label="@string/app_name"

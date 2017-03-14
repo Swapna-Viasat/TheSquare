@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+        <construction.thesquare.shared.view.widget.JosefinSansEditText
             android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

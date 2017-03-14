@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.hellobaytree.graftrs.worker.jobmatches.fragment.JobMatchesMapFragment">
+             tools:context="construction.thesquare.worker.jobmatches.fragment.JobMatchesMapFragment">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map_view"
