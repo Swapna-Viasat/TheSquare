@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:textSize="26sp"
         android:id="@+id/top"
         app:josefin_style="light"
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/blackSquareColor"
@@ -54,7 +54,7 @@
                         android:text="@string/create_job_experience_header"
                         app:josefin_style="bold"/>
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -90,7 +90,7 @@
                     android:background="@color/lightgraySquareColor"
                     android:padding="20dp">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:textColor="@color/blackSquareColor"
                         android:textSize="14sp"
                         android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                     android:gravity="start"
                     android:background="@color/lightgraySquareColor"
                     android:padding="20dp">
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:textColor="@color/blackSquareColor"
                         android:textSize="14sp"
                         android:layout_width="wrap_content"
@@ -169,7 +169,7 @@
                     android:background="@color/lightgraySquareColor"
                     android:padding="20dp">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:textColor="@color/blackSquareColor"
                         android:textSize="14sp"
                         android:layout_width="wrap_content"
@@ -183,7 +183,7 @@
                         android:orientation="horizontal"
                         >
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        <construction.thesquare.shared.view.widget.JosefinSansTextView
                             android:id="@+id/lang"
                             android:layout_width="wrap_content"
                             android:layout_height="100dp"
@@ -228,7 +228,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:textColor="@color/blackSquareColor"
                         android:textSize="14sp"
                         android:layout_margin="12dp"
@@ -242,7 +242,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_01"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -253,7 +253,7 @@
                             android:gravity="center_horizontal"
                             android:layout_weight="0.5"/>
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_02"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
                             android:gravity="center_horizontal"
                             android:layout_weight="0.5"/>
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_03"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -277,7 +277,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginStart="8dp"/>
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_04"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -288,7 +288,7 @@
                             android:gravity="center_horizontal"
                             android:layout_weight="0.5"/>
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_05"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -299,7 +299,7 @@
                             android:gravity="center_horizontal"
                             android:layout_weight="0.5"/>
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_06"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -310,7 +310,7 @@
                             android:gravity="center_horizontal"
                             android:layout_weight="0.5"/>
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_07"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -321,7 +321,7 @@
                             android:gravity="center_horizontal"
                             android:layout_weight="0.5"/>
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_08"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -332,7 +332,7 @@
                             android:gravity="center_horizontal"
                             android:layout_weight="0.5"/>
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:id="@+id/nis_09"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -364,7 +364,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:textColor="@color/blackSquareColor"
                         android:textSize="14sp"
                         android:layout_width="wrap_content"
@@ -400,7 +400,7 @@
                 android:layout_height="wrap_content"/>
 
             <!-- Next -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:background="@color/redSquareColor"
                 android:text="Next"
                 android:textAlignment="center"

@@ -24,7 +24,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_account_name"
                 android:textColor="@color/whiteSquareColor"
                 android:textSize="20sp"
@@ -34,25 +34,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_account_occupation"
                 android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 android:id="@+id/worker_account_rating"
                 android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_account_completeness"
                 android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/worker_account_level"
                 android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_toRightOf="@id/avail"
                 android:layout_centerVertical="true"
                 android:textSize="20sp"
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_toLeftOf="@+id/worker_account_switch"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
@@ -141,7 +141,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_toRightOf="@id/task"
                 android:layout_centerVertical="true"
                 android:textSize="20sp"
@@ -153,7 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_toRightOf="@+id/worker_account_task"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
@@ -187,7 +187,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_toRightOf="@id/reviews"
                 android:layout_centerVertical="true"
                 android:textSize="20sp"
@@ -199,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_toRightOf="@+id/worker_account_reviews"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
@@ -234,7 +234,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_toRightOf="@id/lead"
                 android:layout_centerVertical="true"
                 android:textSize="20sp"
@@ -265,7 +265,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_toRightOf="@id/time"
                 android:layout_centerVertical="true"
                 android:textSize="20sp"

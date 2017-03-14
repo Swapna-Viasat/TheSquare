@@ -21,7 +21,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up_employer_step_2_title"
@@ -41,14 +41,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_up_employer_step_2_title_2"
                     android:id="@+id/tvEmployerSecondStepTitle2"
                     style="@style/subheader_dark_text" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_up_employer_step_2_title_3"
@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         app:hintEnabled="false">
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         app:hintEnabled="false">
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -102,7 +102,7 @@
                         android:layout_height="wrap_content"
                         app:hintEnabled="false">
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/eEmployerSecondStepKeyContactPhone"
@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         app:hintEnabled="false">
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/eEmployerSecondStepKeyContactEmail"
@@ -132,7 +132,7 @@
 
                 </LinearLayout>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/tvEmployerSecondStepTimesheetTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                     style="@style/TextGraftrst.Black.Bold.Medium"
                     android:layout_marginTop="20dp" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/tvEmployerSecondStepTimesheetSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                         android:layout_marginTop="8dp"
                         android:clickable="false" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/tvEmployerSecondStepTimesheetOption1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                         android:layout_marginTop="5dp"
                         android:clickable="false" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/tvEmployerSecondStepTimesheetOption2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                 </LinearLayout>
 
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/tvEmployerSecondStepWorkerPaymentsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -206,7 +206,7 @@
                     app:josefin_style="bold"
                     android:layout_marginTop="30dp"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/tvEmployerSecondStepWorkerPaymentsSubTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
                         android:layout_marginTop="8dp"
                         android:clickable="false"/>
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/tvEmployerSecondStepWorkerPaymentOption1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -253,7 +253,7 @@
                         android:layout_marginTop="5dp"
                         android:clickable="false"/>
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/tvEmployerSecondStepWorkerPaymentOption2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

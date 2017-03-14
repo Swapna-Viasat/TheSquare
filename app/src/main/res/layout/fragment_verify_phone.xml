@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:padding="25dp">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/tvAskForPhoneFirstTitle"
             style="@style/light_big_dark_text"
             android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:text="@string/phone_verification_first_title"
             app:josefin_style="light" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/tvAskForPhoneSecondTitle"
             style="@style/subheader_gray_text"
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_weight="4"
                 app:hintEnabled="false">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/askForPhonePhoneNumberEditText"
                     style="@style/square_edit_text"
                     android:layout_width="match_parent"
@@ -66,7 +66,7 @@
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             style="@style/caption_dark_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:gravity="center"
             android:text="@string/phone_verification_third_title" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/terms"
             style="@style/caption_dark_text"
             android:layout_width="match_parent"

@@ -19,14 +19,14 @@
             android:orientation="vertical"
             android:gravity="center_vertical|center_horizontal">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/light_big_dark_text"
                 app:josefin_style="light"
                 android:text="@string/sign_up_employer_step_1_title"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_employer_step_1_last_name_hint"
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_employer_step_1_job_title_hint"
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_employer_step_1_work_email_hint"
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_employer_step_1_password2_hint"
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/sign_up_employer_step_1_company_name_hint"
@@ -169,7 +169,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"

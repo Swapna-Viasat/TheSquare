@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/medium_padding">
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

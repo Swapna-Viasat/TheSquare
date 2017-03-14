@@ -20,19 +20,19 @@
             android:layout_weight="2"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textColor="@color/blackSquareColor"
                 android:text="Standard Subscription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textColor="@color/blackSquareColor"
                 android:text="Features"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_marginTop="12dp"
                 android:textColor="@color/blackSquareColor"
                 android:text="Hire anytime, from any device
@@ -49,20 +49,20 @@
             android:layout_weight="1"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textColor="@color/blackSquareColor"
                 android:textSize="16sp"
                 android:text="@string/payments_standard_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textColor="@color/blackSquareColor"
                 android:text="@string/payments_period2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textColor="@color/redSquareColor"
                 android:textSize="16sp"
                 android:text="@string/payments_standard_bookings"

@@ -32,7 +32,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/social_fb"
                     android:padding="12dp"
                     app:josefin_style="italic"
@@ -73,7 +73,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/social_twtr"
                     android:padding="12dp"
                     app:josefin_style="italic"

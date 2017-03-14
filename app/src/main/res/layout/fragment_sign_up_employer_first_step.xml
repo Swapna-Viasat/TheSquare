@@ -18,7 +18,7 @@
             android:orientation="vertical"
             android:gravity="center_vertical|center_horizontal">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/light_big_dark_text"
@@ -26,7 +26,7 @@
                 android:text="@string/sign_up_employer_step_1_title"
                 android:id="@+id/textView2"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/eEmployerFirstStepLastName"
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/eEmployerFirstStepJobTitle"
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/eEmployerFirstStepWorkEmailAddress"
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/eEmployerFirstStepPassword2"
@@ -161,7 +161,7 @@
                     android:layout_height="wrap_content"
                     app:hintEnabled="false">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/eEmployerFirstStepCompanyRegistrationNumber"
