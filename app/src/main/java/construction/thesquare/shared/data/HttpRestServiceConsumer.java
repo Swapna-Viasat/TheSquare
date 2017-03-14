@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import construction.thesquare.BuildConfig;
+import construction.thesquare.FlavorSettings;
 import construction.thesquare.MainApplication;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.utils.TextTools;
@@ -22,25 +23,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpRestServiceConsumer {
 
-    private static String BASE_TEST_DEV_URL = "http://dev.api.thesquareapp.com";
-    private static String BASE_TEST_ALPHA_URL = "http://alpha.api.thesquareapp.com";
-    private static String BASE_RELEASE_URL = "http://api.thesquareapp.com";
-
-    private static int CURRENT_URL_INDEX = 1;
-
-    private static String BACKEND_URL = "";
-
-    private static String TOKEN = "";
-
-    private static String[] environments = {BASE_TEST_DEV_URL,
-            BASE_TEST_ALPHA_URL, BASE_RELEASE_URL};
-
     private static BaseApiInterface baseService;
     private static Retrofit retrofitInstance;
     private static final int TIMEOUT = 60;
 
     public static BaseApiInterface getBaseApiClient() {
-        BACKEND_URL = environments[CURRENT_URL_INDEX];
         return getBaseApiInterface(!(TextUtils.isEmpty(
                 SharedPreferencesManager.getInstance(MainApplication.getAppContext()).getToken())));
 
@@ -52,7 +39,7 @@ public class HttpRestServiceConsumer {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BACKEND_URL)
+                .baseUrl(FlavorSettings.API_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(getHttpClient(setInterceptor))
                 .build();
@@ -117,25 +104,5 @@ public class HttpRestServiceConsumer {
 
     public static Retrofit getRetrofitInstance() {
         return retrofitInstance;
-    }
-
-    public String getBackendUrl() {
-        return BACKEND_URL;
-    }
-
-    public static int getCurrentUrlIndex() {
-        return CURRENT_URL_INDEX;
-    }
-
-    public static void setCurrentUrlIndex(int currentUrlIndex) {
-        CURRENT_URL_INDEX = currentUrlIndex;
-    }
-
-    public static String[] getEnvironments() {
-        return environments;
-    }
-
-    public static String getApiRoot() {
-        return environments[CURRENT_URL_INDEX];
     }
 }
