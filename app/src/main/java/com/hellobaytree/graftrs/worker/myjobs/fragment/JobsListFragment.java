@@ -1,5 +1,6 @@
 package com.hellobaytree.graftrs.worker.myjobs.fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hellobaytree.graftrs.R;
+import com.hellobaytree.graftrs.shared.utils.DialogBuilder;
 import com.hellobaytree.graftrs.worker.jobdetails.JobDetailActivity;
 import com.hellobaytree.graftrs.worker.jobdetails.LikeJobConnector;
 import com.hellobaytree.graftrs.worker.jobmatches.model.Job;
@@ -43,6 +45,7 @@ public class JobsListFragment extends Fragment
     RecyclerView rv;
     @BindView(R.id.no_matches)
     View noMatches;
+    private Dialog dialog;
 
     public static JobsListFragment newInstance(int jobType) {
         JobsListFragment jobsListFragment = new JobsListFragment();
@@ -110,6 +113,11 @@ public class JobsListFragment extends Fragment
     }
 
     public void displayProgress(boolean show) {
+        if (show) {
+            dialog = DialogBuilder.showCustomDialog(getContext());
+        } else {
+            DialogBuilder.cancelDialog(dialog);
+        }
     }
 
     private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
