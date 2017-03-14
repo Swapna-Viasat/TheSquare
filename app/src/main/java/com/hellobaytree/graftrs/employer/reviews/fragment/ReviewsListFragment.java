@@ -38,7 +38,6 @@ public class ReviewsListFragment extends Fragment
     private ReviewsContract.UserActionListener mUserActionListener;
     private List<Review> data = new ArrayList<>();
     private ReviewsAdapter adapter;
-    private AlertDialog progressDialog;
     @BindView(R.id.worker_reviews_rv) RecyclerView recyclerView;
     @BindView(R.id.reviews_no_data) LinearLayout noData;
 
@@ -53,7 +52,6 @@ public class ReviewsListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUserActionListener = new ReviewsPresenter(this);
-        progressDialog = new ProgressDialog.Builder(getActivity()).setMessage(R.string.worker_jobs_wait_msg).create();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,9 +77,7 @@ public class ReviewsListFragment extends Fragment
 
     @Override
     public void displayProgress(boolean show) {
-        if (show) progressDialog.show();
-        else progressDialog.dismiss();
-    }
+     }
 
     @Override
     public void displayError(String message) {

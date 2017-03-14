@@ -1,7 +1,6 @@
 package com.hellobaytree.graftrs.worker.jobmatches.fragment;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -62,8 +61,6 @@ public class JobMatchesFragment extends Fragment
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mUserActionsListener = new MatchesPresenter(this);
-        progressDialog = new ProgressDialog.Builder(getActivity())
-                .setMessage("Hold tight, we are busy working...").create();
     }
 
     @Override
@@ -76,8 +73,6 @@ public class JobMatchesFragment extends Fragment
 
     @Override
     public void displayProgress(boolean show) {
-        if (show) progressDialog.show();
-        else progressDialog.dismiss();
     }
 
     @Override

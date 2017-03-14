@@ -417,7 +417,6 @@
     <string name="worker_jobs_awaiting">Awaiting Response</string>
     <string name="worker_jobs_declined">Didn\'t get it</string>
     <string name="worker_job_details">Job Details</string>
-    <string name="worker_jobs_wait_msg">Hold tight! We\'re working&#8230;</string>
 
     <!-- Job Details -->
     <string name="job_details_success_message">
