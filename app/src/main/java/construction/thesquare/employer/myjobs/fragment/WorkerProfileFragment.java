@@ -34,6 +34,7 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import construction.thesquare.FlavorSettings;
 import construction.thesquare.R;
 import construction.thesquare.employer.myjobs.LikeWorkerConnector;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
@@ -860,7 +861,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
             if (dataResponse.getResponse().cardPicture != null)
                 Picasso.with(getContext())
-                        .load(HttpRestServiceConsumer.getApiRoot() + dataResponse.getResponse().cardPicture)
+                        .load(FlavorSettings.API_URL + dataResponse.getResponse().cardPicture)
                         .fit().centerCrop().into(cscsImage);
 
             cscsExpirationView.setText(DateUtils.getCscsExpirationDate(dataResponse.getResponse().expiryDate));

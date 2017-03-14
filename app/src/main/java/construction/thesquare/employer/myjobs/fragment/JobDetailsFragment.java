@@ -497,14 +497,8 @@ public class JobDetailsFragment extends Fragment
 
         if (null != job.owner) {
             if (null != job.owner.picture) {
-                logo.setVisibility(View.VISIBLE);
                 name.setVisibility(View.GONE);
-                Picasso.with(getContext())
-                        .load(job.owner.picture)
-                        .fit()
-                        .into(logo);
             } else {
-                logo.setVisibility(View.GONE);
                 name.setVisibility(View.VISIBLE);
             }
         }
@@ -512,6 +506,15 @@ public class JobDetailsFragment extends Fragment
         if (null != job.company) {
             if (null != job.company.name) {
                 name.setText(job.company.name);
+            }
+            if (null != job.company.logo) {
+                logo.setVisibility(View.VISIBLE);
+                Picasso.with(getContext())
+                        .load(job.owner.picture)
+                        .fit()
+                        .into(logo);
+            } else {
+                logo.setVisibility(View.GONE);
             }
         }
 

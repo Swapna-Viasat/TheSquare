@@ -37,9 +37,9 @@ public class MainApplication extends MultiDexApplication {
 
         Branch.getAutoInstance(this);
 
-        if (!BuildConfig.DEBUG) {
+//        if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
-        }
+//        }
     }
 
     synchronized public Tracker getDefaultTracker() {

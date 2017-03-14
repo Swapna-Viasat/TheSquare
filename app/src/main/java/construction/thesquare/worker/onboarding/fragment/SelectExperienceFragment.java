@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -75,7 +76,6 @@ import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.onboarding.OnLanguagesSelectedListener;
-import construction.thesquare.worker.onboarding.adapter.ExperienceAdapter;
 import construction.thesquare.worker.onboarding.adapter.FluencyAdapter;
 import construction.thesquare.worker.signup.model.CSCSCardWorker;
 import okhttp3.MediaType;
@@ -93,8 +93,7 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  */
 
 public class SelectExperienceFragment extends Fragment
-        implements FluencyAdapter.FluencyListener,
-        ExperienceAdapter.ExperienceListener, OnLanguagesSelectedListener {
+        implements FluencyAdapter.FluencyListener, OnLanguagesSelectedListener {
 
     public static final String TAG = "SelectExperienceFragment";
     private int workerId;
@@ -102,7 +101,6 @@ public class SelectExperienceFragment extends Fragment
     private int experience;
     private int id;
     private int cscsStatus;
-    private String lastname = null;
     private List<String> selectedLanguages = new ArrayList<>();
     @BindView(R.id.years)
     JosefinSansTextView years;
@@ -111,7 +109,7 @@ public class SelectExperienceFragment extends Fragment
     @BindView(R.id.english)
     RecyclerView fluency;
     @BindView(R.id.others)
-    RecyclerView others;
+    LinearLayout others;
     @BindView(R.id.top)
     JosefinSansTextView top;
     private EditText current;
@@ -151,11 +149,9 @@ public class SelectExperienceFragment extends Fragment
     private ArrayAdapter<CharSequence> dayAdapter;
     private ArrayAdapter<CharSequence> yearAdapter;
     private ArrayAdapter nationalityAdapter;
-    private ArrayAdapter languagesAdapter;
     private List<Nationality> nationalities;
     private FluencyAdapter fluencyAdapter;
     private List<EnglishLevel> levels = new ArrayList<>();
-    private ExperienceAdapter experienceAdapter;
     private List<ExperienceQualification> qualifications = new ArrayList<>();
     private Worker currentWorker;
     private List<ExperienceQualification> selected = new ArrayList<>();
@@ -227,8 +223,6 @@ public class SelectExperienceFragment extends Fragment
                 android.R.layout.simple_spinner_item);
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerYear.setAdapter(yearAdapter);
-
-        fetchCurrentWorker();
     }
 
     private void fetchEnglishLevels() {
@@ -364,7 +358,6 @@ public class SelectExperienceFragment extends Fragment
                             DialogBuilder.cancelDialog(dialog);
                             try {
                                 id = response.body().getResponse().id;
-                                lastname = response.body().getResponse().lastName;
                                 populateDetails(response.body().getResponse());
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -392,6 +385,12 @@ public class SelectExperienceFragment extends Fragment
                 passport_photo.setImageResource(R.drawable.passport);
             }
 
+            populateExperienceYears();
+            populateDateOfBirth();
+            populateNis();
+            populateLanguages();
+            showPassportImage();
+            surname.setText(worker.lastName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -416,18 +415,35 @@ public class SelectExperienceFragment extends Fragment
         try {
             qualifications.clear();
             qualifications.addAll(fetchedQualifications);
-            experienceAdapter = new ExperienceAdapter(qualifications);
-            experienceAdapter.setListener(this);
-            others.setLayoutManager(new LinearLayoutManager(getContext()));
-            others.setAdapter(experienceAdapter);
+            populateQualifications();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void populateCSCSDetails(ResponseObject<CSCSCardWorker> dataResponse) {
+    private void populateQualifications() {
+        others.removeAllViews();
+        if (CollectionUtils.isEmpty(qualifications)) return;
 
-        surname.setText(lastname);
+        for (final ExperienceQualification qualification : qualifications) {
+            View item = LayoutInflater.from(getContext()).inflate(R.layout.item_experience, null, false);
+            JosefinSansTextView title = (JosefinSansTextView) item.findViewById(R.id.title);
+            CheckBox checkBox = (CheckBox) item.findViewById(R.id.check);
+
+            checkBox.setChecked(qualification.selected);
+            title.setText(qualification.name);
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onExperienceClick(qualification);
+                }
+            });
+            others.addView(item);
+        }
+    }
+
+    private void populateCSCSDetails(ResponseObject<CSCSCardWorker> dataResponse) {
+        if (currentWorker != null) surname.setText(currentWorker.lastName);
         surname.setEnabled(false);
         String regnum = dataResponse.getResponse().registrationNumber;
         populateCscsStatus(dataResponse.getResponse().verificationStatus);
@@ -720,8 +736,7 @@ public class SelectExperienceFragment extends Fragment
         try {
 
             HashMap<String, Object> request = new HashMap<>();
-            TextTools.log("lastname", lastname);
-            request.put("surname", lastname);
+            request.put("surname", currentWorker.lastName);
             request.put("registration_number", getReg());
             final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
             HttpRestServiceConsumer.getBaseApiClient()
@@ -857,12 +872,10 @@ public class SelectExperienceFragment extends Fragment
         fluencyAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onExperience(ExperienceQualification experience) {
-        //
+    public void onExperienceClick(ExperienceQualification experience) {
         if (experience.name.equals("CSCS Card")) {
             experience.selected = !experience.selected;
-            experienceAdapter.notifyDataSetChanged();
+            populateQualifications();
             if (!experience.selected) {
                 //
                 cscs.setVisibility(View.GONE);
@@ -874,7 +887,7 @@ public class SelectExperienceFragment extends Fragment
             }
         } else {
             experience.selected = !experience.selected;
-            experienceAdapter.notifyDataSetChanged();
+            populateQualifications();
         }
     }
 
@@ -938,18 +951,14 @@ public class SelectExperienceFragment extends Fragment
     public void onResume() {
         super.onResume();
         loadWorker();
+        if (currentWorker == null) fetchCurrentWorker();
         fetchEnglishLevels();
         fetchQualifications();
-        populateExperienceYears();
-        populateData();
         fetchCscsDetails(workerId);
         fetchNationality();
         fetchLanguage();
 
-        populateDateOfBirth();
-        populateNis();
-        populateLanguages();
-        showPassportImage();
+        populateData();
     }
 
     @Override
@@ -991,9 +1000,10 @@ public class SelectExperienceFragment extends Fragment
                 for (Qualification selectedQualification : currentWorker.qualifications) {
                     if (qualification.id == selectedQualification.id && qualification.onExperience)
                         qualification.selected = true;
+                    if (selectedQualification.name.equals("CSCS Card")) cscs.setVisibility(View.VISIBLE);
                 }
             }
-            experienceAdapter.notifyDataSetChanged();
+            populateQualifications();
         }
     }
 
