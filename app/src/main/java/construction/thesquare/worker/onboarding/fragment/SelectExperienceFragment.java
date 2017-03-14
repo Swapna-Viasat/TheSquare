@@ -951,7 +951,7 @@ public class SelectExperienceFragment extends Fragment
     public void onResume() {
         super.onResume();
         loadWorker();
-        if (currentWorker == null) fetchCurrentWorker();
+        if (currentWorker == null || getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) fetchCurrentWorker();
         fetchEnglishLevels();
         fetchQualifications();
         fetchCscsDetails(workerId);
