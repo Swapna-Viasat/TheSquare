@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">The Square</string>
 
     <string name="phone_verification_first_title">To join The Square we need to verify your mobile number. </string>
     <string name="phone_verification_second_title">(So you don\'t have to login every time &amp; to
