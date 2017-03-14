@@ -14,7 +14,7 @@
         android:layout_width="22dp"
         android:layout_height="22dp" />
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:text="@string/create_job_abandon"
         app:josefin_style="bold"
         android:textColor="@color/blackSquareColor"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/abandon_abandon"
             android:text="Delete job"
             android:textColor="@color/blackSquareColor"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/abandon_save"
             android:text="Save as draft"
             android:layout_marginLeft="12dp"

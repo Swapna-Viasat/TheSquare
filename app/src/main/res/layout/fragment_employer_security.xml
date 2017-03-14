@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.hellobaytree.graftrs.employer.settings.fragment.EmployerSecurityFragment"
+    tools:context="construction.thesquare.employer.settings.fragment.EmployerSecurityFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             app:hintEnabled="false">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+            <construction.thesquare.shared.view.widget.JosefinSansEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             app:hintEnabled="false">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+            <construction.thesquare.shared.view.widget.JosefinSansEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_up_employer_step_1_password2_hint"
@@ -46,7 +46,7 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:textColor="@android:color/white"
             android:textSize="22sp"
             android:padding="8dp"

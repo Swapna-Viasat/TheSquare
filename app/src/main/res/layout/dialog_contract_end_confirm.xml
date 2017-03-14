@@ -12,7 +12,7 @@
         android:layout_width="22dp"
         android:layout_height="22dp"/>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:textColor="@color/blackSquareColor"
         android:textSize="18sp"
         android:layout_marginLeft="52dp"
@@ -30,14 +30,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:textColor="@color/blackSquareColor"
             android:textSize="18sp"
             android:text="@string/employer_dialog_contract_ended_notify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/dialog_contract_name"
             android:textColor="@color/redSquareColor"
             android:textSize="18sp"

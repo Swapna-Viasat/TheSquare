@@ -1,7 +1,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.hellobaytree.graftrs.employer.payments.fragment.PaymentFragment"
+    tools:context="construction.thesquare.employer.payments.fragment.PaymentFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <!-- Title -->
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:text="@string/create_job_card"
             android:textColor="@color/redSquareColor"
             android:textSize="18sp"
@@ -41,7 +41,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:text="@string/create_job_first"
                         app:josefin_style="light"
                         android:textColor="@color/blackSquareColor"
@@ -51,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/first"
@@ -68,7 +68,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:text="@string/create_job_last"
                         app:josefin_style="light"
                         android:textColor="@color/blackSquareColor"
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/last"
@@ -104,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:text="@string/create_job_card_number"
                     app:josefin_style="light"
                     android:textColor="@color/blackSquareColor"
@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:inputType="number"
                     android:layout_margin="12dp"
                     android:id="@+id/number"
@@ -137,7 +137,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content">
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        <construction.thesquare.shared.view.widget.JosefinSansTextView
                             android:text="@string/create_job_expiration"
                             app:josefin_style="light"
                             android:textColor="@color/blackSquareColor"
@@ -153,7 +153,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                            <construction.thesquare.shared.view.widget.JosefinSansEditText
                                 android:inputType="number"
                                 android:maxLength="2"
                                 android:layout_margin="12dp"
@@ -166,7 +166,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content" />
 
-                            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                            <construction.thesquare.shared.view.widget.JosefinSansEditText
                                 android:inputType="number"
                                 android:maxLength="4"
                                 android:layout_marginLeft="6dp"
@@ -188,7 +188,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content">
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        <construction.thesquare.shared.view.widget.JosefinSansTextView
                             android:text="@string/create_job_cvc"
                             app:josefin_style="light"
                             android:textColor="@color/blackSquareColor"
@@ -198,7 +198,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                        <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:inputType="number"
                             android:maxLength="3"
                             android:layout_margin="12dp"
@@ -225,7 +225,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:text="@string/payments_voucher"
                     app:josefin_style="light"
                     android:textColor="@color/blackSquareColor"
@@ -235,7 +235,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:inputType="text|textNoSuggestions|textCapWords"
                     android:layout_margin="12dp"
                     android:id="@+id/voucher"
@@ -267,7 +267,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:text="@string/payments_address1"
                         app:josefin_style="light"
                         android:textColor="@color/blackSquareColor"
@@ -277,7 +277,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/address1"
@@ -288,7 +288,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/city"
@@ -299,7 +299,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/country"
@@ -317,7 +317,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:text="@string/payments_postcode"
                         app:josefin_style="light"
                         android:textColor="@color/blackSquareColor"
@@ -327,7 +327,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:inputType="text|textNoSuggestions|textCapWords"
                         android:layout_margin="12dp"
                         android:id="@+id/postcode"
@@ -341,7 +341,7 @@
         </android.support.v7.widget.CardView>
 
         <!-- Action -->
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:text="@string/create_job_confirm"
             android:id="@+id/confirm"
             app:josefin_style="italic"

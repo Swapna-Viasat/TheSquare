@@ -13,7 +13,7 @@
         android:src="@drawable/red_bullet"
         android:tint="@color/redSquareColor" />
 
-    <com.hellobaytree.graftrs.shared.view.widget.StrikeJosefinSansTextView
+    <construction.thesquare.shared.view.widget.StrikeJosefinSansTextView
         android:id="@+id/worker_details"
         style="@style/caption_gray_text"
         android:layout_width="wrap_content"

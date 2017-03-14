@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:text="Tell us more..."
             android:textSize="18sp"
             android:layout_marginTop="10dp"
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+        <construction.thesquare.shared.view.widget.JosefinSansEditText
             android:id="@+id/messageInput"
             android:hint="@string/employer_settings_message"
             android:textColorHint="@color/graySquareColor"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:text="@string/employer_settings_add"
             android:layout_marginTop="28dp"
             android:textSize="18sp"
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:text="@string/employer_settings_optional"
             android:layout_marginTop="4dp"
             android:textSize="16sp"
@@ -101,7 +101,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:id="@+id/send"
         android:text="@string/employer_settings_send"
         android:padding="18dp"

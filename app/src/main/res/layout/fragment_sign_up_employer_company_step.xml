@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:layout_marginTop="20dp">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up_employer_step_company_title"
@@ -37,7 +37,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -48,7 +48,7 @@
                     android:hint="@string/sign_up_employer_step_company_name_hint" />
             </android.support.design.widget.TextInputLayout>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up_employer_step_company_add_address_label"
@@ -72,7 +72,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                    <construction.thesquare.shared.view.widget.JosefinSansEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -84,7 +84,7 @@
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up_employer_step_company_upload_logo_label"

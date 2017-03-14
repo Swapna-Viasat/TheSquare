@@ -6,7 +6,7 @@
     android:layout_margin="16dp"
     android:orientation="vertical">
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -14,7 +14,7 @@
         android:text="Welcome back!"
         android:textSize="28sp" />
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -24,7 +24,7 @@
         android:textSize="20sp"
         app:josefin_style="light" />
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+    <construction.thesquare.shared.view.widget.JosefinSansEditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:textSize="16sp"
         app:josefin_style="light" />
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+    <construction.thesquare.shared.view.widget.JosefinSansEditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         android:textSize="16sp"
         app:josefin_style="light" />
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:id="@+id/loginButton"
         style="@style/BaseButton"
         android:layout_height="wrap_content"
@@ -74,14 +74,14 @@
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(Forgotten your password?"
             android:textSize="14sp"
             app:josefin_style="light" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/forgotPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             android:textColor="@color/redSquareColor"
             app:josefin_style="light" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=")"

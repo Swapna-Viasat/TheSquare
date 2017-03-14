@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hellobaytree.graftrs.employer.createjob.adapter.SquareLayout android:padding="2dp"
+<construction.thesquare.employer.createjob.adapter.SquareLayout android:padding="2dp"
     android:layout_margin="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/title"
                 android:textSize="18sp"
                 android:layout_margin="8dp"
@@ -36,4 +36,4 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </RelativeLayout>
-</com.hellobaytree.graftrs.employer.createjob.adapter.SquareLayout>
+</construction.thesquare.employer.createjob.adapter.SquareLayout>

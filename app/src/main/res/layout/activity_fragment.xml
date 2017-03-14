@@ -14,7 +14,7 @@
         android:background="@android:color/white"
         app:titleTextColor="@color/blackSquareColor">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/menu_request_label"
             android:visibility="gone"
             android:layout_width="wrap_content"

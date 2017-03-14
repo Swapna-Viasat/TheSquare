@@ -17,7 +17,7 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -26,7 +26,7 @@
                 android:paddingBottom="20dp"
                 android:text="@string/phone_verification_thanks" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/tvPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:weightSum="4">
                 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/eVerificationCode1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="1"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/eVerificationCode2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="1"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/eVerificationCode3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="1"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/eVerificationCode4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="1"/>
 
-                <!--<com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <!--<construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/eVerificationCode5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="1"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/eVerificationCode6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="1"/>
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+                <construction.thesquare.shared.view.widget.JosefinSansEditText
                     android:id="@+id/eVerificationCode7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
             android:layout_gravity="center"
             >
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/enterCodeResendCodeTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                 android:textIsSelectable="false"
                 android:text="@string/phone_verification_did_not_receive_sms" />
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/enterCodeNumberNotRightTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

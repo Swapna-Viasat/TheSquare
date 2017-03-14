@@ -16,7 +16,7 @@
             android:layout_margin="12dp"
             android:background="@drawable/ic_close" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                 android:background="@drawable/signup_module_background"
                 android:padding="10dp">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/tSeekBarTitle"
                     style="@style/subheader_dark_text"
                     android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
                     android:text="@string/sign_up_worker_step_location_commute_question"
                     app:josefin_style="bold" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.CommuteTimeSeekBar
+                <construction.thesquare.shared.view.widget.CommuteTimeSeekBar
                     android:id="@+id/sbCommute"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     android:paddingEnd="12dp"
                     android:paddingStart="12dp" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     style="@style/caption_dark_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                     android:layout_marginStart="15dp"
                     android:text="@string/twenty_minutes" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/seek_bar_progress_text"
                     style="@style/caption_dark_text"
                     android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                 android:background="@drawable/signup_module_background"
                 android:padding="10dp">
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/orderByTitle"
                     style="@style/subheader_dark_text"
                     android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                             android:src="@drawable/ic_british_pound"
                             android:tint="@color/redSquareColor" />
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        <construction.thesquare.shared.view.widget.JosefinSansTextView
                             style="@style/subheader_dark_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                             android:src="@drawable/ic_date_range_black_24dp"
                             android:tint="@color/redSquareColor" />
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        <construction.thesquare.shared.view.widget.JosefinSansTextView
                             style="@style/subheader_dark_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                             android:src="@drawable/ic_location_on_black_24dp"
                             android:tint="@color/redSquareColor" />
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        <construction.thesquare.shared.view.widget.JosefinSansTextView
                             style="@style/subheader_dark_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
                             android:src="@drawable/ic_star_black_24dp"
                             android:tint="@color/redSquareColor" />
 
-                        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                        <construction.thesquare.shared.view.widget.JosefinSansTextView
                             style="@style/subheader_dark_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

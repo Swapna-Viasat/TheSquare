@@ -18,7 +18,7 @@
         android:layout_centerInParent="true"
         android:src="@drawable/square_filled"/>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+    <construction.thesquare.shared.view.widget.JosefinSansEditText
         android:id="@+id/counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

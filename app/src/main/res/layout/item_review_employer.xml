@@ -28,7 +28,7 @@
             android:layout_marginLeft="20dp"
             android:orientation="vertical">
             <!-- worker name -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/item_worker_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 android:textColor="@color/blackSquareColor"
                 android:textSize="18sp" />
             <!-- Position -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/item_role"
                 android:textAllCaps="true"
                 android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                 android:textColor="@color/redSquareColor"
                 android:textSize="14sp" />
             <!-- Requested Date -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/item_review_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
