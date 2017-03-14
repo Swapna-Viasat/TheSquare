@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "957883700798",
-    "firebase_url": "https://thesquareapi.firebaseio.com",
-    "project_id": "thesquareapi",
-    "storage_bucket": "thesquareapi.appspot.com"
+    "project_number": "100876849005",
+    "firebase_url": "https://the-square-dev.firebaseio.com",
+    "project_id": "the-square-dev",
+    "storage_bucket": "the-square-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:957883700798:android:1eb4e00b47410576",
+        "mobilesdk_app_id": "1:100876849005:android:cd261d9c1e50826d",
         "android_client_info": {
           "package_name": "construction.thesquare.dev"
         }
       },
       "oauth_client": [
         {
-          "client_id": "957883700798-41deedi2q9kbtgpjf1trtmfm9aq4b32j.apps.googleusercontent.com",
+          "client_id": "100876849005-sdgbv5tmohhopbq79el2d3pjovd276pv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDiLf58Y019Mj5I_20_je72wlCW58EWSXU"
+          "current_key": "AIzaSyC4xUFr1H9JSgHJTRb4yyADjrMHu_So-5w"
         }
       ],
       "services": {
