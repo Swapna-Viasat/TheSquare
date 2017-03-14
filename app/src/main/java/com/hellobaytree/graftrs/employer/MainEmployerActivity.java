@@ -81,6 +81,50 @@ public class MainEmployerActivity extends AppCompatActivity {
             setupDrawerContent(navigationView);
         }
 
+        fetchMe();
+
+        // checking if the employer wasn't in the process of creating a job
+        // when last left the app
+        if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
+                .getBoolean(Constants.KEY_UNFINISHED, false)) {
+            ///
+            TextTools.log(TAG, "resume create job flow");
+            startActivity(new Intent(this, CreateJobActivity.class));
+            ///
+        } else if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
+                .getBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, false)) {
+            ///
+            TextTools.log(TAG, "we have a draft job not published because no plan was setup");
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_employer_content, SubscriptionFragment.newInstance())
+                    .addToBackStack("")
+                    .commit();
+            ///
+        } else {
+            int currentTab =
+                    getSharedPreferences(Constants.EMPLOYER, MODE_PRIVATE)
+                            .getInt(Constants.EMPLOYER_CURRENT_TAB, 0);
+
+            switch (currentTab) {
+                case 0:
+                    selectItem(getString(R.string.menu_employer_my_jobs_home),
+                            navigationView.getMenu().getItem(0));
+                    break;
+                case 1:
+                    selectItem(getString(R.string.menu_employer_my_graftrs),
+                            navigationView.getMenu().getItem(1));
+                    break;
+                case 2:
+                    selectItem(getString(R.string.menu_employer_my_account),
+                            navigationView.getMenu().getItem(2));
+                    break;
+                case 3:
+                    selectItem(getString(R.string.employer_account_price_plan),
+                            navigationView.getMenu().getItem(3));
+            }
+
+        }
     }
 
     private void fetchMe() {
@@ -134,50 +178,6 @@ public class MainEmployerActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "main employer activity resumed");
-        fetchMe();
-
-        // checking if the employer wasn't in the process of creating a job
-        // when last left the app
-        if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
-                .getBoolean(Constants.KEY_UNFINISHED, false)) {
-            ///
-            TextTools.log(TAG, "resume create job flow");
-            startActivity(new Intent(this, CreateJobActivity.class));
-            ///
-        } else if (getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
-                .getBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, false)) {
-            ///
-            TextTools.log(TAG, "we have a draft job not published because no plan was setup");
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_employer_content, SubscriptionFragment.newInstance())
-                    .addToBackStack("")
-                    .commit();
-            ///
-        } else {
-            int currentTab =
-            getSharedPreferences(Constants.EMPLOYER, MODE_PRIVATE)
-                    .getInt(Constants.EMPLOYER_CURRENT_TAB, 0);
-
-            switch (currentTab) {
-                case 0:
-                    selectItem(getString(R.string.menu_employer_my_jobs_home),
-                            navigationView.getMenu().getItem(0));
-                    break;
-                case 1:
-                    selectItem(getString(R.string.menu_employer_my_graftrs),
-                            navigationView.getMenu().getItem(1));
-                    break;
-                case 2:
-                    selectItem(getString(R.string.menu_employer_my_account),
-                            navigationView.getMenu().getItem(2));
-                    break;
-                case 3:
-                    selectItem(getString(R.string.employer_account_price_plan),
-                            navigationView.getMenu().getItem(3));
-            }
-
-        }
     }
 
     @Override

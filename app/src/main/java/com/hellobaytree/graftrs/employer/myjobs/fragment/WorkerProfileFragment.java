@@ -701,7 +701,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         DialogBuilder.cancelDialog(dialog);
                         //
                         showWorkerInviteSent(name);
-                        // 
+                        //
                         fetchWorker();
                     }
 
