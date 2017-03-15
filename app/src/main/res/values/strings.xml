@@ -534,6 +534,8 @@
     <string name="employer_rate_again">Did you hire %s?</string>
     <string name="employer_rate_given">%s rating</string>
     <string name="worker_turned_up">Did %s turn up?</string>
+    <string name="employer_review_request">You have no reviews to give right now! </string>
+    <string name="employer_review_request_detail">We\'ll let you know as soon as you do. Remember, reviews are super important for you, your workers and The Square community. Reviews should be done fast &amp; fairly.</string>
 
     <!-- Employer My Account -->
     <string name="employer_account_price_plan">My Price Plan</string>
