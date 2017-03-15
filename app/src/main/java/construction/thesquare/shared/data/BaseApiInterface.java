@@ -308,11 +308,11 @@ public interface BaseApiInterface {
     //    APPLICATIONS
     @POST("/applications/{pk}/cancel_booking/")
     Call<ResponseObject<Application>>
-    cancelBooking(@Path("pk") int id, @Body Feedback feedbackMessage);
+            cancelBooking(@Path("pk") int id, @Body Feedback feedbackMessage);
 
     @POST("/applications/{pk}/decline/")
     Call<ResponseObject<Application>>
-    rejectApplicant(@Path("pk") int id, @Body Feedback feedbackMessage);
+            rejectApplicant(@Path("pk") int id, @Body Feedback feedbackMessage);
 
     /**
      * Credit cards
