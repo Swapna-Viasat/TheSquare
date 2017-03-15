@@ -630,7 +630,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void fetchWorker() {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
-                .getWorkerProfile(workerId)
+                .fetchWorker(workerId, jobId)
                 .enqueue(new Callback<ResponseObject<Worker>>() {
                     @Override
                     public void onResponse(Call<ResponseObject<Worker>> call,
