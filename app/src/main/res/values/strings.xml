@@ -534,6 +534,8 @@
     <string name="employer_rate_again">Did you hire %s?</string>
     <string name="employer_rate_given">%s rating</string>
     <string name="worker_turned_up">Did %s turn up?</string>
+    <string name="employer_review_request">You have no reviews to give right now! </string>
+    <string name="employer_review_request_detail">We\'ll let you know as soon as you do. Remember, reviews are super important for you, your workers and The Square community. Reviews should be done fast &amp; fairly.</string>
 
     <!-- Employer My Account -->
     <string name="employer_account_price_plan">My Price Plan</string>
@@ -904,4 +906,6 @@
     <string name="my_account_worker_help_title">Help</string>
 
     <string name="login_error">Oops! Something went wrong. Please check your email and password</string>
+    <string name="help_no_matches">Oops! I\'m afraid we cant answer that. Please contact us here..</string>
+    <string name="help_contact_us">Still need help? Contact us here.</string>
 </resources>

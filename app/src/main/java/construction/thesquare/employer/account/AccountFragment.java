@@ -192,6 +192,9 @@ public class AccountFragment extends Fragment {
                         logo.setImageDrawable(ContextCompat
                                 .getDrawable(getContext(), R.drawable.ic_logo_placeholder));
                     }
+                } else {
+                    logo.setImageDrawable(ContextCompat
+                            .getDrawable(getContext(), R.drawable.ic_logo_placeholder));
                 }
                 if (null != employer.company.name) {
                     name.setText(employer.company.name);
@@ -203,7 +206,7 @@ public class AccountFragment extends Fragment {
 
             owner.setText(employer.firstName + " " + employer.lastName);
             rating.setRating(employer.reviewInt);
-
+//
 //            if (null != employer.picture) {
 //                Picasso.with(getContext())
 //                        .load(employer.picture)

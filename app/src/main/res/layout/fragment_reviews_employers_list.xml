@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/worker_reviews_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/reviews_no_data"
+            android:layout_marginTop="80dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
+            android:text="@string/employer_review_request"
+            app:josefin_style="light"
+                android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/blackSquareColor"
+            android:textSize="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
+                android:text="@string/employer_review_request_detail"
+                app:josefin_style="light"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textColor="@color/blackSquareColor"
+                android:textSize="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

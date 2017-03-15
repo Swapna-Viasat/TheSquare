@@ -165,11 +165,11 @@ public class ReviewsListFragment extends Fragment
         public void onChanged() {
             super.onChanged();
             if (data.isEmpty()) noData.setVisibility(View.VISIBLE);
-            else noData.setVisibility(View.GONE);
-
-            if((getArguments().getInt("category") == Review.TAB_GIVEN) || (getArguments().getInt("category") == Review.CAT_PENDING)) {
-                aggregate.setVisibility(View.GONE);
-                noData.setVisibility(View.GONE);
+            else {
+                if ((getArguments().getInt("category") == Review.TAB_GIVEN) || (getArguments().getInt("category") == Review.CAT_PENDING)) {
+                    aggregate.setVisibility(View.GONE);
+                    noData.setVisibility(View.GONE);
+                }
             }
         }
     };
