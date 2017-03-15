@@ -500,6 +500,8 @@ public class SelectWorkerInfoFragment extends Fragment {
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
             currentWorker.firstName = firstNameInput.getEditText().getText().toString();
             currentWorker.lastName = lastNameInput.getEditText().getText().toString();

@@ -163,6 +163,8 @@ public class SelectAvailabilityFragment extends Fragment {
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
             currentWorker.now = availableNow;
         }

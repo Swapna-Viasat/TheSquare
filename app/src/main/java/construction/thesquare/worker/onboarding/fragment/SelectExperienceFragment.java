@@ -40,9 +40,6 @@ import com.squareup.picasso.Picasso;
 
 import org.joda.time.LocalDate;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -72,15 +69,11 @@ import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
 import construction.thesquare.shared.utils.MediaTools;
-import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.onboarding.OnLanguagesSelectedListener;
 import construction.thesquare.worker.onboarding.adapter.FluencyAdapter;
 import construction.thesquare.worker.signup.model.CSCSCardWorker;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -97,9 +90,9 @@ public class SelectExperienceFragment extends Fragment
 
     public static final String TAG = "SelectExperienceFragment";
     private int workerId;
+    private String workerSurname;
     private int english;
     private int experience;
-    private int id;
     private int cscsStatus;
     private List<String> selectedLanguages = new ArrayList<>();
     @BindView(R.id.years)
@@ -346,7 +339,7 @@ public class SelectExperienceFragment extends Fragment
 
     }
 
-    private void fetchCurrentWorker() {
+    private void fetchCurrentWorker(final boolean requiredFieldsOnly) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
                 .meWorker()
@@ -357,8 +350,22 @@ public class SelectExperienceFragment extends Fragment
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
                             try {
-                                id = response.body().getResponse().id;
-                                populateDetails(response.body().getResponse());
+                                if (!requiredFieldsOnly) {
+                                    populateDetails(response.body().getResponse());
+                                    if (response.body().getResponse() != null) {
+                                        workerSurname = response.body().getResponse().lastName;
+                                        if (workerSurname != null) surname.setText(workerSurname);
+                                    }
+                                } else if (response.body().getResponse() != null) {
+                                    workerSurname = response.body().getResponse().lastName;
+                                    if (workerSurname != null) surname.setText(workerSurname);
+
+                                    Picasso.with(getContext())
+                                            .load(response.body().getResponse().passportUpload)
+                                            .fit()
+                                            .centerCrop()
+                                            .into(passport_photo);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -390,7 +397,7 @@ public class SelectExperienceFragment extends Fragment
             populateNis();
             populateLanguages();
             showPassportImage();
-            surname.setText(worker.lastName);
+            if (workerSurname != null) surname.setText(workerSurname);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -443,7 +450,7 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void populateCSCSDetails(ResponseObject<CSCSCardWorker> dataResponse) {
-        if (currentWorker != null) surname.setText(currentWorker.lastName);
+        if (workerSurname != null) surname.setText(workerSurname);
         surname.setEnabled(false);
         String regnum = dataResponse.getResponse().registrationNumber;
         populateCscsStatus(dataResponse.getResponse().verificationStatus);
@@ -647,35 +654,13 @@ public class SelectExperienceFragment extends Fragment
                 REQUEST_IMAGE_SELECTION);
     }
 
-    private void prepPicture(Context context, Bitmap bitmap) {
-        try {
-            File file = new File(getContext().getCacheDir(),
-                    "temp" + String.valueOf(bitmap.hashCode()));
-            file.createNewFile();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] bytes = baos.toByteArray();
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(bytes);
-            fos.flush();
-            fos.close();
-            baos.flush();
-            baos.close();
-
-            uploadPicture(context, file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void uploadPicture(Context context, File file) {
+    private void uploadPicture(Context context, Bitmap file) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        RequestBody request = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("passport_upload", file.getName(), request);
+        HashMap<String, Object> payload = new HashMap<>();
+        payload.put("passport_upload", MediaTools.encodeToBase64(file));
         HttpRestServiceConsumer.getBaseApiClient()
-                .uploadProfileImageWorker(
-                        SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId(), body)
+                .patchWorker(
+                        SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId(), payload)
                 .enqueue(new Callback<ResponseObject<Worker>>() {
                     @Override
                     public void onResponse(Call<ResponseObject<Worker>> call,
@@ -683,7 +668,10 @@ public class SelectExperienceFragment extends Fragment
 
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            currentWorker = response.body().getResponse();
+
+                            if (currentWorker != null && response.body() != null && response.body().getResponse() != null) {
+                                currentWorker.passportUpload = response.body().getResponse().passportUpload;
+                            }
                             showPassportImage();
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -736,11 +724,11 @@ public class SelectExperienceFragment extends Fragment
         try {
 
             HashMap<String, Object> request = new HashMap<>();
-            request.put("surname", currentWorker.lastName);
+            request.put("surname", workerSurname);
             request.put("registration_number", getReg());
             final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
             HttpRestServiceConsumer.getBaseApiClient()
-                    .persistOnboardingWorkerCSCSCard(id, request)
+                    .persistOnboardingWorkerCSCSCard(workerId, request)
                     .enqueue(new Callback<ResponseObject<CSCSCardWorker>>() {
                         @Override
                         public void onResponse(Call<ResponseObject<CSCSCardWorker>> call,
@@ -817,7 +805,6 @@ public class SelectExperienceFragment extends Fragment
 
         HashMap<String, Object> request = new HashMap<>();
         request.put("qualifications_ids", body);
-        request.put("update_filtered", "requirements");
         request.put("english_level_id", english);
         request.put("years_experience", experience);
         request.put("ni_number", getNIS());
@@ -951,12 +938,14 @@ public class SelectExperienceFragment extends Fragment
     public void onResume() {
         super.onResume();
         loadWorker();
-        if (currentWorker == null || getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) fetchCurrentWorker();
+        if (currentWorker == null || getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
+            fetchCurrentWorker(false);
+        else fetchCurrentWorker(true);
         fetchEnglishLevels();
         fetchQualifications();
-        fetchCscsDetails(workerId);
         fetchNationality();
         fetchLanguage();
+        fetchCscsDetails(workerId);
 
         populateData();
     }
@@ -1000,7 +989,8 @@ public class SelectExperienceFragment extends Fragment
                 for (Qualification selectedQualification : currentWorker.qualifications) {
                     if (qualification.id == selectedQualification.id && qualification.onExperience)
                         qualification.selected = true;
-                    if (selectedQualification.name.equals("CSCS Card")) cscs.setVisibility(View.VISIBLE);
+                    if (selectedQualification.name.equals("CSCS Card"))
+                        cscs.setVisibility(View.VISIBLE);
                 }
             }
             populateQualifications();
@@ -1075,6 +1065,8 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
             currentWorker.yearsExperience = experience;
             currentWorker.dateOfBirth = getDateOfBirth();
@@ -1267,12 +1259,12 @@ public class SelectExperienceFragment extends Fragment
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             passport_photo.setImageBitmap(imageBitmap);
-            prepPicture(getActivity(), imageBitmap);
+            uploadPicture(getActivity(), imageBitmap);
         } else if (requestCode == REQUEST_IMAGE_SELECTION && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             Bitmap imageBitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
             passport_photo.setImageBitmap(imageBitmap);
-            prepPicture(getActivity(), imageBitmap);
+            uploadPicture(getActivity(), imageBitmap);
         }
     }
 

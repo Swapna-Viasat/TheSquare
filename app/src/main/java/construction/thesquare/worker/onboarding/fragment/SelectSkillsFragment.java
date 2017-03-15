@@ -106,8 +106,10 @@ public class SelectSkillsFragment extends Fragment
 
                         if (response.isSuccessful()) {
                             TextTools.log(TAG, "success");
-                            currentWorker = response.body().getResponse();
-                            fetchSkills(currentWorker.roles);
+                            if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
+                                currentWorker = response.body().getResponse();
+
+                            fetchSkills(response.body().getResponse().roles);
                         }
                     }
 
@@ -320,6 +322,8 @@ public class SelectSkillsFragment extends Fragment
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
             selected.clear();
             for (Skill skill : data) {

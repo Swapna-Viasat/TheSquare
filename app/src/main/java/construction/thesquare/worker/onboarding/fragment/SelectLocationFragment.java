@@ -233,8 +233,6 @@ public class SelectLocationFragment extends Fragment
 
                     centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
                     centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
-
-                    populateData();
                 }
             });
         }
@@ -397,6 +395,33 @@ public class SelectLocationFragment extends Fragment
         super.onResume();
         loadWorker();
         googleApiClient.connect();
+        fetchMe();
+    }
+
+    private void fetchMe() {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .meWorker()
+                .enqueue(new Callback<ResponseObject<Worker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<Worker>> call,
+                                           Response<ResponseObject<Worker>> response) {
+
+                        DialogBuilder.cancelDialog(dialog);
+
+                        if (response.isSuccessful()) {
+                            TextTools.log(TAG, "success");
+                            if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
+                                currentWorker = response.body().getResponse();
+                            populateData();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     private void populateData() {
@@ -433,6 +458,8 @@ public class SelectLocationFragment extends Fragment
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
             currentWorker.address = filter.getText().toString();
             currentWorker.location = new construction.thesquare.shared.data.model.Location();
