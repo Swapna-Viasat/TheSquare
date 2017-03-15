@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"/>
                     <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/reportingToAddressTextView"
-                        android:textColor="@color/blackSquareColor"
+                        android:textColor="@color/graySquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:layout_marginTop="2dp"
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"/>
                     <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/dateToArriveTextView"
-                        android:textColor="@color/blackSquareColor"
+                        android:textColor="@color/graySquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                         android:layout_height="wrap_content"/>
                     <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/elseToNoteTextView"
-                        android:textColor="@color/blackSquareColor"
+                        android:textColor="@color/graySquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:text="@string/employer_worker_details_bio_placeholder"
