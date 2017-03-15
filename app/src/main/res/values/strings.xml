@@ -902,4 +902,6 @@
 
     <!-- Help Worker -->
     <string name="my_account_worker_help_title">Help</string>
+
+    <string name="login_error">Oops! Something went wrong. Please check your email and password</string>
 </resources>

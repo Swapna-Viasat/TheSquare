@@ -1,4 +1,4 @@
-package construction.thesquare.shared.phone.fragment;
+package construction.thesquare.shared.login.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -109,12 +109,7 @@ public class EmailLoginFragment extends Fragment {
                             //
                             DialogBuilder.cancelDialog(dialog);
 
-                            if (response.body().getResponse().user.userType == TYPE_EMPLOYER) {
-                                processEmployer(response);
-
-                            } else if (response.body().getResponse().user.userType == TYPE_WORKER) {
-                                processWorker(response);
-                            }
+                            processResponse(response);
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
@@ -126,6 +121,19 @@ public class EmailLoginFragment extends Fragment {
                     }
                 });
 
+    }
+
+    private void processResponse(Response<ResponseObject<LoginUser>> response) {
+        if (response.body() != null && response.body().getResponse() != null
+                && response.body().getResponse().user != null) {
+
+            if (response.body().getResponse().user.userType == TYPE_EMPLOYER) {
+                processEmployer(response);
+
+            } else if (response.body().getResponse().user.userType == TYPE_WORKER) {
+                processWorker(response);
+            }
+        } else DialogBuilder.showStandardDialog(getContext(), "", getString(R.string.login_error));
     }
 
     private void processWorker(Response<ResponseObject<LoginUser>> response) {
