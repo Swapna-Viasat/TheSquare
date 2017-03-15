@@ -109,11 +109,17 @@ public class EmailLoginFragment extends Fragment {
                             //
                             DialogBuilder.cancelDialog(dialog);
 
-                            if (response.body().getResponse().user.userType == TYPE_EMPLOYER) {
-                                processEmployer(response);
+                            try {
+                                //
+                                if (response.body().getResponse().user.userType == TYPE_EMPLOYER) {
+                                    processEmployer(response);
 
-                            } else if (response.body().getResponse().user.userType == TYPE_WORKER) {
-                                processWorker(response);
+                                } else if (response.body().getResponse().user.userType == TYPE_WORKER) {
+                                    processWorker(response);
+                                }
+                                //
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
