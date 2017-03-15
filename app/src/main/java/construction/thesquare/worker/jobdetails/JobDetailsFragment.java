@@ -126,9 +126,10 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 if (null != currentJob.company.name) {
                     companyName.setText(currentJob.company.name);
                 }
-                if (null != currentJob.company.postCode) {
-                    workPlace.setText(currentJob.company.postCode);
-                }
+            }
+
+            if (null != currentJob.locationName) {
+                workPlace.setText(currentJob.locationName);
             }
 
             if (currentJob.owner != null) {
