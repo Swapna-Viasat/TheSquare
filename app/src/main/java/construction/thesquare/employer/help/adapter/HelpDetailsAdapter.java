@@ -1,4 +1,4 @@
-package construction.thesquare.worker.help.adapter;
+package construction.thesquare.employer.help.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +15,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
-import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.shared.models.Help;
+import construction.thesquare.shared.view.widget.JosefinSansTextView;
 
 /**
  * Created by swapna on 3/13/2017.
@@ -52,7 +52,7 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
     public static class HelpDetailsHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.question)
         JosefinSansTextView question;
-      /*  @BindView(R.id.answer)
+        /*@BindView(R.id.answer)
         JosefinSansTextView answer;*/
         @BindView(R.id.webview)
         WebView webview;
@@ -77,7 +77,7 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
                 @Override
                 public void onClick(View v) {
                     holder.webview.setVisibility(View.VISIBLE);
-                   // holder.answer.setText(Html.fromHtml(faq.answer));
+                    // holder.answer.setText(Html.fromHtml(faq.answer));
                     holder.webview.loadDataWithBaseURL(null, faq.answer, "text/html", "utf-8", null);
                 }
             });
