@@ -1,25 +1,26 @@
-package construction.thesquare.worker.help;
+package construction.thesquare.employer.help;
 
 import android.content.Context;
 
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
-import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.models.HelpWorkerResponse;
+import construction.thesquare.shared.utils.TextTools;
+import construction.thesquare.employer.help.*;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Swapna on 03/14/2017.
+ * Created by swapna on 3/15/2017.
  */
 
 public class HelpPresenter implements construction.thesquare.worker.help.HelpContract.UserActionListener {
 
     public static final String TAG = "HelpPresenter";
-    private final construction.thesquare.worker.help.HelpContract.View mHelpView;
+    private final construction.thesquare.employer.help.HelpContract.View mHelpView;
     private Context context;
 
-    public HelpPresenter(HelpContract.View view, Context context) {
+    public HelpPresenter(construction.thesquare.employer.help.HelpContract.View view, Context context) {
         this.context = context;
         this.mHelpView = view;
     }
@@ -42,7 +43,7 @@ public class HelpPresenter implements construction.thesquare.worker.help.HelpCon
 
             @Override
             public void onFailure(Call<HelpWorkerResponse> call, Throwable t) {
-                 TextTools.log(TAG, (t.getMessage() != null) ? t.getMessage() : "");
+                TextTools.log(TAG, (t.getMessage() != null) ? t.getMessage() : "");
             }
         });
     }

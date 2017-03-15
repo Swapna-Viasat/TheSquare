@@ -1,4 +1,4 @@
-package construction.thesquare.worker.help;
+package construction.thesquare.employer.help;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -16,14 +16,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.models.Help;
 import construction.thesquare.shared.settings.fragments.SettingsContactFragment;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
+import construction.thesquare.worker.help.HelpContract;
+import construction.thesquare.worker.help.HelpPresenter;
 import construction.thesquare.worker.help.adapter.HelpDetailsAdapter;
-import construction.thesquare.shared.models.Help;
 
 
 public class HelpDetailsFragment extends Fragment  implements
-        HelpDetailsAdapter.HelpDetailsListener, HelpContract.View{
+        HelpDetailsAdapter.HelpDetailsListener, construction.thesquare.worker.help.HelpContract.View{
     private List<Help> data = new ArrayList<>();
     private HelpDetailsAdapter adapter;
     private HelpContract.UserActionListener mUserActionListener;
