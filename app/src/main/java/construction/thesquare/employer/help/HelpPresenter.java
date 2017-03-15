@@ -14,7 +14,7 @@ import retrofit2.Response;
  * Created by swapna on 3/15/2017.
  */
 
-public class HelpPresenter implements construction.thesquare.worker.help.HelpContract.UserActionListener {
+public class HelpPresenter implements HelpContract.UserActionListener {
 
     public static final String TAG = "HelpPresenter";
     private final construction.thesquare.employer.help.HelpContract.View mHelpView;
