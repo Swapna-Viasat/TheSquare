@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ import com.squareup.picasso.Picasso;
 
 import org.joda.time.LocalDate;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -154,6 +156,8 @@ public class SelectExperienceFragment extends Fragment
     static final int REQUEST_IMAGE_SELECTION = 2;
     static final int REQUEST_PERMISSIONS = 3;
     static final int REQUEST_PERMISSION_READ_STORAGE = 4;
+
+    private Uri imageUri;
 
     public static SelectExperienceFragment newInstance(boolean singleEdition) {
         SelectExperienceFragment selectExperienceFragment = new SelectExperienceFragment();
@@ -639,7 +643,16 @@ public class SelectExperienceFragment extends Fragment
 
     private void dispatchTakePictureIntent() {
         try {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                imageUri = MediaTools.getOutputImageUri(getContext());
+            } else {
+                File file = MediaTools.getOutputImageFile();
+                if (file != null) imageUri = Uri.fromFile(file);
+            }
+
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (imageUri != null) takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
@@ -1260,10 +1273,9 @@ public class SelectExperienceFragment extends Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            passport_photo.setImageBitmap(imageBitmap);
-            uploadPicture(getActivity(), imageBitmap);
+            Bitmap bitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
+            passport_photo.setImageBitmap(bitmap);
+            uploadPicture(getActivity(), bitmap);
         } else if (requestCode == REQUEST_IMAGE_SELECTION && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             Bitmap imageBitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
