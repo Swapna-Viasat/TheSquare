@@ -62,9 +62,6 @@ public class WorkerSettingsFragment extends SettingsFragment {
     @BindView(R.id.zipValue)
     JosefinSansTextView zipTextView;
 
-    @BindView(R.id.nameValue)
-    JosefinSansTextView nameTextView;
-
     private Worker currentWorker;
     private String address;
 
@@ -94,7 +91,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
 
 
     @OnClick({R.id.phone, R.id.terms, R.id.about, R.id.share, R.id.logout, R.id.notify,
-            R.id.editEmail, R.id.editZip, R.id.pass, R.id.nameLabel})
+            R.id.editEmail, R.id.editZip, R.id.pass})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.phone:
@@ -126,8 +123,8 @@ public class WorkerSettingsFragment extends SettingsFragment {
             case R.id.pass:
                 editPassword();
                 break;
-            case R.id.editNameIcon:
-                editName();
+           /* case R.id.editNameIcon:
+                editName();*/
         }
     }
 
@@ -228,7 +225,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
         }).show(getFragmentManager(), "");
     }
 
-    private void editName() {
+    /*private void editName() {
         String firstName = null;
         String lastName = null;
         if (currentWorker != null) {
@@ -245,7 +242,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
                 patchWorker(payload);
             }
         }).show(getFragmentManager(), "");
-    }
+    }*/
 
     private void logout() {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
@@ -288,12 +285,12 @@ public class WorkerSettingsFragment extends SettingsFragment {
             fillAddress();
             if (!TextUtils.isEmpty(currentWorker.email)) emailTextView.setText(currentWorker.email);
 
-            StringBuilder workerName = new StringBuilder();
+            /*StringBuilder workerName = new StringBuilder();
             if (!TextUtils.isEmpty(currentWorker.firstName))
                 workerName.append(currentWorker.firstName);
             if (!TextUtils.isEmpty(currentWorker.lastName))
                 workerName.append(" ").append(currentWorker.lastName);
-            nameTextView.setText(workerName);
+            nameTextView.setText(workerName);*/
         }
     }
 

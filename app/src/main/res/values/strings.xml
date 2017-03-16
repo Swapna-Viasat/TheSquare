@@ -678,6 +678,7 @@
     <string name="onboarding_select_language">Select language</string>
     <string name="save">Save</string>
     <string name="worker_postcode">Home postcode</string>
+    <string name="worker_settings_security">Security</string>
     <string name="worker_password">Change password</string>
 
     <!-- Worker Account -->
