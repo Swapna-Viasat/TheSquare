@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
     <construction.thesquare.shared.view.widget.JosefinSansTextView
-        android:text="@string/job_cancel"
+        android:text="@string/employer_jobs_cancel_prompt"
         app:josefin_style="bold"
         android:textColor="@color/blackSquareColor"
         android:textSize="18sp"
