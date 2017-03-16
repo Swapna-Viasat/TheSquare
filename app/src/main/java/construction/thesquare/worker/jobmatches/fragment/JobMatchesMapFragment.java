@@ -72,10 +72,8 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     private Dialog dialog;
     private LikeJobConnector likeJobConnector;
 
-    public static JobMatchesMapFragment newInstance(Bundle bundle) {
-        JobMatchesMapFragment fragment = new JobMatchesMapFragment();
-        fragment.setArguments(bundle);
-        return fragment;
+    public static JobMatchesMapFragment newInstance() {
+        return new JobMatchesMapFragment();
     }
 
     @SuppressWarnings("unchecked")

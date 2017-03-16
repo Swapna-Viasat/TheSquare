@@ -1,4 +1,4 @@
-package construction.thesquare.shared.phone;
+package construction.thesquare.shared.login;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
-import construction.thesquare.shared.phone.fragment.EmailLoginFragment;
-import construction.thesquare.shared.phone.fragment.VerifyPhoneFragment;
+import construction.thesquare.shared.login.fragment.EmailLoginFragment;
+import construction.thesquare.shared.login.fragment.VerifyPhoneFragment;
 import construction.thesquare.shared.utils.Constants;
 
 /**

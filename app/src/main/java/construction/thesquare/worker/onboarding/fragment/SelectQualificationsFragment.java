@@ -114,8 +114,10 @@ public class SelectQualificationsFragment extends Fragment
 
                         if (response.isSuccessful()) {
                             TextTools.log(TAG, "success");
-                            currentWorker = response.body().getResponse();
-                            fetchQualifications(currentWorker.roles);
+                            if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
+                                currentWorker = response.body().getResponse();
+
+                            fetchQualifications(response.body().getResponse().roles);
                         }
                     }
 
@@ -342,6 +344,8 @@ public class SelectQualificationsFragment extends Fragment
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
 
             selected.clear();

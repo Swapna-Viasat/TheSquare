@@ -300,7 +300,6 @@ public class WorkerSettingsFragment extends SettingsFragment {
     private void fillAddress() {
         StringBuilder address = new StringBuilder();
         if (!TextUtils.isEmpty(currentWorker.address)) address.append(currentWorker.address);
-        if (!TextUtils.isEmpty(currentWorker.zip)) address.append(", ").append(currentWorker.zip);
         zipTextView.setText(address.toString());
     }
 
@@ -448,7 +447,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
                 address = search.getText().toString();
                 HashMap<String, Object> payload = new HashMap<>();
                 payload.put("post_code", zipCode);
-                if (address != null) payload.put("address", address.replace(", , , ,", ", "));
+                if (address != null) payload.put("address", address.replace(", , , ,", ", ") + ", " + zipCode);
                 patchWorker(payload);
                 dialog.dismiss();
             }

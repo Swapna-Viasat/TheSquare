@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"/>
                     <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/reportingToAddressTextView"
-                        android:textColor="@color/blackSquareColor"
+                        android:textColor="@color/graySquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:layout_marginTop="2dp"
@@ -165,7 +165,7 @@
                         android:layout_height="wrap_content"/>
                     <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/dateToArriveTextView"
-                        android:textColor="@color/blackSquareColor"
+                        android:textColor="@color/graySquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:layout_width="wrap_content"
@@ -185,7 +185,7 @@
                         android:layout_height="wrap_content"/>
                     <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/elseToNoteTextView"
-                        android:textColor="@color/blackSquareColor"
+                        android:textColor="@color/graySquareColor"
                         android:textSize="16dp"
                         app:josefin_style="italic"
                         android:text="@string/employer_worker_details_bio_placeholder"
@@ -340,13 +340,34 @@
         </ScrollView>
 
         <!-- Action Button -->
-        <Button
-            android:id="@+id/btnWorkerFirstStepNext"
-            style="@style/BaseButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_margin="20dp"
-            android:text="@string/apply" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/acceptOfferBtn"
+                style="@style/BaseButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/greenSquareColor"
+                android:text="Accept offer"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnWorkerFirstStepNext"
+                style="@style/BaseButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/apply" />
+        </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

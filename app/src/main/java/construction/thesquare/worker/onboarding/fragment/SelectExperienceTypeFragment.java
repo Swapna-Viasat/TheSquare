@@ -33,6 +33,7 @@ import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
+import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import retrofit2.Call;
@@ -113,6 +114,32 @@ public class SelectExperienceTypeFragment extends Fragment
 
                     @Override
                     public void onFailure(Call<ResponseObject<List<ExperienceType>>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+    }
+
+    private void fetchMe() {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .meWorker()
+                .enqueue(new Callback<ResponseObject<Worker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<Worker>> call,
+                                           Response<ResponseObject<Worker>> response) {
+
+                        DialogBuilder.cancelDialog(dialog);
+
+                        if (response.isSuccessful()) {
+                            TextTools.log(TAG, "success");
+                            if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
+                                currentWorker = response.body().getResponse();
+                            fetchExperienceTypes();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
@@ -256,7 +283,7 @@ public class SelectExperienceTypeFragment extends Fragment
     public void onResume() {
         super.onResume();
         loadWorker();
-        fetchExperienceTypes();
+        fetchMe();
     }
 
     @Override
@@ -291,6 +318,8 @@ public class SelectExperienceTypeFragment extends Fragment
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
 
             selected.clear();

@@ -100,10 +100,8 @@ public class JobMatchesFragment extends Fragment
         super.onOptionsItemSelected(menuItem);
         switch (menuItem.getItemId()) {
             case R.id.worker_map:
-                Bundle jobsBundle = new Bundle();
-                jobsBundle.putSerializable("data", (Serializable) jobs);
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, JobMatchesMapFragment.newInstance(jobsBundle))
+                        .replace(R.id.container, JobMatchesMapFragment.newInstance())
                         .commit();
                 break;
             case R.id.worker_tune:

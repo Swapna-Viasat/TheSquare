@@ -701,7 +701,7 @@
     <string name="worker_experience_types">Type of experience</string>
     <string name="worker_details_provided">Provided</string>
     <string name="worker_details_not_provided">Not provided</string>
-    <string name="worker_commute_time">I will travel up to %d mins from their address</string>
+    <string name="worker_commute_time">I will travel up to %1$d mins from %2$s</string>
     <string name="employer_view_worker_commute_time">Will travel up to %1$d mins from %2$s</string>
 
     <!-- Employer Account -->
@@ -905,6 +905,8 @@
 
     <!-- Help Worker -->
     <string name="my_account_worker_help_title">Help</string>
+
+    <string name="login_error">Oops! Something went wrong. Please check your email and password</string>
     <string name="help_no_matches">Oops! I\'m afraid we cant answer that. Please contact us here..</string>
     <string name="help_contact_us">Still need help? Contact us here.</string>
 </resources>
