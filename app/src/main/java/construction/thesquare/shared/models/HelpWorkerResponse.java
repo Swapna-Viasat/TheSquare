@@ -1,4 +1,4 @@
-package construction.thesquare.worker.help.model;
+package construction.thesquare.shared.models;
 
 
 import java.util.List;

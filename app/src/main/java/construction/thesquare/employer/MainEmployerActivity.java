@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.employer.account.AccountFragment;
 import construction.thesquare.employer.createjob.CreateJobActivity;
+import construction.thesquare.employer.help.EmployerHelpFragment;
 import construction.thesquare.employer.mygraftrs.fragment.MyGraftrsEmployerFragment;
 import construction.thesquare.employer.myjobs.fragment.JobsFragment;
 import construction.thesquare.employer.payments.fragment.PricePlanFragment;
@@ -291,7 +292,10 @@ public class MainEmployerActivity extends AppCompatActivity {
             ShareUtils.employerLink(this);
             return;
         }
-
+        if (title.equals(getString(R.string.menu_employer_help))) {
+            lastTab = 4;
+            fragment = EmployerHelpFragment.newInstance();
+        }
         if (title.equals(getResources().getString(R.string.menu_employer_log_out))) {
             lastTab = 0;
             fragment = null;

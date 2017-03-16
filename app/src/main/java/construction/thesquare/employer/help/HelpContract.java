@@ -1,20 +1,18 @@
-package construction.thesquare.worker.help;
-
-
+package construction.thesquare.employer.help;
 
 import java.util.List;
 
 import construction.thesquare.shared.models.Help;
 
 /**
- * Created by Swapna on 13/03/2017.
+ * Created by swapna on 3/15/2017.
  */
 
-public interface HelpContract {
+public class HelpContract {
     interface View {
         void displaySearchData(List<Help> data);
         void displayError(String message);
-       }
+    }
     interface UserActionListener {
         void fetchSearch(String question);
     }

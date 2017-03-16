@@ -25,22 +25,23 @@
                 android:textSize="20dp"
                 android:textColor="@color/blackSquareColor"
                 app:josefin_style="italic"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <construction.thesquare.shared.view.widget.JosefinSansTextView
+          <!--  <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_width="match_parent"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/answer"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"/>-->
 
             <WebView
                 android:id="@+id/webview"
-                style="@style/AppTheme"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none" />
 

@@ -35,7 +35,7 @@ import construction.thesquare.shared.reviews.Review;
 import construction.thesquare.shared.reviews.ReviewResponse;
 import construction.thesquare.shared.reviews.ReviewUpdateResponse;
 import construction.thesquare.shared.reviews.ReviewsResponse;
-import construction.thesquare.worker.help.model.HelpWorkerResponse;
+import construction.thesquare.shared.models.HelpWorkerResponse;
 import construction.thesquare.worker.jobmatches.model.Application;
 import construction.thesquare.worker.jobmatches.model.MatchesResponse;
 import construction.thesquare.worker.jobmatches.model.Ordering;
@@ -312,11 +312,11 @@ public interface BaseApiInterface {
     //    APPLICATIONS
     @POST("/applications/{pk}/cancel_booking/")
     Call<ResponseObject<Application>>
-    cancelBooking(@Path("pk") int id, @Body Feedback feedbackMessage);
+            cancelBooking(@Path("pk") int id, @Body Feedback feedbackMessage);
 
     @POST("/applications/{pk}/decline/")
     Call<ResponseObject<Application>>
-    rejectApplicant(@Path("pk") int id, @Body Feedback feedbackMessage);
+            rejectApplicant(@Path("pk") int id, @Body Feedback feedbackMessage);
 
     /**
      * Credit cards

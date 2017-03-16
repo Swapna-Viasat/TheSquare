@@ -167,6 +167,7 @@
     <string name="menu_employer_my_graftrs">My Workers</string>
     <string name="menu_employer_my_messages">My Messages</string>
     <string name="menu_employer_my_account">My Account</string>
+    <string name="menu_employer_help">Help</string>
     <string name="menu_employer_log_out">Log out</string>
     <string name="menu_employer_edit_profile">Edit Profile</string>
 
