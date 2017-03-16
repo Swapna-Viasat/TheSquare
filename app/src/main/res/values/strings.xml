@@ -553,7 +553,7 @@
     <string name="employer_settings_social">Social Networks</string>
     <string name="settings_notifications">Notifications</string>
     <string name="employer_settings_terms">Terms &amp; Privacy</string>
-    <string name="employer_settings_about">About &amp; Help</string>
+    <string name="employer_settings_about">About &amp; Contact</string>
     <string name="employer_settings_share">Share The Square</string>
     <string name="employer_settings_logout">Log out</string>
     <string name="employer_settings_sync_fb">Sync with Facebook</string>
@@ -681,6 +681,7 @@
     <string name="onboarding_select_language">Select language</string>
     <string name="save">Save</string>
     <string name="worker_postcode">Home postcode</string>
+    <string name="worker_settings_security">Security</string>
     <string name="worker_password">Change password</string>
 
     <!-- Worker Account -->

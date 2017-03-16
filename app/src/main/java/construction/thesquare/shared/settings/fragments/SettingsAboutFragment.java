@@ -49,22 +49,22 @@ public class SettingsAboutFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().setTitle(getString(R.string.settings));
+        getActivity().setTitle(getString(R.string.employer_settings_about));
     }
 
-    @OnClick({R.id.about, R.id.faq, R.id.contact})
+    @OnClick({R.id.about, R.id.contact})
     public void toggles(View view) {
         switch (view.getId()) {
             case R.id.about:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frame, SettingsAboutInfoFragment.newInstance())
-                        .addToBackStack("contact")
+                        .addToBackStack("")
                         .commit();
                 break;
-            case R.id.faq:
+           /* case R.id.faq:
                 Toast.makeText(getContext(), "faq", Toast.LENGTH_SHORT).show();
-                break;
+                break;*/
             case R.id.contact:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
