@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/about"
                 android:padding="12dp"
                 app:josefin_style="italic"
@@ -32,7 +32,7 @@
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+          <!--  <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/faq"
                 android:padding="12dp"
                 app:josefin_style="italic"
@@ -44,9 +44,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray"/>-->
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/contact"
                 android:padding="12dp"
                 app:josefin_style="italic"

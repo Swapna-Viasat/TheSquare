@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
 
         <!-- Requested By -->
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/item_requested_by"
             android:textColor="@color/graySquareColor"
             android:textSize="12sp"
@@ -35,7 +35,7 @@
             android:layout_height="42dp"/>-->
 
         <!-- Company Name -->
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/item_review_company"
             android:text="Company Name"
             android:textAllCaps="true"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"/>
 
         <!-- Requested Date -->
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/item_review_date"
             android:textStyle="italic"
             android:layout_marginLeft="12dp"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"/>
 
        <!-- &lt;!&ndash; Rating &ndash;&gt;
-        <com.hellobaytree.graftrs.shared.view.widget.RatingView
+        <construction.thesquare.shared.view.widget.RatingView
             android:id="@+id/item_review_rating"
             android:layout_marginLeft="14dp"
             android:layout_marginTop="4dp"
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:drawableTint="@color/redSquareColor"
                 android:id="@+id/due"
                 android:visibility="gone"
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:id="@+id/action_pending"
@@ -107,7 +107,7 @@
             android:visibility="gone"
             android:orientation="vertical">
             <!-- Quality of work -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/quality"
                 android:layout_gravity="center"
                 android:text="@string/worker_reviews_quality"
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="no"
                 android:layout_gravity="center"
                 android:id="@+id/rating_view_quality"
@@ -130,7 +130,7 @@
                 android:layout_height="1dp"/>
 
             <!-- Reliability -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/reliability"
                 android:layout_gravity="center"
                 android:text="@string/worker_reviews_reliability"
@@ -138,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="no"
                 android:layout_gravity="center"
                 android:id="@+id/rating_view_reliability"
@@ -153,7 +153,7 @@
                 android:layout_height="1dp"/>
 
             <!-- Attitude -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/attitude"
                 android:layout_gravity="center"
                 android:text="@string/worker_reviews_attitude"
@@ -161,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="no"
                 android:layout_gravity="center"
                 android:id="@+id/rating_view_attitude"
@@ -176,7 +176,7 @@
                 android:layout_height="1dp"/>
 
             <!-- Safety -->
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/safety"
                 android:layout_gravity="center"
                 android:text="@string/worker_reviews_safety"
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <com.hellobaytree.graftrs.shared.view.widget.RatingView
+            <construction.thesquare.shared.view.widget.RatingView
                 app:editable="no"
                 android:layout_gravity="center"
                 android:id="@+id/rating_view_safety"

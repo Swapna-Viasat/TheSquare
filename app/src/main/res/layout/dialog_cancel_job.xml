@@ -7,8 +7,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
-        android:text="@string/job_cancel"
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
+        android:text="@string/employer_jobs_cancel_prompt"
         app:josefin_style="bold"
         android:textColor="@color/blackSquareColor"
         android:textSize="18sp"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/no"
             android:text="NO"
             android:textColor="@color/blackSquareColor"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/yes"
             android:text="YES"
             android:layout_marginLeft="12dp"

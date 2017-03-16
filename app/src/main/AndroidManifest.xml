@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hellobaytree.graftrs">
+    package="construction.thesquare">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -25,7 +25,7 @@
 
     <!-- android:debuggable="true" -->
     <application
-        android:name=".GraftrsApplication"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/icon_app"
         android:label="@string/app_name"
@@ -54,12 +54,29 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyBG5FUoGekEGxW-MvNmYBVkGSVhHbXuZDI" />
 
         <!-- branch.io key :) -->
-        <meta-data
-            android:name="io.branch.sdk.BranchKey"
-            android:value="key_live_coDBaiGnKAZN1BRRBj691mbiFAohoMxv" />
+        <!-- Branch init -->
+        <meta-data android:name="io.branch.sdk.BranchKey"
+            android:value="key_live_kdEzggeJ3HbIeP6A41UyBdeoAxc1dgZw" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test"
+            android:value="key_test_mpEEmndU8GcJaQ5B1XUZuminBBl6ob7T" />
+
+        <!-- Branch testing (TestMode "true" to simulate fresh installs on dev environment) -->
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" />
+
+        <!-- Branch install referrer tracking -->
+        <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- That's the old branch key I had from my acct -->
+        <!--<meta-data-->
+            <!--android:name="io.branch.sdk.BranchKey"-->
+            <!--android:value="key_live_coDBaiGnKAZN1BRRBj691mbiFAohoMxv" />-->
 
         <!-- <meta-data -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
@@ -69,7 +86,7 @@
             android:name="io.fabric.ApiKey"
             android:value="f0abb5e7f4da4f3abaa9f45c6910ebb015eaa400" />
 
-        <receiver android:name=".shared.phone.SmsInterceptor">
+        <receiver android:name=".shared.login.SmsInterceptor">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
@@ -136,7 +153,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarMain" />
         <activity
-            android:name=".shared.phone.VerifyPhoneActivity"
+            android:name=".shared.login.VerifyPhoneActivity"
             android:exported="true"
             android:label="@string/menu_worker_my_jobs_matches_home"
             android:screenOrientation="portrait"

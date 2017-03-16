@@ -19,7 +19,7 @@
         android:background="@android:color/transparent"
         android:tint="@color/redSquareColor" />
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansEditText
+    <construction.thesquare.shared.view.widget.JosefinSansEditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/actvSearch"

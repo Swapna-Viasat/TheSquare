@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:weightSum="14">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/submit_timesheet_day_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             style="@style/caption_gray_text"
             android:text="@string/sat"/>
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/submit_timesheet_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             app:josefin_style="bold"
             android:text="16"/>
 
-        <com.hellobaytree.graftrs.shared.view.widget.GraftrsTick
+        <construction.thesquare.shared.view.widget.GraftrsTick
             android:id="@+id/submit_timesheet_didnt_work"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:gravity="center"
             android:layout_gravity="center"/>
 
-        <com.hellobaytree.graftrs.shared.view.widget.GraftrsCounterView
+        <construction.thesquare.shared.view.widget.GraftrsCounterView
             android:id="@+id/submit_timesheet_worked"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
             app:shape="circle"
             app:count="0"/>
 
-        <com.hellobaytree.graftrs.shared.view.widget.GraftrsCounterView
+        <construction.thesquare.shared.view.widget.GraftrsCounterView
             android:id="@+id/submit_timesheet_overtime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

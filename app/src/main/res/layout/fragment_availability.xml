@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:textSize="26sp"
             app:josefin_style="light"
             android:textAlignment="center"
@@ -34,7 +34,7 @@
         android:elevation="2dp"
         android:background="#F0F0F0">
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#333333"
@@ -56,7 +56,7 @@
             android:layout_gravity="start"
             android:id="@+id/check_available" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/graySquareColor"
@@ -86,7 +86,7 @@
             android:layout_gravity="start"
             android:id="@+id/check_looking" />
 
-        <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/graySquareColor"
@@ -103,7 +103,7 @@
             android:background="#AAAAAA"/>
     </LinearLayout>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:background="@color/redSquareColor"
         android:layout_alignParentBottom="true"
         android:text="@string/onboarding_proceed"

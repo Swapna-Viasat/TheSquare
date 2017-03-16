@@ -37,7 +37,7 @@
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="2dp" />
 
-                <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/worker_view_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/worker_view_profile_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                         app:josefin_style="italic"
                         tools:text="ADMINISTRATOR" />
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:id="@+id/worker_view_profile_experience"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                         tools:text="/ 15 YEARS EXPERIENCE" />
                 </LinearLayout>
 
-                <com.hellobaytree.graftrs.shared.view.widget.RatingView
+                <construction.thesquare.shared.view.widget.RatingView
                     android:id="@+id/worker_view_profile_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

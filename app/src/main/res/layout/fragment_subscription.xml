@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/employer_payments_current"
                 app:josefin_style="italic"
                 android:textColor="@color/blackSquareColor"
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:text="@string/employer_payments_try"
                         android:textSize="16sp"
                         app:josefin_style="bold"
@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:layout_marginTop="6dp"
                         android:text="@string/employer_payments_try_text"
                         android:textSize="16sp"
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/employer_payments_upgrade"
                 app:josefin_style="italic"
                 android:textColor="@color/blackSquareColor"
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:text="@string/employer_payments_upgrade_title"
                         android:textSize="16sp"
                         app:josefin_style="bold"
@@ -125,7 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
                         android:layout_marginTop="6dp"
                         android:text="@string/employer_payments_upgrade_text"
                         android:textSize="16sp"
@@ -140,7 +140,7 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:text="@string/employer_payments_discount"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/blackSquareColor"
@@ -149,7 +149,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:text="@string/employer_payments_docs"
         android:textSize="12sp"
         android:layout_gravity="center_horizontal"
@@ -157,7 +157,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <com.hellobaytree.graftrs.shared.view.widget.JosefinSansTextView
+    <construction.thesquare.shared.view.widget.JosefinSansTextView
         android:text="@string/employer_payments_action"
         android:layout_margin="8dp"
         android:textSize="16sp"
