@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:layout_margin="18dp"
             android:gravity="center"
             android:orientation="vertical">
@@ -22,18 +23,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="How can we help?"
+                android:layout_marginTop="30dp"
                 android:textAlignment="center"
                 android:textSize="24dp"
                 app:josefin_style="light" />
             <construction.thesquare.shared.view.widget.JosefinSansEditText
                 android:background="@drawable/apptheme_edit_text_search"
                 android:layout_width="match_parent"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="20dp"
                 android:textColor="@color/blackSquareColor"
                 android:textAlignment="center"
                 android:gravity="center"
                 android:id="@+id/search_input"
-                android:hint="Search for anything... (price plans,bookings..)"
+                app:josefin_style="italic"
+                android:hint="Search for anything... (price plans,bookings etc)"
                 android:layout_height="30dp" />
             <Button
                 android:id="@id/search_button"
