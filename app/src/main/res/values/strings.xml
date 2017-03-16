@@ -456,6 +456,9 @@
     <string name="job_details_offered_amount">%d workers offered</string>
     <string name="job_details_applied_amount">%d workers applied</string>
     <string name="job_details_booked_amount">%d workers booked</string>
+    <string name="offered_hint">Great! \n\nYou\'ve offered %1$s the job of %2$s
+        \nstarting on %3$s
+        \n\nWe\'ll let you know as soon as they have made a decision! </string>
 
     <!-- My Accounts -->
     <string name="view_profile">View Profile</string>

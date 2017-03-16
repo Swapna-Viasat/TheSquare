@@ -302,6 +302,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     }
 
     private void onOffered() {
+        appliedHeaderView.setText("You've been offered the job! You can now accept or reject the offer.");
         acceptOfferButton.setVisibility(View.VISIBLE);
         acceptOfferButton.setOnClickListener(new View.OnClickListener() {
             @Override
