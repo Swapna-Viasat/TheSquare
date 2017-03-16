@@ -169,7 +169,6 @@
                 android:layout_toRightOf="@id/worker_profile_languages_title"
                 android:textSize="14sp"
                 app:josefin_style="italic"
-                android:text="language"
                 android:layout_below="@+id/worker_profile_english_title"
                 android:layout_marginTop="8dp" />
         </RelativeLayout>
@@ -747,7 +746,8 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:textSize="14sp"
-                app:josefin_style="italic" />
+                app:josefin_style="italic"
+                android:visibility="gone"/>
         </RelativeLayout>
     </LinearLayout>
 </merge>

@@ -98,6 +98,7 @@ public class SelectWorkerInfoFragment extends Fragment {
 
     private boolean initialized;
     private String address;
+    private String zip;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -197,9 +198,7 @@ public class SelectWorkerInfoFragment extends Fragment {
                 showChooserDialog();
                 break;
             case R.id.next:
-                if (validate()) {
-                    validateZip(false);
-                }
+                if (validate()) patchWorker();
                 break;
             case R.id.zipSearch:
                 validateZip(true);
@@ -365,12 +364,13 @@ public class SelectWorkerInfoFragment extends Fragment {
     }
 
     private void validateZip(final boolean showAddresses) {
+        zip = zipLayout.getEditText().getText().toString();
         // Api call to validate postal code
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
 
         ZipCodeVerifier.getInstance()
                 .api()
-                .verify(zipLayout.getEditText().getText().toString(), ZipCodeVerifier.API_KEY)
+                .verify(zip, ZipCodeVerifier.API_KEY)
                 .enqueue(new Callback<ZipResponse>() {
                     @Override
                     public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
@@ -391,7 +391,7 @@ public class SelectWorkerInfoFragment extends Fragment {
                                 if (!CollectionUtils.isEmpty(response.body().addresses)) {
                                     showAddressDialog(response.body().addresses);
                                 }
-                            } else patchWorker();
+                            }// else patchWorker();
                         } else {
                             // response body null
                             new AlertDialog.Builder(getContext())
@@ -409,16 +409,17 @@ public class SelectWorkerInfoFragment extends Fragment {
     }
 
     private void patchWorker() {
+        if (address != null) zipLayout.getEditText().setText(address.replace(", , , ,", ", ") + ", " + zip);
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
 
         HashMap<String, Object> request = new HashMap<>();
         request.put("password", passwordLayout.getEditText().getText().toString());
         request.put("password2", password2Layout.getEditText().getText().toString());
         request.put("email", emailLayout.getEditText().getText().toString());
-        request.put("post_code", zipLayout.getEditText().getText().toString());
+        request.put("post_code", zip);
         request.put("first_name", firstNameInput.getEditText().getText().toString());
         request.put("last_name", lastNameInput.getEditText().getText().toString());
-        if (address != null) request.put("address", address.replace(", , , ,", ", "));
+        request.put("address", zipLayout.getEditText().getText().toString());
         HttpRestServiceConsumer.getBaseApiClient()
                 .patchWorker(workerId, request)
                 .enqueue(new Callback<ResponseObject<Worker>>() {
@@ -507,7 +508,8 @@ public class SelectWorkerInfoFragment extends Fragment {
             currentWorker.firstName = firstNameInput.getEditText().getText().toString();
             currentWorker.lastName = lastNameInput.getEditText().getText().toString();
             currentWorker.email = emailLayout.getEditText().getText().toString();
-            currentWorker.zip = zipLayout.getEditText().getText().toString();
+            currentWorker.zip = zip;
+            currentWorker.address = zipLayout.getEditText().getText().toString();
         }
 
         getActivity().getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, Context.MODE_PRIVATE)
@@ -547,6 +549,7 @@ public class SelectWorkerInfoFragment extends Fragment {
             public void onClick(View v) {
                 // all good
                 address = search.getText().toString();
+                zipLayout.getEditText().setText(address.replace(", , , ,", ", ") + ", " + zip);
                 dialog.dismiss();
             }
         });

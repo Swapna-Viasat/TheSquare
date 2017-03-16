@@ -233,6 +233,7 @@ public class SelectLocationFragment extends Fragment
 
                     centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
                     centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
+                    fetchMe();
                 }
             });
         }
@@ -344,12 +345,12 @@ public class SelectLocationFragment extends Fragment
                 .enqueue(new Callback<ZipResponse>() {
                     @Override
                     public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
+                        DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
-                            DialogBuilder.cancelDialog(dialog);
                             if (response.body().message == null) {
 
                                 googleMap.setOnCameraIdleListener(null);
-                                if (currentWorker != null) filter.setText(currentWorker.zip);
+                                if (currentWorker != null) filter.setText(currentWorker.address);
                                 LatLng latLng = new LatLng(response.body().lat, response.body().lang);
 
                                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
@@ -395,7 +396,6 @@ public class SelectLocationFragment extends Fragment
         super.onResume();
         loadWorker();
         googleApiClient.connect();
-        fetchMe();
     }
 
     private void fetchMe() {

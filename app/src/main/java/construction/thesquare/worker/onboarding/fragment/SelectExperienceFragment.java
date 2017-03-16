@@ -364,6 +364,8 @@ public class SelectExperienceFragment extends Fragment
                                             .load(response.body().getResponse().passportUpload)
                                             .fit()
                                             .centerCrop()
+                                            .error(R.drawable.passport)
+                                            .placeholder(R.drawable.passport)
                                             .into(passport_photo);
                                 }
                             } catch (Exception e) {
@@ -691,6 +693,8 @@ public class SelectExperienceFragment extends Fragment
             Picasso.with(getContext())
                     .load(currentWorker.passportUpload)
                     .fit()
+                    .placeholder(R.drawable.passport)
+                    .error(R.drawable.passport)
                     .centerCrop()
                     .into(passport_photo);
         }

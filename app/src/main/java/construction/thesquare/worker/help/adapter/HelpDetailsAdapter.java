@@ -2,7 +2,6 @@ package construction.thesquare.worker.help.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
+import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.help.model.Help;
 
@@ -76,7 +76,7 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
                 @Override
                 public void onClick(View v) {
                     holder.answer.setVisibility(View.VISIBLE);
-                    holder.answer.setText(Html.fromHtml(faq.answer));
+                    holder.answer.setText(TextTools.formatHtml(faq.answer));
                    // holder.webview.loadDataWithBaseURL(null, s, "text/html", "utf-8", null);
                 }
             });
