@@ -341,6 +341,8 @@ public class SelectRoleFragment extends Fragment
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
             currentWorker.roles = selectedRoles;
         }

@@ -1,4 +1,4 @@
-package construction.thesquare.shared.phone.fragment;
+package construction.thesquare.shared.login.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -38,8 +38,8 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.SMSSent;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
-import construction.thesquare.shared.phone.OnSmsReceivedListener;
-import construction.thesquare.shared.phone.SmsInterceptor;
+import construction.thesquare.shared.login.OnSmsReceivedListener;
+import construction.thesquare.shared.login.SmsInterceptor;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;

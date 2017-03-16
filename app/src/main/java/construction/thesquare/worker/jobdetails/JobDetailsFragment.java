@@ -1,5 +1,7 @@
 package construction.thesquare.worker.jobdetails;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,15 +33,19 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
+import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.jobmatches.model.Application;
 import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
 import construction.thesquare.worker.jobmatches.model.Job;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Vadim Goroshevsky
@@ -46,32 +53,59 @@ import construction.thesquare.worker.jobmatches.model.Job;
 
 public class JobDetailsFragment extends Fragment implements JobDetailsContract {
 
-    @BindView(R.id.company_name) JosefinSansTextView companyName;
-    @BindView(R.id.job_id) JosefinSansTextView jobId;
-    @BindView(R.id.companyLogo) ImageView companyLogo;
-    @BindView(R.id.job_role) TextView itemRole;
-    @BindView(R.id.job_experience_years) TextView experienceYears;
-    @BindView(R.id.job_item_payment_rate_per) TextView paymentRatePer;
-    @BindView(R.id.job_item_payment_rate) TextView paymentRate;
-    @BindView(R.id.job_item_start_date) TextView startDate;
-    @BindView(R.id.job_item_work_place) TextView workPlace;
-    @BindView(R.id.btnWorkerFirstStepNext) TextView ctaButton;
-    @BindView(R.id.appliedHintView) TextView appliedHeaderView;
-    @BindView(R.id.approvedHintView) View approvedHeaderView;
-    @BindView(R.id.reportingToTextView) TextView reportingToTextView;
-    @BindView(R.id.reportingToPhoneTextView) TextView reportingToPhoneTextView;
-    @BindView(R.id.reportingToAddressTextView) TextView reportingToAddressTextView;
-    @BindView(R.id.dateToArriveTextView) TextView dateToArriveTextView;
-    @BindView(R.id.elseToNoteTextView) TextView elseToNoteTextView;
-    @BindView(R.id.approvedHint) View approvedHintView;
+    @BindView(R.id.company_name)
+    JosefinSansTextView companyName;
+    @BindView(R.id.job_id)
+    JosefinSansTextView jobId;
+    @BindView(R.id.companyLogo)
+    ImageView companyLogo;
+    @BindView(R.id.job_role)
+    TextView itemRole;
+    @BindView(R.id.job_experience_years)
+    TextView experienceYears;
+    @BindView(R.id.job_item_payment_rate_per)
+    TextView paymentRatePer;
+    @BindView(R.id.job_item_payment_rate)
+    TextView paymentRate;
+    @BindView(R.id.job_item_start_date)
+    TextView startDate;
+    @BindView(R.id.job_item_work_place)
+    TextView workPlace;
+    @BindView(R.id.btnWorkerFirstStepNext)
+    TextView ctaButton;
+    @BindView(R.id.appliedHintView)
+    TextView appliedHeaderView;
+    @BindView(R.id.approvedHintView)
+    View approvedHeaderView;
+    @BindView(R.id.reportingToTextView)
+    TextView reportingToTextView;
+    @BindView(R.id.reportingToPhoneTextView)
+    TextView reportingToPhoneTextView;
+    @BindView(R.id.reportingToAddressTextView)
+    TextView reportingToAddressTextView;
+    @BindView(R.id.dateToArriveTextView)
+    TextView dateToArriveTextView;
+    @BindView(R.id.elseToNoteTextView)
+    TextView elseToNoteTextView;
+    @BindView(R.id.approvedHint)
+    View approvedHintView;
     //
-    @BindView(R.id.job_details_description) JosefinSansTextView description;
-    @BindView(R.id.job_details_skills) JosefinSansTextView skills;
-    @BindView(R.id.job_details_english_level) JosefinSansTextView englishLevel;
-    @BindView(R.id.job_details_overtime) JosefinSansTextView overtime;
-    @BindView(R.id.job_details_qualifications) JosefinSansTextView qualifications;
-    @BindView(R.id.job_details_qualifications2) JosefinSansTextView qualifications2;
-    @BindView(R.id.job_details_experience_types) JosefinSansTextView experienceTypes;
+    @BindView(R.id.job_details_description)
+    JosefinSansTextView description;
+    @BindView(R.id.job_details_skills)
+    JosefinSansTextView skills;
+    @BindView(R.id.job_details_english_level)
+    JosefinSansTextView englishLevel;
+    @BindView(R.id.job_details_overtime)
+    JosefinSansTextView overtime;
+    @BindView(R.id.job_details_qualifications)
+    JosefinSansTextView qualifications;
+    @BindView(R.id.job_details_qualifications2)
+    JosefinSansTextView qualifications2;
+    @BindView(R.id.job_details_experience_types)
+    JosefinSansTextView experienceTypes;
+    @BindView(R.id.acceptOfferBtn)
+    Button acceptOfferButton;
 
     private static final String TAG = "JobDetailsFragment";
     private static final String KEY_JOB = "KEY_JOB";
@@ -82,6 +116,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     private MenuItem likeJobMenuItem, unlikeJobMenuItem;
 
     private SupportMapFragment mapFragment;
+    private Dialog dialog;
 
     public JobDetailsFragment() {
     }
@@ -216,12 +251,16 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
         if (currentJob != null) {
             if (showCtaButton()) {
                 ctaButton.setVisibility(View.VISIBLE);
-                ctaButton.setText((getCurrentAppStatus() == ApplicationStatus.STATUS_APPROVED
-                        || getCurrentAppStatus() == ApplicationStatus.STATUS_PENDING)
-                        ? getString(R.string.employer_workers_cancel)
-                        : getString(R.string.apply));
+
+                if (getCurrentAppStatus() == ApplicationStatus.STATUS_APPROVED) onBooked();
+                else if (getCurrentAppStatus() == ApplicationStatus.STATUS_PENDING) {
+                    if (getCurrentApplication() != null && getCurrentApplication().isOffer)
+                        onOffered();
+                    else onApplied();
+                } else onApplicationNull();
             } else {
                 ctaButton.setVisibility(View.GONE);
+                acceptOfferButton.setVisibility(View.GONE);
             }
 
             appliedHeaderView.setVisibility(getCurrentAppStatus()
@@ -240,6 +279,60 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                         && getCurrentAppStatus() != ApplicationStatus.STATUS_END_CONTRACT);
     }
 
+    private void onApplied() {
+        ctaButton.setText(getString(R.string.employer_workers_cancel));
+        ctaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelBooking();
+            }
+        });
+        acceptOfferButton.setVisibility(View.GONE);
+    }
+
+    private void onBooked() {
+        acceptOfferButton.setVisibility(View.GONE);
+        ctaButton.setText(getString(R.string.employer_workers_cancel));
+        ctaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelBooking();
+            }
+        });
+    }
+
+    private void onOffered() {
+        acceptOfferButton.setVisibility(View.VISIBLE);
+        acceptOfferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getCurrentApplication() != null) {
+                    acceptOffer(getCurrentApplication().id);
+                }
+            }
+        });
+        ctaButton.setText("Reject offer");
+        ctaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getCurrentApplication() != null) {
+                    showDeclineOfferDialog(getCurrentApplication().id);
+                }
+            }
+        });
+    }
+
+    private void onApplicationNull() {
+        acceptOfferButton.setVisibility(View.GONE);
+        ctaButton.setText(getString(R.string.apply));
+        ctaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.applyToJob(currentJobId);
+            }
+        });
+    }
+
     private void setupMenuIconsVisibility() {
         if (currentJob == null) return;
         if (currentJob.liked) {
@@ -248,16 +341,6 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
         } else {
             likeJobMenuItem.setVisible(true);
             unlikeJobMenuItem.setVisible(false);
-        }
-    }
-
-    @OnClick(R.id.btnWorkerFirstStepNext)
-    void onCtaClick() {
-        if (currentJob != null) {
-            if (getCurrentAppStatus() == ApplicationStatus.STATUS_APPROVED
-                    || getCurrentAppStatus() == ApplicationStatus.STATUS_PENDING) {
-                cancelBooking();
-            } else presenter.applyToJob(currentJob.id);
         }
     }
 
@@ -409,5 +492,74 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
         setupApplicationData();
         DialogBuilder.showStandardDialog(getContext(), "",
                 getString(R.string.job_details_booking_canceled));
+    }
+
+    private void showDeclineOfferDialog(final int offerId) {
+        dialog = DialogBuilder.showTwoOptionsStandardDialog(getContext(), "", "Are you sure you want to decline this job offer?",
+                "YES", "NO", new DialogBuilder.OnClickTwoOptionsStandardDialog() {
+                    @Override
+                    public void onClickOptionOneStandardDialog(Context context) {
+                        declineOffer(offerId);
+                    }
+
+                    @Override
+                    public void onClickOptionTwoStandardDialog(Context context) {
+                        DialogBuilder.cancelDialog(dialog);
+                    }
+                });
+    }
+
+    private void acceptOffer(int id) {
+        try {
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            HttpRestServiceConsumer.getBaseApiClient()
+                    .acceptOffer(id)
+                    .enqueue(new Callback<Object>() {
+                        @Override
+                        public void onResponse(Call<Object> call,
+                                               Response<Object> response) {
+
+                            DialogBuilder.cancelDialog(dialog);
+
+                            if (response.isSuccessful()) {
+                                presenter.fetchJob(currentJobId);
+                            } else HandleErrors.parseError(getContext(), dialog, response);
+                        }
+
+                        @Override
+                        public void onFailure(Call<Object> call, Throwable t) {
+                            HandleErrors.parseFailureError(getContext(), dialog, t);
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void declineOffer(int id) {
+        try {
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            HttpRestServiceConsumer.getBaseApiClient()
+                    .declineOffer(id)
+                    .enqueue(new Callback<Object>() {
+                        @Override
+                        public void onResponse(Call<Object> call,
+                                               Response<Object> response) {
+
+                            DialogBuilder.cancelDialog(dialog);
+
+                            if (response.isSuccessful()) {
+                                presenter.fetchJob(currentJobId);
+                            } else HandleErrors.parseError(getContext(), dialog, response);
+                        }
+
+                        @Override
+                        public void onFailure(Call<Object> call, Throwable t) {
+                            HandleErrors.parseFailureError(getContext(), dialog, t);
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

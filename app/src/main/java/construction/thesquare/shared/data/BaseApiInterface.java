@@ -127,10 +127,6 @@ public interface BaseApiInterface {
     @GET("/users/me/")
     Call<ResponseObject<construction.thesquare.shared.models.Employer>> meEmployer();
 
-    @GET("/workers/{pk}/")
-    Call<ResponseObject<construction.thesquare.shared.models.Worker>>
-    getFilteredWorker(@Path("pk") int userId, @Query("fields") List<String> requiredFields);
-
     /////////////////////////////////Employers/////////////////////////////////
     @POST("/employers/")
     Call<ResponseObject<Employer>> registrationEmployer(@Body HashMap<String, String> registrationRequest);
@@ -201,6 +197,14 @@ public interface BaseApiInterface {
 
     @GET("/workers/{pk}/")
     Call<ResponseObject<construction.thesquare.shared.models.Worker>> getWorkerProfile(@Path("pk") int id);
+
+    @GET("/workers/{pk}/")
+    Call<ResponseObject<construction.thesquare.shared.models.Worker>>
+    getFilteredWorker(@Path("pk") int userId, @Query("fields") List<String> requiredFields);
+
+    @GET("/workers/{pk}/")
+    Call<ResponseObject<construction.thesquare.shared.models.Worker>> fetchWorker(
+            @Path("pk") int workerId, @Query("job_id") int jobId);
 
     @GET("/workers/{pk}/cscs_card/")
     Call<ResponseObject<CSCSCardWorker>> getWorkerCSCSCard(@Path("pk") int id);
@@ -356,6 +360,15 @@ public interface BaseApiInterface {
 
     @POST("/contact/")
     Call<StatusMessageResponse> postContactMessage(@Body HashMap<String, String> body);
+
+    /**
+     * Job offer
+     */
+    @POST("/job_offer/{pk}/accept/")
+    Call<Object> acceptOffer(@Path("pk") int id);
+
+    @POST("/job_offer/{pk}/decline/")
+    Call<Object> declineOffer(@Path("pk") int id);
 
     /**
      * Help

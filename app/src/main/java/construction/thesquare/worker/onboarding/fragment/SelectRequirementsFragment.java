@@ -231,6 +231,8 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
             selected.clear();
             for (ExperienceQualification exp : qualifications) {

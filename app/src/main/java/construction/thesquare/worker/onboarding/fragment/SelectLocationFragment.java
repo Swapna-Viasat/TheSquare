@@ -233,8 +233,7 @@ public class SelectLocationFragment extends Fragment
 
                     centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
                     centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
-
-                    populateData();
+                    fetchMe();
                 }
             });
         }
@@ -346,12 +345,12 @@ public class SelectLocationFragment extends Fragment
                 .enqueue(new Callback<ZipResponse>() {
                     @Override
                     public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
+                        DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
-                            DialogBuilder.cancelDialog(dialog);
                             if (response.body().message == null) {
 
                                 googleMap.setOnCameraIdleListener(null);
-                                if (currentWorker != null) filter.setText(currentWorker.zip);
+                                if (currentWorker != null) filter.setText(currentWorker.address);
                                 LatLng latLng = new LatLng(response.body().lat, response.body().lang);
 
                                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
@@ -399,6 +398,32 @@ public class SelectLocationFragment extends Fragment
         googleApiClient.connect();
     }
 
+    private void fetchMe() {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .meWorker()
+                .enqueue(new Callback<ResponseObject<Worker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<Worker>> call,
+                                           Response<ResponseObject<Worker>> response) {
+
+                        DialogBuilder.cancelDialog(dialog);
+
+                        if (response.isSuccessful()) {
+                            TextTools.log(TAG, "success");
+                            if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
+                                currentWorker = response.body().getResponse();
+                            populateData();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+    }
+
     private void populateData() {
         if (currentWorker != null) {
             if (!TextUtils.isEmpty(currentWorker.address)) filter.setText(currentWorker.address);
@@ -433,6 +458,8 @@ public class SelectLocationFragment extends Fragment
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
             currentWorker.address = filter.getText().toString();
             currentWorker.location = new construction.thesquare.shared.data.model.Location();

@@ -3,7 +3,7 @@
  * Copyright (c) 2017 FusionWorks. All rights reserved.
  */
 
-package construction.thesquare.shared.phone;
+package construction.thesquare.shared.login;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

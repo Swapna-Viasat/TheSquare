@@ -1,4 +1,4 @@
-package construction.thesquare.shared.phone.fragment;
+package construction.thesquare.shared.login.fragment;
 
 import android.Manifest;
 import android.app.Dialog;

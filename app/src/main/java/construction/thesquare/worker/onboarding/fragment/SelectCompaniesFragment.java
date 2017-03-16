@@ -32,6 +32,7 @@ import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
+import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
 import construction.thesquare.worker.onboarding.adapter.CompanyAdapter;
 import retrofit2.Call;
@@ -145,6 +146,32 @@ public class SelectCompaniesFragment extends Fragment
         patchWorker();
     }
 
+    private void fetchMe() {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .meWorker()
+                .enqueue(new Callback<ResponseObject<Worker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<Worker>> call,
+                                           Response<ResponseObject<Worker>> response) {
+
+                        DialogBuilder.cancelDialog(dialog);
+
+                        if (response.isSuccessful()) {
+                            TextTools.log(TAG, "success");
+                            if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
+                                currentWorker = response.body().getResponse();
+                            fetchCompanies();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+    }
+
     private void patchWorker() {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
 
@@ -245,7 +272,7 @@ public class SelectCompaniesFragment extends Fragment
     public void onResume() {
         super.onResume();
         loadWorker();
-        fetchCompanies();
+        fetchMe();
     }
 
     @Override
@@ -280,6 +307,8 @@ public class SelectCompaniesFragment extends Fragment
     }
 
     private void persistProgress() {
+        if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) return;
+
         if (currentWorker != null) {
 
             selected.clear();

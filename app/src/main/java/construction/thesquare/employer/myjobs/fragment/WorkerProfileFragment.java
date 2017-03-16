@@ -564,7 +564,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void fetchWorker() {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
-                .getWorkerProfile(workerId)
+                .fetchWorker(workerId, jobId)
                 .enqueue(new Callback<ResponseObject<Worker>>() {
                     @Override
                     public void onResponse(Call<ResponseObject<Worker>> call,
@@ -603,7 +603,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                             else onOffered();
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {
                             onBooked();
-                        } else onApplicationNull();
+                        } else if (currentApplication.status.id == ApplicationStatus.STATUS_CANCELLED ||
+                                currentApplication.status.id == ApplicationStatus.STATUS_DENIED ||
+                                currentApplication.status.id == ApplicationStatus.STATUS_END_CONTRACT)
+                            book.setVisibility(View.GONE);
                 } else onApplicationNull();
 
 
