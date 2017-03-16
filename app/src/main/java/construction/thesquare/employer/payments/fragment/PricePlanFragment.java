@@ -18,6 +18,7 @@ import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Employer;
+import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -32,6 +33,7 @@ public class PricePlanFragment extends Fragment {
 
     @BindView(R.id.due_date) TextView dueDate;
     @BindView(R.id.plan) TextView plan;
+    @BindView(R.id.change_plan) TextView changePlan;
 
     @BindView(R.id.topup_digits) TextView topupDigits;
     @BindView(R.id.plan_digits) TextView planDigits;
@@ -117,6 +119,9 @@ public class PricePlanFragment extends Fragment {
 
     private void displayCurrentPlan(String planName) {
         try {
+            if (!planName.equalsIgnoreCase("NONE")) {
+                changePlan.setText("Change your plan");
+            }
             plan.setText(planName);
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
@@ -127,7 +132,7 @@ public class PricePlanFragment extends Fragment {
 
     private void displayBillDueDate(String date) {
         try {
-            dueDate.setText(String.format(getString(R.string.payments_bill_due_format), date));
+            dueDate.setText(String.format(getString(R.string.payments_bill_due_format), DateUtils.magicDate(date)));
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
         } catch (Exception e) {
@@ -156,7 +161,7 @@ public class PricePlanFragment extends Fragment {
     private void displayPlanExpiration(String planExpiry) {
         try {
             planExpiration.setText(String
-                    .format(getString(R.string.payments_expiration_format), planExpiry));
+                    .format(getString(R.string.payments_expiration_format), DateUtils.magicDate(planExpiry)));
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
         } catch (Exception e) {
@@ -167,7 +172,7 @@ public class PricePlanFragment extends Fragment {
     private void displayTopupExpiration(String topupExpiry) {
         try {
             topupExpiration.setText(String
-                    .format(getString(R.string.payments_expiration_format), topupExpiry));
+                    .format(getString(R.string.payments_expiration_format), DateUtils.magicDate(topupExpiry)));
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
         } catch (Exception e) {

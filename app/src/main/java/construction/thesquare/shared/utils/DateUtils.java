@@ -27,7 +27,34 @@ public class DateUtils {
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
-    private String[] months = {"January", "February", "March", "April", "June", "July", "August", "September", "October", "November", "December"};
+    private String[] months = {"January", "February", "March",
+                                "April", "June", "July",
+                                "August", "September", "October",
+                                "November", "December"};
+
+    public static String magicDate(String notMagicDate) {
+        String magicDate = "";
+        if (null != notMagicDate) {
+            try {
+                String[] parts = notMagicDate.split("-");
+                if (parts.length == 3) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append(parts[2]);
+                    stringBuilder.append("-");
+                    stringBuilder.append(parts[1]);
+                    stringBuilder.append("-");
+                    stringBuilder.append(parts[0]);
+                    magicDate = stringBuilder.toString();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (magicDate.equals("")) {
+            magicDate = notMagicDate;
+        }
+        return magicDate;
+    }
 
     public static int[] extractDate(String strDate) {
         try {
