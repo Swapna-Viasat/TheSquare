@@ -451,7 +451,25 @@ public class JobDetailsFragment extends Fragment
                     .setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            cancel(job.id);
+                            final Dialog dialog = new Dialog(getContext());
+                            dialog.setCancelable(false);
+                            dialog.setContentView(R.layout.dialog_cancel_job);
+                            dialog.findViewById(R.id.no)
+                                    .setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                            dialog.findViewById(R.id.yes)
+                                    .setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog.cancel();
+                                            cancel(job.id);
+                                        }
+                                    });
+                            dialog.show();
                         }
                     });
         } catch (Exception e) {

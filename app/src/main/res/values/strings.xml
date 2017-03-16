@@ -453,7 +453,6 @@
     <string name="job_experience_value">%d years</string>
     <string name="job_availability_immediately">Immediately</string>
     <string name="job_id">Job ID: %s</string>
-    <string name="job_cancel">Are you sure you want to cancel this job? </string>
     <string name="job_details_offered_amount">%d workers offered</string>
     <string name="job_details_applied_amount">%d workers applied</string>
     <string name="job_details_booked_amount">%d workers booked</string>
@@ -845,6 +844,7 @@
     <string name="employer_jobs_republish">Republish</string>
     <string name="employer_jobs_not_posted">Not posted</string>
     <string name="employer_jobs_awarded">Awarded to %s</string>
+    <string name="employer_jobs_cancel_prompt">Are you sure you want to cancel this job?</string>
     <string name="title_activity_payments">PaymentsActivity</string>
 
     <!-- CSCS Errorcodes -->
@@ -857,8 +857,6 @@
     <!-- Passport upload-->
     <string name="passport_nophoto">Please upload your passport before previewing</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- SHARING is CARING -->
     <string name="share_generic">Hey, I\'ve just joined The Square Construction.

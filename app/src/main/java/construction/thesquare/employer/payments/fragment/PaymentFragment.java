@@ -117,38 +117,15 @@ public class PaymentFragment extends Fragment {
         draftJobInLimboId = getActivity()
                 .getSharedPreferences(Constants.CREATE_JOB_FLOW, Context.MODE_PRIVATE)
                 .getInt(Constants.DRAFT_JOB_ID, 0);
-//
-//        Toast.makeText(getContext(), "selected plan: " +
-//                String.valueOf(plan) + "  and the draft job id is " +
-//                draftJobInLimboId, Toast.LENGTH_LONG).show();
+
+        TextTools.log(TAG, String.valueOf(plan));
     }
 
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu_price_plan_nested, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.back:
-//                getActivity().getSupportFragmentManager()
-//                        .popBackStack();
-//                return true;
-//        }
-//        return false;
-//    }
-
-    @OnClick(R.id.confirm)
-    public void submit() {
-        // getCard();
-
+    private void setUpPlan(int planId, String cardToken) {
         HashMap<String, Object> body = new HashMap<>();
-        body.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
-        body.put("stripe_source_token", "dfdfdf");
-        body.put("payment_detail", plan);
+        // body.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
+        body.put("stripe_source_token", cardToken);
+        body.put("payment_detail", planId);
         if (draftJobInLimbo) {
             body.put("job_id", draftJobInLimboId);
         }
@@ -181,21 +158,13 @@ public class PaymentFragment extends Fragment {
                 });
     }
 
-    private void exit() {
-        getActivity()
-                .getSharedPreferences(Constants.CREATE_JOB_FLOW, Context.MODE_PRIVATE)
-                .edit()
-                .putBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, false)
-                .remove(Constants.DRAFT_JOB_ID)
-                .commit();
-        getActivity().finish();
-        getActivity().startActivity(new Intent(getActivity(), MainEmployerActivity.class));
+    @OnClick(R.id.confirm)
+    public void submit() {
+         getCard();
     }
 
     private Card getCard() {
-
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-
         int monthInt = 0;
         int yearInt = 0;
 
@@ -218,11 +187,9 @@ public class PaymentFragment extends Fragment {
                                 postcode.getText().toString(),
                                 country.getText().toString(), null);
 
-
-
         if (card.validateNumber()) {
             try {
-                final Stripe stripe = new Stripe("pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
+                final Stripe stripe = new Stripe("pk_live_bR97E0AcQgxBJtxbIS7X2oth");
                 stripe.createToken(card, new TokenCallback() {
                     @Override
                     public void onError(Exception error) {
@@ -243,7 +210,7 @@ public class PaymentFragment extends Fragment {
                         DialogBuilder.cancelDialog(dialog);
                         TextTools.log(TAG, token.getId());
                         // proceed
-                        submitStripeInfo(token.getId());
+                        setUpPlan(plan, token.getId());
                         //
                     }
                 });
@@ -263,36 +230,17 @@ public class PaymentFragment extends Fragment {
                         }
                     }).create().show();
         }
-
         return card;
     }
 
-    private void submitStripeInfo(String token) {
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        CreateCardRequest request = new CreateCardRequest();
-        request.name = first.getText().toString() + " " + last.getText().toString();
-        request.token = token;
-        HttpRestServiceConsumer.getBaseApiClient()
-                .addCard(request)
-                .enqueue(new Callback<CreateCardResponse>() {
-                    @Override
-                    public void onResponse(Call<CreateCardResponse> call,
-                                           Response<CreateCardResponse> response) {
-                        //
-                        DialogBuilder.cancelDialog(dialog);
-                        if (response.isSuccessful()) {
-                            // TODO: clarify how to display success on screen
-                        } else {
-                            HandleErrors.parseError(getContext(), dialog, response);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<CreateCardResponse> call, Throwable t) {
-                        //
-                        HandleErrors.parseFailureError(getContext(), dialog, t);
-                    }
-                });
+    private void exit() {
+        getActivity()
+                .getSharedPreferences(Constants.CREATE_JOB_FLOW, Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(Constants.DRAFT_JOB_AWAIT_PLAN, false)
+                .remove(Constants.DRAFT_JOB_ID)
+                .commit();
+        getActivity().finish();
+        getActivity().startActivity(new Intent(getActivity(), MainEmployerActivity.class));
     }
-
 }
