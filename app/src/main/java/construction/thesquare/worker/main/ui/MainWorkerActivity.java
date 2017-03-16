@@ -7,6 +7,7 @@ package construction.thesquare.worker.main.ui;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -20,7 +21,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -91,6 +94,19 @@ public class MainWorkerActivity extends AppCompatActivity {
 
     private void setToolbar() {
         setSupportActionBar(toolbar);
+        // find the title text view
+        TextView toolbarTitle;
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View child = toolbar.getChildAt(i);
+            if (child instanceof TextView) {
+                toolbarTitle = (TextView) child;
+                // set my custom font
+                Typeface typeface = Typeface.createFromAsset(getAssets(),
+                        "fonts/JosefinSans-Italic.ttf");
+                toolbarTitle.setTypeface(typeface);
+                break;
+            }
+        }
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setHomeAsUpIndicator(getMenuIcon());
