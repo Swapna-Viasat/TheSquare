@@ -20,7 +20,6 @@ public class MainApplication extends MultiDexApplication {
     private static GoogleAnalytics googleAnalytics;
 
 
-
     public void onCreate() {
         super.onCreate();
 
@@ -37,9 +36,9 @@ public class MainApplication extends MultiDexApplication {
 
         Branch.getAutoInstance(this);
 
-//        if (!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
-//        }
+        }
     }
 
     synchronized public Tracker getDefaultTracker() {
