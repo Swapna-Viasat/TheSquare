@@ -114,7 +114,7 @@ public class MyGraftrsFragment extends Fragment
                 if (worker.liked) workers.add(worker);
             }
         } else if (getArguments().getInt("category") == PAGE_BOOKED) {
-            // workers.addAll(data);
+            workers.addAll(data);
         }
 
         adapter.notifyDataSetChanged();
