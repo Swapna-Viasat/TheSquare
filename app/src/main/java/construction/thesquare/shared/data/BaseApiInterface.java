@@ -362,6 +362,15 @@ public interface BaseApiInterface {
     Call<StatusMessageResponse> postContactMessage(@Body HashMap<String, String> body);
 
     /**
+     * Job offer
+     */
+    @POST("/job_offer/{pk}/accept/")
+    Call<Object> acceptOffer(@Path("pk") int id);
+
+    @POST("/job_offer/{pk}/decline/")
+    Call<Object> declineOffer(@Path("pk") int id);
+
+    /**
      * Help
      */
     @GET("/faq/")
