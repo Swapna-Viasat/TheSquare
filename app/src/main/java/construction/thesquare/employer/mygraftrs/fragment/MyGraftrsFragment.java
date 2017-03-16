@@ -95,7 +95,13 @@ public class MyGraftrsFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        presenter.fetchWorkers(employerId);
+        if (getArguments().getInt("category") == PAGE_LIKED) {
+            //
+            presenter.fetchLikedWorkers(employerId);
+        } else if (getArguments().getInt("category") == PAGE_BOOKED) {
+            //
+            presenter.fetchBookedWorkers(employerId);
+        }
     }
 
     // Presenter callbacks
@@ -107,8 +113,8 @@ public class MyGraftrsFragment extends Fragment
             for (Worker worker : data) {
                 if (worker.liked) workers.add(worker);
             }
-        } else {
-            workers.addAll(data);
+        } else if (getArguments().getInt("category") == PAGE_BOOKED) {
+            // workers.addAll(data);
         }
 
         adapter.notifyDataSetChanged();

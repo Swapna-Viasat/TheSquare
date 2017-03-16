@@ -29,10 +29,38 @@ public class WorkersPresenter implements WorkerContract.UserActionsListener {
         //
     }
 
-    public void fetchWorkers(int id) {
+    public void fetchLikedWorkers(int id) {
         mWorkersView.showProgress(true);
         Call<ResponseObject<List<Worker>>> call =
-                HttpRestServiceConsumer.getBaseApiClient().fetchWorkers(id);
+                HttpRestServiceConsumer.getBaseApiClient().fetchLikedWorkers(id);
+        call.enqueue(new Callback<ResponseObject<List<Worker>>>() {
+            @Override
+            public void onResponse(Call<ResponseObject<List<Worker>>> call,
+                                   Response<ResponseObject<List<Worker>>> response) {
+                mWorkersView.showProgress(false);
+                if (null != response) {
+                    if (null != response.body()) {
+                        if (!response.body().getResponse().isEmpty()) {
+                            mWorkersView.showWorkerList(response.body().getResponse());
+                        } else {
+                            mWorkersView.showEmptyList();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseObject<List<Worker>>> call, Throwable t) {
+                mWorkersView.showProgress(false);
+                mWorkersView.showEmptyList();
+                mWorkersView.showError((null != t.getMessage()) ? t.getMessage() : "Something went wrong");
+            }
+        });
+    }
+    public void fetchBookedWorkers(int id) {
+        mWorkersView.showProgress(true);
+        Call<ResponseObject<List<Worker>>> call =
+                HttpRestServiceConsumer.getBaseApiClient().fetchBookedWorkers(id);
         call.enqueue(new Callback<ResponseObject<List<Worker>>>() {
             @Override
             public void onResponse(Call<ResponseObject<List<Worker>>> call,
