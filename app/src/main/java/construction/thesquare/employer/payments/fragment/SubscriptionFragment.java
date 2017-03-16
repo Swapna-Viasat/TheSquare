@@ -92,7 +92,7 @@ public class SubscriptionFragment extends Fragment {
         getActivity().
                 getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_employer_content, PaymentFragment.newInstance(selectedPlan))
+                .replace(R.id.main_employer_content, PaymentFragment.newInstance(selectedPlan + 2))
                 .addToBackStack("")
                 .commit();
 
