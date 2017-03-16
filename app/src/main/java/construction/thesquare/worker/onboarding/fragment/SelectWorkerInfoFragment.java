@@ -146,6 +146,7 @@ public class SelectWorkerInfoFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         View view = inflater.inflate(R.layout.fragment_select_info_worker, container, false);
         ButterKnife.bind(this, view);
         return view;
