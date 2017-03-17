@@ -117,12 +117,7 @@ public class MainEmployerActivity extends AppCompatActivity {
                     selectItem(getString(R.string.employer_account_price_plan),
                             navigationView.getMenu().getItem(3));
                     break;
-                case 4:
-                    selectItem(getString(R.string.menu_employer_help),
-                            navigationView.getMenu().getItem(4));
-                    break;
             }
-
         }
     }
 
