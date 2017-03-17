@@ -11,6 +11,7 @@ public class Constants {
     public static final String KEY_CURRENT_WORKER = "current_worker";
     public static final String KEY_CURRENT_EMPLOYER = "current_employer";
     public static final String KEY_SINGLE_EDIT = "single_edit";
+    public static final String KEY_HAVE_ACCOUNT = "have_account";
 
     public static final int KEY_VERIFY_PHONE_EMPLOYER = 345;
     public static final int KEY_VERIFY_PHONE_WORKER = 343;
