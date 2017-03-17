@@ -42,6 +42,8 @@ public class PricePlanFragment extends Fragment {
     @BindView(R.id.plan_expiration) TextView planExpiration;
     @BindView(R.id.topup_expiration) TextView topupExpiration;
 
+    private String stripeToken;
+
     public PricePlanFragment() {
         // Required empty public constructor
     }
@@ -104,6 +106,9 @@ public class PricePlanFragment extends Fragment {
                             if (null != response.body()) {
                                 if (null != response.body().getResponse()) {
                                     populate(response.body().getResponse());
+                                    if (null != response.body().getResponse().stripeToken) {
+                                        stripeToken = response.body().getResponse().stripeToken;
+                                    }
                                 }
                             }
                         } else {
@@ -200,7 +205,8 @@ public class PricePlanFragment extends Fragment {
         //Toast.makeText(getContext(), "Change", Toast.LENGTH_LONG).show();
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_employer_content, SubscriptionFragment.newInstance())
+                .replace(R.id.main_employer_content,
+                        SubscriptionFragment.newInstance(null != stripeToken))
                 .addToBackStack("")
                 .commit();
     }

@@ -1,6 +1,7 @@
 package construction.thesquare.employer.payments.fragment;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,7 +23,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.payments.adapter.PaymentsAdapter;
+import construction.thesquare.shared.data.HttpRestServiceConsumer;
+import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.utils.CrashLogHelper;
+import construction.thesquare.shared.utils.DialogBuilder;
+import construction.thesquare.shared.utils.HandleErrors;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SubscriptionFragment extends Fragment {
 
@@ -33,9 +42,10 @@ public class SubscriptionFragment extends Fragment {
     @BindViews({R.id.top_basic, R.id.top_standard, R.id.top_premium})
     List<ViewGroup> top;
 
-    public static SubscriptionFragment newInstance() {
+    public static SubscriptionFragment newInstance(boolean hasStripeToken) {
         SubscriptionFragment fragment = new SubscriptionFragment();
         Bundle args = new Bundle();
+        args.putBoolean("has_token", hasStripeToken);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,7 +53,6 @@ public class SubscriptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
         if (getArguments() != null) {
             //
         }
@@ -56,75 +65,54 @@ public class SubscriptionFragment extends Fragment {
         ButterKnife.bind(this, view);
         return view;
     }
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu_price_plan_nested, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.back:
-//                getActivity().getSupportFragmentManager()
-//                        .popBackStack();
-//                return true;
-//        }
-//        return false;
-//    }
 
     @OnClick(R.id.payments_continue)
     public void proceed() {
+        if (!getArguments().getBoolean("has_token")) {
+            getActivity().
+                    getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_employer_content,
+                            PaymentFragment.newInstance(selectedPlan + 2))
+                    .addToBackStack("")
+                    .commit();
+        } else {
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            HashMap<String, Object> body = new HashMap<>();
+            body.put("payment_detail", selectedPlan + 2);
+            HttpRestServiceConsumer.getBaseApiClient()
+                    .subscribe(body)
+                    .enqueue(new Callback<ResponseObject>() {
+                        @Override
+                        public void onResponse(Call<ResponseObject> call,
+                                               Response<ResponseObject> response) {
+                            //
+                            if (response.isSuccessful()) {
+                                //
+                                final Dialog dialog1 = new Dialog(getContext());
+                                dialog1.setCancelable(false);
+                                dialog1.setContentView(R.layout.dialog_subscription_success);
+                                dialog1.findViewById(R.id.yes)
+                                        .setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                dialog1.dismiss();
+                                                getActivity().getSupportFragmentManager()
+                                                        .popBackStack();
+                                            }
+                                        });
+                                //
+                            } else {
+                                HandleErrors.parseError(getContext(), dialog, response);
+                            }
+                        }
 
-//        getActivity().getSupportFragmentManager()
-//                .popBackStack();
-//
-//        ((TextView) getActivity().findViewById(R.id.payments_subscription_label))
-//                .setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-//        ((TextView) getActivity().findViewById(R.id.payments_cards_label))
-//                .setTextColor(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
-//        ((ImageView) getActivity().findViewById(R.id.payments_subscription))
-//                .setColorFilter(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-//        ((ImageView) getActivity().findViewById(R.id.payments_cards))
-//                .setColorFilter(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
-//
-
-        getActivity().
-                getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_employer_content, PaymentFragment.newInstance(selectedPlan + 2))
-                .addToBackStack("")
-                .commit();
-
-//        //
-//        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-//        HashMap<String, Object> request = new HashMap<>();
-//        // TODO: need further guidance from backend guys
-//        request.put("payment_detail", 3);
-//        request.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
-//        HttpRestServiceConsumer.getBaseApiClient()
-//                .subscribe(request)
-//                .enqueue(new Callback<ResponseObject>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseObject> call,
-//                                           Response<ResponseObject> response) {
-//                        //
-//                        if (response.isSuccessful()) {
-//                            DialogBuilder.cancelDialog(dialog);
-//                            //
-//                        } else {
-//                            HandleErrors.parseError(getContext(), dialog, response);
-//                            //
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseObject> call, Throwable t) {
-//                        //
-//                        HandleErrors.parseFailureError(getContext(), dialog, t);
-//                    }
-//                });
+                        @Override
+                        public void onFailure(Call<ResponseObject> call, Throwable t) {
+                            HandleErrors.parseFailureError(getContext(), dialog, t);
+                        }
+                    });
+        }
     }
 
     @Override
@@ -214,7 +202,6 @@ public class SubscriptionFragment extends Fragment {
             }
         }
     }
-
 
     @OnClick(R.id.understanding)
     public void understanding() {

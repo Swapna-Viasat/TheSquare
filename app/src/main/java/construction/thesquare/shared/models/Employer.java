@@ -36,4 +36,6 @@ public class Employer implements Serializable {
     @SerializedName("plan_end_date") public String planExpiration;
     @SerializedName("topup_end_date") public String topupExpiration;
     @SerializedName("plan_name") public String planName;
+
+    @SerializedName("stripe_customer_token") public String stripeToken;
 }
