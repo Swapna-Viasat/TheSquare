@@ -168,7 +168,7 @@ public interface BaseApiInterface {
     @GET("/employers/{pk}/workers/?like=true")
     Call<ResponseObject<List<construction.thesquare.employer.mygraftrs.model.Worker>>>
                     fetchLikedWorkers(@Path("pk") int id);
-    @GET("/employers/{pk}/workers/?status=2")
+    @GET("/employers/{pk}/workers/?status=2,4")
     Call<ResponseObject<List<construction.thesquare.employer.mygraftrs.model.Worker>>>
                     fetchBookedWorkers(@Path("pk") int id);
 
