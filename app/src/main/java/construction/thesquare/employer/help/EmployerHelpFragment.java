@@ -60,14 +60,16 @@ public class EmployerHelpFragment extends Fragment {
                 if (validateFields())
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.main_employer_content, HelpDetailsFragment.newInstance(search.getText().toString()))
+                            .replace(R.id.main_employer_content,
+                                    HelpDetailsFragment.newInstance(search.getText().toString()))
                             .addToBackStack("")
                             .commit();
                 break;
             case R.id.contact_us:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main_employer_content, SettingsContactFragment.newInstance())
+                        .replace(R.id.main_employer_content,
+                                SettingsContactFragment.newInstance())
                         .addToBackStack("contact")
                         .commit();
                 break;
