@@ -108,10 +108,10 @@ class JobDetailsPresenter implements ApplicationsConnector.Callback, LikeJobConn
         likeJobConnector.unlikeJob(contract.getContext(), currentJob.id);
     }
 
-    void onShareJobClick() {
+    /*void onShareJobClick() {
         if (contract == null || contract.getContext() == null) return;
         Toast.makeText(contract.getContext(), "In Development", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     Job getCurrentJob() {
         return currentJob;
