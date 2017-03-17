@@ -238,7 +238,7 @@
                             android:layout_height="wrap_content" />
 
                         <construction.thesquare.shared.view.widget.JosefinSansTextView
-                            android:text="£1749"
+                            android:text="£1799"
                             android:layout_below="@+id/a"
                             android:id="@+id/b"
                             android:layout_centerInParent="true"

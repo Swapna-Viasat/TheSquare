@@ -728,7 +728,7 @@
                         \n\nHappy booking!</string>
     <string name="payments_standard_price"><strike>£1999+VAT</strike> \n£999+VAT</string>
     <string name="payments_basic_price"><strike>£999+VAT</strike> \n£499+VAT</string>
-    <string name="payments_premium_price"><strike>£3498+VAT</strike> \n£1749+VAT</string>
+    <string name="payments_premium_price"><strike>£3598+VAT</strike> \n£1799+VAT</string>
     <string name="payments_standard_bookings">50 bookings</string>
     <string name="payments_premium_bookings">100 bookings</string>
     <string name="payments_basic_bookings">20 bookings</string>
