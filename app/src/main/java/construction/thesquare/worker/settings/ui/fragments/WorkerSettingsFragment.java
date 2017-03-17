@@ -40,6 +40,7 @@ import construction.thesquare.shared.settings.fragments.SettingsFragment;
 import construction.thesquare.shared.settings.fragments.SettingsSocialFragment;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -338,7 +339,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

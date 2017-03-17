@@ -50,6 +50,7 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
     @Override
     public void onBindViewHolder(WorkerHolder holder, int position) {
         final Worker worker = data.get(position);
+        holder.workerAction.setVisibility(View.GONE);
         holder.workerRating.makeStarsRed();
         if (worker.firstName != null) {
             if (worker.lastName != null) {

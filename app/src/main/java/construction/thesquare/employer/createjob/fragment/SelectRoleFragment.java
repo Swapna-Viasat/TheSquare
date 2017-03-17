@@ -36,6 +36,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -169,7 +170,7 @@ public class SelectRoleFragment extends Fragment
 
             filter.addTextChangedListener(filterTextWatcher);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
     private void fetchRoles() {
@@ -280,7 +281,7 @@ public class SelectRoleFragment extends Fragment
             // safety first
             request.workersQuantity = selectedRole.amountWorkers;
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         TextTools.log(TAG, "fragment");
         getActivity().getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)

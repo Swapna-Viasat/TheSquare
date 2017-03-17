@@ -51,6 +51,7 @@ import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -100,6 +101,8 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @BindView(R.id.book) JosefinSansTextView book;
     @BindView(R.id.decline) JosefinSansTextView decline;
     @BindView(R.id.bookedBanner) View bookedBanner;
+    @BindView(R.id.offered_hint_view) ViewGroup offeredHint;
+    @BindView(R.id.offered_hint_text) TextView offeredHintText;
     @BindView(R.id.contactWorkerLayout) View contactWorkerLayout;
     @BindView(R.id.nis_status) TextView nisStatus;
     @BindView(R.id.nisNumberLayout) View nisNumberLayout;
@@ -591,23 +594,40 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                 Application currentApplication = null;
                 if (!CollectionUtils.isEmpty(worker.applications)) {
                     for (Application application : worker.applications) {
-                        if (application.jobId == jobId)
+                        if (application.jobId == jobId) {
                             currentApplication = application;
+                        }
                     }
                 }
 
                 if (currentApplication != null) {
                     if (currentApplication.status != null)
                         if (currentApplication.status.id == ApplicationStatus.STATUS_PENDING) {
-                            if (!currentApplication.isOffer) onApplied(currentApplication.id);
-                            else onOffered();
+                            if (!currentApplication.isOffer) {
+                                onApplied(currentApplication.id);
+                            } else {
+                                String start = "";
+                                try {
+                                    start = DateUtils.magicDate(job.start.split("T")[0]);
+                                } catch (Exception e) {
+                                    CrashLogHelper.logException(e);
+                                }
+                                onOffered((null != worker.firstName) ?
+                                        worker.firstName : "",
+                                        (null != job.role) ? job.role.name : "", start);
+                            }
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {
+                            //
                             onBooked();
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_CANCELLED ||
                                 currentApplication.status.id == ApplicationStatus.STATUS_DENIED ||
-                                currentApplication.status.id == ApplicationStatus.STATUS_END_CONTRACT)
+                                currentApplication.status.id == ApplicationStatus.STATUS_END_CONTRACT) {
+                            //
                             book.setVisibility(View.GONE);
-                } else onApplicationNull();
+                        }
+                } else {
+                    onApplicationNull();
+                }
 
 
                 fillExperienceAndQualifications();
@@ -692,8 +712,9 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         bookedBanner.setVisibility(View.VISIBLE);
         contactWorkerLayout.setVisibility(View.VISIBLE);
         workerEmail.setText(worker.email);
-        if (!CollectionUtils.isEmpty(worker.devices))
+        if (!CollectionUtils.isEmpty(worker.devices)) {
             workerPhone.setText(worker.devices.get(0).phoneNumber);
+        }
     }
 
     private void onApplicationNull() {
@@ -710,8 +731,13 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         });
     }
 
-    private void onOffered() {
+    private void onOffered(String workerName, String jobName, String startDate) {
         book.setVisibility(View.GONE);
+        offeredHint.setVisibility(View.VISIBLE);
+        offeredHintText.setText(
+                String.format(getString(R.string.offered_hint),
+                        workerName, jobName, startDate)
+        );
     }
 
     //TODO move strings into resources
@@ -853,7 +879,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }

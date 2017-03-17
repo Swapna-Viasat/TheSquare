@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 
 public class EditPasswordDialog extends DialogFragment {
@@ -108,7 +109,7 @@ public class EditPasswordDialog extends DialogFragment {
                 TextTools.resetInputLayout(password2Layout);
                 TextTools.resetInputLayout(passwordLayout);
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     };

@@ -52,6 +52,7 @@ import construction.thesquare.shared.data.model.ZipResponse;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
@@ -111,7 +112,7 @@ public class SelectLocationFragment extends Fragment
         try {
             rootView = inflater.inflate(R.layout.fragment_worker_select_location, container, false);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         ButterKnife.bind(this, rootView);

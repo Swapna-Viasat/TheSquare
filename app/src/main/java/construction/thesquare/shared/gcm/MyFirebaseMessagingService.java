@@ -15,6 +15,7 @@ import java.util.Map;
 
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.main.activity.MainActivity;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 
 //import io.intercom.android.sdk.push.IntercomPushClient;
@@ -45,7 +46,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 TextTools.log(TAG, "worker email: " + workerEmail);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         if (remoteMessage.getData().size() > 0) {

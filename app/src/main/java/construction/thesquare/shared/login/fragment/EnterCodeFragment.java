@@ -41,6 +41,7 @@ import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.login.OnSmsReceivedListener;
 import construction.thesquare.shared.login.SmsInterceptor;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -452,7 +453,7 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
             try {
                 DialogBuilder.cancelDialog(dialog);
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     };

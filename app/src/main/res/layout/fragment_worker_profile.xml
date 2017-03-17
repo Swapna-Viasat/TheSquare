@@ -16,13 +16,41 @@
             android:id="@+id/bookedBanner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
             android:background="@android:color/holo_green_dark"
             android:padding="16dp"
             android:text="Booked"
+            app:josefin_style="italic"
             android:textAlignment="center"
             android:textColor="@color/whiteSquareColor"
             android:visibility="gone" />
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/offered_hint_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_like_tab"
+                android:tint="@android:color/white" />
+
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
+                style="@style/subheader_white_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:padding="10dp"
+                android:id="@+id/offered_hint_text"
+                android:text="@string/offered_hint"
+                app:josefin_style="italic" />
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/content_worker_profile"
@@ -111,6 +139,7 @@
 
         </FrameLayout>
 
+        <!-- Worker Details -->
         <LinearLayout
             android:id="@+id/content_worker_details_extra"
             android:layout_width="match_parent"
@@ -763,11 +792,13 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <!-- Map View -->
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="240dp" />
 
+        <!-- Action Buttons -->
         <LinearLayout
             android:weightSum="2"
             android:layout_marginTop="12dp"

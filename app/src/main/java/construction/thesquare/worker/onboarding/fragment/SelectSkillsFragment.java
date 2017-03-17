@@ -32,6 +32,7 @@ import construction.thesquare.shared.models.RolesRequest;
 import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
@@ -87,7 +88,7 @@ public class SelectSkillsFragment extends Fragment
         try {
             title.setText(getString(R.string.onboarding_skills));
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         filter.addTextChangedListener(filterTextWatcher);

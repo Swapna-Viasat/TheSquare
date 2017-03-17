@@ -19,6 +19,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
+import construction.thesquare.shared.utils.CollectionUtils;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
@@ -53,7 +55,7 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
     @DrawableRes
     private int getBannerImage(Job job) {
         int result = 0;
-        if (job.application != null) {
+        if (!CollectionUtils.isEmpty(job.application)) {
             if (job.application.get(0).status.id == ApplicationStatus.STATUS_APPROVED)
                 result = R.drawable.workers_booked;
             else if (job.application.get(0).status.id == ApplicationStatus.STATUS_PENDING) {
@@ -132,7 +134,7 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
             else holder.bannerImage.setVisibility(View.GONE);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

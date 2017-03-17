@@ -18,7 +18,8 @@ public interface WorkerContract {
     }
 
     interface UserActionsListener {
-        void fetchWorkers(int id);
+        void fetchLikedWorkers(int id);
+        void fetchBookedWorkers(int id);
         void viewWorkerDetails();
         void quickInvite();
     }

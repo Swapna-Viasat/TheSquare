@@ -167,7 +167,10 @@ public interface BaseApiInterface {
     // TODO: when adding other tabs to "my workers" move the params out
     @GET("/employers/{pk}/workers/?like=true")
     Call<ResponseObject<List<construction.thesquare.employer.mygraftrs.model.Worker>>>
-    fetchWorkers(@Path("pk") int id);
+                    fetchLikedWorkers(@Path("pk") int id);
+    @GET("/employers/{pk}/workers/?status=2,4")
+    Call<ResponseObject<List<construction.thesquare.employer.mygraftrs.model.Worker>>>
+                    fetchBookedWorkers(@Path("pk") int id);
 
     @POST("/workers/{pk}/job_offer/")
     Call<QuickInviteResponse> quickInvite(@Body HashMap<String, Object> body, @Path("pk") int id);

@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -210,7 +211,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 qualifications2.setText(TextTools.toBulletList(currentJob.getQualificationsList(), true));
                 experienceTypes.setText(TextTools.toBulletList(currentJob.getExperienceTypesList(), true));
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
 
             String englishString = "Basic";
@@ -302,6 +303,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     }
 
     private void onOffered() {
+        appliedHeaderView.setText("You've been offered the job! You can now accept or reject the offer.");
         acceptOfferButton.setVisibility(View.VISIBLE);
         acceptOfferButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -352,7 +354,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 return currentJob.application.get(0);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         return null;
     }
@@ -532,7 +534,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -559,7 +561,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 }

@@ -16,6 +16,7 @@ import construction.thesquare.employer.onboarding.fragment.SelectEmployerInfoFra
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Employer;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +52,7 @@ public class OnboardingEmployerActivity extends AppCompatActivity {
                             .newInstance(currentEmployer))
                     .commit();
         } catch (IllegalStateException e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -96,7 +97,7 @@ public class OnboardingEmployerActivity extends AppCompatActivity {
                         currentEmployer = response.body().getResponse();
 
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        CrashLogHelper.logException(e);
                     }
 
                     proceed();

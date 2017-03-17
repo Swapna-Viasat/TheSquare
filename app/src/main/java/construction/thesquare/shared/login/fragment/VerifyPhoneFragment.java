@@ -31,6 +31,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.start.activity.TermsActivity;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DataUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -158,7 +159,7 @@ public class VerifyPhoneFragment extends Fragment {
                                                 .addToBackStack("")
                                                 .commit();
                                     } catch (Exception e) {
-                                        e.printStackTrace();
+                                        CrashLogHelper.logException(e);
                                     }
 
                                     //
@@ -205,7 +206,7 @@ public class VerifyPhoneFragment extends Fragment {
                                                 .addToBackStack("")
                                                 .commit();
                                     } catch (Exception e) {
-                                        e.printStackTrace();
+                                        CrashLogHelper.logException(e);
                                     }
 
                                     //

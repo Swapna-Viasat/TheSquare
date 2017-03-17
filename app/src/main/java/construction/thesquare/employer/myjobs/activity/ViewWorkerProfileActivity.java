@@ -1,6 +1,7 @@
 package construction.thesquare.employer.myjobs.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -9,12 +10,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.employer.myjobs.fragment.WorkerProfileFragment;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.TextTools;
 
 /**
  * Created by Vadim Goroshevsky
@@ -23,8 +27,9 @@ import construction.thesquare.shared.utils.Constants;
 
 public class ViewWorkerProfileActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    public static final String TAG = "ViewWorkerActivity";
+
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     public static final String WORKER_ID = "WORKER_ID";
 
@@ -62,7 +67,22 @@ public class ViewWorkerProfileActivity extends AppCompatActivity {
     }
 
     private void setToolbar() {
+        TextTools.log(TAG, "setting up toolbar");
         setSupportActionBar(toolbar);
+        // find the title text view
+        TextView toolbarTitle;
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            TextTools.log(TAG, "looping: " + String.valueOf(i));
+            View child = toolbar.getChildAt(i);
+            if (child instanceof TextView) {
+                TextTools.log(TAG, "found title: " + String.valueOf(i));
+                toolbarTitle = (TextView) child;
+                // set my custom font
+                Typeface typeface = Typeface.createFromAsset(getAssets(),
+                        "fonts/JosefinSans-Italic.ttf");
+                toolbarTitle.setTypeface(typeface);
+            }
+        }
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
