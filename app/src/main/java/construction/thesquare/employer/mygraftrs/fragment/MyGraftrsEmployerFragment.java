@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.employer.mygraftrs.adapter.MyGraftrsEmployerPagerAdapter;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 public class MyGraftrsEmployerFragment extends Fragment {
 
@@ -56,7 +57,7 @@ public class MyGraftrsEmployerFragment extends Fragment {
             int density = (int) getResources().getDisplayMetrics().density;
             textView.setCompoundDrawablePadding(6 * density);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 }

@@ -6,6 +6,7 @@ import android.widget.Toast;
 import construction.thesquare.shared.applications.ApplicationsConnector;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.worker.jobmatches.model.Application;
@@ -59,7 +60,7 @@ class JobDetailsPresenter implements ApplicationsConnector.Callback, LikeJobConn
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             dialog.dismiss();
         }
     }
@@ -90,7 +91,7 @@ class JobDetailsPresenter implements ApplicationsConnector.Callback, LikeJobConn
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             dialog.dismiss();
         }
     }

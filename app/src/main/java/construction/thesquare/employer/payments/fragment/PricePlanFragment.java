@@ -18,6 +18,7 @@ import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Employer;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -77,7 +78,7 @@ public class PricePlanFragment extends Fragment {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setTitle("My Price Plan");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -126,7 +127,7 @@ public class PricePlanFragment extends Fragment {
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -136,7 +137,7 @@ public class PricePlanFragment extends Fragment {
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -165,7 +166,7 @@ public class PricePlanFragment extends Fragment {
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -176,7 +177,7 @@ public class PricePlanFragment extends Fragment {
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -189,7 +190,7 @@ public class PricePlanFragment extends Fragment {
         } catch (IllegalStateException e) {
             TextTools.log(TAG, "illegal state exception");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

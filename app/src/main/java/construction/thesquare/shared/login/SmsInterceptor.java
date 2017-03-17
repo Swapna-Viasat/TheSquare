@@ -15,6 +15,7 @@ import android.telephony.SmsMessage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 
 @SuppressWarnings("deprecation")
@@ -62,7 +63,7 @@ public class SmsInterceptor extends BroadcastReceiver {
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             }
         }

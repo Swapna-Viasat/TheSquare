@@ -61,6 +61,7 @@ import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -536,7 +537,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                         }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }
@@ -569,7 +570,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                 patchWorker(params);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -794,7 +795,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -822,7 +823,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
             uploadPicture(context, file);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

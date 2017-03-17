@@ -66,6 +66,7 @@ import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -373,7 +374,7 @@ public class SelectExperienceFragment extends Fragment
                                             .into(passport_photo);
                                 }
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                CrashLogHelper.logException(e);
                             }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -405,7 +406,7 @@ public class SelectExperienceFragment extends Fragment
             showPassportImage();
             if (workerSurname != null) surname.setText(workerSurname);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -419,7 +420,7 @@ public class SelectExperienceFragment extends Fragment
                 fluency.setLayoutManager(new LinearLayoutManager(getContext()));
                 fluency.setAdapter(fluencyAdapter);
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }
@@ -430,7 +431,7 @@ public class SelectExperienceFragment extends Fragment
             qualifications.addAll(fetchedQualifications);
             populateQualifications();
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -556,7 +557,7 @@ public class SelectExperienceFragment extends Fragment
 
                 populateNationality();
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }
@@ -657,7 +658,7 @@ public class SelectExperienceFragment extends Fragment
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -766,7 +767,7 @@ public class SelectExperienceFragment extends Fragment
                     });
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

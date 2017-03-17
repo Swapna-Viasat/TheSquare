@@ -219,7 +219,7 @@ public class DialogBuilder {
                 negativeButton.setTypeface(typeFaceBold);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

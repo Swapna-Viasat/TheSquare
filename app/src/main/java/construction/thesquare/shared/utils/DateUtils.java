@@ -47,7 +47,7 @@ public class DateUtils {
                     magicDate = stringBuilder.toString();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
         if (magicDate.equals("")) {
@@ -81,10 +81,10 @@ public class DateUtils {
             Date date = format.parse(strDate.split("\\+")[0]);
             return date;
         } catch (ParseException e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             return null;
             // TODO Auto-generated catch block
-            //e.printStackTrace();
+            //CrashLogHelper.logException(e);
         }
     }
 
@@ -203,7 +203,7 @@ public class DateUtils {
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
             return formatter.parseLocalDate(birthDate).toString("d MMMM yyyy");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             return null;
         }
     }
@@ -214,7 +214,7 @@ public class DateUtils {
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
             return formatter.parseLocalDate(date);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             return null;
         }
     }
@@ -226,7 +226,7 @@ public class DateUtils {
             DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
             return formatter.parseLocalDate(date).toString("MMMM, yyyy");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             return null;
         }
     }

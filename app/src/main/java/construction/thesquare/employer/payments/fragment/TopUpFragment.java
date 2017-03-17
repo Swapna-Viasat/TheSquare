@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 public class TopUpFragment extends Fragment {
 
@@ -52,7 +53,7 @@ public class TopUpFragment extends Fragment {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setTitle("Top Up");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

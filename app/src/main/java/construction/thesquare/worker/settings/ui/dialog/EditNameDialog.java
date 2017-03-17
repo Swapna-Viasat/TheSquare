@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 
 public class EditNameDialog extends DialogFragment {
@@ -114,7 +115,7 @@ public class EditNameDialog extends DialogFragment {
                 TextTools.resetInputLayout(nameLayout);
                 TextTools.resetInputLayout(surnameLayout);
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     };

@@ -43,6 +43,7 @@ import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.utils.CollectionUtils;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -281,7 +282,7 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
                                             Double.valueOf(job.location.longitude)), 12));
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        CrashLogHelper.logException(e);
                         new AlertDialog.Builder(getContext()).setMessage("Something went wrong").show();
                     }
                 }

@@ -34,6 +34,7 @@ import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
@@ -112,7 +113,7 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
             others.setLayoutManager(new LinearLayoutManager(getContext()));
             others.setAdapter(experienceAdapter);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

@@ -31,6 +31,7 @@ import construction.thesquare.employer.subscription.model.CreateCardResponse;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -174,7 +175,7 @@ public class PaymentFragment extends Fragment {
             yearInt = Integer.valueOf(year.getText().toString());
             //
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         Card card = new Card(number.getText().toString(),
@@ -202,7 +203,7 @@ public class PaymentFragment extends Fragment {
                                         dialogInterface.dismiss();
                                     }
                                 }).create().show();
-                        error.printStackTrace();
+                        CrashLogHelper.logException(error);
                     }
 
                     @Override
@@ -216,7 +217,7 @@ public class PaymentFragment extends Fragment {
                 });
             } catch (Exception e) {
                 DialogBuilder.cancelDialog(dialog);
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         } else {
             TextTools.log(TAG, "couldn't validate");
