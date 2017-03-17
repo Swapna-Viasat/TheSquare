@@ -650,40 +650,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container,
-                                WorkerDeclineFragment.newInstance())
+                                WorkerDeclineFragment.newInstance(applicationId))
                         .addToBackStack("")
                         .commit();
 
-//                final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-//                HttpRestServiceConsumer.getBaseApiClient()
-//                        .rejectApplicant(applicationId, new Feedback("n/a"))
-//                        .enqueue(new Callback<ResponseObject<construction
-//                                .thesquare.worker.jobmatches.model.Application>>() {
-//                            @Override
-//                            public void onResponse(Call<ResponseObject<construction
-//                                    .thesquare.worker.jobmatches.model.Application>> call,
-//                                                   Response<ResponseObject<construction
-//                                                           .thesquare.worker.jobmatches
-//                                                           .model.Application>> response) {
-//                                if (response.isSuccessful()) {
-//                                    DialogBuilder.cancelDialog(dialog);
-//                                    //
-//                                    // TODO: clarify what happens after declining a worker
-//                                    decline.setVisibility(View.GONE);
-//                                    book.setVisibility(View.GONE);
-//                                    //
-//                                } else {
-//                                    HandleErrors.parseError(getContext(), dialog, response);
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<ResponseObject<construction
-//                                    .thesquare.worker.jobmatches.model.Application>> call,
-//                                                  Throwable t) {
-//                                HandleErrors.parseFailureError(getContext(), dialog, t);
-//                            }
-//                        });
+
             }
         });
         book.setOnClickListener(new View.OnClickListener() {
