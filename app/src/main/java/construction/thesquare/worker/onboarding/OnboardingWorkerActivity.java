@@ -1,6 +1,5 @@
 package construction.thesquare.worker.onboarding;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import butterknife.BindView;
@@ -22,7 +19,6 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.TextTools;
-import construction.thesquare.worker.main.ui.MainWorkerActivity;
 import construction.thesquare.worker.onboarding.fragment.SelectAvailabilityFragment;
 import construction.thesquare.worker.onboarding.fragment.SelectCompaniesFragment;
 import construction.thesquare.worker.onboarding.fragment.SelectExperienceFragment;
@@ -58,13 +54,6 @@ public class OnboardingWorkerActivity extends AppCompatActivity {
         setToolbar();
 
         fetchMe();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_skip_onboarding, menu);
-        return true;
     }
 
     private void proceed() {
@@ -124,9 +113,6 @@ public class OnboardingWorkerActivity extends AppCompatActivity {
                     getSupportFragmentManager().popBackStack();
                 }
                 return true;
-            case R.id.skip_onboarding:
-                skipOnboarding();
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -158,10 +144,6 @@ public class OnboardingWorkerActivity extends AppCompatActivity {
                 .putBoolean(Constants.KEY_WORKER_ONBOARDING_UNFINISHED, fragmentNumber < 10)
                 .putInt(Constants.KEY_WORKER_ONBOARDING_STEP, fragmentNumber < 10 ? fragmentNumber : 0)
                 .apply();
-    }
-
-    private void skipOnboarding() {
-        startActivity(new Intent(this, MainWorkerActivity.class));
     }
 
     private int getFragmentNumber(Fragment fragment) {

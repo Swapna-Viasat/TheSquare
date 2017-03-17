@@ -109,7 +109,7 @@ public class HandleErrors {
         if (throwable instanceof SocketTimeoutException)
             error = "Connection Time Out";
 
-        DialogBuilder.showStandardDialog(context, "Error", error);
+        DialogBuilder.showStandardDialog(context, "", error);
     }
 
     private static DialogBuilder.OnClickStandardDialog onOkClickCallback = new DialogBuilder.OnClickStandardDialog() {
