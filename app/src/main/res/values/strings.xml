@@ -716,6 +716,13 @@
 
 
     <!-- Employer Payments -->
+    <string name="payments_topup_error">
+        Oops! \n\nYou can only Top Up if you already have a subscription.</string>
+    <string name="payments_topup_success">
+        Good stuff!
+        \n\nYou are now topped up.
+        \n\nHappy booking!
+    </string>
     <string name="payments_success">Good news!
                         \n\nYour account is now live.
                         \n\nHappy booking!</string>
