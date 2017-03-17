@@ -59,12 +59,12 @@
         <!-- branch.io key :) -->
         <!-- Branch init -->
         <meta-data android:name="io.branch.sdk.BranchKey"
-            android:value="key_live_kdEzggeJ3HbIeP6A41UyBdeoAxc1dgZw" />
-        <meta-data android:name="io.branch.sdk.BranchKey.test"
-            android:value="key_test_mpEEmndU8GcJaQ5B1XUZuminBBl6ob7T" />
+            android:value="key_live_fdFtcGj8AL3fzR5zFq0PVefoEroHpjez" />
+        <!--<meta-data android:name="io.branch.sdk.BranchKey.test"-->
+            <!--android:value="key_test_cdAFbKg1rGWcEOXrqyZIYihnEClSiakK" />-->
 
-        <!-- Branch testing (TestMode "true" to simulate fresh installs on dev environment) -->
-        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" />
+        <!--&lt;!&ndash; Branch testing (TestMode "true" to simulate fresh installs on dev environment) &ndash;&gt;-->
+        <!--<meta-data android:name="io.branch.sdk.TestMode" android:value="true" />-->
 
         <!-- Branch install referrer tracking -->
         <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
