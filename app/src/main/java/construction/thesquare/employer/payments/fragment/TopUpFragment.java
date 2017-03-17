@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -72,8 +73,7 @@ public class TopUpFragment extends Fragment {
 
     @OnClick(R.id.continue_top_up)
     public void topUp() {
-//        getActivity().getSupportFragmentManager()
-//                .popBackStack();
+
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
                 .topup()
@@ -84,7 +84,9 @@ public class TopUpFragment extends Fragment {
                         //
                         if (response.isSuccessful()) {
                             //
-
+                            Toast.makeText(getContext(), "Top Up Successful", Toast.LENGTH_LONG).show();
+                            getActivity().getSupportFragmentManager()
+                                    .popBackStack();
                             //
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);

@@ -892,7 +892,7 @@
         You should check it out.
         Enjoy!
     </string>
-    <string name="share_worker_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
+    <string name="share_worker_general_image_url">https://www.thesquareapp.tech/assets/img/share2.png</string>
 
     <string name="share_worker_general_title">
         Hey,
@@ -916,7 +916,4 @@
     <string name="login_error">Oops! Something went wrong. Please check your email and password</string>
     <string name="help_no_matches">Oops! I\'m afraid we cant answer that. Please contact us here..</string>
     <string name="help_contact_us">Still need help? Contact us here.</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
