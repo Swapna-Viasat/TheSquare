@@ -33,8 +33,6 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
     }
 
     public interface HelpDetailsListener {
-        // void onViewDetails(Review review);
-        // void onCompleteReview(Review review);
     }
 
     @Override
@@ -52,8 +50,6 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
     public static class HelpDetailsHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.question)
         JosefinSansTextView question;
-        /*@BindView(R.id.answer)
-        JosefinSansTextView answer;*/
         @BindView(R.id.webview)
         WebView webview;
         public HelpDetailsHolder(View view) {
@@ -77,7 +73,6 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
                 @Override
                 public void onClick(View v) {
                     holder.webview.setVisibility(View.VISIBLE);
-                    // holder.answer.setText(Html.fromHtml(faq.answer));
                     holder.webview.loadDataWithBaseURL(null, faq.answer, "text/html", "utf-8", null);
                 }
             });
