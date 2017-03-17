@@ -619,11 +619,13 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {
                             //
                             onBooked();
+                            //
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_CANCELLED ||
                                 currentApplication.status.id == ApplicationStatus.STATUS_DENIED ||
                                 currentApplication.status.id == ApplicationStatus.STATUS_END_CONTRACT) {
                             //
                             book.setVisibility(View.GONE);
+                            //
                         }
                 } else {
                     onApplicationNull();
@@ -644,36 +646,44 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-                HttpRestServiceConsumer.getBaseApiClient()
-                        .rejectApplicant(applicationId, new Feedback("n/a"))
-                        .enqueue(new Callback<ResponseObject<construction
-                                .thesquare.worker.jobmatches.model.Application>>() {
-                            @Override
-                            public void onResponse(Call<ResponseObject<construction
-                                    .thesquare.worker.jobmatches.model.Application>> call,
-                                                   Response<ResponseObject<construction
-                                                           .thesquare.worker.jobmatches
-                                                           .model.Application>> response) {
-                                if (response.isSuccessful()) {
-                                    DialogBuilder.cancelDialog(dialog);
-                                    //
-                                    // TODO: clarify what happens after declining a worker
-                                    decline.setVisibility(View.GONE);
-                                    book.setVisibility(View.GONE);
-                                    //
-                                } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
-                                }
-                            }
 
-                            @Override
-                            public void onFailure(Call<ResponseObject<construction
-                                    .thesquare.worker.jobmatches.model.Application>> call,
-                                                  Throwable t) {
-                                HandleErrors.parseFailureError(getContext(), dialog, t);
-                            }
-                        });
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container,
+                                WorkerDeclineFragment.newInstance())
+                        .addToBackStack("")
+                        .commit();
+
+//                final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+//                HttpRestServiceConsumer.getBaseApiClient()
+//                        .rejectApplicant(applicationId, new Feedback("n/a"))
+//                        .enqueue(new Callback<ResponseObject<construction
+//                                .thesquare.worker.jobmatches.model.Application>>() {
+//                            @Override
+//                            public void onResponse(Call<ResponseObject<construction
+//                                    .thesquare.worker.jobmatches.model.Application>> call,
+//                                                   Response<ResponseObject<construction
+//                                                           .thesquare.worker.jobmatches
+//                                                           .model.Application>> response) {
+//                                if (response.isSuccessful()) {
+//                                    DialogBuilder.cancelDialog(dialog);
+//                                    //
+//                                    // TODO: clarify what happens after declining a worker
+//                                    decline.setVisibility(View.GONE);
+//                                    book.setVisibility(View.GONE);
+//                                    //
+//                                } else {
+//                                    HandleErrors.parseError(getContext(), dialog, response);
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<ResponseObject<construction
+//                                    .thesquare.worker.jobmatches.model.Application>> call,
+//                                                  Throwable t) {
+//                                HandleErrors.parseFailureError(getContext(), dialog, t);
+//                            }
+//                        });
             }
         });
         book.setOnClickListener(new View.OnClickListener() {
