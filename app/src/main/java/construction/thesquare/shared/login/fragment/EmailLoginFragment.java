@@ -23,6 +23,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.LoginUser;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
+import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
@@ -151,7 +152,9 @@ public class EmailLoginFragment extends Fragment {
         if (response.body().getResponse().user.isOnboarding_done()) {
             startAnotherActivity(new Intent(getContext(), MainWorkerActivity.class));
         } else {
-            startAnotherActivity(new Intent(getActivity(), OnboardingWorkerActivity.class));
+            Intent onboardingIntent = new Intent(getActivity(), OnboardingWorkerActivity.class);
+            onboardingIntent.putExtra(Constants.KEY_HAVE_ACCOUNT, true);
+            startAnotherActivity(onboardingIntent);
         }
     }
 
