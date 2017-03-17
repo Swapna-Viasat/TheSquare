@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.utils.CollectionUtils;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
@@ -133,7 +134,7 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
             else holder.bannerImage.setVisibility(View.GONE);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

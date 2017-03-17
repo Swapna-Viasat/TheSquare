@@ -51,6 +51,7 @@ import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -609,7 +610,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                 try {
                                     start = DateUtils.magicDate(job.start.split("T")[0]);
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    CrashLogHelper.logException(e);
                                 }
                                 onOffered((null != worker.firstName) ?
                                         worker.firstName : "",
@@ -878,7 +879,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }

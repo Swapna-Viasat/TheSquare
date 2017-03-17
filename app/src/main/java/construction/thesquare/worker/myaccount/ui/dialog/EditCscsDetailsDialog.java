@@ -24,6 +24,7 @@ import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
@@ -128,7 +129,7 @@ public class EditCscsDetailsDialog extends DialogFragment {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

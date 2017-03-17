@@ -6,6 +6,7 @@ import android.content.Context;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.StatusMessageResponse;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import retrofit2.Call;
@@ -55,7 +56,7 @@ public class LikeJobConnector {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             dialog.dismiss();
         }
     }
@@ -88,7 +89,7 @@ public class LikeJobConnector {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             dialog.dismiss();
         }
     }

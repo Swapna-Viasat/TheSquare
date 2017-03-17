@@ -30,6 +30,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.ExperienceType;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -177,7 +178,7 @@ public class SelectExperienceTypeFragment extends Fragment
             list.setLayoutManager(new LinearLayoutManager(getContext()));
             list.setAdapter(adapter);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
@@ -271,7 +272,7 @@ public class SelectExperienceTypeFragment extends Fragment
                     filtered.addAll(data);
                     adapter.notifyDataSetChanged();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             } else {
                 // safety first
@@ -284,7 +285,7 @@ public class SelectExperienceTypeFragment extends Fragment
                     }
                     adapter.notifyDataSetChanged();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             }
         }

@@ -23,7 +23,7 @@ public class DataUtils {
             Account[] accounts = accountManager.getAccountsByType("com.google");
             return ((accounts.length > 0) ? accounts[0] : null);
         } catch (SecurityException e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             return null;
         }
     }

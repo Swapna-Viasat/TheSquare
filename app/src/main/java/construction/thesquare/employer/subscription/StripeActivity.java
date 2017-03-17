@@ -19,6 +19,7 @@ import construction.thesquare.R;
 import construction.thesquare.employer.subscription.model.CreateCardRequest;
 import construction.thesquare.employer.subscription.model.CreateCardResponse;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
 import retrofit2.Call;
@@ -66,7 +67,7 @@ public class StripeActivity extends AppCompatActivity {
                         @Override
                         public void onError(Exception error) {
                             progressDialog.dismiss();
-                            error.printStackTrace();
+                            CrashLogHelper.logException(error);
                         }
 
                         @Override
@@ -78,7 +79,7 @@ public class StripeActivity extends AppCompatActivity {
                     });
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                     progressDialog.dismiss();
                 }
             } else {

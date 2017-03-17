@@ -22,6 +22,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
 import construction.thesquare.worker.jobmatches.model.Job;
@@ -129,7 +130,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             else holder.bannerImage.setVisibility(View.GONE);
             //
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

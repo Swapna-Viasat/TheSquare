@@ -14,6 +14,7 @@ import construction.thesquare.R;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.start.ActionBarViewHolder;
 import construction.thesquare.shared.start.SignUpViewPager;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 
 /**
@@ -96,7 +97,7 @@ public abstract class SignUpActivity extends AppCompatActivity {
             try {
                 continueToApp();
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }

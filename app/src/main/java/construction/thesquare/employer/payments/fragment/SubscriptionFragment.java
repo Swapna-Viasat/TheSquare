@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.payments.adapter.PaymentsAdapter;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 public class SubscriptionFragment extends Fragment {
 
@@ -136,7 +137,7 @@ public class SubscriptionFragment extends Fragment {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setTitle("Change Plan");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         select(1);
         PaymentsAdapter adapter = new PaymentsAdapter();

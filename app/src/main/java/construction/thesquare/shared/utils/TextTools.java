@@ -78,7 +78,7 @@ public class TextTools {
                 stringBuilder.append(string + ", " + (vertical ? "\n" : ""));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         return stringBuilder.toString();
     }
@@ -120,7 +120,7 @@ public class TextTools {
             byte[] data = text.getBytes("UTF-8");
             return Base64.encodeToString(data, Base64.DEFAULT);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             return null;
         }
     }
@@ -130,7 +130,7 @@ public class TextTools {
             byte[] data = Base64.decode(encoded, Base64.DEFAULT);
             return new String(data, "UTF-8");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             return null;
         }
     }

@@ -18,6 +18,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.worker.onboarding.fragment.SelectAvailabilityFragment;
 import construction.thesquare.worker.onboarding.fragment.SelectCompaniesFragment;
@@ -77,7 +78,7 @@ public class OnboardingWorkerActivity extends AppCompatActivity {
                         currentWorker = response.body().getResponse();
                         proceed();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        CrashLogHelper.logException(e);
                     }
                 }
             }

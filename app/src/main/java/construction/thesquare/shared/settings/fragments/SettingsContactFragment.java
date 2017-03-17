@@ -36,6 +36,7 @@ import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.ContactCategory;
 import construction.thesquare.shared.models.StatusMessageResponse;
 import construction.thesquare.shared.utils.CollectionUtils;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.MediaTools;
@@ -129,7 +130,7 @@ public class SettingsContactFragment extends Fragment {
                                 spinner.setAdapter(new ArrayAdapter<>(getContext(),
                                         android.R.layout.simple_spinner_dropdown_item, getCategories()));
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                CrashLogHelper.logException(e);
                             }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);

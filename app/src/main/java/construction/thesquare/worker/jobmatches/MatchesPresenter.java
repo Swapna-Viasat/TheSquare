@@ -10,6 +10,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.worker.jobdetails.JobDetailActivity;
 import construction.thesquare.worker.jobdetails.LikeJobConnector;
 import construction.thesquare.worker.jobmatches.model.Job;
@@ -104,7 +105,7 @@ public class MatchesPresenter implements MatchesContract.UserActionListener, Lik
                         if (response.body().getResponse() != null)
                             mMatchesView.displayHint(response.body().getResponse().onboardingSkipped);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        CrashLogHelper.logException(e);
                     }
                 }
             }

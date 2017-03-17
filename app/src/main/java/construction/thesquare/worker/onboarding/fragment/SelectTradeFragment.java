@@ -29,6 +29,7 @@ import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Trade;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
@@ -85,7 +86,7 @@ public class SelectTradeFragment extends Fragment
         try {
             title.setText(getString(R.string.onboarding_trades));
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -128,7 +129,7 @@ public class SelectTradeFragment extends Fragment
             filter.addTextChangedListener(filterTextWatcher);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

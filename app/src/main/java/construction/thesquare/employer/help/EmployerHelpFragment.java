@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.shared.settings.fragments.SettingsContactFragment;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
 
 /**
@@ -49,7 +50,7 @@ public class EmployerHelpFragment extends Fragment {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setTitle("Help");
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

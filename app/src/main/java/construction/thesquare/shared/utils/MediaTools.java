@@ -162,7 +162,7 @@ public class MediaTools {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 25, byteArrayOS);
             return "data:image/jpeg;base64," + Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         return null;
     }

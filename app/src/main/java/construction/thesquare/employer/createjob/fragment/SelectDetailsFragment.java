@@ -58,6 +58,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -158,7 +159,7 @@ public class SelectDetailsFragment extends Fragment
                 try {
                     getView().scrollTo(0, getView().getHeight());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             }
         };
@@ -210,7 +211,7 @@ public class SelectDetailsFragment extends Fragment
                 if (null != request.notes) extra.setText(request.notes);
                 if (null != request.address) address.setText(request.address);
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
             toggleSeekBars(request.budgetType);
             overtimeSwitch.setChecked(request.overtime);
@@ -307,7 +308,7 @@ public class SelectDetailsFragment extends Fragment
                 payload.put("qualifications", quals);
                 //
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
             // end of wow
 
@@ -367,7 +368,7 @@ public class SelectDetailsFragment extends Fragment
                                             dialog, response, gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                CrashLogHelper.logException(e);
                             }
                         }
 
@@ -422,7 +423,7 @@ public class SelectDetailsFragment extends Fragment
                 payload.put("qualifications", quals);
                 //
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
             // end of wow
 
@@ -562,7 +563,7 @@ public class SelectDetailsFragment extends Fragment
                 getActivity().finish();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }
@@ -596,7 +597,7 @@ public class SelectDetailsFragment extends Fragment
         try {
             request.contactPhoneNumber = Long.valueOf(phone.getText().toString());
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         //
         request.address = address.getText().toString();

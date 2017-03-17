@@ -50,6 +50,7 @@ import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
@@ -174,7 +175,7 @@ public class SelectWorkerInfoFragment extends Fragment {
 
             showProfileImage();
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -263,7 +264,7 @@ public class SelectWorkerInfoFragment extends Fragment {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -292,7 +293,7 @@ public class SelectWorkerInfoFragment extends Fragment {
 
             uploadPicture(context, file);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -474,7 +475,7 @@ public class SelectWorkerInfoFragment extends Fragment {
                 TextTools.resetInputLayout(firstNameInput);
                 TextTools.resetInputLayout(zipLayout);
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     };

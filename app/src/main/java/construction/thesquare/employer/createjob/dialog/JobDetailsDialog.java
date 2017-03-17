@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 /**
  * Created by gherg on 1/20/17.
@@ -65,7 +66,7 @@ public class JobDetailsDialog extends DialogFragment {
                     getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -80,7 +81,7 @@ public class JobDetailsDialog extends DialogFragment {
                     getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

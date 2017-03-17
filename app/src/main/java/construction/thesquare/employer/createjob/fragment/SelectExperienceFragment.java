@@ -29,6 +29,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.EnglishLevel;
 import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -248,7 +249,7 @@ public class SelectExperienceFragment extends Fragment
             others.setLayoutManager(new LinearLayoutManager(getContext()));
             others.setAdapter(experienceAdapter);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         try {
@@ -263,7 +264,7 @@ public class SelectExperienceFragment extends Fragment
                 experienceAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -283,7 +284,7 @@ public class SelectExperienceFragment extends Fragment
             fluency.setLayoutManager(new LinearLayoutManager(getContext()));
             fluency.setAdapter(fluencyAdapter);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
 
