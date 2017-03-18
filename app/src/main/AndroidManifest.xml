@@ -33,14 +33,14 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name=".shared.gcm.MyFirebaseMessagingService">
+            android:name=".shared.fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <service
-            android:name=".shared.gcm.MyFirebaseInstanceIDService">
+            android:name=".shared.fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
