@@ -91,7 +91,7 @@ public class MainEmployerActivity extends AppCompatActivity {
             TextTools.log(TAG, "we have a draft job not published because no plan was setup");
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_employer_content, SubscriptionFragment.newInstance())
+                    .replace(R.id.main_employer_content, SubscriptionFragment.newInstance(false))
                     .addToBackStack("")
                     .commit();
             ///

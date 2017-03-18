@@ -31,8 +31,9 @@ public class ShareUtils {
                 .addContentMetadata("property1", "blue")
                 .addContentMetadata("property2", "red");
         LinkProperties linkProperties = new LinkProperties()
-                .setChannel("")
-                .setFeature("")
+                .setChannel("android")
+                .setFeature("android")
+                .setCampaign("androidAppWorker")
                 .addControlParameter("$desktop_url", "http://www.thesquareapp.tech/")
                 .addControlParameter("$ios_url", "http://www.thesquareapp.tech/")
                 .addControlParameter("$android_url", context.getString(R.string.share_play_store_url));
@@ -73,8 +74,9 @@ public class ShareUtils {
                 .addContentMetadata("property1", "blue")
                 .addContentMetadata("property2", "red");
         LinkProperties linkProperties = new LinkProperties()
-                .setChannel("")
-                .setFeature("")
+                .setChannel("android")
+                .setFeature("android")
+                .setCampaign("androidAppEmployer")
                 .addControlParameter("$desktop_url", "http://www.thesquareapp.tech/")
                 .addControlParameter("$ios_url", "http://www.thesquareapp.tech/")
                 .addControlParameter("$android_url", context.getString(R.string.share_play_store_url));

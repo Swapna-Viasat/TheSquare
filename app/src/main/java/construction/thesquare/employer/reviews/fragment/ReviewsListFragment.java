@@ -49,7 +49,7 @@ public class ReviewsListFragment extends Fragment
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUserActionListener = new ReviewsPresenter(this);
+        mUserActionListener = new ReviewsPresenter(this, getContext());
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

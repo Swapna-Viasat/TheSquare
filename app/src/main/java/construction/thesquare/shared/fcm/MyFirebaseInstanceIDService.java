@@ -1,4 +1,4 @@
-package construction.thesquare.shared.gcm;
+package construction.thesquare.shared.fcm;
 
 import android.util.Log;
 

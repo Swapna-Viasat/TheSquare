@@ -390,11 +390,11 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
         likeDrawable = DrawableCompat.wrap(likeDrawable);
         DrawableCompat.setTint(likeDrawable, ContextCompat.getColor(getActivity(), R.color.redSquareColor));
         menu.findItem(R.id.job_like).setIcon(likeDrawable);
-
-        Drawable shareDrawable = menu.findItem(R.id.job_share).getIcon();
+        //Not for this version
+         /*Drawable shareDrawable = menu.findItem(R.id.job_share).getIcon();
         shareDrawable = DrawableCompat.wrap(shareDrawable);
         DrawableCompat.setTint(shareDrawable, ContextCompat.getColor(getActivity(), R.color.redSquareColor));
-        menu.findItem(R.id.job_share).setIcon(shareDrawable);
+        menu.findItem(R.id.job_share).setIcon(shareDrawable);*/
 
         setupMenuIconsVisibility();
     }
@@ -408,9 +408,9 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             case R.id.job_unlike:
                 presenter.onUnlikeJobClick();
                 break;
-            case R.id.job_share:
+            /*case R.id.job_share:
                 presenter.onShareJobClick();
-                break;
+                break;*/
             default:
                 break;
         }

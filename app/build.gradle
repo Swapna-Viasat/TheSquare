@@ -11,8 +11,8 @@ android {
         applicationId "construction.thesquare"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 22
-        versionName "1.0.22"
+        versionCode 23
+        versionName "1.0.23"
         multiDexEnabled true
     }
     signingConfigs {
@@ -66,6 +66,11 @@ dependencies {
         transitive = true;
     }
     testCompile 'junit:junit:4.12'
+    //    compile 'io.intercom.android:intercom-sdk:3.+'
+
+    //    compile 'io.intercom.android:intercom-sdk-base:3.+'
+
+    //    compile 'io.intercom.android:intercom-sdk-fcm:3.+'
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -96,11 +101,6 @@ dependencies {
     compile 'io.branch.sdk.android:library:2.+'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
-    //    compile 'io.intercom.android:intercom-sdk:3.+'
-
-    //    compile 'io.intercom.android:intercom-sdk-base:3.+'
-
-    //    compile 'io.intercom.android:intercom-sdk-fcm:3.+'
 }
 
 apply plugin: 'com.google.gms.google-services'

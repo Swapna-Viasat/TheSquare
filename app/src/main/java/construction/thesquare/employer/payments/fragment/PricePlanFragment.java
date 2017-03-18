@@ -42,6 +42,9 @@ public class PricePlanFragment extends Fragment {
     @BindView(R.id.plan_expiration) TextView planExpiration;
     @BindView(R.id.topup_expiration) TextView topupExpiration;
 
+    private String stripeToken;
+    private int currentPlan;
+
     public PricePlanFragment() {
         // Required empty public constructor
     }
@@ -104,6 +107,10 @@ public class PricePlanFragment extends Fragment {
                             if (null != response.body()) {
                                 if (null != response.body().getResponse()) {
                                     populate(response.body().getResponse());
+                                    if (null != response.body().getResponse().stripeToken) {
+                                        stripeToken = response.body().getResponse().stripeToken;
+                                    }
+                                    currentPlan = response.body().getResponse().subscriptionId;
                                 }
                             }
                         } else {
@@ -193,14 +200,14 @@ public class PricePlanFragment extends Fragment {
             CrashLogHelper.logException(e);
         }
     }
-
-
+    
     @OnClick(R.id.change_plan)
     public void changePlan() {
         //Toast.makeText(getContext(), "Change", Toast.LENGTH_LONG).show();
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_employer_content, SubscriptionFragment.newInstance())
+                .replace(R.id.main_employer_content,
+                        SubscriptionFragment.newInstance(0 != currentPlan))
                 .addToBackStack("")
                 .commit();
     }
@@ -265,11 +272,27 @@ public class PricePlanFragment extends Fragment {
     @OnClick(R.id.top_up)
     public void topUp() {
         //Toast.makeText(getContext(), "Top Up", Toast.LENGTH_LONG).show();
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_employer_content, TopUpFragment.newInstance())
-                .addToBackStack("")
-                .commit();
+        if (stripeToken == null) {
+            //
+            final Dialog dialog = new Dialog(getContext());
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_topup_error);
+            dialog.findViewById(R.id.yes)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+            dialog.show();
+            //
+        } else {
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_employer_content, TopUpFragment.newInstance(currentPlan))
+                    .addToBackStack("")
+                    .commit();
+        }
     }
 
     @OnClick(R.id.alternative_payment)

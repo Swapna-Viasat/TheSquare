@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.stripe.android.Stripe;
 import com.stripe.android.TokenCallback;
@@ -141,9 +142,11 @@ public class PaymentFragment extends Fragment {
                         if (response.isSuccessful()) {
                             if (draftJobInLimbo) {
                                 //
+                                Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
                                 exit();
                                 //
                             } else {
+                                Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
                                 exit();
                             }
                         } else {

@@ -1,6 +1,7 @@
 package construction.thesquare.worker.reviews.fragments;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,8 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.reviews.Review;
+import construction.thesquare.shared.utils.DialogBuilder;
+import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.shared.view.widget.RatingView;
@@ -75,7 +78,7 @@ public class ReviewsListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         workerId = SharedPreferencesManager.getInstance(getContext()).getWorkerId();
-        mUserActionListener = new ReviewsPresenter(this);
+        mUserActionListener = new ReviewsPresenter(this,getContext());
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -187,7 +190,7 @@ public class ReviewsListFragment extends Fragment
 
 
     public Worker fetchAggregateReviews() {
-      displayProgress(true);
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
                 .getWorkerAggregateReview(workerId)
                 .enqueue(new Callback<ResponseObject<Worker>>() {
@@ -195,6 +198,7 @@ public class ReviewsListFragment extends Fragment
                     public void onResponse(Call<ResponseObject<Worker>> call,
                                            Response<ResponseObject<Worker>> response) {
                         if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
                             noData.setVisibility(View.GONE);
                             displayProgress(false);
                             aggregate.setVisibility(View.VISIBLE);
@@ -212,12 +216,14 @@ public class ReviewsListFragment extends Fragment
                             safety.setRating(worker.reviewData.safe);
                             global.makeStarsRed();
                             global.setRating(worker.reviewData.globalRating);
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
-
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
         return worker;
