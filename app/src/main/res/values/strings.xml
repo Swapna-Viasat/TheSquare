@@ -816,6 +816,13 @@
     <string name="payments_cancel_subtitle">You will be able to use your remaining booking
                         credits, but your plan will not renew next month.
                         \n\nAre you sure you wish to cancel? </string>
+    <string name="payments_cancelled_title">
+        Sorry you are leaving us...
+        \n\nWe look forward to welcoming you back soon.
+    </string>
+    <string name="payments_cancelled_subtitle">
+        In the meantime, you will be able to use your remaining Booking Credits.
+    </string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>

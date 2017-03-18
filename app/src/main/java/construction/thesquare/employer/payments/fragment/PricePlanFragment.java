@@ -245,8 +245,18 @@ public class PricePlanFragment extends Fragment {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
                             //
-                            Toast.makeText(getContext(), "Cancelled!", Toast.LENGTH_LONG);
                             fetchEmployer();
+                            final Dialog dialog1 = new Dialog(getContext());
+                            dialog1.setCancelable(false);
+                            dialog1.setContentView(R.layout.dialog_cancelled);
+                            dialog1.findViewById(R.id.yes)
+                                    .setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog1.dismiss();
+                                        }
+                                    });
+                            dialog1.show();
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
