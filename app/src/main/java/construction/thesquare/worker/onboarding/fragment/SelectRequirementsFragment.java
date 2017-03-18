@@ -189,7 +189,7 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
     public void onResume() {
         super.onResume();
         loadWorker();
-        fetchRequirements();
+        fetchMe();
     }
 
     @Override
@@ -198,6 +198,32 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
         KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
+
+    private void fetchMe() {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .meWorker()
+                .enqueue(new Callback<ResponseObject<Worker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<Worker>> call,
+                                           Response<ResponseObject<Worker>> response) {
+
+                        DialogBuilder.cancelDialog(dialog);
+
+                        if (response.isSuccessful()) {
+                            if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
+                                currentWorker = response.body().getResponse();
+                            fetchRequirements();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+    }
+
 
     private void populateSavedRequirements() {
         if (currentWorker != null && !CollectionUtils.isEmpty(qualifications)

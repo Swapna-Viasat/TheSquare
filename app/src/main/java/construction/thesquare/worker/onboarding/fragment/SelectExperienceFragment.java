@@ -654,6 +654,10 @@ public class SelectExperienceFragment extends Fragment
 
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (imageUri != null) takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            else {
+                DialogBuilder.showStandardDialog(getContext(), "Error", "Can not store image file to local storage");
+                return;
+            }
             if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
