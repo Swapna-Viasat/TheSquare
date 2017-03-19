@@ -52,7 +52,7 @@ public class MyGraftrsEmployerFragment extends Fragment {
         try {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setTitle("My Workers");
-            TextView textView = (TextView) ((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(0)).getChildAt(1);
+            TextView textView = (TextView) ((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(1)).getChildAt(1);
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like_tab, 0);
             int density = (int) getResources().getDisplayMetrics().density;
             textView.setCompoundDrawablePadding(6 * density);
