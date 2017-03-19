@@ -86,6 +86,7 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
             Picasso.with(context)
                     .load(worker.picture)
                     .fit()
+                    .centerCrop()
                     .into(holder.avatar);
         }
 

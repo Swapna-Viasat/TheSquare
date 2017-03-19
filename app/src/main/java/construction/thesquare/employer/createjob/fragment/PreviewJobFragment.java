@@ -280,7 +280,6 @@ public class PreviewJobFragment extends Fragment {
             if (null != createRequest.logo) {
                 Picasso.with(getContext())
                         .load(createRequest.logo)
-                        .fit()
                         .into(logo);
             }
 
