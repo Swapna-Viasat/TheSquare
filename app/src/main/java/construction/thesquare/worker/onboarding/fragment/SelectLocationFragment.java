@@ -5,31 +5,25 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,6 +32,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +46,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.ZipResponse;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -58,9 +54,7 @@ import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.CommuteTimeSeekBar;
-import construction.thesquare.worker.onboarding.OnGeoCodingFinishedListener;
-import construction.thesquare.worker.onboarding.ReverseGeocodeRunnable;
-import construction.thesquare.worker.onboarding.adapter.PlacesAutocompleteAdapter;
+import construction.thesquare.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,10 +63,7 @@ import retrofit2.Response;
  * Created by gherg on 12/6/2016.
  */
 
-public class SelectLocationFragment extends Fragment
-        implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,
-        PlacesAutocompleteAdapter.PlacesListener, OnGeoCodingFinishedListener {
+public class SelectLocationFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks {
 
     public static final String TAG = "SelectLocationFragment";
     private int workerId;
@@ -82,10 +73,11 @@ public class SelectLocationFragment extends Fragment
     private GoogleMap googleMap;
     private GoogleApiClient googleApiClient;
     private Location centerMapLocation;
-    private boolean mapInitialized;
     private View rootView;
     private static final double londonLat = 51.5074;
     private static final double londonLong = 0.1278;
+    private String address;
+    private String workerZipCode;
 
     @BindView(R.id.filter)
     TextView filter;
@@ -137,16 +129,12 @@ public class SelectLocationFragment extends Fragment
                     {Manifest.permission.ACCESS_FINE_LOCATION}, 12);
         }
 
-        filter.setOnClickListener(listener);
-    }
-
-    @Override
-    public void onPlace(String placeId, String name, Dialog dialog) {
-        if (null != dialog) dialog.dismiss();
-        filter.setText(name);
-        PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
-                .getPlaceById(googleApiClient, placeId);
-        placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editPostCode();
+            }
+        });
     }
 
     @Override
@@ -190,6 +178,7 @@ public class SelectLocationFragment extends Fragment
 
         HashMap<String, Object> request = new HashMap<>();
         request.put("address", filter.getText().toString());
+        if (workerZipCode != null) request.put("post_code", workerZipCode);
         request.put("location", location);
         request.put("commute_time", seekCommute.getRate());
 
@@ -216,7 +205,6 @@ public class SelectLocationFragment extends Fragment
 
         googleApiClient = new GoogleApiClient.Builder(getContext())
                 .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .addApi(Places.GEO_DATA_API)
                 .build();
@@ -231,9 +219,9 @@ public class SelectLocationFragment extends Fragment
                     googleMap = map;
 
                     moveToInitialLocation();
-
                     centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
                     centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
+                    googleMap.setOnCameraIdleListener(cameraIdleListener);
                     fetchMe();
                 }
             });
@@ -246,91 +234,14 @@ public class SelectLocationFragment extends Fragment
             centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
             centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
 
-            startReverseGeoCoding(googleMap.getCameraPosition().target);
-
             TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.toString()));
         }
     };
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult result) {
-        // TODO: add a default location fallback
-    }
-
-    @Override
     public void onConnectionSuspended(int i) {
         // TODO: add a default location fallback
     }
-
-    private View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            final Dialog dialog = new Dialog(getContext());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.autocomplete);
-            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                    getResources().getDisplayMetrics().heightPixels * 8 / 12);
-            ((TextView) dialog.findViewById(R.id.autocomplete_title))
-                    .setText(getString(R.string.create_job_address));
-
-            final PlacesAutocompleteAdapter adapter =
-                    new PlacesAutocompleteAdapter(getActivity(), googleApiClient);
-            adapter.setListener(SelectLocationFragment.this, dialog);
-
-
-            ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
-            listView.setAdapter(adapter);
-
-            final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
-            search.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    //
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    adapter.getFilter().filter(s);
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-            search.setText(filter.getText().toString());
-            dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    filter.setText(search.getText().toString());
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
-        }
-    };
-
-    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
-            = new ResultCallback<PlaceBuffer>() {
-        @Override
-        public void onResult(@NonNull PlaceBuffer places) {
-            if (!places.getStatus().isSuccess() || places.getCount() == 0) {
-                TextTools.log(TAG, "Place query did not complete. Error: " + places.getStatus().toString());
-                places.release();
-                return;
-            }
-
-            Place place = places.get(0);
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 13f));
-            places.release();
-        }
-    };
 
     private void moveToInitialLocation() {
         LatLng london = new LatLng(londonLat, londonLong);
@@ -339,6 +250,8 @@ public class SelectLocationFragment extends Fragment
     }
 
     private void centerOnPostalCode(String code) {
+        if (TextUtils.isEmpty(code)) return;
+
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         ZipCodeVerifier.getInstance()
                 .api()
@@ -349,13 +262,9 @@ public class SelectLocationFragment extends Fragment
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
                             if (response.body().message == null) {
-
-                                googleMap.setOnCameraIdleListener(null);
-                                if (currentWorker != null) filter.setText(currentWorker.address);
                                 LatLng latLng = new LatLng(response.body().lat, response.body().lang);
 
                                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
-                                googleMap.setOnCameraIdleListener(cameraIdleListener);
                             }
                         }
                     }
@@ -367,29 +276,104 @@ public class SelectLocationFragment extends Fragment
                 });
     }
 
-    private void startReverseGeoCoding(LatLng target) {
-        new Thread(new ReverseGeocodeRunnable(getContext(), target, this)).start();
+    private void editPostCode() {
+        EditAccountDetailsDialog.newInstance("Post code", currentWorker.zip, false,
+                new EditAccountDetailsDialog.InputFinishedListener() {
+                    @Override
+                    public void onDone(String input, boolean onlyDigits) {
+                        validateZip(input);
+                    }
+                }).show(getFragmentManager(), "");
     }
 
-    @Override
-    public void onReverseGeoCodingFinished(final Address address) {
-        if (address != null) {
+    private void validateZip(final String zipCode) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
 
-            int maxLine = address.getMaxAddressLineIndex();
-            final StringBuilder addressLabel = new StringBuilder();
-            for (int i = 0; i <= maxLine; i++) {
-                addressLabel.append(address.getAddressLine(i)).append(i < maxLine ? ", " : "");
-            }
-
-            if (mapInitialized)
-                getActivity().runOnUiThread(new Runnable() {
+        ZipCodeVerifier.getInstance()
+                .api()
+                .verify(zipCode, ZipCodeVerifier.API_KEY)
+                .enqueue(new Callback<ZipResponse>() {
                     @Override
-                    public void run() {
-                        filter.setText(addressLabel);
+                    public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
+                        DialogBuilder.cancelDialog(dialog);
+
+                        if (null != response.body()) {
+                            if (null != response.body().message) {
+                                if (response.body().message.equals(ZipCodeVerifier.BAD_REQUEST)) {
+                                    new android.app.AlertDialog.Builder(getContext())
+                                            .setMessage(getString(R.string.validate_zip))
+                                            .show();
+                                } else {
+                                    new android.app.AlertDialog.Builder(getContext())
+                                            .setMessage(getString(R.string.validate_zip))
+                                            .show();
+                                }
+                            } else {
+
+                                LatLng latLng = new LatLng(response.body().lat, response.body().lang);
+                                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
+
+                                if (!CollectionUtils.isEmpty(response.body().addresses)) {
+                                    workerZipCode = zipCode;
+                                    if (currentWorker != null) currentWorker.zip = zipCode;
+                                    showAddressDialog(zipCode, response.body().addresses);
+                                }
+                                // all good
+                            }
+                        } else {
+                            // response body null
+                            new android.app.AlertDialog.Builder(getContext())
+                                    .setMessage(getString(R.string.validate_zip))
+                                    .show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ZipResponse> call, Throwable t) {
+                        DialogBuilder.cancelDialog(dialog);
                     }
                 });
-            else mapInitialized = true;
-        }
+    }
+
+    private void showAddressDialog(final String workerZipCode, final List<String> result) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.autocomplete);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                getResources().getDisplayMetrics().heightPixels * 8 / 12);
+        ((TextView) dialog.findViewById(R.id.autocomplete_title))
+                .setText(getString(R.string.create_job_address));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, result);
+        ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
+        final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                search.setText(result.get(position));
+            }
+        });
+
+        dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // all good
+                if (!search.getText().toString().isEmpty()) {
+                    address = search.getText().toString();
+                    filter.setText(address.replace(", , , ,", ", ") + ", " + workerZipCode);
+                    if (currentWorker != null) currentWorker.address = filter.getText().toString();
+                    dialog.dismiss();
+                } else DialogBuilder.showStandardDialog(getContext(), "", "Please select an address");
+            }
+        });
+        dialog.show();
     }
 
     @Override
@@ -415,6 +399,7 @@ public class SelectLocationFragment extends Fragment
                             if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT))
                                 currentWorker = response.body().getResponse();
                             populateData();
+                            if (currentWorker != null) centerOnPostalCode(currentWorker.zip);
                         }
                     }
 
@@ -430,7 +415,6 @@ public class SelectLocationFragment extends Fragment
             if (!TextUtils.isEmpty(currentWorker.address)) filter.setText(currentWorker.address);
 
             if (currentWorker.location != null) {
-                googleMap.setOnCameraIdleListener(null);
                 LatLng latLng = new LatLng(currentWorker.location.getLatitude(),
                         currentWorker.location.getLongitude());
 
