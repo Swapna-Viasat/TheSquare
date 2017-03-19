@@ -59,6 +59,7 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
 
         Picasso.with(holder.itemView.getContext())
                 .load(role.image)
+                .fit()
                 .into(holder.image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

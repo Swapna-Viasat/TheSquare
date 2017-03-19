@@ -394,7 +394,7 @@ public class SelectExperienceFragment extends Fragment
         try {
             currentWorker = worker;
             if (!TextUtils.isEmpty(worker.passportUpload)) {
-                Picasso.with(getContext()).load(worker.passportUpload).into(passport_photo);
+                Picasso.with(getContext()).load(worker.passportUpload).fit().into(passport_photo);
             } else {
                 passport_photo.setImageResource(R.drawable.passport);
             }
@@ -733,7 +733,7 @@ public class SelectExperienceFragment extends Fragment
                 }
             });
             ImageView iv = (ImageView) settingsDialog.findViewById(R.id.original_image);
-            Picasso.with(getContext()).load(currentWorker.passportUpload).into(iv);
+            Picasso.with(getContext()).load(currentWorker.passportUpload).fit().into(iv);
             //settingsDialog.getWindow().setLayout(700, 700);
             settingsDialog.show();
         } else {

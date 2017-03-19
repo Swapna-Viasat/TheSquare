@@ -224,7 +224,7 @@ public class AccountFragment extends Fragment {
         try {
             meWorker = worker;
             if (!TextUtils.isEmpty(worker.picture)) {
-                Picasso.with(getContext()).load(worker.picture).into(avatar);
+                Picasso.with(getContext()).load(worker.picture).fit().centerCrop().into(avatar);
             } else {
                 avatar.setImageResource(R.drawable.bob);
             }

@@ -76,6 +76,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         if (null != review.workerSummary.picture) {
             Picasso.with(context)
                     .load(review.workerSummary.picture)
+                    .fit()
                     .into(holder.avatar);
         } else {
             holder.avatar.setImageResource(R.drawable.bob);
