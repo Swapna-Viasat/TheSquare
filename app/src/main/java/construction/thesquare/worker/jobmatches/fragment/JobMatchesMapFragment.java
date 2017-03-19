@@ -333,7 +333,6 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
                             name.setVisibility(View.GONE);
                             Picasso.with(getContext())
                                     .load(job.owner.picture)
-                                    .fit()
                                     .into(logo);
                         } else {
                             logo.setVisibility(View.GONE);

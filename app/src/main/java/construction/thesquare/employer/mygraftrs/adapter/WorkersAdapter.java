@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.employer.mygraftrs.model.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.shared.view.widget.RatingView;
 
@@ -61,7 +62,12 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
         } else {
             if (worker.lastName != null) holder.workerName.setText(worker.lastName);
         }
-        if (worker.ocupation != null) holder.workerOccupation.setText(worker.ocupation);
+        if (!CollectionUtils.isEmpty(worker.roles)) {
+            if (worker.roles.get(0) != null) {
+                if (worker.roles.get(0).name != null)
+                    holder.workerOccupation.setText(worker.roles.get(0).name);
+            }
+        }
         holder.workerRating.setRating(worker.rating);
         if (worker.availableNow) holder.availableNow.setVisibility(View.VISIBLE);
         else holder.availableNow.setVisibility(View.GONE);
