@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
@@ -66,6 +68,22 @@ import static android.content.Context.MODE_PRIVATE;
 public class PreviewJobFragment extends Fragment {
 
     public static final String TAG = "PreviewJobFragment";
+
+    @BindViews({
+            R.id.preview_occupation,
+            R.id.preview_experience,
+            R.id.preview_reporting_to,
+            R.id.preview_start_date,
+            R.id.job_details_english_level_label,
+            R.id.job_details_overtime_label,
+            R.id.preview_location,
+            R.id.preview_salary_number,
+            R.id.job_details_description_label,
+            R.id.job_details_skills_label,
+            R.id.job_details_reqs_label,
+            R.id.job_details_qualifications_label,
+            R.id.job_details_experience_types_label})
+    List<TextView> edits;
 
     @BindView(R.id.preview_logo) ImageView logo;
     @BindView(R.id.preview_occupation) JosefinSansTextView role;
@@ -218,6 +236,11 @@ public class PreviewJobFragment extends Fragment {
             //
         } else {
             getView().findViewById(R.id.cancel).setVisibility(View.GONE);
+        }
+        if (getActivity().getIntent().getBooleanExtra("editable", true)) {
+            //
+        } else {
+            disableEditing();
         }
         try {
 
@@ -382,64 +405,39 @@ public class PreviewJobFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.createJobCancel:
-                final Dialog abandonDialog = new Dialog(getContext());
-                abandonDialog.setCancelable(false);
-                abandonDialog.setContentView(R.layout.dialog_abandon_post);
-                abandonDialog.findViewById(R.id.abandon_dismiss)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                abandonDialog.dismiss();
-                            }
-                        });
-                abandonDialog.findViewById(R.id.abandon_abandon)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                abandonDialog.dismiss();
-                                //
-                                discard();
-                            }
-                        });
-                abandonDialog.findViewById(R.id.abandon_save)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                abandonDialog.dismiss();
-                                callApi(Constants.JOB_STATUS_DRAFT);
-                            }
-                        });
-                abandonDialog.show();
-                //
-//                AlertDialog dialog = new AlertDialog.Builder(getContext())
-//                        .setMessage("Are you sure you want to exit?")
-//                        .setNegativeButton("Save as draft", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                                callApi(Constants.JOB_STATUS_DRAFT);
-//                            }
-//                        })
-//                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                                discard();
-//                            }
-//                        })
-//                        .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                            }
-//                        })
-//                        .setCancelable(false)
-//                        .show();
-//                TextView message = (TextView) dialog.findViewById(android.R.id.message);
-//                message.setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-//                message.setTypeface(Typeface.createFromAsset(getActivity()
-//                        .getAssets(), "fonts/JosefinSans-Italic.ttf"));
-                //
+                if (getActivity().getIntent()
+                        .getBooleanExtra("editable", true)) {
+                    final Dialog abandonDialog = new Dialog(getContext());
+                    abandonDialog.setCancelable(false);
+                    abandonDialog.setContentView(R.layout.dialog_abandon_post);
+                    abandonDialog.findViewById(R.id.abandon_dismiss)
+                            .setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    abandonDialog.dismiss();
+                                }
+                            });
+                    abandonDialog.findViewById(R.id.abandon_abandon)
+                            .setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    abandonDialog.dismiss();
+                                    //
+                                    discard();
+                                }
+                            });
+                    abandonDialog.findViewById(R.id.abandon_save)
+                            .setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    abandonDialog.dismiss();
+                                    callApi(Constants.JOB_STATUS_DRAFT);
+                                }
+                            });
+                    abandonDialog.show();
+                } else {
+                    discard();
+                }
                 return true;
         }
         return false;
@@ -453,6 +451,7 @@ public class PreviewJobFragment extends Fragment {
                 .putBoolean(Constants.KEY_UNFINISHED, false)
                 .remove(Constants.KEY_REQUEST)
                 .commit();
+        getActivity().finish();
         startActivity(new Intent(getActivity(), MainEmployerActivity.class));
     }
 
@@ -645,6 +644,17 @@ public class PreviewJobFragment extends Fragment {
         }
     }
 
+    private void disableEditing() {
+        for (TextView view : edits) {
+            hideEditDrawableRight(view);
+        }
+        getView().findViewById(R.id.cancel).setVisibility(View.GONE);
+        getView().findViewById(R.id.publish).setVisibility(View.GONE);
+    }
+
+    private void hideEditDrawableRight(TextView textView) {
+        textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+    }
 
     private final DialogInterface.OnClickListener showCRNDialog =
             new DialogInterface.OnClickListener() {
