@@ -327,7 +327,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     private void fillWorkerImage() {
         if (!TextUtils.isEmpty(worker.picture)) {
-            Picasso.with(getContext()).load(worker.picture).into(avatarImage);
+            Picasso.with(getContext()).load(worker.picture).fit().centerCrop().into(avatarImage);
         } else {
             avatarImage.setImageResource(R.drawable.bob);
         }
@@ -845,6 +845,8 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                             Picasso.with(getContext())
                                     .load(worker.picture)
                                     .error(R.drawable.bob)
+                                    .fit()
+                                    .centerCrop()
                                     .placeholder(R.drawable.bob)
                                     .into(avatarImage);
                         } else {

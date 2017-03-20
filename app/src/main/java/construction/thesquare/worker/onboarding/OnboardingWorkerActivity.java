@@ -43,6 +43,7 @@ public class OnboardingWorkerActivity extends AppCompatActivity {
     public static final String TAG = "OnboardingActivity";
 
     private Worker currentWorker;
+    private boolean alreadyHaveAccount;
 
     @BindView(R.id.toolbar_onboarding)
     Toolbar toolbar;
@@ -53,6 +54,10 @@ public class OnboardingWorkerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
         ButterKnife.bind(this);
         setToolbar();
+
+        if (getIntent() != null) {
+            alreadyHaveAccount = getIntent().getBooleanExtra(Constants.KEY_HAVE_ACCOUNT, false);
+        }
 
         fetchMe();
     }
@@ -217,7 +222,7 @@ public class OnboardingWorkerActivity extends AppCompatActivity {
     }
 
     private int getLastFragmentNumber() {
-        return getOnboardingFlowPreferences().getInt(Constants.KEY_WORKER_ONBOARDING_STEP, 0);
+        return getOnboardingFlowPreferences().getInt(Constants.KEY_WORKER_ONBOARDING_STEP, alreadyHaveAccount ? 2 : 0);
     }
 
     private SharedPreferences getOnboardingFlowPreferences() {

@@ -28,6 +28,9 @@ import retrofit2.Response;
 public class HandleErrors {
 
     private static final String TAG = "HandleErrors";
+    private static final String standardError = "Oops... \n" +
+            "Something's not right.\n" +
+            "Please try again in a few seconds.\n";
 
     public static void parseError(Context context, Dialog dialog, Response<?> response) {
         if (dialog != null)
@@ -47,9 +50,9 @@ public class HandleErrors {
                 DialogBuilder.showStandardDialog(context, "Error", responseError.getError().getMessage());
             }
 
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             TextTools.log(TAG, "Error sin parsear catch: " + response.errorBody().toString());
-            DialogBuilder.showStandardDialog(context, "Error", exception.getMessage());
+            DialogBuilder.showStandardDialog(context, "", standardError);
         }
     }
 
@@ -93,21 +96,21 @@ public class HandleErrors {
                 DialogBuilder.showStandardDialog(context, "Error", responseError.getError().getMessage());
             }
 
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             TextTools.log(TAG, "Response error: " + response.errorBody().toString());
-            DialogBuilder.showStandardDialog(context, "Error", exception.getMessage());
+            DialogBuilder.showStandardDialog(context, "", standardError);
         }
     }
 
     public static void parseFailureError(Context context, Dialog dialog, Throwable throwable) {
-        String error = "Unexpected Error";
-        if (dialog != null)
-            DialogBuilder.cancelDialog(dialog);
+        String error = standardError;
+        DialogBuilder.cancelDialog(dialog);
+
         if (throwable instanceof IOException)
             error = "Oops!\nThe network connection\nwas lost.";
 
         if (throwable instanceof SocketTimeoutException)
-            error = "Connection Time Out";
+            error = "Oops!\nConnection time out";
 
         DialogBuilder.showStandardDialog(context, "", error);
     }

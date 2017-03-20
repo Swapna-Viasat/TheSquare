@@ -23,6 +23,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.LoginUser;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
+import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
@@ -56,15 +57,6 @@ public class EmailLoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login_email, container, false);
         ButterKnife.bind(this, view);
         return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (!TextUtils.isEmpty(SharedPreferencesManager.getInstance(getContext()).getEmail()))
-            emailInput.setText(SharedPreferencesManager.getInstance(getContext()).getEmail());
-        if (!TextUtils.isEmpty(SharedPreferencesManager.getInstance(getContext()).getPass()))
-            passwordInput.setText(SharedPreferencesManager.getInstance(getContext()).getPass());
     }
 
     @OnClick(R.id.loginButton)
@@ -146,12 +138,13 @@ public class EmailLoginFragment extends Fragment {
                 .persistSessionInfoWorker(response.body().getResponse().token,
                         response.body().getResponse().user,
                         response.body().getResponse().user.getCountryCode(),
-                        response.body().getResponse().user.getPhoneNumber(),
-                        name, passwordInput.getText().toString());
+                        response.body().getResponse().user.getPhoneNumber(), name);
         if (response.body().getResponse().user.isOnboarding_done()) {
             startAnotherActivity(new Intent(getContext(), MainWorkerActivity.class));
         } else {
-            startAnotherActivity(new Intent(getActivity(), OnboardingWorkerActivity.class));
+            Intent onboardingIntent = new Intent(getActivity(), OnboardingWorkerActivity.class);
+            onboardingIntent.putExtra(Constants.KEY_HAVE_ACCOUNT, true);
+            startAnotherActivity(onboardingIntent);
         }
     }
 
@@ -165,8 +158,7 @@ public class EmailLoginFragment extends Fragment {
                 .persistSessionInfoEmployer2(response.body().getResponse().token,
                         response.body().getResponse().user,
                         response.body().getResponse().user.getCountryCode(),
-                        response.body().getResponse().user.getPhoneNumber(),
-                        name, passwordInput.getText().toString());
+                        response.body().getResponse().user.getPhoneNumber(), name);
         if (response.body().getResponse().user.isOnboarding_done()) {
             startAnotherActivity(new Intent(getContext(), MainEmployerActivity.class));
         } else {

@@ -394,7 +394,7 @@ public class SelectExperienceFragment extends Fragment
         try {
             currentWorker = worker;
             if (!TextUtils.isEmpty(worker.passportUpload)) {
-                Picasso.with(getContext()).load(worker.passportUpload).into(passport_photo);
+                Picasso.with(getContext()).load(worker.passportUpload).fit().centerCrop().into(passport_photo);
             } else {
                 passport_photo.setImageResource(R.drawable.passport);
             }
@@ -586,7 +586,7 @@ public class SelectExperienceFragment extends Fragment
                 showChooserDialog();
                 break;
             case R.id.maximize:
-                showOrginalImage();
+                showOriginalImage();
                 break;
         }
     }
@@ -654,6 +654,10 @@ public class SelectExperienceFragment extends Fragment
 
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (imageUri != null) takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            else {
+                DialogBuilder.showStandardDialog(getContext(), "Error", "Can not store image file to local storage");
+                return;
+            }
             if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
@@ -714,7 +718,7 @@ public class SelectExperienceFragment extends Fragment
         }
     }
 
-    private void showOrginalImage() {
+    private void showOriginalImage() {
         LayoutInflater layoutInflater
                 = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         final Dialog settingsDialog = new Dialog(getContext());
@@ -729,7 +733,7 @@ public class SelectExperienceFragment extends Fragment
                 }
             });
             ImageView iv = (ImageView) settingsDialog.findViewById(R.id.original_image);
-            Picasso.with(getContext()).load(currentWorker.passportUpload).into(iv);
+            Picasso.with(getContext()).load(currentWorker.passportUpload).fit().centerCrop().into(iv);
             //settingsDialog.getWindow().setLayout(700, 700);
             settingsDialog.show();
         } else {

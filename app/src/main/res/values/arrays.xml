@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="decline_worker_reasons">
+        <item>Not the right experience</item>
+        <item>Not enough experience</item>
+        <item>There were better qualified candidates</item>
+        <item>Not great reviews</item>
+        <item>Other</item>
+    </string-array>
+
     <string-array name="spinner_plans">
         <item>Basic</item>
         <item>Standard</item>

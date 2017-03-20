@@ -187,6 +187,7 @@ public class AccountFragment extends Fragment {
                         Picasso.with(getContext())
                                 .load(employer.company.logo)
                                 .fit()
+                                .centerCrop()
                                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                                 .into(logo);
                     } else {

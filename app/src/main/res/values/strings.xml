@@ -459,6 +459,8 @@
     <string name="offered_hint">Great! \n\nYou\'ve offered %1$s the job of %2$s
         \nstarting on %3$s
         \n\nWe\'ll let you know as soon as they have made a decision! </string>
+    <string name="worker_details_decline">Why was this worker \nnot right?</string>
+    <string name="worker_details_decline_hint">This feedback will be sent to the worker</string>
 
     <!-- My Accounts -->
     <string name="view_profile">View Profile</string>
@@ -714,9 +716,19 @@
 
 
     <!-- Employer Payments -->
+    <string name="payments_topup_error">
+        Oops! \n\nYou can only Top Up if you already have a subscription.</string>
+    <string name="payments_topup_success">
+        Good stuff!
+        \n\nYou are now topped up.
+        \n\nHappy booking!
+    </string>
+    <string name="payments_success">Good news!
+                        \n\nYour account is now live.
+                        \n\nHappy booking!</string>
     <string name="payments_standard_price"><strike>£1999+VAT</strike> \n£999+VAT</string>
     <string name="payments_basic_price"><strike>£999+VAT</strike> \n£499+VAT</string>
-    <string name="payments_premium_price"><strike>£3498+VAT</strike> \n£1749+VAT</string>
+    <string name="payments_premium_price"><strike>£3598+VAT</strike> \n£1799+VAT</string>
     <string name="payments_standard_bookings">50 bookings</string>
     <string name="payments_premium_bookings">100 bookings</string>
     <string name="payments_basic_bookings">20 bookings</string>
@@ -804,6 +816,13 @@
     <string name="payments_cancel_subtitle">You will be able to use your remaining booking
                         credits, but your plan will not renew next month.
                         \n\nAre you sure you wish to cancel? </string>
+    <string name="payments_cancelled_title">
+        Sorry you are leaving us...
+        \n\nWe look forward to welcoming you back soon.
+    </string>
+    <string name="payments_cancelled_subtitle">
+        In the meantime, you will be able to use your remaining Booking Credits.
+    </string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
@@ -876,7 +895,7 @@
     <string name="share_worker_subject">%s wants you to join them on The Square</string>
 
     <string name="share_play_store_url">
-        https://play.google.com/store/apps/details?id=com.hellobaytree.graftrs.graftrs
+        https://play.google.com/store/apps/details?id=construction.thesquare
     </string>
 
     <string name="share_employer_general_title">
@@ -887,7 +906,7 @@
         You should check it out.
         Enjoy!
     </string>
-    <string name="share_worker_general_image_url">https://www.thesquareapp.tech/assets/img/share.png</string>
+    <string name="share_worker_general_image_url">https://www.thesquareapp.tech/assets/img/share2.png</string>
 
     <string name="share_worker_general_title">
         Hey,

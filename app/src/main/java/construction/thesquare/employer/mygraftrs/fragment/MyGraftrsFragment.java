@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +42,8 @@ public class MyGraftrsFragment extends Fragment
     @BindView(R.id.progress) ProgressBar progressBar;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.no_matches) View noMatches;
+    @BindView(R.id.noMatchesText)
+    TextView noMatchesText;
     private List<Worker> workers = new ArrayList<>();
     private WorkersAdapter adapter;
     private WorkersPresenter presenter;
@@ -100,6 +103,7 @@ public class MyGraftrsFragment extends Fragment
             presenter.fetchLikedWorkers(employerId);
         } else if (getArguments().getInt("category") == PAGE_BOOKED) {
             //
+            noMatchesText.setText("Any workers you book or cancel appear here...");
             presenter.fetchBookedWorkers(employerId);
         }
     }
