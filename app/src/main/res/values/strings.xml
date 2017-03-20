@@ -32,7 +32,7 @@
 
     <string name="sign_up_worker_step_personal_information_title">OK! We just need\na few details from
         you&#8230;</string>
-    <string name="sign_up_worker_step_personal_information_title_2">Please enter your name, postcode, password &amp; profile picture</string>
+    <string name="sign_up_worker_step_personal_information_title_2">Please enter your details below...</string>
 
 
     <string name="sign_up_worker_step_roles_title_before_name">OK</string>
