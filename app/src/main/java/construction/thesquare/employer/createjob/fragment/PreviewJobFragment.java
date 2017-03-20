@@ -52,6 +52,7 @@ import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,7 +75,10 @@ public class PreviewJobFragment extends Fragment {
     @BindView(R.id.preview_salary_number) JosefinSansTextView salaryNumber;
     @BindView(R.id.preview_start_date) JosefinSansTextView startDate;
     @BindView(R.id.preview_location) JosefinSansTextView location;
+
     private CreateRequest createRequest;
+    private boolean showCancel;
+
     @BindView(R.id.job_details_description) JosefinSansTextView description;
     @BindView(R.id.job_details_skills) JosefinSansTextView skills;
     @BindView(R.id.job_details_english_level) JosefinSansTextView englishLevel;
@@ -117,6 +121,8 @@ public class PreviewJobFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         createRequest = (CreateRequest) getArguments().getSerializable("request");
         createRequest.detailsLowerPart = false;
+        showCancel = getActivity().getIntent()
+                .getBooleanExtra("show_cancel", false);
         mapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -208,6 +214,11 @@ public class PreviewJobFragment extends Fragment {
         super.onResume();
         ((AppCompatActivity) getActivity())
                 .getSupportActionBar().setTitle(getString(R.string.create_job_preview));
+        if (showCancel) {
+            //
+        } else {
+            getView().findViewById(R.id.cancel).setVisibility(View.GONE);
+        }
         try {
 
             role.setText(createRequest.roleName);
@@ -448,6 +459,67 @@ public class PreviewJobFragment extends Fragment {
     @OnClick(R.id.publish)
     public void publish() {
         callApi(Constants.JOB_STATUS_LIVE);
+    }
+
+    @OnClick(R.id.cancel)
+    public void cancel() {
+        //
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_cancel_job);
+        dialog.findViewById(R.id.no)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+        dialog.findViewById(R.id.yes)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                        callApiCancel(createRequest.id);
+                    }
+                });
+        dialog.show();
+    }
+
+    private void callApiCancel(int id) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .cancelJob(id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+
+                            getActivity()
+                                    .getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
+                                    .edit()
+                                    .putBoolean(Constants.KEY_UNFINISHED, false)
+                                    .putInt(Constants.KEY_STEP, 0)
+                                    .remove(Constants.KEY_REQUEST)
+                                    .commit();
+
+                            Intent intent = new Intent(getActivity(), MainEmployerActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            getActivity().finish();
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     private DialogInterface.OnClickListener gotoPaymentsListener =

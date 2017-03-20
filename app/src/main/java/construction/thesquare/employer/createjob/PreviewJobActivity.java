@@ -36,7 +36,8 @@ public class PreviewJobActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frame, PreviewJobFragment.newInstance(request))
+                .replace(R.id.frame, PreviewJobFragment
+                        .newInstance(request))
                 .commit();
     }
 
