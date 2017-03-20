@@ -642,7 +642,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void onApplied(final int applicationId) {
         decline.setVisibility(View.VISIBLE);
         book.setVisibility(View.VISIBLE);
-        book.setText("ACCEPT");
+        book.setText("BOOK");
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

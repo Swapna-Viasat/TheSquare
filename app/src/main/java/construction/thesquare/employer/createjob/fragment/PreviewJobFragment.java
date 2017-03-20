@@ -44,6 +44,7 @@ import construction.thesquare.employer.MainEmployerActivity;
 import construction.thesquare.employer.createjob.CreateRequest;
 import construction.thesquare.employer.createjob.dialog.CRNDialog;
 import construction.thesquare.employer.myjobs.fragment.JobDetailsFragment;
+import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Job;
@@ -65,7 +66,8 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by Evgheni Gherghelejiu
  * on 01/11/2016
  */
-public class PreviewJobFragment extends Fragment {
+public class PreviewJobFragment extends Fragment
+        implements PaymentRedirect {
 
     public static final String TAG = "PreviewJobFragment";
 
@@ -529,6 +531,10 @@ public class PreviewJobFragment extends Fragment {
                 }
             };
 
+    public void onRedirect() {
+        saveDraftThenSelectPlan();
+    }
+
     private void saveDraftThenSelectPlan() {
         try {
             final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
@@ -550,7 +556,9 @@ public class PreviewJobFragment extends Fragment {
                                             .commit();
                                     discard();
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response,
+                                    HandleErrors.parseError(getContext(), dialog,
+                                            response,
+                                            PreviewJobFragment.this,
                                             gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
@@ -612,7 +620,8 @@ public class PreviewJobFragment extends Fragment {
                                             .commit();
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response,
+                                    HandleErrors.parseError(getContext(), dialog,
+                                            response, PreviewJobFragment.this,
                                             gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
