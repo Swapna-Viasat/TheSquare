@@ -672,6 +672,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                     //
                                     DialogBuilder.cancelDialog(dialog);
                                     book.setVisibility(View.GONE);
+                                    decline.setVisibility(View.GONE);
                                     // Toast.makeText(getContext(), "Booked!", Toast.LENGTH_LONG).show();
                                     fetchWorker();
                                     //
@@ -688,6 +689,14 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                                                     worker.firstName
                                                             )
                                                     );
+                                            ((TextView) dialog1
+                                                    .findViewById(R.id.dialog_worker_booked_subtitle))
+                                                    .setText(
+                                                            String.format(
+                                                                    getString(R.string.employer_worker_booked_more),
+                                                                    worker.firstName
+                                                            )
+                                                    );
                                         }
                                     }
                                     dialog1.findViewById(R.id.yes)
@@ -697,6 +706,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                                     dialog1.dismiss();
                                                 }
                                             });
+                                    dialog1.show();
 
                                 } else {
                                     HandleErrors.parseError(getContext(), dialog, response);

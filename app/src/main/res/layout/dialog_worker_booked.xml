@@ -8,20 +8,19 @@
     android:layout_height="wrap_content">
 
     <construction.thesquare.shared.view.widget.JosefinSansTextView
-        android:text="@string/employer_worker_booked"
         app:josefin_style="semiBold"
         android:textColor="@color/blackSquareColor"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:id="@+id/dialog_worker_booked_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <construction.thesquare.shared.view.widget.JosefinSansTextView
-        android:text="@string/employer_worker_booked_more"
-        app:josefin_style="semiBold"
+        app:josefin_style="light"
         android:layout_marginTop="24dp"
         android:textColor="@color/blackSquareColor"
         android:textSize="18sp"
+        android:id="@+id/dialog_worker_booked_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
