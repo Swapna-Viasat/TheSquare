@@ -422,7 +422,7 @@ public class JobDetailsFragment extends Fragment
             viewPager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
             viewPager.setAdapter(adapter);
-            viewPager.setOffscreenPageLimit(1);
+            viewPager.setOffscreenPageLimit(2);
             tabLayout.setupWithViewPager(viewPager);
             viewPager.setCurrentItem(2);
         }
