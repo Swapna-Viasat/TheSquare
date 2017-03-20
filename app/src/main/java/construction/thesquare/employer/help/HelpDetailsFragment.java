@@ -89,7 +89,7 @@ public class HelpDetailsFragment extends Fragment  implements
             case R.id.no_matches:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.container, SettingsContactFragment.newInstance())
+                        .replace(R.id.main_employer_content, SettingsContactFragment.newInstance())
                         .addToBackStack("contact")
                         .commit();
                 break;
