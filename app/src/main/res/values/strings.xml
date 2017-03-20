@@ -869,6 +869,11 @@
     <string name="employer_jobs_awarded">Awarded to %s</string>
     <string name="employer_jobs_cancel_prompt">Are you sure you want to cancel this job?</string>
     <string name="title_activity_payments">PaymentsActivity</string>
+    <string name="employer_worker_booked">Cool! %s is now booked</string>
+    <string name="employer_worker_booked_more">All the arrival details have been provided to Nick,
+                    so they\'ll be working with you soon...
+                    \n\nRemember, if anything changes,
+                    you\'ll need to contact them directly!</string>
 
     <!-- CSCS Errorcodes -->
     <string name="verified_cscs_success">Successfully Verified</string>
