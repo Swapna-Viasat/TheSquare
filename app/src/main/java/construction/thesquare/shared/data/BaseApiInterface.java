@@ -349,6 +349,9 @@ public interface BaseApiInterface {
     @POST("/payments/manage/manual_subscription/")
     Call<ResponseBody> submitAlternativePayment(@Body HashMap<String, Object> body);
 
+    @GET("/employers/0/subscriptions/")
+    Call<ResponseBody> fetchPaymentPlan();
+
     /**
      * Firebase token!
      */
