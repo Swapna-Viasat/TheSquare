@@ -125,7 +125,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             if (null != job.company.logo) {
                 holder.logo.setVisibility(View.VISIBLE);
                 Picasso.with(holder.itemView.getContext())
-                        .load(job.owner.picture)
+                        .load(job.company.logo)
                         .into(holder.logo);
             } else {
                 holder.logo.setVisibility(View.GONE);

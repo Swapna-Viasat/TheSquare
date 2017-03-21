@@ -73,12 +73,15 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                 }
             }
 
-            if (null != job.owner) {
-                if (null != job.owner.picture) {
+            if (null != job.company) {
+                if (null != job.company.name) {
+                    holder.company.setText(job.company.name);
+                }
+                if (null != job.company.logo) {
                     holder.company.setVisibility(View.GONE);
                     holder.logo.setVisibility(View.VISIBLE);
                     Picasso.with(context)
-                            .load(job.owner.picture)
+                            .load(job.company.logo)
                             .fit()
                             .into(holder.logo);
                 } else {
@@ -115,7 +118,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                 }
             });
             //
-            holder.company.setText(job.company.name);
             holder.id.setText("Job ID: " + String.valueOf(job.jobRef));
             holder.liked.setOnClickListener(new View.OnClickListener() {
                 @Override

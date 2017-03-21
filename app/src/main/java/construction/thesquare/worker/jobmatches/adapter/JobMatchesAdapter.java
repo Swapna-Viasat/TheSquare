@@ -89,20 +89,20 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
                     holder.salaryPeriod.setText("Per " + job.budgetType.name);
                 }
             }
-
-            if (null != job.owner) {
-                if (null != job.owner.picture) {
-                    holder.logo.setVisibility(View.VISIBLE);
-                    holder.companyName.setVisibility(View.GONE);
-                    Picasso.with(context)
-                            .load(job.owner.picture)
-                            .fit()
-                            .into(holder.logo);
-                } else {
-                    holder.logo.setVisibility(View.GONE);
-                    holder.companyName.setVisibility(View.VISIBLE);
-                }
-            }
+//
+//            if (null != job.owner) {
+//                if (null != job.owner.picture) {
+//                    holder.logo.setVisibility(View.VISIBLE);
+//                    holder.companyName.setVisibility(View.GONE);
+//                    Picasso.with(context)
+//                            .load(job.owner.picture)
+//                            .fit()
+//                            .into(holder.logo);
+//                } else {
+//                    holder.logo.setVisibility(View.GONE);
+//                    holder.companyName.setVisibility(View.VISIBLE);
+//                }
+//            }
 
             holder.occupation.setText(job.role.name);
             holder.experience
@@ -112,6 +112,20 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
             if (null != job.company) {
                 if (null != job.company.postCode) {
                     holder.location.setText(job.company.postCode);
+                }
+                if (null != job.company.logo) {
+                    holder.logo.setVisibility(View.VISIBLE);
+                    holder.companyName.setVisibility(View.GONE);
+                    Picasso.with(context)
+                            .load(job.company.logo)
+                            .fit()
+                            .into(holder.logo);
+                } else {
+                    holder.logo.setVisibility(View.GONE);
+                    holder.companyName.setVisibility(View.VISIBLE);
+                }
+                if (null != job.company.name) {
+                    holder.companyName.setText(job.company.name);
                 }
             }
 
@@ -127,7 +141,6 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
                 holder.startDateTextView.setText(String.format(context.getString(R.string.item_match_format_starts),
                         DateUtils.formatDateDayAndMonth(job.startTime, true)));
             }
-            holder.companyName.setText(job.company.name);
             holder.jobId.setText(context.getString(R.string.job_id, job.jobRef));
 
             if (getBannerImage(job) != 0) holder.bannerImage.setImageResource(getBannerImage(job));
