@@ -126,9 +126,10 @@ public class HandleErrors {
         @Override
         public void onOKClickStandardDialog(Context context) {
             SharedPreferencesManager.getInstance(context).deleteToken();
-            if (SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId() > 0)
+            if (SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId() > 0) {
                 SharedPreferencesManager.getInstance(context).deleteSessionInfoWorker();
-            else if (SharedPreferencesManager.getInstance(context).loadSessionInfoEmployer().getUserId() > 0)
+                context.getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, Context.MODE_PRIVATE).edit().clear().apply();
+            } else if (SharedPreferencesManager.getInstance(context).loadSessionInfoEmployer().getUserId() > 0)
                 SharedPreferencesManager.getInstance(context).deleteSessionInfoEmployer();
 
             Intent intent = new Intent(context, StartActivity.class);

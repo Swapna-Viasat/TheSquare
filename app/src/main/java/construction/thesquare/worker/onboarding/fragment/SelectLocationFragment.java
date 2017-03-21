@@ -1,15 +1,11 @@
 package construction.thesquare.worker.onboarding.fragment;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +18,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -63,7 +56,7 @@ import retrofit2.Response;
  * Created by gherg on 12/6/2016.
  */
 
-public class SelectLocationFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks {
+public class SelectLocationFragment extends Fragment {
 
     public static final String TAG = "SelectLocationFragment";
     private int workerId;
@@ -71,7 +64,6 @@ public class SelectLocationFragment extends Fragment implements GoogleApiClient.
 
     private SupportMapFragment mapFragment;
     private GoogleMap googleMap;
-    private GoogleApiClient googleApiClient;
     private Location centerMapLocation;
     private View rootView;
     private static final double londonLat = 51.5074;
@@ -120,32 +112,12 @@ public class SelectLocationFragment extends Fragment implements GoogleApiClient.
         mapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.map_fragment);
 
-        if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            buildGoogleApiClient();
-        } else {
-            requestPermissions(new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION}, 12);
-        }
-
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editPostCode();
             }
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 12) {
-            if (permissions.length == 1 &&
-                    permissions[0].equals(Manifest.permission.ACCESS_FINE_LOCATION) &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                buildGoogleApiClient();
-            }
-        }
     }
 
     @OnClick(R.id.next)
@@ -201,33 +173,6 @@ public class SelectLocationFragment extends Fragment implements GoogleApiClient.
                 });
     }
 
-    private void buildGoogleApiClient() {
-
-        googleApiClient = new GoogleApiClient.Builder(getContext())
-                .addConnectionCallbacks(this)
-                .addApi(LocationServices.API)
-                .addApi(Places.GEO_DATA_API)
-                .build();
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        if (null != mapFragment) {
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap map) {
-                    googleMap = map;
-
-                    moveToInitialLocation();
-                    centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
-                    centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
-                    googleMap.setOnCameraIdleListener(cameraIdleListener);
-                    fetchMe();
-                }
-            });
-        }
-    }
-
     private GoogleMap.OnCameraIdleListener cameraIdleListener = new GoogleMap.OnCameraIdleListener() {
         @Override
         public void onCameraIdle() {
@@ -237,11 +182,6 @@ public class SelectLocationFragment extends Fragment implements GoogleApiClient.
             TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.toString()));
         }
     };
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        // TODO: add a default location fallback
-    }
 
     private void moveToInitialLocation() {
         LatLng london = new LatLng(londonLat, londonLong);
@@ -370,7 +310,8 @@ public class SelectLocationFragment extends Fragment implements GoogleApiClient.
                     filter.setText(address.replace(", , , ,", ", ") + ", " + workerZipCode);
                     if (currentWorker != null) currentWorker.address = filter.getText().toString();
                     dialog.dismiss();
-                } else DialogBuilder.showStandardDialog(getContext(), "", "Please select an address");
+                } else
+                    DialogBuilder.showStandardDialog(getContext(), "", "Please select an address");
             }
         });
         dialog.show();
@@ -380,7 +321,21 @@ public class SelectLocationFragment extends Fragment implements GoogleApiClient.
     public void onResume() {
         super.onResume();
         loadWorker();
-        googleApiClient.connect();
+
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap map) {
+                    googleMap = map;
+
+                    moveToInitialLocation();
+                    centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
+                    centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
+                    googleMap.setOnCameraIdleListener(cameraIdleListener);
+                    fetchMe();
+                }
+            });
+        }
     }
 
     private void fetchMe() {
@@ -429,7 +384,6 @@ public class SelectLocationFragment extends Fragment implements GoogleApiClient.
     @Override
     public void onPause() {
         persistProgress();
-        googleApiClient.disconnect();
         KeyboardUtils.hideKeyboard(getActivity());
         super.onPause();
     }
