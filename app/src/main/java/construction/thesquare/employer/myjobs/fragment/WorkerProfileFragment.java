@@ -642,7 +642,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void onApplied(final int applicationId) {
         decline.setVisibility(View.VISIBLE);
         book.setVisibility(View.VISIBLE);
-        book.setText("ACCEPT");
+        book.setText("BOOK");
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -672,8 +672,42 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                     //
                                     DialogBuilder.cancelDialog(dialog);
                                     book.setVisibility(View.GONE);
-                                    Toast.makeText(getContext(), "Booked!", Toast.LENGTH_LONG).show();
+                                    decline.setVisibility(View.GONE);
+                                    // Toast.makeText(getContext(), "Booked!", Toast.LENGTH_LONG).show();
                                     fetchWorker();
+                                    //
+                                    final Dialog dialog1 = new Dialog(getContext());
+                                    dialog1.setCancelable(false);
+                                    dialog1.setContentView(R.layout.dialog_worker_booked);
+                                    if (null != worker) {
+                                        if (null != worker.firstName) {
+                                            ((TextView) dialog1
+                                                    .findViewById(R.id.dialog_worker_booked_title))
+                                                    .setText(
+                                                            String.format(
+                                                                    getString(R.string.employer_worker_booked),
+                                                                    worker.firstName
+                                                            )
+                                                    );
+                                            ((TextView) dialog1
+                                                    .findViewById(R.id.dialog_worker_booked_subtitle))
+                                                    .setText(
+                                                            String.format(
+                                                                    getString(R.string.employer_worker_booked_more),
+                                                                    worker.firstName
+                                                            )
+                                                    );
+                                        }
+                                    }
+                                    dialog1.findViewById(R.id.yes)
+                                            .setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialog1.dismiss();
+                                                }
+                                            });
+                                    dialog1.show();
+
                                 } else {
                                     HandleErrors.parseError(getContext(), dialog, response);
                                 }

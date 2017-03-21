@@ -49,6 +49,7 @@ import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
+import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -159,11 +160,14 @@ public class JobDetailsFragment extends Fragment
     public void setupViewMore(final Job job) {
         // it's possible the user will leave by this time, creating a npe. :(
         try {
-            getView().findViewById(R.id.view_more).setOnClickListener(new View.OnClickListener() {
+            getView().findViewById(R.id.view_more)
+                    .setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ViewMoreDialog dialog = ViewMoreDialog.newInstance(JobDetailsFragment.this, job);
-                    dialog.show(getActivity().getSupportFragmentManager(), "view_more");
+                    // my super cool view more dialogFragment is no longer liked by Sian
+                    // he is very sad now... :(
+//                    ViewMoreDialog dialog = ViewMoreDialog.newInstance(JobDetailsFragment.this, job);
+//                    dialog.show(getActivity().getSupportFragmentManager(), "view_more");
                 }
             });
         } catch (Exception e) {
@@ -172,7 +176,6 @@ public class JobDetailsFragment extends Fragment
     }
 
     private void setupEditing(final Job job) {
-
         try {
             final CreateRequest result = new CreateRequest();
             //
@@ -328,25 +331,22 @@ public class JobDetailsFragment extends Fragment
             /**
              *
              */
-            toggleEdit.setVisibility(View.VISIBLE);
-            toggleEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b) {
-                        Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
-                        intent.putExtra("request", result);
-                        getActivity().finish();
-                        startActivity(intent);
-                    } else {
-                        //
-                    }
-                }
-            });
+            getView().findViewById(R.id.view_more)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
+                            intent.putExtra("request", result);
+                            intent.putExtra("show_cancel", true);
+                            intent.putExtra("editable", job.isEditable);
+                            getActivity().finish();
+                            startActivity(intent);
+                        }
+                    });
         } catch (Exception e) {
             CrashLogHelper.logException(e);
         }
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -414,78 +414,15 @@ public class JobDetailsFragment extends Fragment
                 });
     }
 
-    private void cancel(int id) {
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        HttpRestServiceConsumer.getBaseApiClient()
-                .cancelJob(id)
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call,
-                                           Response<ResponseBody> response) {
-                        //
-                        if (response.isSuccessful()) {
-                            DialogBuilder.cancelDialog(dialog);
-                            Intent intent = new Intent(getActivity(), MainEmployerActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            getActivity().finish();
-                        } else {
-                            HandleErrors.parseError(getContext(), dialog, response);
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        HandleErrors.parseFailureError(getContext(), dialog, t);
-                    }
-                });
-    }
-
     private void populate(final Job job) {
 
-        setupViewMore(job);
-
-        try {
-            getView().findViewById(R.id.cancel_job).setVisibility(View.VISIBLE);
-            getView().findViewById(R.id.cancel_job)
-                    .setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            final Dialog dialog = new Dialog(getContext());
-                            dialog.setCancelable(false);
-                            dialog.setContentView(R.layout.dialog_cancel_job);
-                            dialog.findViewById(R.id.no)
-                                    .setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            dialog.findViewById(R.id.yes)
-                                    .setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialog.cancel();
-                                            cancel(job.id);
-                                        }
-                                    });
-                            dialog.show();
-                        }
-                    });
-        } catch (Exception e) {
-            CrashLogHelper.logException(e);
-        }
-
-        if (job.isEditable) {
-            setupEditing(job);
-        }
+        setupEditing(job);
 
         if (job.status.id == Job.TAB_LIVE) {
             viewPager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
             viewPager.setAdapter(adapter);
-            viewPager.setOffscreenPageLimit(1);
+            viewPager.setOffscreenPageLimit(2);
             tabLayout.setupWithViewPager(viewPager);
             viewPager.setCurrentItem(2);
         }

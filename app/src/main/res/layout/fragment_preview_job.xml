@@ -492,19 +492,45 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <!-- Action -->
-        <construction.thesquare.shared.view.widget.JosefinSansTextView
-            android:id="@+id/publish"
-            android:layout_margin="12dp"
-            android:background="@color/redSquareColor"
-            android:padding="12dp"
-            android:textSize="18sp"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:textAlignment="center"
-            android:text="@string/create_job_publish"
-            app:josefin_style="semiBold"
+        <LinearLayout
+            android:weightSum="2"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <!-- Promote -->
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
+                android:id="@+id/cancel"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="12dp"
+                android:background="@color/redSquareColor"
+                android:padding="12dp"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:text="Cancel Job"
+                android:layout_weight="1"
+                app:josefin_style="semiBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <!-- Promote -->
+            <construction.thesquare.shared.view.widget.JosefinSansTextView
+                android:id="@+id/publish"
+                android:layout_margin="12dp"
+                android:background="@color/redSquareColor"
+                android:padding="12dp"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:text="@string/create_job_publish"
+                android:layout_weight="1"
+                app:josefin_style="semiBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
