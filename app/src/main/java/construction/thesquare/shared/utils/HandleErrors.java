@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.net.SocketTimeoutException;
 
+import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.data.model.ResponseError;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.start.activity.StartActivity;
@@ -58,6 +59,7 @@ public class HandleErrors {
 
     public static void parseError(Context context, Dialog dialog,
                                   Response<?> response,
+                                  final PaymentRedirect payRedirect,
                                   final DialogInterface.OnClickListener gotoPaymentListener,
                                   final DialogInterface.OnClickListener listener) {
         if (dialog != null) {
@@ -86,9 +88,14 @@ public class HandleErrors {
                         responseError.getError().getMessage(), listener);
             } else if (responseError.getError().code == 101) {
                 // no active subscription
-                DialogBuilder.showStandardDialog(context, "Error",
-                        responseError.getError().getMessage(), gotoPaymentListener);
+//                DialogBuilder.showStandardDialog(context, "Error",
+//                        responseError.getError().getMessage(), gotoPaymentListener);
                 //
+
+                if (null != payRedirect) {
+                    payRedirect.onRedirect();
+                }
+
             } else if (responseError.getError().getMessage().contains("We already have email address")) {
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), listener);

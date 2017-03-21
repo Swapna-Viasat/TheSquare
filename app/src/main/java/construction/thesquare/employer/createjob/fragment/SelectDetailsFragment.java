@@ -53,6 +53,7 @@ import construction.thesquare.employer.createjob.dialog.CRNDialog;
 import construction.thesquare.employer.createjob.dialog.JobDetailsDialog;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
 import construction.thesquare.employer.myjobs.fragment.JobDetailsFragment;
+import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Job;
@@ -79,7 +80,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class SelectDetailsFragment extends Fragment
-        implements JobDetailsDialog.DetailsListener {
+        implements JobDetailsDialog.DetailsListener, PaymentRedirect {
 
     public static final String TAG = "SelectDetailsFragment";
 
@@ -266,9 +267,13 @@ public class SelectDetailsFragment extends Fragment
             new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    saveDraftThenSelectPlan();
+                    //
                 }
             };
+
+    public void onRedirect() {
+        saveDraftThenSelectPlan();
+    }
 
     private void saveDraftThenSelectPlan() {
 
@@ -365,7 +370,9 @@ public class SelectDetailsFragment extends Fragment
                                     //////////////////////////////
                                 } else {
                                     HandleErrors.parseError(getContext(),
-                                            dialog, response, gotoPaymentsListener, showCRNDialog);
+                                            dialog, response,
+                                            SelectDetailsFragment.this,
+                                            gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
                                 CrashLogHelper.logException(e);
@@ -496,7 +503,8 @@ public class SelectDetailsFragment extends Fragment
 
                                 } else {
                                     HandleErrors.parseError(getContext(),
-                                            dialog, response, gotoPaymentsListener, showCRNDialog);
+                                            dialog, response, SelectDetailsFragment.this,
+                                            gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
                                 //

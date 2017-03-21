@@ -203,7 +203,8 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                     }
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, null, new DialogInterface.OnClickListener() {
+                                    HandleErrors.parseError(getContext(),
+                                            dialog, response, null, null, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             getActivity().getSupportFragmentManager()
@@ -249,7 +250,10 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                     }
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response, null,
+                                    HandleErrors.parseError(getContext(),
+                                            dialog, response,
+                                            null,
+                                            null,
                                             new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {

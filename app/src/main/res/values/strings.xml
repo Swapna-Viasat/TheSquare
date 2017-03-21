@@ -32,7 +32,7 @@
 
     <string name="sign_up_worker_step_personal_information_title">OK! We just need\na few details from
         you&#8230;</string>
-    <string name="sign_up_worker_step_personal_information_title_2">Please enter your name, postcode, password &amp; profile picture</string>
+    <string name="sign_up_worker_step_personal_information_title_2">Please enter your details below...</string>
 
 
     <string name="sign_up_worker_step_roles_title_before_name">OK</string>
@@ -823,6 +823,21 @@
     <string name="payments_cancelled_subtitle">
         In the meantime, you will be able to use your remaining Booking Credits.
     </string>
+    <string name="payments_payment_success">
+        Your transaction has gone through.
+        \n\nGo ahead and create your first job to get matched to workers.
+    </string>
+    <string name="payments_payment_success_voucher_job">
+        Your transaction has gone through and your one month\'s free trial starts today.
+    </string>
+    <string name="payments_payment_success_voucher">
+        Your transaction has gone through and your one month\'s free trial starts today.
+        \n\nGo ahead and create your first job to get matched to workers.
+    </string>
+    <string name="payments_payment_success_job">
+        Your transaction has gone through.
+    </string>
+    <string name="payments_voucher_wrong">Oops! \n\nVoucher Code not valid.</string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
@@ -869,6 +884,11 @@
     <string name="employer_jobs_awarded">Awarded to %s</string>
     <string name="employer_jobs_cancel_prompt">Are you sure you want to cancel this job?</string>
     <string name="title_activity_payments">PaymentsActivity</string>
+    <string name="employer_worker_booked">Cool! %s is now booked</string>
+    <string name="employer_worker_booked_more">All the arrival details have been provided to %s,
+                    so they\'ll be working with you soon...
+                    \n\nRemember, if anything changes,
+                    you\'ll need to contact them directly!</string>
 
     <!-- CSCS Errorcodes -->
     <string name="verified_cscs_success">Successfully Verified</string>

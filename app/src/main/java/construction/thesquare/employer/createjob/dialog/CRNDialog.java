@@ -61,7 +61,7 @@ public class CRNDialog extends DialogFragment {
         //
     }
 
-    @OnClick(R.id.dialog_crn_done)
+
     public void onDone() {
         if (validate()) {
             HashMap<String, Object> request = new HashMap<>();
@@ -99,6 +99,17 @@ public class CRNDialog extends DialogFragment {
         }
     }
 
+    @OnClick({R.id.dialog_crn_done, R.id.close})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.close:
+                dismiss();
+                break;
+            case R.id.dialog_crn_done:
+                onDone();
+                break;
+        }
+    }
     private boolean validate() {
         boolean result = true;
         if (in.getText().toString().equals("")) {

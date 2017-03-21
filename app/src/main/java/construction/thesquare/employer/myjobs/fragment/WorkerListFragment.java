@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.myjobs.LikeWorkerConnector;
 import construction.thesquare.employer.myjobs.activity.ViewWorkerProfileActivity;
@@ -107,6 +108,11 @@ public class WorkerListFragment extends Fragment
             fetchDeclined(id);
         }
 
+    }
+
+    @OnClick(R.id.no_matches)
+    public void refresh() {
+        fetchWorkers(getArguments().getInt(Constants.KEY_JOB_ID));
     }
 
     private void fetchDeclined(int id) {

@@ -166,6 +166,7 @@ public class VerifyPhoneFragment extends Fragment {
                                 } else {
                                     HandleErrors.parseError(getContext(), dialog, response,
                                             null,
+                                            null,
                                             new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
