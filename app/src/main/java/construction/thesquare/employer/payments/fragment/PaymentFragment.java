@@ -127,6 +127,7 @@ public class PaymentFragment extends Fragment {
     private void setUpPlan(int planId, String cardToken) {
         final Dialog resultDialog = new Dialog(getContext());
         resultDialog.setCancelable(false);
+        resultDialog.setContentView(R.layout.dialog_payment_success);
         resultDialog.findViewById(R.id.yes)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -209,6 +210,7 @@ public class PaymentFragment extends Fragment {
             } else {
                 final Dialog resultDialog = new Dialog(getContext());
                 resultDialog.setCancelable(false);
+                resultDialog.setContentView(R.layout.dialog_payment_success);
                 resultDialog.findViewById(R.id.yes)
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
