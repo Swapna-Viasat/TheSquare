@@ -53,14 +53,12 @@ public class HelpFragment extends Fragment{
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container, HelpDetailsFragment.newInstance(search.getText().toString()))
-                        .addToBackStack("")
                         .commit();
                 break;
             case R.id.contact_us:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container, SettingsContactFragment.newInstance())
-                        .addToBackStack("contact")
                         .commit();
                 break;
         }
