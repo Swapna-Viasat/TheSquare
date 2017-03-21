@@ -89,7 +89,7 @@ public class MainWorkerActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        sendToken.cancel();
+        if (sendToken != null) sendToken.cancel();
     }
 
     private void setToolbar() {
