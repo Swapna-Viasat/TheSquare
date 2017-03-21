@@ -657,7 +657,7 @@ public class PreviewJobFragment extends Fragment
         for (TextView view : edits) {
             hideEditDrawableRight(view);
         }
-        getView().findViewById(R.id.cancel).setVisibility(View.GONE);
+        //getView().findViewById(R.id.cancel).setVisibility(View.GONE);
         getView().findViewById(R.id.publish).setVisibility(View.GONE);
     }
 
