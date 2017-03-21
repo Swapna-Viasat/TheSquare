@@ -15,8 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -37,7 +35,6 @@ import butterknife.OnClick;
 import construction.thesquare.FlavorSettings;
 import construction.thesquare.R;
 import construction.thesquare.employer.myjobs.LikeWorkerConnector;
-import construction.thesquare.shared.applications.model.Feedback;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.response.QuickInviteResponse;
@@ -119,7 +116,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private static final int VERIFICATION_VALID = 4;    // Supplied card details are valid.
 
     private Worker worker;
-    private GoogleApiClient googleApiClient;
     private GoogleMap googleMap;
     private int workerId;
     private int jobId;
@@ -140,7 +136,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        buildGoogleApiClient();
         workerId = getArguments().getInt(KEY_WORKER_ID, 0);
         jobId = getArguments().getInt(Constants.KEY_JOB_ID, 0);
         likeWorkerConnector = new LikeWorkerConnector(this);
@@ -156,15 +151,8 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         return v;
     }
 
-    private synchronized void buildGoogleApiClient() {
-        googleApiClient = new GoogleApiClient.Builder(getContext())
-                .addApi(LocationServices.API)
-                .build();
-    }
-
     @Override
     public void onStop() {
-        googleApiClient.disconnect();
         mapView.onStop();
         super.onStop();
     }
@@ -172,7 +160,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @Override
     public void onStart() {
         super.onStart();
-        googleApiClient.connect();
         mapView.onStart();
 
         fetchWorker();

@@ -1,15 +1,12 @@
 package construction.thesquare.worker.jobmatches.fragment;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -21,8 +18,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -68,7 +63,6 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     public static final String TAG = "JobMatchesMap";
 
     private GoogleMap map;
-    private GoogleApiClient mGoogleApiClient;
     private List<Job> jobs;
     private Dialog dialog;
     private LikeJobConnector likeJobConnector;
@@ -82,11 +76,6 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                    .addApi(LocationServices.API)
-                    .build();
-        }
         jobs = new ArrayList<>();
         likeJobConnector = new LikeJobConnector(this);
     }
@@ -124,15 +113,11 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         return view;
     }
 
+    @Override
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 53);
-        } else {
-            mapView.getMapAsync(this);
-        }
+        mapView.getMapAsync(this);
     }
 
     public void fetchJobMatches() {
@@ -178,6 +163,7 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         return true;
     }
 
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         TextTools.log(TAG, "on map ready");
         map = googleMap;
@@ -188,11 +174,6 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
             }
         });
         map.setOnMarkerClickListener(this);
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            mGoogleApiClient.connect();
-            TextTools.log(TAG, "connecting the google api client");
-        }
         fetchJobMatches();
     }
 
@@ -226,26 +207,10 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
         alert.show();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            mapView.getMapAsync(this);
-        } else {
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, JobMatchesFragment.newInstance())
-                    .commit();
-        }
-    }
-
     public void onPause() {
         destroyDialog();
         mapView.onPause();
         super.onPause();
-    }
-
-    public void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
     }
 
     public void onDestroy() {
@@ -260,32 +225,29 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
 
     private void processJobs() {
         if (!CollectionUtils.isEmpty(jobs)) {
+            if (map != null) {
+                try {
+                    map.clear();
+                    map.setInfoWindowAdapter(new CustomInfoWindowAdapter(jobs, getActivity()));
 
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                if (map != null) {
-                    try {
-                        map.clear();
-                        map.setInfoWindowAdapter(new CustomInfoWindowAdapter(jobs, getActivity()));
+                    for (Job job : jobs) {
+                        if (job == null || job.location == null) continue;
 
-                        for (Job job : jobs) {
-                            if (job == null || job.location == null) continue;
+                        map.addMarker(new MarkerOptions()
+                                .title(String.valueOf(job.id))
+                                .position(new LatLng(Double.valueOf(job.location.latitude),
+                                        Double.valueOf(job.location.longitude)))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin_active)));
 
-                            map.addMarker(new MarkerOptions()
-                                    .title(String.valueOf(job.id))
-                                    .position(new LatLng(Double.valueOf(job.location.latitude),
-                                            Double.valueOf(job.location.longitude)))
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_pin_active)));
-
-                            map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(Double.valueOf(job.location.latitude),
-                                            Double.valueOf(job.location.longitude)), 12));
-                        }
-                    } catch (Exception e) {
-                        CrashLogHelper.logException(e);
-                        new AlertDialog.Builder(getContext()).setMessage("Something went wrong").show();
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                new LatLng(Double.valueOf(job.location.latitude),
+                                        Double.valueOf(job.location.longitude)), 12));
                     }
+                } catch (Exception e) {
+                    CrashLogHelper.logException(e);
+                    new AlertDialog.Builder(getContext()).setMessage("Something went wrong").show();
                 }
+
             }
         } else showNoMatchesDialog();
     }

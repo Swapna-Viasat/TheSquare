@@ -25,8 +25,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -202,7 +200,6 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     private static final int VERIFICATION_VALID = 4;    // Supplied card details are valid.
 
     private Worker worker;
-    private GoogleApiClient googleApiClient;
     private GoogleMap googleMap;
     private EditAccountDetailsDialog editAccountDetailsDialog;
     private String tempBio;
@@ -210,12 +207,6 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     public static MyAccountViewProfileFragment newInstance() {
         return new MyAccountViewProfileFragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        buildGoogleApiClient();
     }
 
     @Nullable
@@ -235,15 +226,8 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
         return v;
     }
 
-    private synchronized void buildGoogleApiClient() {
-        googleApiClient = new GoogleApiClient.Builder(getContext())
-                .addApi(LocationServices.API)
-                .build();
-    }
-
     @Override
     public void onStop() {
-        googleApiClient.disconnect();
         mapView.onStop();
         super.onStop();
     }
@@ -251,7 +235,6 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     @Override
     public void onStart() {
         super.onStart();
-        googleApiClient.connect();
         mapView.onStart();
 
         fetchWorker();
