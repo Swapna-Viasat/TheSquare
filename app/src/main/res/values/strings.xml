@@ -950,4 +950,6 @@
     <string name="login_error">Oops! Something went wrong. Please check your email and password</string>
     <string name="help_no_matches">Oops! I\'m afraid we cant answer that. Please contact us here..</string>
     <string name="help_contact_us">Still need help? Contact us here.</string>
+    <string name="contact_us_thanks">Thank you for your message.</string>
+    <string name="contact_us_thanks_message">We are constantly striving to improve The Square. Your feedback is very important to us.</string>
 </resources>
