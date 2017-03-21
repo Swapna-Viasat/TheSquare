@@ -823,6 +823,21 @@
     <string name="payments_cancelled_subtitle">
         In the meantime, you will be able to use your remaining Booking Credits.
     </string>
+    <string name="payments_payment_success">
+        Your transaction has gone through.
+        \n\nGo ahead and create your first job to get matched to workers.
+    </string>
+    <string name="payments_payment_success_voucher_job">
+        Your transaction has gone through and your one month\'s free trial starts today.
+    </string>
+    <string name="payments_payment_success_voucher">
+        Your transaction has gone through and your one month\'s free trial starts today.
+        \n\nGo ahead and create your first job to get matched to workers.
+    </string>
+    <string name="payments_payment_success_job">
+        Your transaction has gone through.
+    </string>
+    <string name="payments_voucher_wrong">Oops! \n\nVoucher Code not valid.</string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>

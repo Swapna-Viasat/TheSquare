@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stripe.android.Stripe;
@@ -124,10 +125,47 @@ public class PaymentFragment extends Fragment {
     }
 
     private void setUpPlan(int planId, String cardToken) {
+        final Dialog resultDialog = new Dialog(getContext());
+        resultDialog.setCancelable(false);
+        resultDialog.findViewById(R.id.yes)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        resultDialog.dismiss();
+                    }
+                });
+        if (draftJobInLimbo) {
+            //
+            if (voucher.getText().toString().trim().equals("")) {
+                //
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_payment_success_job));
+            } else {
+                //
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_payment_success_voucher_job));
+            }
+        } else {
+            //
+            if (voucher.getText().toString().trim().equals("")) {
+                //
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_payment_success));
+            } else {
+                //
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_payment_success_voucher));
+            }
+        }
+
+        //
         HashMap<String, Object> body = new HashMap<>();
         // body.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
         body.put("stripe_source_token", cardToken);
         body.put("payment_detail", planId);
+        if (!voucher.getText().toString().trim().equals("")) {
+            body.put("voucher_code", voucher.getText().toString());
+        }
         if (draftJobInLimbo) {
             body.put("job_id", draftJobInLimboId);
         }
@@ -142,11 +180,11 @@ public class PaymentFragment extends Fragment {
                         if (response.isSuccessful()) {
                             if (draftJobInLimbo) {
                                 //
-                                Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
                                 exit();
                                 //
                             } else {
-                                Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
                                 exit();
                             }
                         } else {
@@ -157,6 +195,7 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onFailure(Call<ResponseObject> call, Throwable t) {
                         //
+                        Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
                         exit();
                     }
                 });
@@ -164,7 +203,25 @@ public class PaymentFragment extends Fragment {
 
     @OnClick(R.id.confirm)
     public void submit() {
-         getCard();
+        if (!voucher.getText().toString().trim().equals("")) {
+            if (voucher.getText().toString().equalsIgnoreCase("SQUAREVIP")) {
+                getCard();
+            } else {
+                final Dialog resultDialog = new Dialog(getContext());
+                resultDialog.setCancelable(false);
+                resultDialog.findViewById(R.id.yes)
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                resultDialog.dismiss();
+                            }
+                        });
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_voucher_wrong));
+            }
+        } else {
+            getCard();
+        }
     }
 
     private Card getCard() {
