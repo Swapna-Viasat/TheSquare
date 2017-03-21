@@ -181,10 +181,13 @@ public class PaymentFragment extends Fragment {
                         if (response.isSuccessful()) {
                             if (draftJobInLimbo) {
                                 //
+                                resultDialog.show();
                                 //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
                                 exit();
                                 //
                             } else {
+                                //
+                                resultDialog.show();
                                 //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
                                 exit();
                             }
@@ -220,6 +223,7 @@ public class PaymentFragment extends Fragment {
                         });
                 ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
                         .setText(getString(R.string.payments_voucher_wrong));
+                resultDialog.show();
             }
         } else {
             getCard();
