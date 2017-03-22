@@ -137,6 +137,7 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         resultDialog.dismiss();
+                        exit();
                     }
                 });
         if (draftJobInLimbo) {
@@ -187,15 +188,16 @@ public class PaymentFragment extends Fragment {
                                 //
                                 resultDialog.show();
                                 //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
-                                exit();
+                                //exit();
                                 //
                             } else {
                                 //
                                 resultDialog.show();
                                 //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
-                                exit();
+                                //exit();
                             }
                         } else {
+                            Toast.makeText(getContext(), "Something's not right.", Toast.LENGTH_LONG).show();
                             exit();
                         }
                     }
@@ -203,7 +205,7 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onFailure(Call<ResponseObject> call, Throwable t) {
                         //
-                        Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Something's not right.", Toast.LENGTH_LONG).show();
                         exit();
                     }
                 });

@@ -118,6 +118,7 @@ public class TopUpFragment extends Fragment {
                         //
                         if (response.isSuccessful()) {
                             //
+                            DialogBuilder.cancelDialog(dialog);
                             Toast.makeText(getContext(), "Top Up Successful",
                                     Toast.LENGTH_LONG).show();
                             getActivity().getSupportFragmentManager()
