@@ -22,7 +22,7 @@ import construction.thesquare.shared.utils.TextTools;
 
 /**
  * Created by Vadim Goroshevsky
- * Copyright (c) 2016 The Square Tech. All rights reserved.
+ * Copyright (c) 2017 The Square Tech. All rights reserved.
  */
 
 public class ViewWorkerProfileActivity extends AppCompatActivity {

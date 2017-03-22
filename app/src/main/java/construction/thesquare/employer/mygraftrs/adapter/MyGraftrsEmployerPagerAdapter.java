@@ -15,7 +15,7 @@ import static construction.thesquare.employer.mygraftrs.fragment.MyGraftrsFragme
  */
 public class MyGraftrsEmployerPagerAdapter extends FragmentPagerAdapter {
 
-    private int MY_GRAFTRS_EMPLOYER_PAGES_COUNT = 2;
+    private int MY_GRAFTRS_EMPLOYER_PAGES_COUNT = 1;
     private Context mContext;
 
     public MyGraftrsEmployerPagerAdapter(FragmentManager fragmentManager, Context context) {
@@ -30,8 +30,8 @@ public class MyGraftrsEmployerPagerAdapter extends FragmentPagerAdapter {
                 return MyGraftrsFragment.newInstance(PAGE_BOOKED);
 //            case 1:
 //                return MyGraftrsFragment.newInstance(PAGE_OFFERS);
-            case 1:
-                return MyGraftrsFragment.newInstance(MyGraftrsFragment.PAGE_LIKED);
+//            case 1:
+//                return MyGraftrsFragment.newInstance(MyGraftrsFragment.PAGE_LIKED);
 //            case 1:
 //                return MyGraftrsFragment.newInstance(MyGraftrsFragment.PAGE_PREVIOUS);
         }
@@ -47,11 +47,11 @@ public class MyGraftrsEmployerPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return mContext.getResources().getString(R.string.employer_workers_booked);
+                return mContext.getResources().getString(R.string.employer_workers_previous);
 //            case 1 :
 //                return mContext.getResources().getString(R.string.employer_workers_applications);
-            case 1:
-                return mContext.getResources().getString(R.string.employer_workers_liked);
+//            case 1:
+//                return mContext.getResources().getString(R.string.employer_workers_liked);
 //            case 1 :
 //                return mContext.getResources().getString(R.string.employer_workers_previous);
         }

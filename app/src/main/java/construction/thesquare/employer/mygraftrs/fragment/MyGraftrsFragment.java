@@ -26,22 +26,24 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
+import construction.thesquare.employer.mygraftrs.WorkerDetailsActivity;
 import construction.thesquare.employer.mygraftrs.adapter.WorkersAdapter;
 import construction.thesquare.employer.mygraftrs.model.Worker;
 import construction.thesquare.employer.mygraftrs.presenter.WorkerContract;
 import construction.thesquare.employer.mygraftrs.presenter.WorkersPresenter;
-import construction.thesquare.employer.myjobs.activity.ViewWorkerProfileActivity;
+import construction.thesquare.employer.myjobs.LikeWorkerConnector;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
-import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 
-public class MyGraftrsFragment extends Fragment
-        implements WorkersAdapter.WorkersActionListener,
-                        WorkerContract.View {
+public class MyGraftrsFragment extends Fragment implements WorkersAdapter.WorkersActionListener, WorkerContract.View,
+        LikeWorkerConnector.Callback {
 
-    @BindView(R.id.progress) ProgressBar progressBar;
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.no_matches) View noMatches;
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.no_matches)
+    View noMatches;
     @BindView(R.id.noMatchesText)
     TextView noMatchesText;
     private List<Worker> workers = new ArrayList<>();
@@ -56,10 +58,14 @@ public class MyGraftrsFragment extends Fragment
     public static final int PAGE_PREVIOUS = 96;
     private int employerId;
 
+    private LikeWorkerConnector likeWorkerConnector;
+
     public static MyGraftrsFragment newInstance(int category) {
-        Bundle bundle = new Bundle(); bundle.putInt("category", category);
+        Bundle bundle = new Bundle();
+        bundle.putInt("category", category);
         MyGraftrsFragment myGraftrsFragment = new MyGraftrsFragment();
-        myGraftrsFragment.setArguments(bundle); return myGraftrsFragment;
+        myGraftrsFragment.setArguments(bundle);
+        return myGraftrsFragment;
     }
 
     @Override
@@ -71,14 +77,17 @@ public class MyGraftrsFragment extends Fragment
         presenter = new WorkersPresenter(this);
         josefineSans = Typeface.createFromAsset(getActivity()
                 .getAssets(), "fonts/JosefinSans-Italic.ttf");
+        likeWorkerConnector = new LikeWorkerConnector(this);
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_graftrs_stub, null);
-        ButterKnife.bind(this, view); return view;
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -123,13 +132,16 @@ public class MyGraftrsFragment extends Fragment
 
         adapter.notifyDataSetChanged();
     }
+
     public void showEmptyList() {
         noMatches.setVisibility(View.VISIBLE);
     }
+
     public void showProgress(boolean show) {
         if (show) progressBar.setVisibility(View.VISIBLE);
         else progressBar.setVisibility(View.GONE);
     }
+
     public void showError(String message) {
         new AlertDialog.Builder(getContext()).setMessage(message).show();
     }
@@ -138,16 +150,20 @@ public class MyGraftrsFragment extends Fragment
     public void onViewDetails(final Worker worker) {
         if (worker != null) {
             Intent viewWorkerProfileIntent = new Intent(getContext(),
-                    ViewWorkerProfileActivity.class);
-            viewWorkerProfileIntent.putExtra(ViewWorkerProfileActivity.WORKER_ID, worker.id);
-
-            viewWorkerProfileIntent.putExtra(Constants.KEY_JOB_ID,
-                    getArguments().getInt(Constants.KEY_JOB_ID));
-
+                    WorkerDetailsActivity.class);
+            viewWorkerProfileIntent.putExtra(WorkerDetailsActivity.WORKER_ID, worker.id);
             getActivity().startActivity(viewWorkerProfileIntent);
         }
-        //startActivity(new Intent(getActivity(), WorkerDetailsActivity.class));
     }
+
+    @Override
+    public void onLikeWorkerClick(Worker worker) {
+        if (worker != null) {
+            if (worker.liked) likeWorkerConnector.unlikeWorker(getContext(), worker.id);
+            else likeWorkerConnector.likeWorker(getContext(), worker.id);
+        }
+    }
+
     public void onQuickInvite(final Worker worker) {
         dialog.setContentView(R.layout.dialog_quick_invite);
         ((JosefinSansTextView) dialog.findViewById(R.id.dialog_quick_invite_main))
@@ -166,6 +182,7 @@ public class MyGraftrsFragment extends Fragment
         });
         dialog.show();
     }
+
     public void onCancelBooking(final Worker worker) {
         dialog.setContentView(R.layout.dialog_booking_cancel);
         dialog.findViewById(R.id.dialog_booking_cancel).setOnClickListener(new View.OnClickListener() {
@@ -182,6 +199,7 @@ public class MyGraftrsFragment extends Fragment
         });
         dialog.show();
     }
+
     public void onEndContract(final Worker worker) {
         dialog.setContentView(R.layout.dialog_contract_end);
         final RadioButton workedYes = ((RadioButton) dialog.findViewById(R.id.worked_yes));
@@ -199,7 +217,7 @@ public class MyGraftrsFragment extends Fragment
         dialog.findViewById(R.id.dialog_contract_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showConfirmEndContract((workedYes.isChecked()) ? true : false, worker);
+                showConfirmEndContract((workedYes.isChecked()), worker);
             }
         });
         dialog.show();
@@ -216,7 +234,7 @@ public class MyGraftrsFragment extends Fragment
         dialog.findViewById(R.id.dialog_contract_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 showConfirmedEndContract(worker);
+                showConfirmedEndContract(worker);
             }
         });
         if (worked) {
@@ -230,6 +248,7 @@ public class MyGraftrsFragment extends Fragment
             noShow.setTypeface(josefineSans);
         }
     }
+
     private void showConfirmedEndContract(Worker worker) {
         dialog.setContentView(R.layout.dialog_contract_end_confirm);
         dialog.findViewById(R.id.dialog_contract_exit).setOnClickListener(new View.OnClickListener() {
@@ -265,5 +284,17 @@ public class MyGraftrsFragment extends Fragment
         String result = String.valueOf(month + 1) + " / "
                 + String.valueOf(day) + " / " + String.valueOf(year);
         return result;
+    }
+
+    @Override
+    public void onConnectorSuccess() {
+        if (getArguments().getInt("category") == PAGE_LIKED) {
+            //
+            presenter.fetchLikedWorkers(employerId);
+        } else if (getArguments().getInt("category") == PAGE_BOOKED) {
+            //
+            noMatchesText.setText("Any workers you book or cancel appear here...");
+            presenter.fetchBookedWorkers(employerId);
+        }
     }
 }

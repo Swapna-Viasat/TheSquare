@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,11 +36,17 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
         this.context = context;
         this.listener = l;
     }
+
     public interface WorkersActionListener {
         void onQuickInvite(Worker worker);
+
         void onCancelBooking(Worker worker);
+
         void onEndContract(Worker worker);
+
         void onViewDetails(Worker worker);
+
+        void onLikeWorkerClick(Worker worker);
     }
 
     @Override
@@ -72,7 +80,20 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
         if (worker.availableNow) holder.availableNow.setVisibility(View.VISIBLE);
         else holder.availableNow.setVisibility(View.GONE);
 
+        setLiked(worker.liked, holder.likeImage);
 
+        holder.likeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) listener.onLikeWorkerClick(worker);
+            }
+        });
+
+        if (worker.picture != null) Picasso.with(holder.itemView.getContext())
+                .load(worker.picture)
+                .error(R.drawable.bob)
+                .placeholder(R.drawable.bob)
+                .into(holder.workerAvatar);
 
 //        switch (worker.status.id) {
 //            case Worker.STATUS_APPLIED:
@@ -118,6 +139,11 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
 //                }
 //            }
 //        });
+
+    }
+
+    private void setLiked(boolean liked, ImageView imageView) {
+        imageView.setImageResource(liked ? R.drawable.ic_like_tab : R.drawable.ic_like);
     }
 
     @Override
@@ -127,12 +153,22 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
 
     public static class WorkerHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.worker_rating) RatingView workerRating;
-        @BindView(R.id.worker_name) JosefinSansTextView workerName;
-        @BindView(R.id.worker_occupation) JosefinSansTextView workerOccupation;
-        @BindView(R.id.worker_label) ImageView workerLabel;
-        @BindView(R.id.worker_action_button) TextView workerAction;
-        @BindView(R.id.worker_additional_info) View availableNow;
+        @BindView(R.id.worker_rating)
+        RatingView workerRating;
+        @BindView(R.id.worker_name)
+        JosefinSansTextView workerName;
+        @BindView(R.id.worker_occupation)
+        JosefinSansTextView workerOccupation;
+        @BindView(R.id.worker_label)
+        ImageView workerLabel;
+        @BindView(R.id.worker_action_button)
+        TextView workerAction;
+        @BindView(R.id.worker_additional_info)
+        View availableNow;
+        @BindView(R.id.likeImage)
+        ImageView likeImage;
+        @BindView(R.id.worker_avatar)
+        ImageView workerAvatar;
 
         public WorkerHolder(View view) {
             super(view);

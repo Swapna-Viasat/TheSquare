@@ -38,6 +38,7 @@ public class Worker implements Serializable {
     @SerializedName("years_experience") public int yearsExperience;
     @SerializedName("available_now") public boolean availableNow;
     @SerializedName("min_rate") public int minRate;
+    public String picture;
 
     public class EnglishLevel implements Serializable {
         public int id;
