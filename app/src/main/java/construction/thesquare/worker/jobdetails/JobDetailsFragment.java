@@ -186,12 +186,17 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             experienceYears.setText(String.format(getString(R.string.item_match_format_experience),
                     currentJob.experience, getResources().getQuantityString(R.plurals.year_plural, currentJob.experience)));
 
+            paymentRate.setVisibility(View.VISIBLE);
             paymentRate.setText(getString(R.string.pound_sterling) + String.valueOf(NumberFormat
                     .getInstance(Locale.UK).format(Double.valueOf(currentJob.budget))));
 
             if (null != currentJob.budgetType) {
                 if (null != currentJob.budgetType.name) {
                     paymentRatePer.setText("Per " + currentJob.budgetType.name);
+                }
+                if (currentJob.budgetType.id == 4) {
+                    paymentRatePer.setText("£POA");
+                    paymentRate.setVisibility(View.GONE);
                 }
             }
 

@@ -116,20 +116,6 @@
                     android:scheme="thesquare"
                     android:host="open"/>
 
-                <data
-                    android:host="thesquareapp.tech"
-                    android:scheme="http" />
-                <data
-                    android:host="www.thesquareapp.tech"
-                    android:scheme="http" />
-
-                <data
-                    android:host="thesquareapp.tech"
-                    android:scheme="https" />
-
-                <data
-                    android:host="www.thesquareapp.tech"
-                    android:scheme="https" />
 
                 <action android:name="android.intent.action.VIEW" />
 

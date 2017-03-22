@@ -24,7 +24,8 @@ import java.util.List;
 import construction.thesquare.R;
 import construction.thesquare.worker.onboarding.OnLanguagesSelectedListener;
 
-public class DialogBuilder {
+public class
+DialogBuilder {
 
     public interface OnClickStandardDialog {
         void onOKClickStandardDialog(Context context);

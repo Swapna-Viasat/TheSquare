@@ -90,6 +90,7 @@ public class SelectDetailsFragment extends Fragment
     public static final int BUDGET_TYPE_HOUR = 1;
     public static final int BUDGET_TYPE_DAY = 2;
     public static final int BUDGET_TYPE_YEAR = 3;
+    public static final int BUDGET_TYPE_POA = 4;
 
     private int budgetType = 1;
     @BindView(R.id.seek_bar_end) JosefinSansTextView max;
@@ -97,6 +98,7 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.rb_year) RadioButton rbYear;
     @BindView(R.id.rb_hour) RadioButton rbHour;
     @BindView(R.id.rb_day) RadioButton rbDay;
+    @BindView(R.id.rb_poa) RadioButton rbPOA;
 
     @BindView(R.id.in_layout_extra) TextInputLayout layoutExtra;
     @BindView(R.id.extra) JosefinSansEditText extra;
@@ -233,6 +235,10 @@ public class SelectDetailsFragment extends Fragment
                     setYearly();
                     rbYear.setChecked(true);
                     yearSeek.setRate((int) request.budget);
+                    break;
+                case BUDGET_TYPE_POA:
+                    setPoa();
+                    rbPOA.setChecked(true);
                     break;
             }
         }
@@ -688,7 +694,8 @@ public class SelectDetailsFragment extends Fragment
     }
     @OnClick({R.id.rb_hour,
             R.id.rb_day,
-            R.id.rb_year})
+            R.id.rb_year,
+            R.id.rb_poa})
     public void onBudgetChanged(RadioButton radioButton) {
         switch(radioButton.getId()) {
             case R.id.rb_hour:
@@ -700,7 +707,14 @@ public class SelectDetailsFragment extends Fragment
             case R.id.rb_year:
                 setYearly();
                 break;
+            case R.id.rb_poa:
+                setPoa();
+                break;
         }
+    }
+    private void setPoa() {
+        budgetType = BUDGET_TYPE_POA;
+        toggleSeekBars(BUDGET_TYPE_POA);
     }
 
     private void toggleSeekBars(int i) {
@@ -719,6 +733,11 @@ public class SelectDetailsFragment extends Fragment
                 daySeek.setVisibility(View.GONE);
                 hourSeek.setVisibility(View.GONE);
                 yearSeek.setVisibility(View.VISIBLE);
+                break;
+            case BUDGET_TYPE_POA:
+                daySeek.setVisibility(View.GONE);
+                hourSeek.setVisibility(View.GONE);
+                yearSeek.setVisibility(View.GONE);
                 break;
         }
     }
