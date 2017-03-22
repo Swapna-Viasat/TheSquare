@@ -1,5 +1,6 @@
 package construction.thesquare.worker.myaccount.ui.activity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +46,21 @@ public class MyAccountViewProfileActivity extends AppCompatActivity {
 
     private void setToolbar() {
         setSupportActionBar(toolbar);
+
+        // find the title text view
+        TextView toolbarTitle;
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View child = toolbar.getChildAt(i);
+            if (child instanceof TextView) {
+                toolbarTitle = (TextView) child;
+                // set my custom font
+                Typeface typeface = Typeface.createFromAsset(getAssets(),
+                        "fonts/JosefinSans-Italic.ttf");
+                toolbarTitle.setTypeface(typeface);
+                break;
+            }
+        }
+
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
