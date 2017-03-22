@@ -145,7 +145,7 @@
                     android:maxLength="1"
                     style="@style/square_edit_text"
                     android:gravity="center_horizontal"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.5" />
             </LinearLayout>
 
         </LinearLayout>
@@ -165,6 +165,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/verify"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/verify_cscs"
                 android:padding="10dp"
                 style="@style/BaseButton"/>
