@@ -319,25 +319,17 @@ public class PricePlanFragment extends Fragment {
         //Toast.makeText(getContext(), "Top Up", Toast.LENGTH_LONG).show();
         if (stripeToken == null) {
             //
-            if (subscriptions.isEmpty()) {
-                final Dialog dialog = new Dialog(getContext());
-                dialog.setCancelable(false);
-                dialog.setContentView(R.layout.dialog_topup_error);
-                dialog.findViewById(R.id.yes)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                            }
-                        });
-                dialog.show();
-            } else {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_employer_content, TopUpFragment.newInstance(currentPlan))
-                        .addToBackStack("")
-                        .commit();
-            }
+            final Dialog dialog = new Dialog(getContext());
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.dialog_topup_error);
+            dialog.findViewById(R.id.yes)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+            dialog.show();
             //
         } else {
             getActivity().getSupportFragmentManager()

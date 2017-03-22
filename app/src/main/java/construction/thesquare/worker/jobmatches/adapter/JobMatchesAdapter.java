@@ -81,12 +81,18 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
         });
 
         try {
+            holder.salary.setVisibility(View.VISIBLE);
             holder.salary.setText(String.valueOf("£" +
                     String.valueOf(NumberFormat
                             .getInstance(Locale.UK).format(Double.valueOf(job.budget)))));
             if (null != job.budgetType) {
                 if (null != job.budgetType.name) {
                     holder.salaryPeriod.setText("Per " + job.budgetType.name);
+                }
+
+                if (job.budgetType.id == 4) {
+                    holder.salaryPeriod.setText("£POA");
+                    holder.salary.setVisibility(View.GONE);
                 }
             }
 //

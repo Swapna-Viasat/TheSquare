@@ -135,6 +135,7 @@
                         <Spinner
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:dropDownWidth="65dp"
                             android:id="@+id/spinner_day"/>
                         <Spinner
                             android:layout_toRightOf="@+id/spinner_day"
@@ -147,7 +148,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:dropDownWidth="55dp"
+                            android:dropDownWidth="65dp"
                             android:gravity="center"
                             android:id="@+id/spinner_year"/>
                     </LinearLayout>

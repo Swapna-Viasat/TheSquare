@@ -442,6 +442,11 @@ public class JobDetailsFragment extends Fragment
             if (null != job.budgetType.name) {
                 payPeriod.setText("Per " + job.budgetType.name);
             }
+
+            if (job.budgetType.id == 4) {
+                payPeriod.setText("£ POA");
+                payNumber.setVisibility(View.GONE);
+            }
         }
 
         experience.setText(String
