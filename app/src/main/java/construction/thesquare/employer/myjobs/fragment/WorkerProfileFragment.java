@@ -513,7 +513,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillLocationName() {
         if (worker != null)
-            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip));
+            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip.toUpperCase()));
     }
 
     private void drawMarker() {
