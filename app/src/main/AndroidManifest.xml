@@ -113,8 +113,8 @@
             <!-- Branch URI scheme -->
             <intent-filter>
                 <data
-                    android:host="open"
-                    android:scheme="thesquare" />
+                    android:scheme="thesquare"
+                    android:host="open"/>
 
                 <data
                     android:host="thesquareapp.tech"

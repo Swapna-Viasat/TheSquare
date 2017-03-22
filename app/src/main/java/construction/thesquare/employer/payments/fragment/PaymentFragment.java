@@ -32,6 +32,7 @@ import construction.thesquare.employer.subscription.model.CreateCardRequest;
 import construction.thesquare.employer.subscription.model.CreateCardResponse;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
+import construction.thesquare.shared.data.model.response.PricePlanResponse;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -111,21 +112,6 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        HttpRestServiceConsumer.getBaseApiClient()
-                .fetchPaymentPlan()
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call,
-                                           Response<ResponseBody> response) {
-                        //
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        //
-                    }
-                });
 
 
         //

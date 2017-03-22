@@ -838,6 +838,9 @@
         Your transaction has gone through.
     </string>
     <string name="payments_voucher_wrong">Oops! \n\nVoucher Code not valid.</string>
+    <string name="payments_password">Confirm top up</string>
+    <string name="payments_password_more">In order to top up,
+        \nplease enter your password below: </string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>

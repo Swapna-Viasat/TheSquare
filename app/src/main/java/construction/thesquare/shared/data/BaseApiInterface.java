@@ -16,6 +16,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.SMSSent;
 import construction.thesquare.shared.data.model.response.EmployerJobResponse;
 import construction.thesquare.shared.data.model.response.JobWorkersResponse;
+import construction.thesquare.shared.data.model.response.PricePlanResponse;
 import construction.thesquare.shared.data.model.response.QuickInviteResponse;
 import construction.thesquare.shared.models.Company;
 import construction.thesquare.shared.models.ContactCategory;
@@ -344,13 +345,13 @@ public interface BaseApiInterface {
     Call<ResponseBody> cancelAll();
 
     @POST("/payments/manage/5/top_up/")
-    Call<ResponseBody> topup();
+    Call<ResponseBody> topup(@Body HashMap<String, Object> body);
 
     @POST("/payments/manage/manual_subscription/")
     Call<ResponseBody> submitAlternativePayment(@Body HashMap<String, Object> body);
 
     @GET("/employers/0/subscriptions/")
-    Call<ResponseBody> fetchPaymentPlan();
+    Call<PricePlanResponse> fetchPaymentPlans();
 
     /**
      * Firebase token!
