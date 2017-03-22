@@ -182,7 +182,7 @@ public class SettingsContactFragment extends Fragment {
             messageInput.setError("Please enter your message");
             result = false;
         } else if (spinner.getSelectedItemPosition() < 1) {
-            DialogBuilder.showStandardDialog(getContext(), "", "Please select nature of your inquiry");
+            DialogBuilder.showStandardDialog(getContext(), "", "Please select nature of your enquiry");
             result = false;
         }
         return result;
@@ -199,7 +199,8 @@ public class SettingsContactFragment extends Fragment {
                         if (response.isSuccessful()) {
                             //
                             DialogBuilder.cancelDialog(dialog);
-                            DialogBuilder.showStandardDialog(getContext(), "", response.body().response.message);
+
+                            DialogBuilder.showStandardDialog(getContext(), getString(R.string.contact_us_thanks), getString(R.string.contact_us_thanks_message));
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }

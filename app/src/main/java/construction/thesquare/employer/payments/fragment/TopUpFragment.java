@@ -74,9 +74,18 @@ public class TopUpFragment extends Fragment {
     @OnClick(R.id.continue_top_up)
     public void topUp() {
 
+    }
+
+    private void verifyPassword() {
+        
+    }
+
+    private void callApi(String password) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("password", password);
         HttpRestServiceConsumer.getBaseApiClient()
-                .topup()
+                .topup(body)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call,
@@ -84,7 +93,8 @@ public class TopUpFragment extends Fragment {
                         //
                         if (response.isSuccessful()) {
                             //
-                            Toast.makeText(getContext(), "Top Up Successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Top Up Successful",
+                                    Toast.LENGTH_LONG).show();
                             getActivity().getSupportFragmentManager()
                                     .popBackStack();
                             //
@@ -107,7 +117,7 @@ public class TopUpFragment extends Fragment {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_employer_content, SubscriptionFragment
-                        .newInstance(currentPlan != 0))
+                        .newInstance(currentPlan != 0, true))
                 .addToBackStack("")
                 .commit();
     }

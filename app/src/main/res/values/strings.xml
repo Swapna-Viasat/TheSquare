@@ -838,6 +838,9 @@
         Your transaction has gone through.
     </string>
     <string name="payments_voucher_wrong">Oops! \n\nVoucher Code not valid.</string>
+    <string name="payments_password">Confirm top up</string>
+    <string name="payments_password_more">In order to top up,
+        \nplease enter your password below: </string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>
@@ -950,4 +953,6 @@
     <string name="login_error">Oops! Something went wrong. Please check your email and password</string>
     <string name="help_no_matches">Oops! I\'m afraid we cant answer that. Please contact us here..</string>
     <string name="help_contact_us">Still need help? Contact us here.</string>
+    <string name="contact_us_thanks">Thank you for your message.</string>
+    <string name="contact_us_thanks_message">We are constantly striving to improve The Square. Your feedback is very important to us.</string>
 </resources>
