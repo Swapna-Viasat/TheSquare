@@ -1,7 +1,6 @@
 package construction.thesquare.worker.help;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,17 +16,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.help.HelpClickedResponse;
+import construction.thesquare.shared.models.Help;
 import construction.thesquare.shared.settings.fragments.SettingsContactFragment;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.help.adapter.HelpDetailsAdapter;
+
 import construction.thesquare.shared.models.Help;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 
 public class HelpDetailsFragment extends Fragment  implements
@@ -111,10 +114,6 @@ public class HelpDetailsFragment extends Fragment  implements
     }
 
 
-    @Override
-    public void displayError(String message) {
-        new AlertDialog.Builder(getContext()).setMessage(message).show();
-    }
 
     @Override
     public void onQuestionClicked(int id) {

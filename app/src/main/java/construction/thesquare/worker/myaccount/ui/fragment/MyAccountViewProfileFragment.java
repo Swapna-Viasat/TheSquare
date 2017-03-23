@@ -257,7 +257,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             fillExperienceTypes();
             if (worker.nationality != null)
                 nationalityView.setText(worker.nationality.name);
-            dateOfBirthView.setText(worker.dateOfBirth);
+            dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
             workerEmail.setText(worker.email);
             workerPhone.setText(SharedPreferencesManager.getInstance(getContext()).loadSessionInfoWorker().getPhoneNumber());
             englishLevel.setText(worker.englishLevel.name);

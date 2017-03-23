@@ -1,6 +1,5 @@
 package construction.thesquare.worker.reviews.fragments;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -105,11 +104,6 @@ public class ReviewsListFragment extends Fragment
     @Override
     public void displayProgress(boolean show) {
        }
-
-    @Override
-    public void displayError(String message) {
-        new AlertDialog.Builder(getContext()).setMessage(message).show();
-    }
 
     @Override
     public void displayReviews(List<Review> reviews) {

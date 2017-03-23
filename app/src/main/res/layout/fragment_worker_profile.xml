@@ -659,7 +659,7 @@
                     android:id="@+id/worker_profile_requirements_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/employer_worker_details_requirements"
+                    android:text="Practical info"
                     android:textColor="@color/blackSquareColor" />
 
                 <LinearLayout
