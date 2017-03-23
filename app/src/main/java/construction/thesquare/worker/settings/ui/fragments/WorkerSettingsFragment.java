@@ -43,6 +43,7 @@ import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
+import construction.thesquare.shared.utils.ShareUtils;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
@@ -153,12 +154,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
     }
 
     private void openShareDialog() {
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("text/plain");
-        share.putExtra(Intent.EXTRA_SUBJECT, "The Square App");
-        // TODO: add play store link
-        share.putExtra(Intent.EXTRA_TEXT, "Check out in the Play Store");
-        getActivity().startActivity(Intent.createChooser(share, "Share Via "));
+        ShareUtils.workerLink(getContext());
     }
 
     private void openLogoutDialog() {
