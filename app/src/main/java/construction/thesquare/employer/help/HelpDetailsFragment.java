@@ -1,6 +1,7 @@
 package construction.thesquare.employer.help;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.employer.help.HelpContract;
 import construction.thesquare.employer.help.HelpPresenter;
 import construction.thesquare.employer.help.adapter.HelpDetailsAdapter;
+import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -121,7 +123,6 @@ public class HelpDetailsFragment extends Fragment  implements
     @Override
     public void onQuestionClicked(int id) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        System.out.println("id"+id);
         Call<HelpClickedResponse> call = HttpRestServiceConsumer.getBaseApiClient().getSelectedQuestion(id);
         call.enqueue(new Callback<HelpClickedResponse>() {
             @Override
