@@ -24,7 +24,7 @@
 
         <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:id="@+id/yes"
-            android:text="Ok"
+            android:text="Continue"
             android:layout_margin="12dp"
             android:padding="8dp"
             android:layout_alignParentRight="true"
