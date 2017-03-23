@@ -1,6 +1,5 @@
 package construction.thesquare.worker.help;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,10 +15,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.models.Help;
 import construction.thesquare.shared.settings.fragments.SettingsContactFragment;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.help.adapter.HelpDetailsAdapter;
-import construction.thesquare.shared.models.Help;
 
 
 public class HelpDetailsFragment extends Fragment  implements
@@ -100,12 +99,6 @@ public class HelpDetailsFragment extends Fragment  implements
             data.add(help);
         }
         adapter.notifyDataSetChanged();
-    }
-
-
-    @Override
-    public void displayError(String message) {
-        new AlertDialog.Builder(getContext()).setMessage(message).show();
     }
 
 }
