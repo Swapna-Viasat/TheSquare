@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -219,7 +218,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         if (!TextUtils.isEmpty(worker.dateOfBirth)) {
             if (!TextUtils.equals(worker.dateOfBirth, "******")) {
                 dateOfBirthView.setVisibility(View.VISIBLE);
-                dateOfBirthView.setText(worker.dateOfBirth);
+                dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
                 dateOfBirthStatusView.setVisibility(View.GONE);
             } else {
                 //provided
