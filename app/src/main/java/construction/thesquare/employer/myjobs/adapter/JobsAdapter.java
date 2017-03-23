@@ -102,7 +102,13 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         }
 
         if (null != job.budgetType) {
+            holder.salaryNumber.setVisibility(View.VISIBLE);
             holder.salaryPeriod.setText("PER " + job.budgetType.name);
+
+            if (job.budgetType.id == 4) {
+                holder.salaryPeriod.setText("£POA");
+                holder.salaryNumber.setVisibility(View.GONE);
+            }
         }
 
         String temp = String.valueOf(NumberFormat
@@ -125,7 +131,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             if (null != job.company.logo) {
                 holder.logo.setVisibility(View.VISIBLE);
                 Picasso.with(holder.itemView.getContext())
-                        .load(job.owner.picture)
+                        .load(job.company.logo)
                         .into(holder.logo);
             } else {
                 holder.logo.setVisibility(View.GONE);

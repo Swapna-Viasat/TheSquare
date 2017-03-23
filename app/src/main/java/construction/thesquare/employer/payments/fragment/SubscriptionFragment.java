@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,9 +44,11 @@ public class SubscriptionFragment extends Fragment {
     @BindViews({R.id.top_basic, R.id.top_standard, R.id.top_premium})
     List<ViewGroup> top;
 
-    public static SubscriptionFragment newInstance(boolean hasStripeToken) {
+    public static SubscriptionFragment newInstance(boolean hasStripeToken,
+                                                   boolean hasPlan) {
         SubscriptionFragment fragment = new SubscriptionFragment();
         Bundle args = new Bundle();
+        args.putBoolean("has_plan", hasPlan);
         args.putBoolean("has_token", hasStripeToken);
         fragment.setArguments(args);
         return fragment;
@@ -69,50 +73,86 @@ public class SubscriptionFragment extends Fragment {
     @OnClick(R.id.payments_continue)
     public void proceed() {
         if (!getArguments().getBoolean("has_token")) {
-            getActivity().
-                    getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_employer_content,
-                            PaymentFragment.newInstance(selectedPlan + 2))
-                    .addToBackStack("")
-                    .commit();
+            if (!getArguments().getBoolean("has_plan")) {
+                getActivity().
+                        getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_employer_content,
+                                PaymentFragment.newInstance(selectedPlan + 2))
+                        .addToBackStack("")
+                        .commit();
+            } else {
+                verifyPassword();
+            }
         } else {
-            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-            HashMap<String, Object> body = new HashMap<>();
-            body.put("payment_detail", selectedPlan + 2);
-            HttpRestServiceConsumer.getBaseApiClient()
-                    .subscribe(body)
-                    .enqueue(new Callback<ResponseObject>() {
-                        @Override
-                        public void onResponse(Call<ResponseObject> call,
-                                               Response<ResponseObject> response) {
-                            //
-                            if (response.isSuccessful()) {
-                                //
-                                final Dialog dialog1 = new Dialog(getContext());
-                                dialog1.setCancelable(false);
-                                dialog1.setContentView(R.layout.dialog_subscription_success);
-                                dialog1.findViewById(R.id.yes)
-                                        .setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                dialog1.dismiss();
-                                                getActivity().getSupportFragmentManager()
-                                                        .popBackStack();
-                                            }
-                                        });
-                                //
-                            } else {
-                                HandleErrors.parseError(getContext(), dialog, response);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseObject> call, Throwable t) {
-                            HandleErrors.parseFailureError(getContext(), dialog, t);
-                        }
-                    });
+            verifyPassword();
         }
+    }
+
+    private void verifyPassword() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_verify_password);
+        dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        final EditText password = (EditText)
+                dialog.findViewById(R.id.dialog_payment_password);
+        dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(password.getText().toString())) {
+                    //
+                    dialog.dismiss();
+                    callApi(password.getText().toString());
+                } else {
+                    password.setError("Please enter your password!");
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    private void callApi(String password) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("payment_detail", selectedPlan + 2);
+        body.put("password", password);
+        HttpRestServiceConsumer.getBaseApiClient()
+                .subscribe(body)
+                .enqueue(new Callback<ResponseObject>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject> call,
+                                           Response<ResponseObject> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            //
+                            final Dialog dialog1 = new Dialog(getContext());
+                            dialog1.setCancelable(false);
+                            dialog1.setContentView(R.layout.dialog_subscription_success);
+                            dialog1.findViewById(R.id.yes)
+                                    .setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog1.dismiss();
+                                            getActivity().getSupportFragmentManager()
+                                                    .popBackStack();
+                                        }
+                                    });
+                            //
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     @Override

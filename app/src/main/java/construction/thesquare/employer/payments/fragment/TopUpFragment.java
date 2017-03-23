@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -73,10 +75,42 @@ public class TopUpFragment extends Fragment {
 
     @OnClick(R.id.continue_top_up)
     public void topUp() {
+        verifyPassword();
+    }
 
+    private void verifyPassword() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_verify_password);
+        dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        final EditText password = (EditText)
+                dialog.findViewById(R.id.dialog_payment_password);
+        dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(password.getText().toString())) {
+                    //
+                    dialog.dismiss();
+                    callApi(password.getText().toString());
+                } else {
+                    password.setError("Please enter your password!");
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    private void callApi(String password) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("password", password);
         HttpRestServiceConsumer.getBaseApiClient()
-                .topup()
+                .topup(body)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call,
@@ -84,7 +118,9 @@ public class TopUpFragment extends Fragment {
                         //
                         if (response.isSuccessful()) {
                             //
-                            Toast.makeText(getContext(), "Top Up Successful", Toast.LENGTH_LONG).show();
+                            DialogBuilder.cancelDialog(dialog);
+                            Toast.makeText(getContext(), "Top Up Successful",
+                                    Toast.LENGTH_LONG).show();
                             getActivity().getSupportFragmentManager()
                                     .popBackStack();
                             //
@@ -107,7 +143,7 @@ public class TopUpFragment extends Fragment {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_employer_content, SubscriptionFragment
-                        .newInstance(currentPlan != 0))
+                        .newInstance(currentPlan != 0, true))
                 .addToBackStack("")
                 .commit();
     }

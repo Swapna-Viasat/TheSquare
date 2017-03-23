@@ -46,7 +46,6 @@ import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
-import construction.thesquare.worker.settings.ui.dialog.EditNameDialog;
 import construction.thesquare.worker.settings.ui.dialog.EditPasswordDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -205,7 +204,8 @@ public class WorkerSettingsFragment extends SettingsFragment {
     }
 
     private void editPostCode() {
-        EditAccountDetailsDialog.newInstance("Post code", currentWorker.zip, false,
+        EditAccountDetailsDialog.newInstance("Post code",
+                (currentWorker != null && currentWorker.zip != null) ? currentWorker.zip : "", false,
                 new EditAccountDetailsDialog.InputFinishedListener() {
                     @Override
                     public void onDone(String input, boolean onlyDigits) {
@@ -445,7 +445,8 @@ public class WorkerSettingsFragment extends SettingsFragment {
                 address = search.getText().toString();
                 HashMap<String, Object> payload = new HashMap<>();
                 payload.put("post_code", zipCode);
-                if (address != null) payload.put("address", address.replace(", , , ,", ", ") + ", " + zipCode);
+                if (address != null)
+                    payload.put("address", address.replace(", , , ,", ", ") + ", " + zipCode);
                 patchWorker(payload);
                 dialog.dismiss();
             }

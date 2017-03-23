@@ -11,12 +11,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
+import construction.thesquare.shared.data.model.Subscription;
+import construction.thesquare.shared.data.model.response.PricePlanResponse;
 import construction.thesquare.shared.models.Employer;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
@@ -44,6 +49,7 @@ public class PricePlanFragment extends Fragment {
 
     private String stripeToken;
     private int currentPlan;
+    private List<Subscription> subscriptions = new ArrayList<>();
 
     public PricePlanFragment() {
         // Required empty public constructor
@@ -90,6 +96,34 @@ public class PricePlanFragment extends Fragment {
         super.onResume();
         //
         fetchEmployer();
+
+
+
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .fetchPaymentPlans()
+                .enqueue(new Callback<PricePlanResponse>() {
+                    @Override
+                    public void onResponse(Call<PricePlanResponse> call,
+                                           Response<PricePlanResponse> response) {
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+                            //
+                            try {
+                                subscriptions = response.body().response;
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PricePlanResponse> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     private void fetchEmployer() {
@@ -207,7 +241,8 @@ public class PricePlanFragment extends Fragment {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_employer_content,
-                        SubscriptionFragment.newInstance(0 != currentPlan))
+                        SubscriptionFragment.newInstance(0 != currentPlan,
+                                subscriptions.size() > 0))
                 .addToBackStack("")
                 .commit();
     }

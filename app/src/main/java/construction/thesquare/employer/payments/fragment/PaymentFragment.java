@@ -32,12 +32,14 @@ import construction.thesquare.employer.subscription.model.CreateCardRequest;
 import construction.thesquare.employer.subscription.model.CreateCardResponse;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
+import construction.thesquare.shared.data.model.response.PricePlanResponse;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -110,6 +112,8 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         //
         setUpCreditCardNumberInput(number);
         plan = getArguments().getInt(Constants.KEY_SELECTED_PLAN);
@@ -133,6 +137,7 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         resultDialog.dismiss();
+                        exit();
                     }
                 });
         if (draftJobInLimbo) {
@@ -183,15 +188,16 @@ public class PaymentFragment extends Fragment {
                                 //
                                 resultDialog.show();
                                 //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
-                                exit();
+                                //exit();
                                 //
                             } else {
                                 //
                                 resultDialog.show();
                                 //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
-                                exit();
+                                //exit();
                             }
                         } else {
+                            Toast.makeText(getContext(), "Something's not right.", Toast.LENGTH_LONG).show();
                             exit();
                         }
                     }
@@ -199,7 +205,7 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onFailure(Call<ResponseObject> call, Throwable t) {
                         //
-                        Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Something's not right.", Toast.LENGTH_LONG).show();
                         exit();
                     }
                 });

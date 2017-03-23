@@ -1,11 +1,14 @@
-package construction.thesquare.employer.myjobs.fragment;
+/*
+ * Created by Vadim Goroshevsky
+ * Copyright (c) 2017 The Square Tech. All rights reserved.
+ */
+
+package construction.thesquare.employer.mygraftrs.fragment;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +26,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,17 +38,13 @@ import construction.thesquare.R;
 import construction.thesquare.employer.myjobs.LikeWorkerConnector;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
-import construction.thesquare.shared.data.model.response.QuickInviteResponse;
-import construction.thesquare.shared.models.Application;
 import construction.thesquare.shared.models.Company;
 import construction.thesquare.shared.models.ExperienceType;
-import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.models.Language;
 import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
-import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -55,15 +52,13 @@ import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.shared.view.widget.RatingView;
 import construction.thesquare.shared.view.widget.StrikeJosefinSansTextView;
-import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
 import construction.thesquare.worker.signup.model.CSCSCardWorker;
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WorkerProfileFragment extends Fragment implements LikeWorkerConnector.Callback {
+public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConnector.Callback {
 
     @BindView(R.id.worker_view_profile_avatar) CircleImageView avatarImage;
     @BindView(R.id.worker_view_profile_name) TextView nameView;
@@ -118,17 +113,12 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private Worker worker;
     private GoogleMap googleMap;
     private int workerId;
-    private int jobId;
-    private Job job;
-    private boolean booked;
     private LikeWorkerConnector likeWorkerConnector;
 
-    public static WorkerProfileFragment newInstance(int workerId,
-                                                    int jobId) {
-        WorkerProfileFragment fragment = new WorkerProfileFragment();
+    public static MyWorkerProfileFragment newInstance(int workerId) {
+        MyWorkerProfileFragment fragment = new MyWorkerProfileFragment();
         Bundle args = new Bundle();
         args.putInt(KEY_WORKER_ID, workerId);
-        args.putInt(Constants.KEY_JOB_ID, jobId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -137,7 +127,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         workerId = getArguments().getInt(KEY_WORKER_ID, 0);
-        jobId = getArguments().getInt(Constants.KEY_JOB_ID, 0);
         likeWorkerConnector = new LikeWorkerConnector(this);
     }
 
@@ -145,7 +134,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_worker_profile, container, false);
+        View v = inflater.inflate(R.layout.fragment_my_worker_profile, container, false);
         ButterKnife.bind(this, v);
         mapView.onCreate(savedInstanceState);
         return v;
@@ -186,6 +175,12 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                 List<String> languageNames = new ArrayList<>();
                 for (Language l : worker.languages) languageNames.add(l.name);
                 languagesView.setText(TextUtils.join(", ", languageNames));
+            }
+
+            contactWorkerLayout.setVisibility(View.VISIBLE);
+            workerEmail.setText(worker.email);
+            if (!CollectionUtils.isEmpty(worker.devices)) {
+                workerPhone.setText(worker.devices.get(0).phoneNumber);
             }
 
             fillPassportImage();
@@ -237,44 +232,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillExperienceTypes() {
         experienceTypesView.removeAllViews();
-        if (!CollectionUtils.isEmpty(job.experienceTypes)) {
-            if (!CollectionUtils.isEmpty(worker.experienceTypes)) {
 
-                List<String> matchedItems = new ArrayList<>();
-                List<String> workerItems = new ArrayList<>();
-                List<String> unmatchedItems = new ArrayList<>();
-
-                List<String> jobExperienceTypes = new ArrayList<>();
-                List<String> workerExperienceTypes = new ArrayList<>();
-
-                for (ExperienceType jobExperienceType : job.experienceTypes) {
-                    jobExperienceTypes.add(jobExperienceType.name);
-                }
-
-                for (ExperienceType workerExperienceType : worker.experienceTypes) {
-                    workerExperienceTypes.add(workerExperienceType.name);
-                }
-
-                for (String jobExpType : jobExperienceTypes) {
-                    if (workerExperienceTypes.contains(jobExpType)) matchedItems.add(jobExpType);
-                    else unmatchedItems.add(jobExpType);
-                }
-
-                for (String workerExpType : workerExperienceTypes) {
-                    if (!matchedItems.contains(workerExpType)) workerItems.add(workerExpType);
-                }
-
-                for (String matchedItem : matchedItems) {
-                    populateWithMatchedItem(experienceTypesView, matchedItem);
-                }
-
-                for (String workerItem : workerItems) {
-                    populateWithMatchedItem(experienceTypesView, workerItem);
-                }
-
-                for (String unmatchedItem : unmatchedItems) {
-                    populateWithUnmatchedItem(experienceTypesView, unmatchedItem);
-                }
+        if (!CollectionUtils.isEmpty(worker.experienceTypes)) {
+            for (ExperienceType e : worker.experienceTypes) {
+                populateWithMatchedItem(experienceTypesView, e.name);
             }
         }
     }
@@ -357,123 +318,20 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void fillExperienceAndQualifications() {
         experienceView.removeAllViews();
         requirementsView.removeAllViews();
-        if (!CollectionUtils.isEmpty(job.qualifications)) {
-            if (!CollectionUtils.isEmpty(worker.qualifications)) {
 
-                List<String> matchedQualifications = new ArrayList<>();
-                List<String> workerUnmatchedQualifications = new ArrayList<>();
-                List<String> unmatchedQualifications = new ArrayList<>();
-
-                List<String> matchedRequirements = new ArrayList<>();
-                List<String> workerUnmatchedRequirements = new ArrayList<>();
-                List<String> unmatchedRequirements = new ArrayList<>();
-
-                List<String> jobQualifications = new ArrayList<>();
-                List<String> workerQualifications = new ArrayList<>();
-                List<String> jobRequirements = new ArrayList<>();
-                List<String> workerRequirements = new ArrayList<>();
-
-                for (Qualification jobQualification : job.qualifications) {
-                    if (jobQualification.onExperience) jobRequirements.add(jobQualification.name);
-                    else
-                        jobQualifications.add(jobQualification.name);
-                }
-
-                for (Qualification workerQualification : worker.qualifications) {
-                    if (workerQualification.onExperience)
-                        workerRequirements.add(workerQualification.name);
-                    else
-                        workerQualifications.add(workerQualification.name);
-                }
-
-                for (String jobQualification : jobQualifications) {
-                    if (workerQualifications.contains(jobQualification))
-                        matchedQualifications.add(jobQualification);
-                    else unmatchedQualifications.add(jobQualification);
-                }
-
-                for (String workerQualification : workerQualifications) {
-                    if (!matchedQualifications.contains(workerQualification))
-                        workerUnmatchedQualifications.add(workerQualification);
-                }
-
-                for (String matchedItem : matchedQualifications) {
-                    populateWithMatchedItem(experienceView, matchedItem);
-                }
-
-                for (String workerItem : workerUnmatchedQualifications) {
-                    populateWithMatchedItem(experienceView, workerItem);
-                }
-
-                for (String unmatchedItem : unmatchedQualifications) {
-                    populateWithUnmatchedItem(experienceView, unmatchedItem);
-                }
-
-                for (String jobRequirement : jobRequirements) {
-                    if (workerRequirements.contains(jobRequirement))
-                        matchedRequirements.add(jobRequirement);
-                    else unmatchedRequirements.add(jobRequirement);
-                }
-
-                for (String workerRequirement : workerRequirements) {
-                    if (!matchedRequirements.contains(workerRequirement))
-                        workerUnmatchedRequirements.add(workerRequirement);
-                }
-
-                for (String matchedItem : matchedRequirements) {
-                    populateWithMatchedItem(requirementsView, matchedItem);
-                }
-
-                for (String workerItem : workerUnmatchedRequirements) {
-                    populateWithMatchedItem(requirementsView, workerItem);
-                }
-
-                for (String unmatchedItem : unmatchedRequirements) {
-                    populateWithUnmatchedItem(requirementsView, unmatchedItem);
-                }
+        if (!CollectionUtils.isEmpty(worker.qualifications)) {
+            for (Qualification q : worker.qualifications) {
+                if (q.onExperience) populateWithMatchedItem(requirementsView, q.name);
+                else populateWithMatchedItem(experienceView, q.name);
             }
         }
     }
 
     private void fillSkills() {
         skillsView.removeAllViews();
-        if (!CollectionUtils.isEmpty(job.skills)) {
-            if (!CollectionUtils.isEmpty(worker.skills)) {
-                List<String> matchedItems = new ArrayList<>();
-                List<String> workerItems = new ArrayList<>();
-                List<String> unmatchedItems = new ArrayList<>();
-
-                List<String> jobSkills = new ArrayList<>();
-                List<String> workerSkills = new ArrayList<>();
-
-                for (Skill jobSkill : job.skills) {
-                    jobSkills.add(jobSkill.name);
-                }
-
-                for (Skill workerSkill : worker.skills) {
-                    workerSkills.add(workerSkill.name);
-                }
-
-                for (String jobSkill : jobSkills) {
-                    if (workerSkills.contains(jobSkill)) matchedItems.add(jobSkill);
-                    else unmatchedItems.add(jobSkill);
-                }
-
-                for (String workerSkill : workerSkills) {
-                    if (!matchedItems.contains(workerSkill)) workerItems.add(workerSkill);
-                }
-
-                for (String matchedSkill : matchedItems) {
-                    populateWithMatchedItem(skillsView, matchedSkill);
-                }
-
-                for (String workerItem : workerItems) {
-                    populateWithMatchedItem(skillsView, workerItem);
-                }
-
-                for (String unmatchedItem : unmatchedItems) {
-                    populateWithUnmatchedItem(skillsView, unmatchedItem);
-                }
+        if (!CollectionUtils.isEmpty(worker.skills)) {
+            for (Skill s : worker.skills) {
+                populateWithMatchedItem(skillsView, s.name);
             }
         }
     }
@@ -513,7 +371,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillLocationName() {
         if (worker != null)
-            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip.toUpperCase()));
+            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip));
     }
 
     private void drawMarker() {
@@ -524,37 +382,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         }
     }
 
-    private void fetchJob() {
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        HttpRestServiceConsumer.getBaseApiClient()
-                .fetchJob(jobId)
-                .enqueue(new Callback<ResponseObject<Job>>() {
-                    @Override
-                    public void onResponse(Call<ResponseObject<Job>> call,
-                                           Response<ResponseObject<Job>> response) {
-
-                        DialogBuilder.cancelDialog(dialog);
-
-                        if (response.isSuccessful()) {
-                            job = response.body().getResponse();
-                            populateJobData();
-                            fetchCscsDetails(workerId);
-                        } else {
-                            HandleErrors.parseError(getContext(), dialog, response);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseObject<Job>> call, Throwable t) {
-                        HandleErrors.parseFailureError(getContext(), dialog, t);
-                    }
-                });
-    }
-
     private void fetchWorker() {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
-                .fetchWorker(workerId, jobId)
+                .getWorkerProfile(workerId)
                 .enqueue(new Callback<ResponseObject<Worker>>() {
                     @Override
                     public void onResponse(Call<ResponseObject<Worker>> call,
@@ -563,7 +394,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         if (response.isSuccessful()) {
                             worker = response.body().getResponse();
                             initComponents();
-                            fetchJob();
+                            fetchCscsDetails(workerId);
+                            fillExperienceAndQualifications();
+                            fillSkills();
+                            fillExperienceTypes();
                         } else
                             HandleErrors.parseError(getContext(), dialog, response);
                     }
@@ -571,233 +405,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                     @Override
                     public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
                         HandleErrors.parseFailureError(getContext(), dialog, t);
-                    }
-                });
-    }
-
-    private void populateJobData() {
-        if (job != null) {
-            if (worker != null) {
-                Application currentApplication = null;
-                if (!CollectionUtils.isEmpty(worker.applications)) {
-                    for (Application application : worker.applications) {
-                        if (application.jobId == jobId) {
-                            currentApplication = application;
-                        }
-                    }
-                }
-
-                if (currentApplication != null) {
-                    if (currentApplication.status != null)
-                        if (currentApplication.status.id == ApplicationStatus.STATUS_PENDING) {
-                            if (!currentApplication.isOffer) {
-                                onApplied(currentApplication.id);
-                            } else {
-                                String start = "";
-                                try {
-                                    start = DateUtils.magicDate(job.start.split("T")[0]);
-                                } catch (Exception e) {
-                                    CrashLogHelper.logException(e);
-                                }
-                                onOffered((null != worker.firstName) ?
-                                        worker.firstName : "",
-                                        (null != job.role) ? job.role.name : "", start);
-                            }
-                        } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {
-                            //
-                            onBooked();
-                            //
-                        } else if (currentApplication.status.id == ApplicationStatus.STATUS_CANCELLED ||
-                                currentApplication.status.id == ApplicationStatus.STATUS_DENIED ||
-                                currentApplication.status.id == ApplicationStatus.STATUS_END_CONTRACT) {
-                            //
-                            book.setVisibility(View.GONE);
-                            //
-                        }
-                } else {
-                    onApplicationNull();
-                }
-
-
-                fillExperienceAndQualifications();
-                fillSkills();
-                fillExperienceTypes();
-            }
-        }
-    }
-
-    private void onApplied(final int applicationId) {
-        decline.setVisibility(View.VISIBLE);
-        book.setVisibility(View.VISIBLE);
-        book.setText("BOOK");
-        decline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container,
-                                WorkerDeclineFragment.newInstance(applicationId))
-                        .addToBackStack("")
-                        .commit();
-
-
-            }
-        });
-        book.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-                HttpRestServiceConsumer.getBaseApiClient()
-                        .acceptApplication(applicationId)
-                        .enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call,
-                                                   Response<ResponseBody> response) {
-                                //
-                                if (response.isSuccessful()) {
-                                    //
-                                    DialogBuilder.cancelDialog(dialog);
-                                    book.setVisibility(View.GONE);
-                                    decline.setVisibility(View.GONE);
-                                    // Toast.makeText(getContext(), "Booked!", Toast.LENGTH_LONG).show();
-                                    fetchWorker();
-                                    //
-                                    final Dialog dialog1 = new Dialog(getContext());
-                                    dialog1.setCancelable(false);
-                                    dialog1.setContentView(R.layout.dialog_worker_booked);
-                                    if (null != worker) {
-                                        if (null != worker.firstName) {
-                                            ((TextView) dialog1
-                                                    .findViewById(R.id.dialog_worker_booked_title))
-                                                    .setText(
-                                                            String.format(
-                                                                    getString(R.string.employer_worker_booked),
-                                                                    worker.firstName
-                                                            )
-                                                    );
-                                            ((TextView) dialog1
-                                                    .findViewById(R.id.dialog_worker_booked_subtitle))
-                                                    .setText(
-                                                            String.format(
-                                                                    getString(R.string.employer_worker_booked_more),
-                                                                    worker.firstName
-                                                            )
-                                                    );
-                                        }
-                                    }
-                                    dialog1.findViewById(R.id.yes)
-                                            .setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    dialog1.dismiss();
-                                                }
-                                            });
-                                    dialog1.show();
-
-                                } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                HandleErrors.parseFailureError(getContext(), dialog, t);
-                            }
-                        });
-            }
-        });
-    }
-
-    private void onBooked() {
-        booked = true;
-        bookedBanner.setVisibility(View.VISIBLE);
-        contactWorkerLayout.setVisibility(View.VISIBLE);
-        workerEmail.setText(worker.email);
-        if (!CollectionUtils.isEmpty(worker.devices)) {
-            workerPhone.setText(worker.devices.get(0).phoneNumber);
-        }
-    }
-
-    private void onApplicationNull() {
-        booked = false;
-        bookedBanner.setVisibility(View.GONE);
-        contactWorkerLayout.setVisibility(View.GONE);
-        book.setText("OFFER JOB");
-        book.setVisibility(View.VISIBLE);
-        book.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onInvite();
-            }
-        });
-    }
-
-    private void onOffered(String workerName, String jobName, String startDate) {
-        book.setVisibility(View.GONE);
-        offeredHint.setVisibility(View.VISIBLE);
-        offeredHintText.setText(
-                String.format(getString(R.string.offered_hint),
-                        workerName, jobName, startDate)
-        );
-    }
-
-    //TODO move strings into resources
-    private void onInvite() {
-        new AlertDialog.Builder(getContext(), R.style.DialogTheme)
-                .setMessage("Are you sure you'd like to offer this job to "
-                        + ((null != worker.firstName) ? worker.firstName : "...") + "?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        inviteWorker(worker.id, worker.firstName, jobId);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).show();
-    }
-
-    private void showWorkerInviteSent(String workerName) {
-        final Dialog dialog = new Dialog(getContext());
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_offer_confirm);
-        ((TextView) dialog.findViewById(R.id.dialog_offer_job_confirm))
-                .setText(String.format(getString(R.string.offer_job_confirm),
-                        workerName));
-        dialog.findViewById(R.id.offer_ok).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
-    private void inviteWorker(int workerId, final String name, int jobId) {
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        final HashMap<String, Object> body = new HashMap<>();
-        body.put("job_id", jobId);
-        HttpRestServiceConsumer.getBaseApiClient()
-                .quickInvite(body, workerId)
-                .enqueue(new Callback<QuickInviteResponse>() {
-                    @Override
-                    public void onResponse(Call<QuickInviteResponse> call,
-                                           Response<QuickInviteResponse> response) {
-                        DialogBuilder.cancelDialog(dialog);
-                        //
-                        showWorkerInviteSent(name);
-                        //
-                        fetchWorker();
-                    }
-
-                    @Override
-                    public void onFailure(Call<QuickInviteResponse> call, Throwable t) {
-                        DialogBuilder.cancelDialog(dialog);
                     }
                 });
     }
@@ -889,8 +496,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void populateCscsStatus(int status) {
         if (status == VERIFICATION_VALID) {
             cscsStatus.setText(R.string.worker_cscs_verified);
-            if (booked) cscsContent.setVisibility(View.VISIBLE);
-            else cscsContent.setVisibility(View.GONE);
         } else {
             cscsStatus.setText(getString(R.string.worker_cscs_not_verified));
             cscsContent.setVisibility(View.GONE);
@@ -950,19 +555,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         textView.setStrikeVisibility(false);
         status.setImageResource(R.drawable.red_bullet);
         status.setPadding(2, 2, 2, 2);
-        layout.addView(item);
-    }
-
-    private void populateWithUnmatchedItem(LinearLayout layout, String text) {
-        if (TextUtils.isEmpty(text) || layout == null) return;
-
-        View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
-        ImageView status = (ImageView) item.findViewById(R.id.status);
-        StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
-        status.setPadding(0, 0, 0, 0);
-        textView.setText(text);
-        textView.setStrikeVisibility(true);
-        status.setImageResource(R.drawable.ic_clear_black_24dp);
         layout.addView(item);
     }
 }

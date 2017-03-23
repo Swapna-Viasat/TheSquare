@@ -442,6 +442,11 @@ public class JobDetailsFragment extends Fragment
             if (null != job.budgetType.name) {
                 payPeriod.setText("Per " + job.budgetType.name);
             }
+
+            if (job.budgetType.id == 4) {
+                payPeriod.setText("£ POA");
+                payNumber.setVisibility(View.GONE);
+            }
         }
 
         experience.setText(String
@@ -451,25 +456,19 @@ public class JobDetailsFragment extends Fragment
                                 .getQuantityString(R.plurals.year_plural,
                                         job.experience)));
 
-        if (null != job.owner) {
-            if (null != job.owner.picture) {
-                name.setVisibility(View.GONE);
-            } else {
-                name.setVisibility(View.VISIBLE);
-            }
-        }
-
         if (null != job.company) {
             if (null != job.company.name) {
                 name.setText(job.company.name);
             }
             if (null != job.company.logo) {
+                name.setVisibility(View.GONE);
                 logo.setVisibility(View.VISIBLE);
                 Picasso.with(getContext())
-                        .load(job.owner.picture)
+                        .load(job.company.logo)
                         .into(logo);
             } else {
                 logo.setVisibility(View.GONE);
+                name.setVisibility(View.VISIBLE);
             }
         }
 

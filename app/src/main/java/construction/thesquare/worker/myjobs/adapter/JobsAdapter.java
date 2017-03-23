@@ -65,20 +65,29 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         });
 
         try {
+            holder.salary.setVisibility(View.VISIBLE);
             holder.salary.setText(context.getString(R.string.pound_sterling) + String.valueOf(NumberFormat
                     .getInstance(Locale.UK).format(Double.valueOf(job.budget))));
             if (null != job.budgetType) {
                 if (null != job.budgetType.name) {
                     holder.salaryPeriod.setText("Per " + job.budgetType.name);
                 }
+
+                if (job.budgetType.id == 4) {
+                    holder.salaryPeriod.setText("£POA");
+                    holder.salary.setVisibility(View.GONE);
+                }
             }
 
-            if (null != job.owner) {
-                if (null != job.owner.picture) {
+            if (null != job.company) {
+                if (null != job.company.name) {
+                    holder.company.setText(job.company.name);
+                }
+                if (null != job.company.logo) {
                     holder.company.setVisibility(View.GONE);
                     holder.logo.setVisibility(View.VISIBLE);
                     Picasso.with(context)
-                            .load(job.owner.picture)
+                            .load(job.company.logo)
                             .fit()
                             .into(holder.logo);
                 } else {
@@ -115,7 +124,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                 }
             });
             //
-            holder.company.setText(job.company.name);
             holder.id.setText("Job ID: " + String.valueOf(job.jobRef));
             holder.liked.setOnClickListener(new View.OnClickListener() {
                 @Override

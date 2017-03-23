@@ -162,23 +162,21 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 if (null != currentJob.company.name) {
                     companyName.setText(currentJob.company.name);
                 }
-            }
-
-            if (null != currentJob.locationName) {
-                workPlace.setText(currentJob.locationName);
-            }
-
-            if (currentJob.owner != null) {
-                if (null != currentJob.owner.picture) {
+                if (null != currentJob.company.logo) {
                     companyName.setVisibility(View.GONE);
                     companyLogo.setVisibility(View.VISIBLE);
                     Picasso.with(getActivity())
-                            .load(currentJob.owner.picture)
-                            .fit().centerCrop().into(companyLogo);
+                            .load(currentJob.company.logo)
+                            .fit().centerCrop()
+                            .into(companyLogo);
                 } else {
                     companyLogo.setVisibility(View.GONE);
                     companyName.setVisibility(View.VISIBLE);
                 }
+            }
+
+            if (null != currentJob.locationName) {
+                workPlace.setText(currentJob.locationName);
             }
 
             if (currentJob.role != null) {
@@ -188,12 +186,17 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             experienceYears.setText(String.format(getString(R.string.item_match_format_experience),
                     currentJob.experience, getResources().getQuantityString(R.plurals.year_plural, currentJob.experience)));
 
+            paymentRate.setVisibility(View.VISIBLE);
             paymentRate.setText(getString(R.string.pound_sterling) + String.valueOf(NumberFormat
                     .getInstance(Locale.UK).format(Double.valueOf(currentJob.budget))));
 
             if (null != currentJob.budgetType) {
                 if (null != currentJob.budgetType.name) {
                     paymentRatePer.setText("Per " + currentJob.budgetType.name);
+                }
+                if (currentJob.budgetType.id == 4) {
+                    paymentRatePer.setText("£POA");
+                    paymentRate.setVisibility(View.GONE);
                 }
             }
 

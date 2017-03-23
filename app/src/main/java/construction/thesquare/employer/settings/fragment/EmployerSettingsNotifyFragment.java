@@ -1,49 +1,43 @@
 package construction.thesquare.employer.settings.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
-import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
-import construction.thesquare.shared.models.Employer;
-import construction.thesquare.shared.utils.TextTools;
+import construction.thesquare.shared.models.NotificationPreference;
+import construction.thesquare.shared.models.SingleNotificationPreference;
+import construction.thesquare.shared.utils.CollectionUtils;
+import construction.thesquare.shared.utils.DialogBuilder;
+import construction.thesquare.shared.utils.HandleErrors;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by maizaga on 2/1/17.
- *
- */
-
 public class EmployerSettingsNotifyFragment extends Fragment {
 
-    public static final String TAG = "EmployerSettingsNotify";
+    @BindView(R.id.switchesList)
+    LinearLayout switchesList;
 
-    @BindView(R.id.notify_worker_app_messages)
-    Switch workerAppMessages;
-    @BindView(R.id.notify_job_acceptance_rejections)
-    Switch jobAcceptanceRejections;
-    @BindView(R.id.notify_reviews)
-    Switch notifyReviews;
-
-    private Employer meEmployer;
+    private List<NotificationPreference> notificationPreferences;
+    private List<SingleNotificationPreference> employerNotificationPreferences;
 
     public static EmployerSettingsNotifyFragment newInstance() {
-        EmployerSettingsNotifyFragment fragment = new EmployerSettingsNotifyFragment();
-        return fragment;
+        return new EmployerSettingsNotifyFragment();
     }
 
     @Override
@@ -56,81 +50,113 @@ public class EmployerSettingsNotifyFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_employer_settings_notify, container, false);
         ButterKnife.bind(this, view);
-        fetchEmployer();
         return view;
     }
 
-    private void fetchEmployer() {
+    private void fetchNotificationsPreferences() {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
-                .meEmployer()
-                .enqueue(new Callback<ResponseObject<Employer>>() {
-            @Override
-            public void onResponse(Call<ResponseObject<Employer>> call,
-                                   Response<ResponseObject<Employer>> response) {
-                if (response.isSuccessful()) {
-                    meEmployer = response.body().getResponse();
-                    populate();
-                }
-            }
+                .fetchNotificationPreferences()
+                .enqueue(new Callback<ResponseObject<List<NotificationPreference>>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<List<NotificationPreference>>> call,
+                                           Response<ResponseObject<List<NotificationPreference>>> response) {
 
-            @Override
-            public void onFailure(Call<ResponseObject<Employer>> call, Throwable t) {
-                Log.e("EmployerSettingsNotify", t.getLocalizedMessage());
-            }
-        });
+                        DialogBuilder.cancelDialog(dialog);
+
+                        if (response.isSuccessful()) {
+                            notificationPreferences = response.body().getResponse();
+                            fetchEmployerNotificationPreferences();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<List<NotificationPreference>>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
-    private void populate() {
-        workerAppMessages.setChecked(meEmployer.workerAppNotifications);
-        jobAcceptanceRejections.setChecked(meEmployer.jobNotifications);
-        notifyReviews.setChecked(meEmployer.reviewNotifications);
+    private void fetchEmployerNotificationPreferences() {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .fetchEmployerNotificationPreferences()
+                .enqueue(new Callback<ResponseObject<List<SingleNotificationPreference>>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<List<SingleNotificationPreference>>> call,
+                                           Response<ResponseObject<List<SingleNotificationPreference>>> response) {
+
+                        DialogBuilder.cancelDialog(dialog);
+
+                        if (response.isSuccessful()) {
+                            employerNotificationPreferences = response.body().getResponse();
+                            proceed();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<List<SingleNotificationPreference>>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+    }
+
+    private void proceed() {
+        switchesList.removeAllViews();
+        if (!CollectionUtils.isEmpty(notificationPreferences)
+                && !CollectionUtils.isEmpty(employerNotificationPreferences)) {
+
+            for (final SingleNotificationPreference employerPreference : employerNotificationPreferences) {
+                View switchView = LayoutInflater.from(getContext()).inflate(R.layout.view_notification_switch, null, false);
+                TextView textView = (TextView) switchView.findViewById(R.id.switchText);
+                final Switch notificationSwitch = (Switch) switchView.findViewById(R.id.notificationSwitch);
+                notificationSwitch.setChecked(employerPreference.enabled == 1);
+
+                for (NotificationPreference p : notificationPreferences)
+                    if (p.id == employerPreference.id) textView.setText(p.name);
+
+                notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        employerPreference.enabled = notificationSwitch.isChecked() ? 1 : 0;
+                        togglePreference(employerPreference);
+                    }
+                });
+                switchesList.addView(switchView);
+            }
+        }
+    }
+
+    private void togglePreference(SingleNotificationPreference preference) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .toggleEmployerNotification(preference)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+
+                        DialogBuilder.cancelDialog(dialog);
+                        fetchNotificationsPreferences();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getActivity().setTitle(getString(R.string.settings_notifications));
+        fetchNotificationsPreferences();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         getActivity().setTitle(getString(R.string.settings));
-    }
-
-    @OnClick({R.id.notify_worker_app_messages, R.id.notify_job_acceptance_rejections, R.id.notify_reviews})
-    public void toggles(View view) {
-        String paramName = "";
-        switch (view.getId()) {
-            case R.id.notify_worker_app_messages:
-                paramName = "worker_app_notifications";
-                break;
-            case R.id.notify_job_acceptance_rejections:
-                paramName = "job_notifications";
-                break;
-            case R.id.notify_reviews:
-                paramName = "reviews_notifications";
-                break;
-        }
-
-        if (meEmployer != null && !TextUtils.isEmpty(paramName)) {
-            HashMap<String, Object> params = new HashMap<>();
-            params.put(paramName, ((Switch) view).isChecked());
-            HttpRestServiceConsumer.getBaseApiClient()
-                    .patchEmployer(meEmployer.id, params)
-                    .enqueue(new Callback<ResponseObject<Employer>>() {
-                @Override
-                public void onResponse(Call<ResponseObject<Employer>> call,
-                                       Response<ResponseObject<Employer>> response) {
-                    TextTools.log("EmployerSettingsNotify", "Modified value "
-                            + (response.isSuccessful() ? "successfully" : "unsuccessfully"));
-                }
-
-                @Override
-                public void onFailure(Call<ResponseObject<Employer>> call, Throwable t) {
-                    Log.e("EmployerSettingsNotify", t.getLocalizedMessage());
-                }
-            });
-        }
     }
 }

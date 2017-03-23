@@ -285,12 +285,20 @@ public class PreviewJobFragment extends Fragment
             switch (createRequest.budgetType) {
                 case 1:
                     salaryPeriod.setText("per hour");
+                    salaryPeriod.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     salaryPeriod.setText("per day");
+                    salaryPeriod.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     salaryPeriod.setText("per year");
+                    salaryPeriod.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                    salaryNumber.setText("£POA");
+                    salaryPeriod.setVisibility(View.GONE);
+                    break;
             }
 
             // overtime
