@@ -1,8 +1,7 @@
-package construction.thesquare.employer.help.adapter;
+package construction.thesquare.worker.help.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,25 +21,26 @@ import construction.thesquare.shared.view.widget.JosefinSansTextView;
  * Created by swapna on 3/13/2017.
  */
 
-public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.HelpDetailsHolder> {
+public class HelpTopDetailsAdapter extends RecyclerView.Adapter<HelpTopDetailsAdapter.HelpTopDetailsHolder> {
     private List<Help> data = new ArrayList<>();
     private Context context;
-    private HelpDetailsListener listener;
-    public HelpDetailsAdapter(List<Help> list, Context context, HelpDetailsListener listener) {
+    private HelpTopDetailsListener listener;
+
+    public HelpTopDetailsAdapter(List<Help> list, Context context, HelpTopDetailsListener listener) {
         this.data = list;
         this.context = context;
         this.listener = listener;
     }
 
-    public interface HelpDetailsListener {
-        void onQuestionClicked(int id);
+    public interface HelpTopDetailsListener {
+
     }
 
     @Override
-    public HelpDetailsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new HelpDetailsHolder(LayoutInflater
+    public HelpTopDetailsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new HelpTopDetailsHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.item_help_details, parent, false));
+                .inflate(R.layout.item_top_five_help_details, parent, false));
     }
 
     @Override
@@ -48,26 +48,28 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
         return data.size();
     }
 
-    public static class HelpDetailsHolder extends RecyclerView.ViewHolder {
+    public static class HelpTopDetailsHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.question)
         JosefinSansTextView question;
+
         @BindView(R.id.webview)
         WebView webview;
-        public HelpDetailsHolder(View view) {
+        public HelpTopDetailsHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
 
     @Override
-    public void onBindViewHolder(final HelpDetailsHolder holder, int position) {
+    public void onBindViewHolder(final HelpTopDetailsHolder holder, int position) {
         final Help faq = data.get(position);
         holder.webview.setVisibility(View.GONE);
         if (faq.question != null) {
             holder.question.setText(faq.question);
         }
-        WebSettings settings= holder.webview.getSettings();
-        settings.setDefaultFontSize(14);
+
+       WebSettings settings= holder.webview.getSettings();
+        settings.setDefaultFontSize(10);
         settings.setSansSerifFontFamily("sans-serif");
         if (null != listener) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

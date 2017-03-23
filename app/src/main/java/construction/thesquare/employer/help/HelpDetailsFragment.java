@@ -1,6 +1,7 @@
 package construction.thesquare.employer.help;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +17,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.data.HttpRestServiceConsumer;
+import construction.thesquare.shared.help.HelpClickedResponse;
 import construction.thesquare.shared.models.Help;
 import construction.thesquare.shared.settings.fragments.SettingsContactFragment;
+import construction.thesquare.shared.utils.DialogBuilder;
+import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.employer.help.HelpContract;
 import construction.thesquare.employer.help.HelpPresenter;
 import construction.thesquare.employer.help.adapter.HelpDetailsAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class HelpDetailsFragment extends Fragment  implements
@@ -110,5 +118,26 @@ public class HelpDetailsFragment extends Fragment  implements
     public void displayError(String message) {
         new AlertDialog.Builder(getContext()).setMessage(message).show();
     }
+
+    @Override
+    public void onQuestionClicked(int id) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        System.out.println("id"+id);
+        Call<HelpClickedResponse> call = HttpRestServiceConsumer.getBaseApiClient().getSelectedQuestion(id);
+        call.enqueue(new Callback<HelpClickedResponse>() {
+            @Override
+            public void onResponse(Call<HelpClickedResponse> call, Response<HelpClickedResponse> response) {
+                if (response.isSuccessful()) {
+                    DialogBuilder.cancelDialog(dialog);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HelpClickedResponse> call, Throwable t) {
+                HandleErrors.parseFailureError(getContext(), dialog, t);
+            }
+        });
+    }
+
 
 }

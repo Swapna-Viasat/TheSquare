@@ -18,6 +18,8 @@ import construction.thesquare.shared.data.model.response.EmployerJobResponse;
 import construction.thesquare.shared.data.model.response.JobWorkersResponse;
 import construction.thesquare.shared.data.model.response.PricePlanResponse;
 import construction.thesquare.shared.data.model.response.QuickInviteResponse;
+import construction.thesquare.shared.help.HelpClickedResponse;
+import construction.thesquare.shared.help.HelpRecentAskedResponse;
 import construction.thesquare.shared.models.Company;
 import construction.thesquare.shared.models.ContactCategory;
 import construction.thesquare.shared.models.DataResponse;
@@ -387,6 +389,12 @@ public interface BaseApiInterface {
      */
     @GET("/faq/")
     Call<HelpWorkerResponse> getSearchData(@Query("search") String search);
+
+    @GET("/faq/{pk}/click/")
+    Call<HelpClickedResponse> getSelectedQuestion(@Path("pk") int id);
+
+    @GET("/faq/{pk}/get_top/")
+    Call<HelpRecentAskedResponse> getTopQuestions(@Path("pk") int count);
 
     /**
      * Notifications preferences
