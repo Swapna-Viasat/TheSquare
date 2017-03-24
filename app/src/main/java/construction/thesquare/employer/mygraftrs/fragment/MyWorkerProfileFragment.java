@@ -214,7 +214,7 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
         if (!TextUtils.isEmpty(worker.dateOfBirth)) {
             if (!TextUtils.equals(worker.dateOfBirth, "******")) {
                 dateOfBirthView.setVisibility(View.VISIBLE);
-                dateOfBirthView.setText(worker.dateOfBirth);
+                dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
                 dateOfBirthStatusView.setVisibility(View.GONE);
             } else {
                 //provided

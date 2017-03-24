@@ -51,7 +51,7 @@
 
         <!-- Requirements -->
         <construction.thesquare.shared.view.widget.JosefinSansTextView
-            android:text="@string/job_details_mandatory_requirements"
+            android:text="Practical Requirements"
             android:id="@+id/view_more_reqs_label"
             android:textSize="16sp"
             android:drawablePadding="18dp"
