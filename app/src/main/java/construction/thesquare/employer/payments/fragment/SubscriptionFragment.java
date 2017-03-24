@@ -162,8 +162,18 @@ public class SubscriptionFragment extends Fragment {
         try {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setDisplayHomeAsUpEnabled(true);
-            ((AppCompatActivity) getActivity()).getSupportActionBar()
-                    .setTitle("Change Plan");
+            if (!getArguments().getBoolean("has_token")) {
+                if (!getArguments().getBoolean("has_plan")) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar()
+                            .setTitle("Choose Plan");
+                } else {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar()
+                            .setTitle("Change Plan");
+                }
+            } else {
+                ((AppCompatActivity) getActivity()).getSupportActionBar()
+                        .setTitle("Change Plan");
+            }
         } catch (Exception e) {
             CrashLogHelper.logException(e);
         }
