@@ -123,6 +123,7 @@ public class SelectRoleFragment extends Fragment
 
     public void onResume() {
         super.onResume();
+        TextTools.log(TAG, "on resume");
 
         request = ((CreateRequest) getArguments().getSerializable("request"));
 
@@ -167,7 +168,11 @@ public class SelectRoleFragment extends Fragment
                     }
                 }
             }
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
 
+        try {
             filter.addTextChangedListener(filterTextWatcher);
         } catch (Exception e) {
             CrashLogHelper.logException(e);
@@ -328,9 +333,13 @@ public class SelectRoleFragment extends Fragment
                 adapter.notifyDataSetChanged();
             } else {
                 filtered.clear();
-                for (Role o : data) {
-                    if (TextTools.contains(o.name.toLowerCase(), charSequence.toString().toLowerCase())) {
-                        filtered.add(o);
+
+                if (!data.isEmpty()) {
+                    for (Role o : data) {
+                        if (TextTools.contains(o.name.toLowerCase(),
+                                charSequence.toString().toLowerCase())) {
+                            filtered.add(o);
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -348,15 +357,15 @@ public class SelectRoleFragment extends Fragment
         filter.setText("");
     }
 
-    @OnEditorAction(R.id.filter)
-    boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (actionId == KeyEvent.KEYCODE_ENTER
-                || actionId == KeyEvent.ACTION_DOWN
-                ||  actionId== EditorInfo.IME_ACTION_DONE ) {
-            InputMethodManager imm = (InputMethodManager)
-                    v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
-        return false;
-    }
+//    @OnEditorAction(R.id.filter)
+//    boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//        if (actionId == KeyEvent.KEYCODE_ENTER
+//                || actionId == KeyEvent.ACTION_DOWN
+//                ||  actionId== EditorInfo.IME_ACTION_DONE ) {
+//            InputMethodManager imm = (InputMethodManager)
+//                    v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+//        }
+//        return false;
+//    }
 }

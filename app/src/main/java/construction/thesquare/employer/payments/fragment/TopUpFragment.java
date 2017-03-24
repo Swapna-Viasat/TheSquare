@@ -119,10 +119,21 @@ public class TopUpFragment extends Fragment {
                         if (response.isSuccessful()) {
                             //
                             DialogBuilder.cancelDialog(dialog);
-                            Toast.makeText(getContext(), "Top Up Successful",
-                                    Toast.LENGTH_LONG).show();
-                            getActivity().getSupportFragmentManager()
-                                    .popBackStack();
+
+                            final Dialog dialog1 = new Dialog(getContext());
+                            dialog1.setCancelable(false);
+                            dialog1.setContentView(R.layout.dialog_topup_success);
+                            dialog1.findViewById(R.id.yes)
+                                    .setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            getActivity().getSupportFragmentManager()
+                                                    .popBackStack();
+                                        }
+                                    });
+
+//                            Toast.makeText(getContext(), "Top Up Successful",
+//                                    Toast.LENGTH_LONG).show();
                             //
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
