@@ -776,8 +776,8 @@
     <string name="employer_payments_try">Try it out for \u00A3250</string>
     <string name="employer_payments_try_text">1 job promotion for up to 1 week.
                             \nUp to 20 suitable candidate matches.</string>
-    <string name="employer_payments_upgrade">Upgrade your plan</string>
-    <string name="employer_payments_upgrade_here">Choose your plan</string>
+    <string name="employer_payments_upgrade">Upgrade my plan</string>
+    <string name="employer_payments_upgrade_here">Choose my plan</string>
     <string name="employer_payments_due_date">Bill due %s</string>
     <string name="employer_payments_upgrade_title">Subscribe for \u00A3500 / month</string>
     <string name="employer_payments_upgrade_text">
@@ -839,8 +839,11 @@
     </string>
     <string name="payments_voucher_wrong">Oops! \n\nVoucher Code not valid.</string>
     <string name="payments_password">Confirm top up</string>
+    <string name="payments_password_plan">Confirm your subscription plan change</string>
     <string name="payments_password_more">In order to top up,
-        \nplease enter your password below: </string>
+        please enter your password below: </string>
+    <string name="payments_password_more_plan">In order to change your subscription plan,
+        please enter your password below:</string>
 
     <string name="employer_payments_discount">If you have a special discount code enter at payment stage.</string>
     <string name="employer_payments_docs"><b>Terms &amp; Conditions</b> apply</string>

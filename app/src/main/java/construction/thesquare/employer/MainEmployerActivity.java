@@ -93,7 +93,7 @@ public class MainEmployerActivity extends AppCompatActivity {
                     .beginTransaction()
                     .replace(R.id.main_employer_content,
                             SubscriptionFragment.newInstance(false, false))
-                    .addToBackStack("")
+                    //.addToBackStack("")
                     .commit();
             ///
         } else {

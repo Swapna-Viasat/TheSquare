@@ -49,7 +49,7 @@ public class SettingsAboutFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().setTitle(getString(R.string.employer_settings_about));
+        getActivity().setTitle(getString(R.string.settings));
     }
 
     @OnClick({R.id.about, R.id.contact})

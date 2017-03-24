@@ -92,7 +92,7 @@ public class SubscriptionFragment extends Fragment {
     private void verifyPassword() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_verify_password);
+        dialog.setContentView(R.layout.dialog_verify_password_plan);
         dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

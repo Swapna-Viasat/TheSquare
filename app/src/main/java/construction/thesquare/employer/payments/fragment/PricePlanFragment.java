@@ -162,7 +162,7 @@ public class PricePlanFragment extends Fragment {
     private void displayCurrentPlan(String planName) {
         try {
             if (!planName.equalsIgnoreCase("NONE")) {
-                changePlan.setText("Change your plan");
+                changePlan.setText("Change my plan");
             }
             plan.setText(planName);
         } catch (IllegalStateException e) {
