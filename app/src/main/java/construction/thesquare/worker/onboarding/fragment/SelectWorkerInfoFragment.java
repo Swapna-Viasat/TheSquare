@@ -83,8 +83,6 @@ public class SelectWorkerInfoFragment extends Fragment {
     TextInputLayout lastNameInput;
     @BindView(R.id.zip_layout)
     TextInputLayout zipLayout;
-    @BindView(R.id.email_layout)
-    TextInputLayout emailLayout;
     @BindView(R.id.password_layout)
     TextInputLayout passwordLayout;
     @BindView(R.id.password2_layout)
@@ -97,7 +95,6 @@ public class SelectWorkerInfoFragment extends Fragment {
     static final int REQUEST_PERMISSIONS = 3;
     static final int REQUEST_PERMISSION_READ_STORAGE = 4;
 
-    private boolean initialized;
     private String address;
     private String zip;
 
@@ -169,8 +166,6 @@ public class SelectWorkerInfoFragment extends Fragment {
 
             firstNameInput.getEditText().setText(currentWorker.firstName);
             lastNameInput.getEditText().setText(currentWorker.lastName);
-            if (initialized)
-                emailLayout.getEditText().setText(currentWorker.email);
             zipLayout.getEditText().setText(currentWorker.zip);
 
             showProfileImage();
@@ -335,12 +330,6 @@ public class SelectWorkerInfoFragment extends Fragment {
         } else if (TextUtils.isEmpty(lastNameInput.getEditText().getText().toString())) {
             lastNameInput.setError(getString(R.string.validate_last));
             result = false;
-        } else if (TextUtils.isEmpty(emailLayout.getEditText().getText().toString())) {
-            emailLayout.setError(getString(R.string.empty_email));
-            result = false;
-        } else if (!TextTools.isEmailValid(emailLayout.getEditText().getText().toString())) {
-            emailLayout.setError(getString(R.string.validate_email));
-            result = false;
         } else if ((TextUtils.isEmpty(passwordLayout.getEditText().getText().toString()))) {
             passwordLayout.setError(getString(R.string.validate_password));
             result = false;
@@ -416,7 +405,6 @@ public class SelectWorkerInfoFragment extends Fragment {
         HashMap<String, Object> request = new HashMap<>();
         request.put("password", passwordLayout.getEditText().getText().toString());
         request.put("password2", password2Layout.getEditText().getText().toString());
-        request.put("email", emailLayout.getEditText().getText().toString());
         request.put("post_code", zip);
         request.put("first_name", firstNameInput.getEditText().getText().toString());
         request.put("last_name", lastNameInput.getEditText().getText().toString());
@@ -445,7 +433,6 @@ public class SelectWorkerInfoFragment extends Fragment {
     }
 
     private void proceed(Worker worker) {
-        initialized = true;
         if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
@@ -470,7 +457,6 @@ public class SelectWorkerInfoFragment extends Fragment {
             try {
                 TextTools.resetInputLayout(password2Layout);
                 TextTools.resetInputLayout(passwordLayout);
-                TextTools.resetInputLayout(emailLayout);
                 TextTools.resetInputLayout(lastNameInput);
                 TextTools.resetInputLayout(firstNameInput);
                 TextTools.resetInputLayout(zipLayout);
@@ -508,7 +494,6 @@ public class SelectWorkerInfoFragment extends Fragment {
         if (currentWorker != null) {
             currentWorker.firstName = firstNameInput.getEditText().getText().toString();
             currentWorker.lastName = lastNameInput.getEditText().getText().toString();
-            currentWorker.email = emailLayout.getEditText().getText().toString();
             currentWorker.zip = zip;
             currentWorker.address = zipLayout.getEditText().getText().toString();
         }

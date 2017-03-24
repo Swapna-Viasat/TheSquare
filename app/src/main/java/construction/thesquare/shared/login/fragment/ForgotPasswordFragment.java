@@ -21,6 +21,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.models.StatusMessageResponse;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
+import construction.thesquare.shared.utils.TextTools;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +60,9 @@ public class ForgotPasswordFragment extends Fragment {
         boolean result = true;
         if (TextUtils.isEmpty(emailInput.getText().toString())) {
             emailInput.setError(getString(R.string.empty_email));
+            result = false;
+        } else if (!TextTools.isEmailValid(emailInput.getText().toString())) {
+            emailInput.setError(getString(R.string.validate_email));
             result = false;
         }
         return result;

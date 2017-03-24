@@ -1,15 +1,15 @@
 <resources>
 
-    <string name="phone_verification_first_title">To join The Square we need to verify your mobile number. </string>
-    <string name="phone_verification_second_title">(So you don\'t have to login every time &amp; to
-        give you a better experience on The Square) </string>
-    <string name="phone_verification_third_title">By verifying your phone number you agree with </string>
+    <string name="phone_verification_first_title">To join The Square, please enter your email and mobile number.</string>
+    <string name="phone_verification_second_title">(to give you the best experience on The Square)</string>
+    <string name="phone_verification_third_title">By entering your phone number and email you agree with </string>
     <string name="phone_verification_third_title_bold">The Square Terms and Conditions</string>
     <string name="phone_verification_first_title_welcome_back">Welcome Back!</string>
     <string name="phone_verification_second_title_reconfirm">(Please reconfirm your mobile number) </string>
-    <string name="phone_verification_button_text">Verify now</string>
+    <string name="phone_verification_button_text">Confirm</string>
     <string name="phone_verification_country_code_hint">+44</string>
     <string name="phone_verification_phone_text">Phone Number</string>
+    <string name="phone_verification_email_text">Email</string>
     <string name="phone_verification_thanks">Thanks!</string>
     <string name="phone_verification_code_sent">We\'re just verifying your number. If this doesn\'t happen within 10 seconds, please enter the code we\'ve just text to %1$s and we\'ll get you started.</string>
     <string name="phone_verification_did_not_receive_sms">Didn\'t receive SMS?\nResend code.
