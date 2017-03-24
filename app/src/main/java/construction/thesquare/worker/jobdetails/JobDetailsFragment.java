@@ -493,10 +493,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     @Override
     public void onBookingCanceled() {
         if (getActivity() == null || !isAdded()) return;
-        TextTools.log(TAG, "onBookingCanceled");
-        setupApplicationData();
-        DialogBuilder.showStandardDialog(getContext(), "",
-                getString(R.string.job_details_booking_canceled));
+        getActivity().finish();
     }
 
     private void showDeclineOfferDialog(final int offerId) {
