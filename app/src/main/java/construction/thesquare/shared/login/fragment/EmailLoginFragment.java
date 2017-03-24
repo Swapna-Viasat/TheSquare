@@ -26,6 +26,7 @@ import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
+import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
 import construction.thesquare.worker.onboarding.OnboardingWorkerActivity;
 import retrofit2.Call;
@@ -82,6 +83,9 @@ public class EmailLoginFragment extends Fragment {
         if (TextUtils.isEmpty(emailInput.getText().toString())) {
             emailInput.setError(getString(R.string.empty_email));
             result = false;
+        } else if (!TextTools.isEmailValid(emailInput.getText().toString())) {
+            result = false;
+            emailInput.setError(getString(R.string.validate_email));
         } else if (TextUtils.isEmpty(passwordInput.getText().toString())) {
             result = false;
             passwordInput.setError("Please enter your password");
