@@ -4,12 +4,14 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,11 +19,12 @@ import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.settings.dialog.UpdateEmailDialog;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
-import construction.thesquare.shared.data.model.AccountType;
 import construction.thesquare.shared.data.model.Logout;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.main.activity.MainActivity;
+import construction.thesquare.shared.models.Employer;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.ShareUtils;
@@ -38,6 +41,7 @@ public class SettingsFragment extends Fragment
     @BindView(R.id.emailValue)
     JosefinSansTextView emailValueTextView;
     private UpdateEmailDialog updateEmailDialog;
+    private Employer currentEmployer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class SettingsFragment extends Fragment
     public void onStart() {
         super.onStart();
         getActivity().setTitle(R.string.settings);
-        populateData();
+        fetchMe();
     }
 
     @Override
@@ -156,31 +160,51 @@ public class SettingsFragment extends Fragment
     }
 
     private void populateData() {
-        if (getAccountType() != null) {
-            String phone;
-            String countryCode;
-            String email;
-            if (getAccountType() == AccountType.employer) {
-                email = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getEmail();
-                phone = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getPhoneNumber();
-                countryCode = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getCountryCode();
-            } else {
-                email = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoWorker().getEmail();
-                phone = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoWorker().getPhoneNumber();
-                countryCode = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoWorker().getCountryCode();
-            }
-            phoneValueTextView.setText(countryCode + phone);
-            emailValueTextView.setText(email);
+        populatePhoneNumber();
+
+        if (currentEmployer != null && currentEmployer.email != null)
+            emailValueTextView.setText(currentEmployer.email);
+    }
+
+    private void fetchMe() {
+        try {
+            List<String> requiredFields = Arrays.asList("email");
+
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            HttpRestServiceConsumer.getBaseApiClient()
+                    .getFilteredEmployer(SharedPreferencesManager.getInstance(getContext()).getEmployerId(), requiredFields)
+                    .enqueue(new Callback<ResponseObject<Employer>>() {
+                        @Override
+                        public void onResponse(Call<ResponseObject<Employer>> call,
+                                               Response<ResponseObject<Employer>> response) {
+
+                            DialogBuilder.cancelDialog(dialog);
+
+                            if (response.isSuccessful()) {
+                                if (response.body() != null && response.body().getResponse() != null) {
+                                    currentEmployer = response.body().getResponse();
+                                    populateData();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseObject<Employer>> call, Throwable t) {
+                            HandleErrors.parseFailureError(getContext(), dialog, t);
+                        }
+                    });
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
         }
     }
 
-    @Nullable
-    private AccountType getAccountType() {
-        if (SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getUserId() > 0) {
-            return AccountType.employer;
-        } else if (SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoWorker().getUserId() > 0) {
-            return AccountType.worker;
-        }
-        return null;
+    private void populatePhoneNumber() {
+        String phone;
+        String countryCode;
+
+        phone = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getPhoneNumber();
+        countryCode = SharedPreferencesManager.getInstance(getActivity()).loadSessionInfoEmployer().getCountryCode();
+
+        phoneValueTextView.setText(countryCode + phone);
     }
 }

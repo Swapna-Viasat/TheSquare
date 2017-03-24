@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -36,7 +37,6 @@ import construction.thesquare.shared.main.activity.MainActivity;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.settings.fragments.SettingsAboutFragment;
 import construction.thesquare.shared.settings.fragments.SettingsDocsFragment;
-import construction.thesquare.shared.settings.fragments.SettingsFragment;
 import construction.thesquare.shared.settings.fragments.SettingsSocialFragment;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
@@ -52,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WorkerSettingsFragment extends SettingsFragment {
+public class WorkerSettingsFragment extends Fragment {
 
     @BindView(R.id.phoneValue)
     JosefinSansTextView phoneValueTextView;

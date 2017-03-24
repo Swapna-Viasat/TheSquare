@@ -158,6 +158,10 @@ public interface BaseApiInterface {
     @GET("/employers/{pk}")
     Call<ResponseObject<Employer>> getEmployerProfile(@Path("pk") int id);
 
+    @GET("/employers/{pk}/")
+    Call<ResponseObject<construction.thesquare.shared.models.Employer>>
+    getFilteredEmployer(@Path("pk") int userId, @Query("fields") List<String> requiredFields);
+
     @POST("/employers/logout/")
     Call<ResponseObject<Logout>> logoutEmployer();
 
