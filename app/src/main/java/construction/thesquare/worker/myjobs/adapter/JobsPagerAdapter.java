@@ -18,7 +18,7 @@ import construction.thesquare.worker.myjobs.fragment.JobsListFragment;
 
 public class JobsPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int JOBS_COUNT = 4;
+    private static final int JOBS_COUNT = 3;
     private Context context;
     private List<JobsListFragment> fragments;
 
@@ -33,7 +33,7 @@ public class JobsPagerAdapter extends FragmentPagerAdapter {
         fragments.add(JobsListFragment.newInstance(Job.TYPE_BOOKED));
         fragments.add(JobsListFragment.newInstance(Job.TYPE_OFFER));
         fragments.add(JobsListFragment.newInstance(Job.TYPE_LIKED));
-        fragments.add(JobsListFragment.newInstance(Job.TYPE_COMPLETED));
+       // fragments.add(JobsListFragment.newInstance(Job.TYPE_COMPLETED));
     }
 
     @Override
@@ -45,8 +45,8 @@ public class JobsPagerAdapter extends FragmentPagerAdapter {
                 return context.getResources().getString(R.string.worker_jobs_offers_applications);
             case 2:
                 return context.getResources().getString(R.string.worker_jobs_liked);
-            case 3:
-                return context.getResources().getString(R.string.worker_jobs_completed);
+            /*case 3:
+                return context.getResources().getString(R.string.worker_jobs_completed);*/
         }
         return null;
     }
