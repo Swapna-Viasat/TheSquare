@@ -255,6 +255,11 @@ public class SubscriptionFragment extends Fragment {
 
     @OnClick(R.id.understanding)
     public void understanding() {
-        Toast.makeText(getContext(), "understanding", Toast.LENGTH_LONG).show();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_employer_content,
+                        UnderstandingPlanFragment.newInstance(true))
+                .addToBackStack("understanding")
+                .commit();
     }
 }

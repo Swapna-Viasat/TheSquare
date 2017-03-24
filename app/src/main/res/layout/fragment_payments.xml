@@ -336,7 +336,7 @@
             android:id="@+id/understanding"
             android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="34dp"
             android:layout_marginLeft="12dp"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal"
@@ -350,7 +350,7 @@
 
             <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textSize="14sp"
-                android:text="@string/employer_payments_understanding"
+                android:text="@string/employer_payments_questions"
                 app:josefin_style="italic"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="center_vertical"

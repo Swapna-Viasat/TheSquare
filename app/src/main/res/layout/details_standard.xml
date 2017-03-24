@@ -35,10 +35,9 @@
             <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:layout_marginTop="12dp"
                 android:textColor="@color/blackSquareColor"
-                android:text="Hire anytime, from any device
-                        \nTrack previous shortlists &amp; hires
-                        \nUnlimited job promotions
-                        \nUnlimited matches to relevant workers"
+                android:text="Unlimited job promotions
+                        \nUnlimited matches to relevant workers
+                        \nHire anytime, from any device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
