@@ -15,7 +15,7 @@
 
     <construction.thesquare.shared.view.widget.StrikeJosefinSansTextView
         android:id="@+id/worker_details"
-        style="@style/caption_gray_text"
+        style="@style/caption_black_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
