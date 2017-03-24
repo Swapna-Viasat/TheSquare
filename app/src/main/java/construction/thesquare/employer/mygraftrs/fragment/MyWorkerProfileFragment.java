@@ -214,7 +214,7 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
         if (!TextUtils.isEmpty(worker.dateOfBirth)) {
             if (!TextUtils.equals(worker.dateOfBirth, "******")) {
                 dateOfBirthView.setVisibility(View.VISIBLE);
-                dateOfBirthView.setText(worker.dateOfBirth);
+                dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
                 dateOfBirthStatusView.setVisibility(View.GONE);
             } else {
                 //provided
@@ -482,6 +482,7 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
                             for (CSCSCardWorker.CscsRecord record : cscsRecordList) {
                                 View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
                                 TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
+                                cscsText.setTextColor(getResources().getColor(R.color.blackSquareColor));
                                 cscsText.setText(record.name + " - " + record.category.name);
                                 cscsRecordsLayout.addView(itemView);
                             }

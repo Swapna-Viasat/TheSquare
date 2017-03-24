@@ -265,7 +265,7 @@
 
             <!-- Requirements -->
             <construction.thesquare.shared.view.widget.JosefinSansTextView
-                android:text="@string/job_details_mandatory_requirements"
+                android:text="Practical Requirements"
                 android:id="@+id/job_details_reqs_label"
                 android:textSize="16sp"
                 android:drawableRight="@drawable/ic_mode_edit_black_24dp"
