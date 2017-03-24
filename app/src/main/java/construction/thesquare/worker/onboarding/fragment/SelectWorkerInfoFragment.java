@@ -175,7 +175,7 @@ public class SelectWorkerInfoFragment extends Fragment {
     }
 
     private void showProfileImage() {
-        if (currentWorker != null && currentWorker.picture != null) {
+        if (currentWorker != null && currentWorker.picture != null && getContext() != null) {
             Picasso.with(getContext())
                     .load(currentWorker.picture)
                     .fit()
