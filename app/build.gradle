@@ -65,12 +65,6 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
-    //    compile 'io.intercom.android:intercom-sdk:3.+'
-
-    //    compile 'io.intercom.android:intercom-sdk-base:3.+'
-
-    //    compile 'io.intercom.android:intercom-sdk-fcm:3.+'
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -98,7 +92,9 @@ dependencies {
     compile 'com.stripe:stripe-android:2.0.2'
     compile 'com.hbb20:ccp:1.7.1'
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
-    compile 'io.branch.sdk.android:library:2.+'
+    compile ('io.branch.sdk.android:library:2.+') {
+        exclude module: 'answers-shim'
+    }
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
