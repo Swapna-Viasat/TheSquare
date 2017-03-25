@@ -739,8 +739,9 @@
     <string name="payments_finish">Finish</string>
     <string name="payments_continue">Continue</string>
     <string name="payments_add">Please Add Payment Method</string>
-    <string name="payments_sale">As one of our early adopters here\'s a
-                        \n50% discount on your subscription!</string>
+    <string name="payments_sale">Choose your plan below to start your free month\'s trial!
+            \nAnd as one of the first to use The Square we\'ll give you 50%
+            off your subscription when it starts. Nice!</string>
     <string name="payments_choose">Choose the monthly plan for you</string>
     <string name="payments_recommended">Recommended</string>
     <string name="payments_basic">Basic</string>
@@ -963,21 +964,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Understanding -->
-    <string name="understanding_1_header">Which subscription plan is right for me?</string>
-    <string name="understanding_1_text"> We offer three subscription plans. Each plan allows
+    <!-- Understanding First Time -->
+    <string name="understanding_first_1_header">Which subscription plan is right for me?</string>
+    <string name="understanding_first_1_text"> We offer three subscription plans. Each plan allows
         you to promote an unlimited amount of jobs and be matched to an unlimited
         amount of workers. But the amount of workers you can book is limited by the
         Subscription Plan you are on. Every time you book a worker, you use one of
         your Booking Credits.
 \n\nHow many people do you hire per month?
-\n1-4 hires - we recommend the BASIC Package (20 Booking Credits per user, per month)
-        *TINY FONT SIZE *£499 +VAT (normally £999 +VAT) £24.95+VAT per Credit
-\n5-10 hires - we recommend the STANDARD Package (50 Booking Credits per user, per month)
-        *TINY FONT SIZE = £999 +VAT (normally £1999 +VAT) - £19.98+VAT per Credit
-\n11-20 hires - we recommend the PREMIUM Package (100 Booking Credits, per user, per month)
-        *TINY FONT SIZE = £1799 +VAT (normally £3599 +VAT) £17.99+VAT per Credit
-\n20+ hires - have your colleagues subscribe to one of the above or get in touch to
+\n\n1-4 hires - we recommend the BASIC Package (20 Booking Credits per user, per month)
+        \n<font size="14">£499 +VAT (normally £999 +VAT) £24.95+VAT per Credit</font>
+\n\n5-10 hires - we recommend the STANDARD Package (50 Booking Credits per user, per month)
+        \n<font size="14">£999 +VAT (normally £1999 +VAT) - £19.98+VAT per Credit</font>
+\n\n11-20 hires - we recommend the PREMIUM Package (100 Booking Credits, per user, per month)
+        \n<font size="14">£1799 +VAT (normally £3599 +VAT) £17.99+VAT per Credit</font>
+\n\n20+ hires - have your colleagues subscribe to one of the above or get in touch to
         discuss a bespoke subscription package.
 \n\nWe make these recommendations so that you will have enough Booking Credits
         to connect with a shortlist of workers, before you hire the right
@@ -987,10 +988,107 @@
         Top Up Booking Credits are valid for one month from date of purchase.
         Top Up Booking Credits can only be used in conjunction
         with an existing subscription plan.
-\n\n*TINY FONT SIZE = *Booking Credits are non refundable, non exchangeable
+\n\n\n<font size="14">Booking Credits are non refundable, non exchangeable
         and time bound. Booking Credits cannot be carried over from one month to another.
         Once you have used a Booking Credit, it cannot be refunded or exchanged even
-        if the worker cancels or you decide to cancel a worker or a job.</string>
+        if the worker cancels or you decide to cancel a worker or a job.</font></string>
+    <string name="understanding_first_2_header">What\'s a booking?</string>
+    <string name="understanding_first_2_text">Each time you book a worker, you use a Booking Credit.
+\n\nThe Square allows you to promote an unlimited amount of jobs and be matched to
+        an unlimited amount of workers. But the amount of workers you can book is
+        limited by the Subscription Plan you are on. Every time you book a worker,
+        you use one of your Booking Credits.
+\n\nThere are two ways you can book a worker:
+\n1. By offering a worker a job and they accept the offer
+\n2. The worker applies to your job and you accept their application.
+\nEither of these transactions counts as booking a worker and uses a Booking Credit.
+\n\nA booked worker gives you extra details which includes contact details.
+        The booked worker is also given your contact details and information about
+        where and when to turn up for the job.
+\n\nEvery booked worker uses a Booking Credit, even if you, or the worker, later
+        cancels the booking. If you are satisfied with the worker you have booked
+        and do not wish to book any more workers for a particular job, we suggest
+        you cancel any outstanding job offers to avoid wasting Booking Credits.
+\n\n<font size="14">Booking Credits are non refundable, non exchangeable and
+        time bound. Booking Credits cannot be carried over from one month to another.
+        Once you have used a Booking Credit, it cannot be refunded or exchanged even
+        if the worker cancels or you decide to cancel a worker or a job.</font>
+</string>
+    <string name="understanding_first_3_header">How am I billed?</string>
+    <string name="understanding_first_3_text">You are billed one month in advance to
+        cover your subscription for that month. The Square will charge you on
+        a monthly basis on the calendar day corresponding to the commencement
+        of your initial subscription. Our subscription plans are recurring payments.
+        Your subscription will automatically renew using the credit card
+        you have provided. You can cancel automatic renewal of your subscription
+        at any time by clicking \'Cancel My Subscription\' in My Price Plan
+        and you will be able to use any remaining Booking Credits until the
+        expiry date of your subscription.
+        \n\nIn some cases your payment date may change, for example if your
+        credit card has not successfully settled, if your paid membership
+        began on a day not contained in a given month, or if you
+        upgrade your account causing your renewal date to change.</string>
+    <string name="understanding_first_4_header">How do I activate my free trial?</string>
+    <string name="understanding_first_4_text">Your free trial will be activated as soon as
+        you choose your package and provide your credit card details for
+        your subscription. You will then be able to use
+        The Square for free of charge for the first month.</string>
+    <string name="understanding_first_5_header">Will I be charged during my free trial?</string>
+    <string name="understanding_first_5_text">You won\'t be charged during your free trial,
+        which begins the first time you choose your package and provide your
+        credit card details. This trial period lasts exactly one month.
+        If you do not cancel before your free trial period ends, you will
+        be automatically charged in advance for the next month of your subscription.
+        \n\nYou can cancel anytime during your free trial and before your
+        subscription renewal date.</string>
+    <string name="understanding_first_6_header">What happens after my free trial period?</string>
+    <string name="understanding_first_6_text">If you do not cancel before your
+        free trial period ends, you will be automatically charged for
+        the next month of your subscription.</string>
+    <string name="understanding_first_7_header">How do I cancel my free
+        trial or subscription?</string>
+    <string name="understanding_first_7_text">To cancel your subscription:
+            \n\n1. Go to My Price Plan
+            \n\n2. Scroll to the foot of the page
+            \n\n3. Click \'Cancel my subscription\'
+            \n\n4. You will be asked if your are sure you want to cancel
+            \n\n5. Selecting you want to cancel will mean your subscription
+        will end at midnight before the scheduled renewal date
+            \n\nOnce you have cancelled, you will still be able to use any
+        remaining Booking Credits until your subscription end date.
+            \n\n<font size="14">To the extent permitted by the applicable law,
+        payments are non-refundable and we do not provide refunds or
+        credits for any partial-month subscription periods or unused
+        Booking Credits.</font></string>
+
+    <!-- Understanding General -->
+    <string name="understanding_1_header">Which subscription plan is right for me?</string>
+    <string name="understanding_1_text"> We offer three subscription plans. Each plan allows
+        you to promote an unlimited amount of jobs and be matched to an unlimited
+        amount of workers. But the amount of workers you can book is limited by the
+        Subscription Plan you are on. Every time you book a worker, you use one of
+        your Booking Credits.
+\n\nHow many people do you hire per month?
+\n\n1-4 hires - we recommend the BASIC Package (20 Booking Credits per user, per month)
+        \n<font size="14">£499 +VAT (normally £999 +VAT) £24.95+VAT per Credit</font>
+\n\n5-10 hires - we recommend the STANDARD Package (50 Booking Credits per user, per month)
+        \n<font size="14">£999 +VAT (normally £1999 +VAT) - £19.98+VAT per Credit</font>
+\n\n11-20 hires - we recommend the PREMIUM Package (100 Booking Credits, per user, per month)
+        \n<font size="14">£1799 +VAT (normally £3599 +VAT) £17.99+VAT per Credit</font>
+\n\n20+ hires - have your colleagues subscribe to one of the above or get in touch to
+        discuss a bespoke subscription package.
+\n\nWe make these recommendations so that you will have enough Booking Credits
+        to connect with a shortlist of workers, before you hire the right
+        workers for your business.
+\n\nIf you are going to have a particularly busy month, you are able to
+        top up your Booking Credits, 10 at a time for £299+VAT (normally £599+VAT).
+        Top Up Booking Credits are valid for one month from date of purchase.
+        Top Up Booking Credits can only be used in conjunction
+        with an existing subscription plan.
+\n\n\n<font size="14">Booking Credits are non refundable, non exchangeable
+        and time bound. Booking Credits cannot be carried over from one month to another.
+        Once you have used a Booking Credit, it cannot be refunded or exchanged even
+        if the worker cancels or you decide to cancel a worker or a job.</font></string>
     <string name="understanding_2_header">What\'s a booking?</string>
     <string name="understanding_2_text">Each time you book a worker, you use a Booking Credit.
 \n\nThe Square allows you to promote an unlimited amount of jobs and be matched to
@@ -1008,10 +1106,10 @@
         cancels the booking. If you are satisfied with the worker you have booked
         and do not wish to book any more workers for a particular job, we suggest
         you cancel any outstanding job offers to avoid wasting Booking Credits.
-\n\n*TINY FONT SIZE = *Booking Credits are non refundable, non exchangeable and
+\n\n<font size="14">Booking Credits are non refundable, non exchangeable and
         time bound. Booking Credits cannot be carried over from one month to another.
         Once you have used a Booking Credit, it cannot be refunded or exchanged even
-        if the worker cancels or you decide to cancel a worker or a job.
+        if the worker cancels or you decide to cancel a worker or a job.</font>
 </string>
     <string name="understanding_3_header">How am I billed?</string>
     <string name="understanding_3_text">You are billed one month in advance to
@@ -1027,25 +1125,114 @@
         credit card has not successfully settled, if your paid membership
         began on a day not contained in a given month, or if you
         upgrade your account causing your renewal date to change.</string>
-    <string name="understanding_4_header">How do I activate my free trial?</string>
-    <string name="understanding_4_text">Your free trial will be activated as soon as
-        you choose your package and provide your credit card details for
-        your subscription. You will then be able to use
-        The Square for free of charge for the first month.</string>
-    <string name="understanding_5_header">Will I be charged during my free trial?</string>
-    <string name="understanding_5_text">You won\'t be charged during your free trial,
+    <string name="understanding_4_header">What subscription plan am I on?</string>
+    <string name="understanding_4_text">The type of subscription plan you on is displayed
+        in the top right hand corner of My Price Plan screen.
+        The name of your subscription plan is displayed. i.e.
+        Basic, Standard or Premium.
+        \n\nIf you want to change your plan,
+        click Change my plan and follow instructions.</string>
+    <string name="understanding_5_header">When does my subscription renew?</string>
+    <string name="understanding_5_text">In the top left hand side of
+        My Price Plan, the renewal date of your subscription plan is
+        displayed underneath MY SUBSCRIPTION PLAN.</string>
+    <string name="understanding_6_header">How many Booking Credits do I have left
+                    and when do they expire?</string>
+    <string name="understanding_6_text">My Price Plan displays all of your
+        Booking Credit details.
+        \n\nHere you can see how many Booking Credits you have used that month,
+        how many you have remaining and when they expire.</string>
+    <string name="understanding_7_header">What is the difference between
+        subscription &amp; top up Booking Credits?</string>
+    <string name="understanding_7_text">Subscription credits are linked to the
+        subscription package you are on.
+        \n\nEach of the three subscription plans give you up to either 20,
+        50 or 100 Booking Credits per month. These Booking Credits can only
+        be used within your billing month.
+        \n\nIf you are going to have a particularly busy month you can top up
+        your Booking Credits, 10 at a time. Top Up Booking
+        Credits are valid for 30 days from date of purchase.
+        \n\nMy Price Plan separates your Booking Credits so that you
+        can see exactly when they expire.</string>
+    <string name="understanding_8_header">What is a Top Up and how do I Top Up?</string>
+    <string name="understanding_8_text">If you are going to have a particularly busy
+        month you, are able to top up your Booking Credits,
+        10 at a time for £299+VAT (normally £599+VAT).
+        \n\nTo Top Up your Booking Credits:
+        \n\n1. Click: Need a top up? on My Price Plan screen
+        \n2. Follow the instructions on screen and click Top up now
+        \n3. You will be prompted to enter your password to confirm your purchase
+        \n4. Your credit card will billed for the top up
+        \n5. You will be redirected back to My Price Plan where you
+        will see your new Top Up Booking Credits and their expiry date.
+        \n\nTop Up Booking Credits are valid for 30 days from date of purchase.
+        Top Up Booking Credits can only be used in conjunction with an
+        existing subscription plan.
+        \n\nTIP: If you\'re going to use all your Booking Credits
+        each month you should consider upgrading your account.
+        It is cheaper in the long run!
+        \n\n<font size="14">Booking Credits are non refundable,
+        non exchangeable and time bound. Booking Credits cannot
+        be carried over from one month to another. Once you have used a
+        Booking Credit, it cannot be refunded or exchanged even if the worker
+        cancels or you decide to cancel a worker or a job.</font></string>
+    <string name="understanding_9_header">How do I change my subscription plan?</string>
+    <string name="understanding_9_text">We recognise your circumstances may change.
+        You can change your subscription plan at any time by:
+        \n\n1. Click > Change my plan on My Price Plan screen
+        \n\n2. Choose your new plan and click \'continue\'
+        \n\n3. You will be prompted to enter your password to confirm your change
+        \n\n4. Your credit card will be billed with the new subscription plan charge
+        \n\n5. You will be redirected back to My Price Plan where you
+        will see your account has been changed
+        \n\n6. You will see your remaining or new Booking Credits and their expiry date.
+        \n\nYour subscription plan renewal date will change to the calendar
+        day corresponding to the commencement of your plan change.</string>
+    <string name="understanding_10_header">What happens to my existing booking
+        credits if I top up or change subscription plan?</string>
+    <string name="understanding_10_text">If you top up, upgrade or downgrade
+        your account, you will be able to use any remaining Booking
+        Credits until their original expiry date.
+        \nAnd your new Booking Credits will be added to your subscription
+        Booking Credits or Top Up Booking Credits retrospectively.
+        \n\nYou will be able to see any changes to your Booking Credits in My Price Plan.
+        \n\n<font size="14">Booking Credits are non refundable,
+        non exchangeable and time bound. Booking Credits cannot be
+        carried over from one month to another. Once you have used a
+        Booking Credit, it cannot be refunded or exchanged even if the worker
+        cancels or you decide to cancel a worker or a job.</font></string>
+    <string name="understanding_11_header">What if I can\'t pay by credit card?</string>
+    <string name="understanding_11_text">Normally, you are required to provide
+        a valid credit card when purchasing your subscription plan. But we understand
+        for larger businesses and/or companies wishing to purchase more
+        than one subscription for different users, there could be an easier way,
+        so we also offer an invoicing service.
+        \n\nTo activate an invoice service:
+        \n\n1. Scroll to the bottom of My Price Plan screen and select:
+        Can\'t pay by credit card?
+        \n2. Complete the instructions on the screen and click \'Confirm\'
+        \n3. We will issue a VAT invoice by email
+        \n4. The invoice will need to be paid via BACS before your account can be activated
+        \n5. As soon as full payment is received your account will be
+        activated and you will be notified by email
+        \n\nNote: The invoice service requires a minimum of 6 months subscriptions.
+        \n\nAny queries, please get in touch on 0203 868 6303 or
+        email accounts@thesquareapp.com</string>
+    <string name="understanding_12_header">Will I be charged during my free trial?</string>
+    <string name="understanding_12_text">You won\'t be charged during your free trial,
         which begins the first time you choose your package and provide your
         credit card details. This trial period lasts exactly one month.
         If you do not cancel before your free trial period ends, you will
         be automatically charged in advance for the next month of your subscription.
         \n\nYou can cancel anytime during your free trial and before your
         subscription renewal date.</string>
-    <string name="understanding_6_header">What happens after my free trial period?</string>
-    <string name="understanding_6_text">If you do not cancel before your
+    <string name="understanding_13_header">What happens after my free trial period?</string>
+    <string name="understanding_13_text">If you do not cancel before your
         free trial period ends, you will be automatically charged for
         the next month of your subscription.</string>
-    <string name="understanding_7_header">How do I cancel my free trial or subscription?</string>
-    <string name="understanding_7_text">To cancel your subscription:
+    <string name="understanding_14_header">How do I cancel my free
+        trial or subscription?</string>
+    <string name="understanding_14_text">To cancel your subscription:
             \n\n1. Go to My Price Plan
             \n\n2. Scroll to the foot of the page
             \n\n3. Click \'Cancel my subscription\'
@@ -1054,8 +1241,8 @@
         will end at midnight before the scheduled renewal date
             \n\nOnce you have cancelled, you will still be able to use any
         remaining Booking Credits until your subscription end date.
-            \n\nTo the extent permitted by the applicable law,
+            \n\n<font size="14">To the extent permitted by the applicable law,
         payments are non-refundable and we do not provide refunds or
         credits for any partial-month subscription periods or unused
-        Booking Credits.</string>
+        Booking Credits.</font></string>
 </resources>

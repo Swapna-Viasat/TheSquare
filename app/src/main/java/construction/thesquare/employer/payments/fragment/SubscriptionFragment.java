@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +43,9 @@ public class SubscriptionFragment extends Fragment {
 
     @BindViews({R.id.top_basic, R.id.top_standard, R.id.top_premium})
     List<ViewGroup> top;
+
+    @BindView(R.id.first_time_user_text) TextView firstTime;
+    @BindView(R.id.understanding) LinearLayout understanding;
 
     public static SubscriptionFragment newInstance(boolean hasStripeToken,
                                                    boolean hasPlan) {
@@ -166,13 +169,19 @@ public class SubscriptionFragment extends Fragment {
                 if (!getArguments().getBoolean("has_plan")) {
                     ((AppCompatActivity) getActivity()).getSupportActionBar()
                             .setTitle("Choose Plan");
+                    firstTime.setVisibility(View.VISIBLE);
+                    understanding.setVisibility(View.VISIBLE);
                 } else {
                     ((AppCompatActivity) getActivity()).getSupportActionBar()
                             .setTitle("Change Plan");
+                    firstTime.setVisibility(View.GONE);
+                    understanding.setVisibility(View.GONE);
                 }
             } else {
                 ((AppCompatActivity) getActivity()).getSupportActionBar()
                         .setTitle("Change Plan");
+                firstTime.setVisibility(View.GONE);
+                understanding.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             CrashLogHelper.logException(e);
@@ -258,7 +267,7 @@ public class SubscriptionFragment extends Fragment {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_employer_content,
-                        UnderstandingPlanFragment.newInstance(true))
+                        UnderstandingPlanFirstFragment.newInstance(true))
                 .addToBackStack("understanding")
                 .commit();
     }

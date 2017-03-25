@@ -6,44 +6,45 @@ import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.utils.CrashLogHelper;
 
-public class UnderstandingPlanFragment extends Fragment {
+public class UnderstandingPlanFirstFragment extends Fragment {
 
-    public static final String TAG = "UnderstandingPlan";
+    public static final String TAG = "UnderstandingPricePlan";
 
     @BindViews({R.id.understand_1, R.id.understand_2, R.id.understand_3,
-            R.id.understand_4, R.id.understand_5, R.id.understand_6,
-            R.id.understand_7, R.id.understand_8, R.id.understand_9,
-            R.id.understand_10, R.id.understand_11, R.id.understand_12,
-            R.id.understand_13, R.id.understand_14})
+                R.id.understand_4, R.id.understand_5, R.id.understand_6,
+                R.id.understand_7})
     public List<CardView> headers;
     @BindViews({R.id.understand_1_body, R.id.understand_2_body, R.id.understand_3_body,
             R.id.understand_4_body, R.id.understand_5_body, R.id.understand_6_body,
-            R.id.understand_7_body, R.id.understand_8_body, R.id.understand_9_body,
-            R.id.understand_10_body, R.id.understand_11_body, R.id.understand_12_body,
-            R.id.understand_13_body, R.id.understand_14_body})
+            R.id.understand_7_body})
     public List<ExpandableLinearLayout> bodies;
 
+    private boolean firstTime;
 
-    public UnderstandingPlanFragment() {
+    public UnderstandingPlanFirstFragment() {
         // Required empty public constructor
     }
 
-    public static UnderstandingPlanFragment newInstance() {
-        UnderstandingPlanFragment fragment = new UnderstandingPlanFragment();
+    public static UnderstandingPlanFirstFragment newInstance(boolean firstTime) {
+        UnderstandingPlanFirstFragment fragment = new UnderstandingPlanFirstFragment();
         Bundle args = new Bundle();
+        args.putBoolean("first_time", firstTime);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,14 +53,14 @@ public class UnderstandingPlanFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //
+            firstTime = getArguments().getBoolean("first_time");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_understanding_plan, container, false);
+        View view = inflater.inflate(R.layout.fragment_understanding_plan_first, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

@@ -356,7 +356,7 @@ public class PricePlanFragment extends Fragment {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_employer_content,
-                        UnderstandingPlanFragment.newInstance(true))
+                        UnderstandingPlanFragment.newInstance())
                 .addToBackStack("")
                 .commit();
     }
