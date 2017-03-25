@@ -245,7 +245,7 @@ public class SelectLocationFragment extends Fragment
             //
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frame, PreviewJobFragment.newInstance(request))
+                    .replace(R.id.frame, PreviewJobFragment.newInstance(request, false))
                     .commit();
             //
         } else {

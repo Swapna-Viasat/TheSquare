@@ -242,7 +242,7 @@ public class SelectQualificationsFragment extends Fragment
         if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frame, PreviewJobFragment.newInstance(request))
+                    .replace(R.id.frame, PreviewJobFragment.newInstance(request, false))
                     .commit();
         } else {
             getActivity().getSupportFragmentManager()
