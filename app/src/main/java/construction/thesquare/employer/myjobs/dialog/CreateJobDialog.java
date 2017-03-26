@@ -24,6 +24,7 @@ import construction.thesquare.R;
 import construction.thesquare.employer.myjobs.adapter.JobsSpinnerAdapter;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 /**
  * Created by gherg on 1/10/2017.
@@ -82,7 +83,7 @@ public class CreateJobDialog extends DialogFragment {
             data.clear();
             data.addAll((List<Job>) getArguments().getSerializable(Constants.KEY_DATA));
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         if (data.isEmpty()) {

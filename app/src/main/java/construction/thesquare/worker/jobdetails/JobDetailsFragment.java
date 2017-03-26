@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -161,23 +162,21 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 if (null != currentJob.company.name) {
                     companyName.setText(currentJob.company.name);
                 }
-            }
-
-            if (null != currentJob.locationName) {
-                workPlace.setText(currentJob.locationName);
-            }
-
-            if (currentJob.owner != null) {
-                if (null != currentJob.owner.picture) {
+                if (null != currentJob.company.logo) {
                     companyName.setVisibility(View.GONE);
                     companyLogo.setVisibility(View.VISIBLE);
                     Picasso.with(getActivity())
-                            .load(currentJob.owner.picture)
-                            .fit().centerCrop().into(companyLogo);
+                            .load(currentJob.company.logo)
+                            .fit().centerCrop()
+                            .into(companyLogo);
                 } else {
                     companyLogo.setVisibility(View.GONE);
                     companyName.setVisibility(View.VISIBLE);
                 }
+            }
+
+            if (null != currentJob.locationName) {
+                workPlace.setText(currentJob.locationName);
             }
 
             if (currentJob.role != null) {
@@ -187,12 +186,17 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             experienceYears.setText(String.format(getString(R.string.item_match_format_experience),
                     currentJob.experience, getResources().getQuantityString(R.plurals.year_plural, currentJob.experience)));
 
+            paymentRate.setVisibility(View.VISIBLE);
             paymentRate.setText(getString(R.string.pound_sterling) + String.valueOf(NumberFormat
                     .getInstance(Locale.UK).format(Double.valueOf(currentJob.budget))));
 
             if (null != currentJob.budgetType) {
                 if (null != currentJob.budgetType.name) {
                     paymentRatePer.setText("Per " + currentJob.budgetType.name);
+                }
+                if (currentJob.budgetType.id == 4) {
+                    paymentRatePer.setText("£POA");
+                    paymentRate.setVisibility(View.GONE);
                 }
             }
 
@@ -210,7 +214,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 qualifications2.setText(TextTools.toBulletList(currentJob.getQualificationsList(), true));
                 experienceTypes.setText(TextTools.toBulletList(currentJob.getExperienceTypesList(), true));
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
 
             String englishString = "Basic";
@@ -353,7 +357,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 return currentJob.application.get(0);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         return null;
     }
@@ -389,11 +393,11 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
         likeDrawable = DrawableCompat.wrap(likeDrawable);
         DrawableCompat.setTint(likeDrawable, ContextCompat.getColor(getActivity(), R.color.redSquareColor));
         menu.findItem(R.id.job_like).setIcon(likeDrawable);
-
-        Drawable shareDrawable = menu.findItem(R.id.job_share).getIcon();
+        //Not for this version
+         /*Drawable shareDrawable = menu.findItem(R.id.job_share).getIcon();
         shareDrawable = DrawableCompat.wrap(shareDrawable);
         DrawableCompat.setTint(shareDrawable, ContextCompat.getColor(getActivity(), R.color.redSquareColor));
-        menu.findItem(R.id.job_share).setIcon(shareDrawable);
+        menu.findItem(R.id.job_share).setIcon(shareDrawable);*/
 
         setupMenuIconsVisibility();
     }
@@ -407,9 +411,9 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             case R.id.job_unlike:
                 presenter.onUnlikeJobClick();
                 break;
-            case R.id.job_share:
+            /*case R.id.job_share:
                 presenter.onShareJobClick();
-                break;
+                break;*/
             default:
                 break;
         }
@@ -489,10 +493,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     @Override
     public void onBookingCanceled() {
         if (getActivity() == null || !isAdded()) return;
-        TextTools.log(TAG, "onBookingCanceled");
-        setupApplicationData();
-        DialogBuilder.showStandardDialog(getContext(), "",
-                getString(R.string.job_details_booking_canceled));
+        getActivity().finish();
     }
 
     private void showDeclineOfferDialog(final int offerId) {
@@ -533,7 +534,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -560,7 +561,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 }

@@ -43,7 +43,7 @@ public class PaymentsActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.payments_content, SubscriptionFragment.newInstance())
+                .replace(R.id.payments_content, SubscriptionFragment.newInstance(false, false))
                 .commit();
     }
 
@@ -54,7 +54,7 @@ public class PaymentsActivity extends AppCompatActivity {
                 selection = 0;
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.payments_content, SubscriptionFragment.newInstance())
+                        .replace(R.id.payments_content, SubscriptionFragment.newInstance(false, false))
                         .commit();
                 break;
             case R.id.payments_2:

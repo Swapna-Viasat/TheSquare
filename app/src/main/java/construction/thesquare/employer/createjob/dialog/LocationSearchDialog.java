@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.employer.createjob.adapter.PlacesAutocompleteAdapter;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 /**
  * Created by gherg on 1/21/17.
@@ -105,7 +106,7 @@ public class LocationSearchDialog extends DialogFragment {
         try {
             search.setSelection(0, textView.getText().length());
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         cancel.setOnClickListener(new View.OnClickListener() {

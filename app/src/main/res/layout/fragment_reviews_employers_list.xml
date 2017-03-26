@@ -36,6 +36,7 @@
             <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:text="@string/employer_review_request_detail"
                 app:josefin_style="light"
+                android:lineSpacingExtra="10dp"
                 android:layout_margin="8dp"
                 android:textAlignment="center"
                 android:textColor="@color/blackSquareColor"

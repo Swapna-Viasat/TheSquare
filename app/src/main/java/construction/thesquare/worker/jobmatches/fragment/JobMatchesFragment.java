@@ -1,6 +1,5 @@
 package construction.thesquare.worker.jobmatches.fragment;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,11 +82,6 @@ public class JobMatchesFragment extends Fragment
     @Override
     public void displayHint(boolean show) {
         hint.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public void displayError(String message) {
-        new AlertDialog.Builder(getActivity()).setMessage(message).create().show();
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Main Content -->
         <LinearLayout
             android:id="@+id/top"
             android:orientation="vertical"
@@ -23,6 +24,8 @@
                 app:josefin_style="italic"
                 android:layout_margin="12dp"
                 android:textSize="20sp"
+                android:gravity="center"
+                android:id="@+id/first_time_user_text"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -37,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <!-- Selection Blocks -->
             <LinearLayout
                 android:gravity="bottom"
                 android:orientation="horizontal"
@@ -238,7 +242,7 @@
                             android:layout_height="wrap_content" />
 
                         <construction.thesquare.shared.view.widget.JosefinSansTextView
-                            android:text="£1749"
+                            android:text="£1799"
                             android:layout_below="@+id/a"
                             android:id="@+id/b"
                             android:layout_centerInParent="true"
@@ -283,6 +287,7 @@
                 </android.support.v7.widget.CardView>
             </LinearLayout>
 
+            <!-- Action Button -->
             <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textSize="18sp"
                 android:id="@+id/payments_continue"
@@ -295,11 +300,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <!-- ViewPager -->
             <android.support.v4.view.ViewPager
                 android:id="@+id/subscription_pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="200dp">
+                <!-- Basic -->
                 <FrameLayout
                     android:id="@+id/basic"
                     android:layout_width="match_parent"
@@ -307,7 +313,7 @@
 
                     <include layout="@layout/details_basic"/>
                 </FrameLayout>
-
+                <!-- Standard -->
                 <FrameLayout
                     android:id="@+id/standard"
                     android:layout_width="match_parent"
@@ -315,7 +321,7 @@
 
                     <include layout="@layout/details_standard"/>
                 </FrameLayout>
-
+                <!-- Premium -->
                 <FrameLayout
                     android:id="@+id/premium"
                     android:layout_width="match_parent"
@@ -324,7 +330,6 @@
                     <include layout="@layout/details_premium"/>
                 </FrameLayout>
             </android.support.v4.view.ViewPager>
-
         </LinearLayout>
 
         <!-- Understanding Price Plans -->
@@ -333,9 +338,9 @@
             android:id="@+id/understanding"
             android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="34dp"
             android:layout_marginLeft="12dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -347,7 +352,7 @@
 
             <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:textSize="14sp"
-                android:text="@string/employer_payments_understanding"
+                android:text="@string/employer_payments_questions"
                 app:josefin_style="italic"
                 android:layout_marginLeft="8dp"
                 android:layout_gravity="center_vertical"

@@ -115,6 +115,13 @@
                             android:text="Year"
                             android:layout_weight="1"
                             android:id="@+id/rb_year"/>
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="POA"
+                            android:layout_weight="1"
+                            android:id="@+id/rb_poa"/>
                     </RadioGroup>
 
                     <RelativeLayout

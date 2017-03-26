@@ -49,7 +49,7 @@ public class SettingsDocsFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().setTitle(getString(R.string.employer_settings_terms));
+        getActivity().setTitle(getString(R.string.settings));
     }
 
     @OnClick({R.id.tc, R.id.pp})

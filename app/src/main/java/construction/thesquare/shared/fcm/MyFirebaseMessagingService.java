@@ -1,9 +1,12 @@
-package construction.thesquare.shared.gcm;
+package construction.thesquare.shared.fcm;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -13,8 +16,10 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
+import construction.thesquare.R;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.main.activity.MainActivity;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
 
 //import io.intercom.android.sdk.push.IntercomPushClient;
@@ -45,7 +50,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 TextTools.log(TAG, "worker email: " + workerEmail);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         if (remoteMessage.getData().size() > 0) {
@@ -90,10 +95,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
+                        //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
                         .setContentTitle("The Square Construction")
                         .setContentText(messageBody)
                         .setAutoCancel(true)
+                        .setLargeIcon(BitmapFactory
+                                .decodeResource(getResources(),
+                                        R.drawable.ic_big_notification))
+                        .setSmallIcon(R.drawable.ic_action_the_square_sq)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager)
@@ -109,10 +118,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
-                .setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
+                //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
                 .setContentTitle("The Square Construction")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
+                        .setLargeIcon(BitmapFactory
+                                .decodeResource(getResources(),
+                                        R.drawable.ic_big_notification))
+                .setSmallIcon(R.drawable.ic_action_the_square_sq)
+                        .setColor(Color.RED)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager)

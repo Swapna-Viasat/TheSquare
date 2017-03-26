@@ -30,7 +30,7 @@
             android:hint="@string/employer_settings_message"
             android:textColorHint="@color/graySquareColor"
             android:layout_marginTop="16dp"
-            android:inputType="text|textNoSuggestions|textCapWords"
+            android:inputType="text|textNoSuggestions|textCapSentences"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

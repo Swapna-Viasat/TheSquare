@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.employer.mygraftrs.adapter.MyGraftrsEmployerPagerAdapter;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 public class MyGraftrsEmployerFragment extends Fragment {
 
@@ -51,12 +52,12 @@ public class MyGraftrsEmployerFragment extends Fragment {
         try {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setTitle("My Workers");
-            TextView textView = (TextView) ((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(0)).getChildAt(1);
+            TextView textView = (TextView) ((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(1)).getChildAt(1);
             textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_like_tab, 0);
             int density = (int) getResources().getDisplayMetrics().density;
             textView.setCompoundDrawablePadding(6 * density);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 }

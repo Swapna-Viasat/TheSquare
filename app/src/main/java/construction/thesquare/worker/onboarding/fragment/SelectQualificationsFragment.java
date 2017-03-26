@@ -34,6 +34,7 @@ import construction.thesquare.shared.models.RolesRequest;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
@@ -95,7 +96,7 @@ public class SelectQualificationsFragment extends Fragment
         try {
             title.setText(getString(R.string.onboarding_qualifications));
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         filter.addTextChangedListener(filterTextWatcher);
@@ -255,7 +256,7 @@ public class SelectQualificationsFragment extends Fragment
                     filtered.addAll(data);
                     adapter.notifyDataSetChanged();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
 
             } else {
@@ -269,7 +270,7 @@ public class SelectQualificationsFragment extends Fragment
                     }
                     adapter.notifyDataSetChanged();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             }
         }

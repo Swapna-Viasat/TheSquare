@@ -15,9 +15,9 @@ public interface MatchesContract {
 
     interface View {
         void displayMatches(List<Job> data);
-        void displayError(String message);
         void displayProgress(boolean show);
         void displayHint(boolean show);
+        Context getContext();
     }
 
     interface UserActionListener {

@@ -202,7 +202,7 @@
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/worker_profile_bio_text"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_bio_title"
@@ -233,7 +233,7 @@
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/worker_profile_nationality_value"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/worker_profile_languages_title"
@@ -251,7 +251,7 @@
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/worker_profile_english_value"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/worker_profile_nationality_title"
@@ -272,7 +272,7 @@
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/worker_profile_languages_value"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/worker_profile_english_title"
@@ -304,7 +304,7 @@
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/worker_profile_birthday_value"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/worker_profile_birthday_title"
@@ -627,7 +627,7 @@
 
                 <LinearLayout
                     android:id="@+id/worker_details_bullet_list_experience"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_experience_title"
@@ -659,12 +659,12 @@
                     android:id="@+id/worker_profile_requirements_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/employer_worker_details_requirements"
+                    android:text="Practical info"
                     android:textColor="@color/blackSquareColor" />
 
                 <LinearLayout
                     android:id="@+id/worker_details_bullet_list_requirements"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_requirements_title"
@@ -693,7 +693,7 @@
 
                 <LinearLayout
                     android:id="@+id/worker_details_bullet_list_skills"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_skills_title"
@@ -722,7 +722,7 @@
 
                 <LinearLayout
                     android:id="@+id/worker_details_bullet_list_experience_type"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_experience_type_title"
@@ -751,7 +751,7 @@
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/worker_details_bullet_list_companies"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_companies_title"
@@ -781,7 +781,7 @@
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
                     android:id="@+id/worker_details_preferred_location"
-                    style="@style/caption_gray_text"
+                    style="@style/caption_black_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/worker_profile_location_title"

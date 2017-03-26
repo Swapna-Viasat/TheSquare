@@ -64,8 +64,6 @@
 
                 <ImageView
                     android:id="@+id/likeImage"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:padding="5dp"
                     android:tint="@color/redSquareColor"
                     android:layout_marginRight="10dp"

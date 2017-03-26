@@ -27,22 +27,20 @@
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/icon_app"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service
-            android:name=".shared.gcm.MyFirebaseMessagingService">
+        <service android:name=".shared.fcm.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".shared.gcm.MyFirebaseInstanceIDService">
+        <service android:name=".shared.fcm.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
@@ -58,16 +56,19 @@
 
         <!-- branch.io key :) -->
         <!-- Branch init -->
-        <meta-data android:name="io.branch.sdk.BranchKey"
-            android:value="key_live_kdEzggeJ3HbIeP6A41UyBdeoAxc1dgZw" />
-        <meta-data android:name="io.branch.sdk.BranchKey.test"
-            android:value="key_test_mpEEmndU8GcJaQ5B1XUZuminBBl6ob7T" />
+        <meta-data
+            android:name="io.branch.sdk.BranchKey"
+            android:value="key_live_fdFtcGj8AL3fzR5zFq0PVefoEroHpjez" />
+        <!--<meta-data android:name="io.branch.sdk.BranchKey.test"-->
+        <!--android:value="key_test_cdAFbKg1rGWcEOXrqyZIYihnEClSiakK" />-->
 
-        <!-- Branch testing (TestMode "true" to simulate fresh installs on dev environment) -->
-        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" />
+        <!--&lt;!&ndash; Branch testing (TestMode "true" to simulate fresh installs on dev environment) &ndash;&gt;-->
+        <!--<meta-data android:name="io.branch.sdk.TestMode" android:value="true" />-->
 
         <!-- Branch install referrer tracking -->
-        <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+        <receiver
+            android:name="io.branch.referral.InstallListener"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
@@ -75,8 +76,8 @@
 
         <!-- That's the old branch key I had from my acct -->
         <!--<meta-data-->
-            <!--android:name="io.branch.sdk.BranchKey"-->
-            <!--android:value="key_live_coDBaiGnKAZN1BRRBj691mbiFAohoMxv" />-->
+        <!--android:name="io.branch.sdk.BranchKey"-->
+        <!--android:value="key_live_coDBaiGnKAZN1BRRBj691mbiFAohoMxv" />-->
 
         <!-- <meta-data -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
@@ -112,8 +113,9 @@
             <!-- Branch URI scheme -->
             <intent-filter>
                 <data
-                    android:host="open"
-                    android:scheme="thesquare" />
+                    android:scheme="thesquare"
+                    android:host="open"/>
+
 
                 <action android:name="android.intent.action.VIEW" />
 
@@ -268,12 +270,14 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="thesquare"
+                <data
                     android:host="worker"
-                    android:path="/viewWorker"/>
+                    android:path="/viewWorker"
+                    android:scheme="thesquare" />
             </intent-filter>
         </activity>
 

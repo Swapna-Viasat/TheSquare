@@ -31,6 +31,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -322,7 +323,7 @@ public class JobsListFragment extends Fragment
             result.notes = job.notes;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         return result;
     }

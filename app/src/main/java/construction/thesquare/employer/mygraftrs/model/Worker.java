@@ -38,6 +38,7 @@ public class Worker implements Serializable {
     @SerializedName("years_experience") public int yearsExperience;
     @SerializedName("available_now") public boolean availableNow;
     @SerializedName("min_rate") public int minRate;
+    public String picture;
 
     public class EnglishLevel implements Serializable {
         public int id;
@@ -69,8 +70,8 @@ public class Worker implements Serializable {
     }
     public class Device implements Serializable {
         public int id;
-        @SerializedName("country_code") public int countryCode;
-        @SerializedName("phone_number") public int phoneNumber;
+        @SerializedName("country_code") public String countryCode;
+        @SerializedName("phone_number") public String phoneNumber;
         public String phone;
         @SerializedName("device_type") public DeviceType deviceType;
         @SerializedName("verified_number") public boolean verifiedNumber;

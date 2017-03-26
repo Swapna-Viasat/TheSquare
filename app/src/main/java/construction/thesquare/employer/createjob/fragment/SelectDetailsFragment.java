@@ -57,7 +57,9 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.models.Role;
+import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -78,7 +80,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class SelectDetailsFragment extends Fragment
-        implements JobDetailsDialog.DetailsListener {
+        implements JobDetailsDialog.DetailsListener, PaymentRedirect {
 
     public static final String TAG = "SelectDetailsFragment";
 
@@ -88,6 +90,7 @@ public class SelectDetailsFragment extends Fragment
     public static final int BUDGET_TYPE_HOUR = 1;
     public static final int BUDGET_TYPE_DAY = 2;
     public static final int BUDGET_TYPE_YEAR = 3;
+    public static final int BUDGET_TYPE_POA = 4;
 
     private int budgetType = 1;
     @BindView(R.id.seek_bar_end) JosefinSansTextView max;
@@ -95,6 +98,7 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.rb_year) RadioButton rbYear;
     @BindView(R.id.rb_hour) RadioButton rbHour;
     @BindView(R.id.rb_day) RadioButton rbDay;
+    @BindView(R.id.rb_poa) RadioButton rbPOA;
 
     @BindView(R.id.in_layout_extra) TextInputLayout layoutExtra;
     @BindView(R.id.extra) JosefinSansEditText extra;
@@ -158,7 +162,7 @@ public class SelectDetailsFragment extends Fragment
                 try {
                     getView().scrollTo(0, getView().getHeight());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             }
         };
@@ -210,7 +214,7 @@ public class SelectDetailsFragment extends Fragment
                 if (null != request.notes) extra.setText(request.notes);
                 if (null != request.address) address.setText(request.address);
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
             toggleSeekBars(request.budgetType);
             overtimeSwitch.setChecked(request.overtime);
@@ -231,6 +235,10 @@ public class SelectDetailsFragment extends Fragment
                     setYearly();
                     rbYear.setChecked(true);
                     yearSeek.setRate((int) request.budget);
+                    break;
+                case BUDGET_TYPE_POA:
+                    setPoa();
+                    rbPOA.setChecked(true);
                     break;
             }
         }
@@ -265,9 +273,13 @@ public class SelectDetailsFragment extends Fragment
             new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    saveDraftThenSelectPlan();
+                    //
                 }
             };
+
+    public void onRedirect() {
+        saveDraftThenSelectPlan();
+    }
 
     private void saveDraftThenSelectPlan() {
 
@@ -307,7 +319,7 @@ public class SelectDetailsFragment extends Fragment
                 payload.put("qualifications", quals);
                 //
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
             // end of wow
 
@@ -364,10 +376,12 @@ public class SelectDetailsFragment extends Fragment
                                     //////////////////////////////
                                 } else {
                                     HandleErrors.parseError(getContext(),
-                                            dialog, response, gotoPaymentsListener, showCRNDialog);
+                                            dialog, response,
+                                            SelectDetailsFragment.this,
+                                            gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                CrashLogHelper.logException(e);
                             }
                         }
 
@@ -422,7 +436,7 @@ public class SelectDetailsFragment extends Fragment
                 payload.put("qualifications", quals);
                 //
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
             // end of wow
 
@@ -495,7 +509,8 @@ public class SelectDetailsFragment extends Fragment
 
                                 } else {
                                     HandleErrors.parseError(getContext(),
-                                            dialog, response, gotoPaymentsListener, showCRNDialog);
+                                            dialog, response, SelectDetailsFragment.this,
+                                            gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
                                 //
@@ -562,7 +577,7 @@ public class SelectDetailsFragment extends Fragment
                 getActivity().finish();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }
@@ -596,7 +611,7 @@ public class SelectDetailsFragment extends Fragment
         try {
             request.contactPhoneNumber = Long.valueOf(phone.getText().toString());
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         //
         request.address = address.getText().toString();
@@ -679,7 +694,8 @@ public class SelectDetailsFragment extends Fragment
     }
     @OnClick({R.id.rb_hour,
             R.id.rb_day,
-            R.id.rb_year})
+            R.id.rb_year,
+            R.id.rb_poa})
     public void onBudgetChanged(RadioButton radioButton) {
         switch(radioButton.getId()) {
             case R.id.rb_hour:
@@ -691,7 +707,14 @@ public class SelectDetailsFragment extends Fragment
             case R.id.rb_year:
                 setYearly();
                 break;
+            case R.id.rb_poa:
+                setPoa();
+                break;
         }
+    }
+    private void setPoa() {
+        budgetType = BUDGET_TYPE_POA;
+        toggleSeekBars(BUDGET_TYPE_POA);
     }
 
     private void toggleSeekBars(int i) {
@@ -710,6 +733,11 @@ public class SelectDetailsFragment extends Fragment
                 daySeek.setVisibility(View.GONE);
                 hourSeek.setVisibility(View.GONE);
                 yearSeek.setVisibility(View.VISIBLE);
+                break;
+            case BUDGET_TYPE_POA:
+                daySeek.setVisibility(View.GONE);
+                hourSeek.setVisibility(View.GONE);
+                yearSeek.setVisibility(View.GONE);
                 break;
         }
     }
@@ -853,7 +881,14 @@ public class SelectDetailsFragment extends Fragment
     }
 
     private void selectTime() {
-        Date random6AMdate = new Date(2017, 1, 1, 6, 0);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2017);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 6);
+        cal.set(Calendar.MINUTE, 0);
+        Date random6AMdate = cal.getTime();
+
         com.jzxiang.pickerview.TimePickerDialog timePickerDialog
                 = new com.jzxiang.pickerview.TimePickerDialog
                 .Builder()

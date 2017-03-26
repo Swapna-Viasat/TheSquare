@@ -1,18 +1,22 @@
 package construction.thesquare.employer.payments.fragment;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,6 +25,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.payments.adapter.PaymentsAdapter;
+import construction.thesquare.shared.data.HttpRestServiceConsumer;
+import construction.thesquare.shared.data.model.ResponseObject;
+import construction.thesquare.shared.utils.CrashLogHelper;
+import construction.thesquare.shared.utils.DialogBuilder;
+import construction.thesquare.shared.utils.HandleErrors;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SubscriptionFragment extends Fragment {
 
@@ -32,9 +44,15 @@ public class SubscriptionFragment extends Fragment {
     @BindViews({R.id.top_basic, R.id.top_standard, R.id.top_premium})
     List<ViewGroup> top;
 
-    public static SubscriptionFragment newInstance() {
+    @BindView(R.id.first_time_user_text) TextView firstTime;
+    @BindView(R.id.understanding) LinearLayout understanding;
+
+    public static SubscriptionFragment newInstance(boolean hasStripeToken,
+                                                   boolean hasPlan) {
         SubscriptionFragment fragment = new SubscriptionFragment();
         Bundle args = new Bundle();
+        args.putBoolean("has_plan", hasPlan);
+        args.putBoolean("has_token", hasStripeToken);
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,7 +60,6 @@ public class SubscriptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setHasOptionsMenu(true);
         if (getArguments() != null) {
             //
         }
@@ -55,75 +72,90 @@ public class SubscriptionFragment extends Fragment {
         ButterKnife.bind(this, view);
         return view;
     }
-//
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.menu_price_plan_nested, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.back:
-//                getActivity().getSupportFragmentManager()
-//                        .popBackStack();
-//                return true;
-//        }
-//        return false;
-//    }
 
     @OnClick(R.id.payments_continue)
     public void proceed() {
+        if (!getArguments().getBoolean("has_token")) {
+            if (!getArguments().getBoolean("has_plan")) {
+                getActivity().
+                        getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_employer_content,
+                                PaymentFragment.newInstance(selectedPlan + 2))
+                        .addToBackStack("")
+                        .commit();
+            } else {
+                verifyPassword();
+            }
+        } else {
+            verifyPassword();
+        }
+    }
 
-//        getActivity().getSupportFragmentManager()
-//                .popBackStack();
-//
-//        ((TextView) getActivity().findViewById(R.id.payments_subscription_label))
-//                .setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-//        ((TextView) getActivity().findViewById(R.id.payments_cards_label))
-//                .setTextColor(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
-//        ((ImageView) getActivity().findViewById(R.id.payments_subscription))
-//                .setColorFilter(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-//        ((ImageView) getActivity().findViewById(R.id.payments_cards))
-//                .setColorFilter(ContextCompat.getColor(getContext(), R.color.whiteSquareColor));
-//
+    private void verifyPassword() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_verify_password_plan);
+        dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        final EditText password = (EditText)
+                dialog.findViewById(R.id.dialog_payment_password);
+        dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(password.getText().toString())) {
+                    //
+                    dialog.dismiss();
+                    callApi(password.getText().toString());
+                } else {
+                    password.setError("Please enter your password!");
+                }
+            }
+        });
+        dialog.show();
+    }
 
-        getActivity().
-                getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_employer_content, PaymentFragment.newInstance(selectedPlan + 2))
-                .addToBackStack("")
-                .commit();
+    private void callApi(String password) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("payment_detail", selectedPlan + 2);
+        body.put("password", password);
+        HttpRestServiceConsumer.getBaseApiClient()
+                .subscribe(body)
+                .enqueue(new Callback<ResponseObject>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject> call,
+                                           Response<ResponseObject> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            //
+                            final Dialog dialog1 = new Dialog(getContext());
+                            dialog1.setCancelable(false);
+                            dialog1.setContentView(R.layout.dialog_subscription_success);
+                            dialog1.findViewById(R.id.yes)
+                                    .setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialog1.dismiss();
+                                            getActivity().getSupportFragmentManager()
+                                                    .popBackStack();
+                                        }
+                                    });
+                            //
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+                    }
 
-//        //
-//        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-//        HashMap<String, Object> request = new HashMap<>();
-//        // TODO: need further guidance from backend guys
-//        request.put("payment_detail", 3);
-//        request.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
-//        HttpRestServiceConsumer.getBaseApiClient()
-//                .subscribe(request)
-//                .enqueue(new Callback<ResponseObject>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseObject> call,
-//                                           Response<ResponseObject> response) {
-//                        //
-//                        if (response.isSuccessful()) {
-//                            DialogBuilder.cancelDialog(dialog);
-//                            //
-//                        } else {
-//                            HandleErrors.parseError(getContext(), dialog, response);
-//                            //
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseObject> call, Throwable t) {
-//                        //
-//                        HandleErrors.parseFailureError(getContext(), dialog, t);
-//                    }
-//                });
+                    @Override
+                    public void onFailure(Call<ResponseObject> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     @Override
@@ -133,10 +165,26 @@ public class SubscriptionFragment extends Fragment {
         try {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setDisplayHomeAsUpEnabled(true);
-            ((AppCompatActivity) getActivity()).getSupportActionBar()
-                    .setTitle("Change Plan");
+            if (!getArguments().getBoolean("has_token")) {
+                if (!getArguments().getBoolean("has_plan")) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar()
+                            .setTitle("Choose Plan");
+                    firstTime.setVisibility(View.VISIBLE);
+                    understanding.setVisibility(View.VISIBLE);
+                } else {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar()
+                            .setTitle("Change Plan");
+                    firstTime.setVisibility(View.GONE);
+                    understanding.setVisibility(View.GONE);
+                }
+            } else {
+                ((AppCompatActivity) getActivity()).getSupportActionBar()
+                        .setTitle("Change Plan");
+                firstTime.setVisibility(View.GONE);
+                understanding.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         select(1);
         PaymentsAdapter adapter = new PaymentsAdapter();
@@ -214,9 +262,13 @@ public class SubscriptionFragment extends Fragment {
         }
     }
 
-
     @OnClick(R.id.understanding)
     public void understanding() {
-        Toast.makeText(getContext(), "understanding", Toast.LENGTH_LONG).show();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_employer_content,
+                        UnderstandingPlanFirstFragment.newInstance(true))
+                .addToBackStack("understanding")
+                .commit();
     }
 }

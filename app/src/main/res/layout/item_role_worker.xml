@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<construction.thesquare.employer.createjob.adapter.SquareLayout android:padding="2dp"
+<construction.thesquare.employer.createjob.adapter.SquareLayout
+    android:padding="2dp"
     android:layout_margin="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -7,6 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:background="@color/graySquareColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

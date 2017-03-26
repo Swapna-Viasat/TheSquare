@@ -15,6 +15,7 @@ import construction.thesquare.R;
 import construction.thesquare.shared.login.fragment.EmailLoginFragment;
 import construction.thesquare.shared.login.fragment.VerifyPhoneFragment;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 /**
  * Created by gherg on 12/27/2016.
@@ -47,7 +48,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     .replace(R.id.phone_verify_content, VerifyPhoneFragment.newInstance(i))
                     .commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

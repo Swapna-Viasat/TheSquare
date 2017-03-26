@@ -89,7 +89,7 @@ public class MainWorkerActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        sendToken.cancel();
+        if (sendToken != null) sendToken.cancel();
     }
 
     private void setToolbar() {
@@ -247,7 +247,8 @@ public class MainWorkerActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
-                        HandleErrors.parseFailureError(MainWorkerActivity.this, dialog, t);
+                        DialogBuilder.cancelDialog(dialog);
+                        //HandleErrors.parseFailureError(MainWorkerActivity.this, dialog, t);
                     }
                 });
     }

@@ -1,5 +1,7 @@
 package construction.thesquare.worker.myjobs;
 
+import android.content.Context;
+
 import java.util.List;
 
 import construction.thesquare.worker.jobmatches.model.Job;
@@ -12,8 +14,8 @@ public interface JobsContract {
 
     interface View {
         void displayJobs(List<Job> data);
-        void displayError(String message);
         void displayProgress(boolean show);
+        Context getContext();
     }
 
     interface UserActionsListener {

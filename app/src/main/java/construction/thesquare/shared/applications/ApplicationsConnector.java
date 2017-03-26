@@ -6,6 +6,7 @@ import android.content.Context;
 import construction.thesquare.shared.applications.model.Feedback;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.worker.jobmatches.model.Application;
@@ -56,7 +57,7 @@ public class ApplicationsConnector {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             dialog.dismiss();
         }
     }

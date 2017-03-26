@@ -6,7 +6,9 @@
 package construction.thesquare.shared.utils;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,6 +21,10 @@ import android.support.annotation.Nullable;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MediaTools {
 
@@ -32,6 +38,7 @@ public class MediaTools {
     private final static String EXTERNAL_STORAGE_AUTHORITY = "com.android.externalstorage.documents";
     private final static String DOWNLOADS_AUTHORITY = "com.android.providers.downloads.documents";
     private final static String MEDIA_AUTHORITY = "com.android.providers.media.documents";
+    private static final String IMAGE_DIRECTORY_NAME = "The Square";
 
     /**
      * Get a file path from a Uri. This will get the the path for Storage Access
@@ -155,8 +162,31 @@ public class MediaTools {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 25, byteArrayOS);
             return "data:image/jpeg;base64," + Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         return null;
+    }
+
+    public static File getOutputImageFile() {
+        // External sdcard location
+        File mediaStorageDir = new File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                MediaTools.IMAGE_DIRECTORY_NAME);
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+            TextTools.log(TAG, "Oops! Failed create " + MediaTools.IMAGE_DIRECTORY_NAME + " directory");
+            return null;
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+    }
+
+    public static Uri getOutputImageUri(Context context) {
+        ContentResolver contentResolver = context.getContentResolver();
+        ContentValues cv = new ContentValues();
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        cv.put(MediaStore.Video.Media.TITLE, timeStamp + ".jpg");
+        return contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
     }
 }

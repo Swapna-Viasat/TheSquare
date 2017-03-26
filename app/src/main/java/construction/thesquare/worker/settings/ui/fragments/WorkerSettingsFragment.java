@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -36,22 +37,22 @@ import construction.thesquare.shared.main.activity.MainActivity;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.settings.fragments.SettingsAboutFragment;
 import construction.thesquare.shared.settings.fragments.SettingsDocsFragment;
-import construction.thesquare.shared.settings.fragments.SettingsFragment;
 import construction.thesquare.shared.settings.fragments.SettingsSocialFragment;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
+import construction.thesquare.shared.utils.ShareUtils;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
-import construction.thesquare.worker.settings.ui.dialog.EditNameDialog;
 import construction.thesquare.worker.settings.ui.dialog.EditPasswordDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WorkerSettingsFragment extends SettingsFragment {
+public class WorkerSettingsFragment extends Fragment {
 
     @BindView(R.id.phoneValue)
     JosefinSansTextView phoneValueTextView;
@@ -153,12 +154,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
     }
 
     private void openShareDialog() {
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("text/plain");
-        share.putExtra(Intent.EXTRA_SUBJECT, "The Square App");
-        // TODO: add play store link
-        share.putExtra(Intent.EXTRA_TEXT, "Check out in the Play Store");
-        getActivity().startActivity(Intent.createChooser(share, "Share Via "));
+        ShareUtils.workerLink(getContext());
     }
 
     private void openLogoutDialog() {
@@ -204,7 +200,8 @@ public class WorkerSettingsFragment extends SettingsFragment {
     }
 
     private void editPostCode() {
-        EditAccountDetailsDialog.newInstance("Post code", currentWorker.zip, false,
+        EditAccountDetailsDialog.newInstance("Post code",
+                (currentWorker != null && currentWorker.zip != null) ? currentWorker.zip : "", false,
                 new EditAccountDetailsDialog.InputFinishedListener() {
                     @Override
                     public void onDone(String input, boolean onlyDigits) {
@@ -338,7 +335,7 @@ public class WorkerSettingsFragment extends SettingsFragment {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -444,7 +441,8 @@ public class WorkerSettingsFragment extends SettingsFragment {
                 address = search.getText().toString();
                 HashMap<String, Object> payload = new HashMap<>();
                 payload.put("post_code", zipCode);
-                if (address != null) payload.put("address", address.replace(", , , ,", ", ") + ", " + zipCode);
+                if (address != null)
+                    payload.put("address", address.replace(", , , ,", ", ") + ", " + zipCode);
                 patchWorker(payload);
                 dialog.dismiss();
             }

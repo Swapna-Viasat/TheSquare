@@ -13,10 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -37,7 +34,6 @@ import butterknife.OnClick;
 import construction.thesquare.FlavorSettings;
 import construction.thesquare.R;
 import construction.thesquare.employer.myjobs.LikeWorkerConnector;
-import construction.thesquare.shared.applications.model.Feedback;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.response.QuickInviteResponse;
@@ -51,6 +47,7 @@ import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -118,7 +115,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private static final int VERIFICATION_VALID = 4;    // Supplied card details are valid.
 
     private Worker worker;
-    private GoogleApiClient googleApiClient;
     private GoogleMap googleMap;
     private int workerId;
     private int jobId;
@@ -139,7 +135,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        buildGoogleApiClient();
         workerId = getArguments().getInt(KEY_WORKER_ID, 0);
         jobId = getArguments().getInt(Constants.KEY_JOB_ID, 0);
         likeWorkerConnector = new LikeWorkerConnector(this);
@@ -155,15 +150,8 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         return v;
     }
 
-    private synchronized void buildGoogleApiClient() {
-        googleApiClient = new GoogleApiClient.Builder(getContext())
-                .addApi(LocationServices.API)
-                .build();
-    }
-
     @Override
     public void onStop() {
-        googleApiClient.disconnect();
         mapView.onStop();
         super.onStop();
     }
@@ -171,7 +159,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @Override
     public void onStart() {
         super.onStart();
-        googleApiClient.connect();
         mapView.onStart();
 
         fetchWorker();
@@ -231,7 +218,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         if (!TextUtils.isEmpty(worker.dateOfBirth)) {
             if (!TextUtils.equals(worker.dateOfBirth, "******")) {
                 dateOfBirthView.setVisibility(View.VISIBLE);
-                dateOfBirthView.setText(worker.dateOfBirth);
+                dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
                 dateOfBirthStatusView.setVisibility(View.GONE);
             } else {
                 //provided
@@ -342,7 +329,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillWorkerImage() {
         if (!TextUtils.isEmpty(worker.picture)) {
-            Picasso.with(getContext()).load(worker.picture).into(avatarImage);
+            Picasso.with(getContext()).load(worker.picture).fit().centerCrop().into(avatarImage);
         } else {
             avatarImage.setImageResource(R.drawable.bob);
         }
@@ -525,7 +512,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillLocationName() {
         if (worker != null)
-            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip));
+            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip.toUpperCase()));
     }
 
     private void drawMarker() {
@@ -609,7 +596,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                 try {
                                     start = DateUtils.magicDate(job.start.split("T")[0]);
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    CrashLogHelper.logException(e);
                                 }
                                 onOffered((null != worker.firstName) ?
                                         worker.firstName : "",
@@ -618,11 +605,13 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {
                             //
                             onBooked();
+                            //
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_CANCELLED ||
                                 currentApplication.status.id == ApplicationStatus.STATUS_DENIED ||
                                 currentApplication.status.id == ApplicationStatus.STATUS_END_CONTRACT) {
                             //
                             book.setVisibility(View.GONE);
+                            //
                         }
                 } else {
                     onApplicationNull();
@@ -639,40 +628,19 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void onApplied(final int applicationId) {
         decline.setVisibility(View.VISIBLE);
         book.setVisibility(View.VISIBLE);
-        book.setText("ACCEPT");
+        book.setText("BOOK");
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-                HttpRestServiceConsumer.getBaseApiClient()
-                        .rejectApplicant(applicationId, new Feedback("n/a"))
-                        .enqueue(new Callback<ResponseObject<construction
-                                .thesquare.worker.jobmatches.model.Application>>() {
-                            @Override
-                            public void onResponse(Call<ResponseObject<construction
-                                    .thesquare.worker.jobmatches.model.Application>> call,
-                                                   Response<ResponseObject<construction
-                                                           .thesquare.worker.jobmatches
-                                                           .model.Application>> response) {
-                                if (response.isSuccessful()) {
-                                    DialogBuilder.cancelDialog(dialog);
-                                    //
-                                    // TODO: clarify what happens after declining a worker
-                                    decline.setVisibility(View.GONE);
-                                    book.setVisibility(View.GONE);
-                                    //
-                                } else {
-                                    HandleErrors.parseError(getContext(), dialog, response);
-                                }
-                            }
 
-                            @Override
-                            public void onFailure(Call<ResponseObject<construction
-                                    .thesquare.worker.jobmatches.model.Application>> call,
-                                                  Throwable t) {
-                                HandleErrors.parseFailureError(getContext(), dialog, t);
-                            }
-                        });
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container,
+                                WorkerDeclineFragment.newInstance(applicationId))
+                        .addToBackStack("")
+                        .commit();
+
+
             }
         });
         book.setOnClickListener(new View.OnClickListener() {
@@ -690,8 +658,42 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                     //
                                     DialogBuilder.cancelDialog(dialog);
                                     book.setVisibility(View.GONE);
-                                    Toast.makeText(getContext(), "Booked!", Toast.LENGTH_LONG).show();
+                                    decline.setVisibility(View.GONE);
+                                    // Toast.makeText(getContext(), "Booked!", Toast.LENGTH_LONG).show();
                                     fetchWorker();
+                                    //
+                                    final Dialog dialog1 = new Dialog(getContext());
+                                    dialog1.setCancelable(false);
+                                    dialog1.setContentView(R.layout.dialog_worker_booked);
+                                    if (null != worker) {
+                                        if (null != worker.firstName) {
+                                            ((TextView) dialog1
+                                                    .findViewById(R.id.dialog_worker_booked_title))
+                                                    .setText(
+                                                            String.format(
+                                                                    getString(R.string.employer_worker_booked),
+                                                                    worker.firstName
+                                                            )
+                                                    );
+                                            ((TextView) dialog1
+                                                    .findViewById(R.id.dialog_worker_booked_subtitle))
+                                                    .setText(
+                                                            String.format(
+                                                                    getString(R.string.employer_worker_booked_more),
+                                                                    worker.firstName
+                                                            )
+                                                    );
+                                        }
+                                    }
+                                    dialog1.findViewById(R.id.yes)
+                                            .setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialog1.dismiss();
+                                                }
+                                            });
+                                    dialog1.show();
+
                                 } else {
                                     HandleErrors.parseError(getContext(), dialog, response);
                                 }
@@ -878,7 +880,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         }
     }

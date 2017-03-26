@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
@@ -42,15 +44,18 @@ import construction.thesquare.employer.MainEmployerActivity;
 import construction.thesquare.employer.createjob.CreateRequest;
 import construction.thesquare.employer.createjob.dialog.CRNDialog;
 import construction.thesquare.employer.myjobs.fragment.JobDetailsFragment;
+import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,9 +66,26 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by Evgheni Gherghelejiu
  * on 01/11/2016
  */
-public class PreviewJobFragment extends Fragment {
+public class PreviewJobFragment extends Fragment
+        implements PaymentRedirect {
 
     public static final String TAG = "PreviewJobFragment";
+
+    @BindViews({
+            R.id.preview_occupation,
+            R.id.preview_experience,
+            R.id.preview_reporting_to,
+            R.id.preview_start_date,
+            R.id.job_details_english_level_label,
+            R.id.job_details_overtime_label,
+            R.id.preview_location,
+            R.id.preview_salary_number,
+            R.id.job_details_description_label,
+            R.id.job_details_skills_label,
+            R.id.job_details_reqs_label,
+            R.id.job_details_qualifications_label,
+            R.id.job_details_experience_types_label})
+    List<TextView> edits;
 
     @BindView(R.id.preview_logo) ImageView logo;
     @BindView(R.id.preview_occupation) JosefinSansTextView role;
@@ -73,7 +95,10 @@ public class PreviewJobFragment extends Fragment {
     @BindView(R.id.preview_salary_number) JosefinSansTextView salaryNumber;
     @BindView(R.id.preview_start_date) JosefinSansTextView startDate;
     @BindView(R.id.preview_location) JosefinSansTextView location;
+
     private CreateRequest createRequest;
+    private boolean showCancel;
+
     @BindView(R.id.job_details_description) JosefinSansTextView description;
     @BindView(R.id.job_details_skills) JosefinSansTextView skills;
     @BindView(R.id.job_details_english_level) JosefinSansTextView englishLevel;
@@ -89,9 +114,13 @@ public class PreviewJobFragment extends Fragment {
 
     private SupportMapFragment mapFragment;
 
-    public static PreviewJobFragment newInstance(CreateRequest request) {
+    private boolean fromViewMore;
+
+    public static PreviewJobFragment newInstance(CreateRequest request,
+                                                 boolean fromViewMore) {
         PreviewJobFragment fragment = new PreviewJobFragment();
         Bundle bundle = new Bundle();
+        bundle.putBoolean("from_view_more", fromViewMore);
         bundle.putSerializable("request", request);
         fragment.setArguments(bundle);
         return fragment;
@@ -115,7 +144,10 @@ public class PreviewJobFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createRequest = (CreateRequest) getArguments().getSerializable("request");
+        fromViewMore = getArguments().getBoolean("from_view_more");
         createRequest.detailsLowerPart = false;
+        showCancel = getActivity().getIntent()
+                .getBooleanExtra("show_cancel", false);
         mapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -128,7 +160,7 @@ public class PreviewJobFragment extends Fragment {
                             .newLatLngZoom(loc, 12));
                     googleMap.addMarker(new MarkerOptions().position(loc));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             }
         });
@@ -207,6 +239,21 @@ public class PreviewJobFragment extends Fragment {
         super.onResume();
         ((AppCompatActivity) getActivity())
                 .getSupportActionBar().setTitle(getString(R.string.create_job_preview));
+        if (showCancel) {
+            //
+        } else {
+            getView().findViewById(R.id.cancel).setVisibility(View.GONE);
+        }
+        if (getActivity().getIntent().getBooleanExtra("editable", true)) {
+            //
+        } else {
+            disableEditing();
+        }
+        if (fromViewMore) {
+            ((TextView) getView().findViewById(R.id.publish)).setText("Save");
+        } else {
+            //
+        }
         try {
 
             role.setText(createRequest.roleName);
@@ -248,12 +295,20 @@ public class PreviewJobFragment extends Fragment {
             switch (createRequest.budgetType) {
                 case 1:
                     salaryPeriod.setText("per hour");
+                    salaryPeriod.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     salaryPeriod.setText("per day");
+                    salaryPeriod.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     salaryPeriod.setText("per year");
+                    salaryPeriod.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                    salaryNumber.setText("£POA");
+                    salaryPeriod.setVisibility(View.GONE);
+                    break;
             }
 
             // overtime
@@ -287,7 +342,7 @@ public class PreviewJobFragment extends Fragment {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -350,7 +405,7 @@ public class PreviewJobFragment extends Fragment {
             payload.put("location_name", createRequest.locationName);
             //payload.put("cscs_required", false);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         return payload;
     }
@@ -370,64 +425,43 @@ public class PreviewJobFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.createJobCancel:
-                final Dialog abandonDialog = new Dialog(getContext());
-                abandonDialog.setCancelable(false);
-                abandonDialog.setContentView(R.layout.dialog_abandon_post);
-                abandonDialog.findViewById(R.id.abandon_dismiss)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                abandonDialog.dismiss();
-                            }
-                        });
-                abandonDialog.findViewById(R.id.abandon_abandon)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                abandonDialog.dismiss();
-                                //
-                                discard();
-                            }
-                        });
-                abandonDialog.findViewById(R.id.abandon_save)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                abandonDialog.dismiss();
-                                callApi(Constants.JOB_STATUS_DRAFT);
-                            }
-                        });
-                abandonDialog.show();
-                //
-//                AlertDialog dialog = new AlertDialog.Builder(getContext())
-//                        .setMessage("Are you sure you want to exit?")
-//                        .setNegativeButton("Save as draft", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                                callApi(Constants.JOB_STATUS_DRAFT);
-//                            }
-//                        })
-//                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                                discard();
-//                            }
-//                        })
-//                        .setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                            }
-//                        })
-//                        .setCancelable(false)
-//                        .show();
-//                TextView message = (TextView) dialog.findViewById(android.R.id.message);
-//                message.setTextColor(ContextCompat.getColor(getContext(), R.color.graySquareColor));
-//                message.setTypeface(Typeface.createFromAsset(getActivity()
-//                        .getAssets(), "fonts/JosefinSans-Italic.ttf"));
-                //
+                if (getActivity().getIntent()
+                        .getBooleanExtra("editable", true)) {
+                    if (fromViewMore) {
+                        discard();
+                    } else {
+                        final Dialog abandonDialog = new Dialog(getContext());
+                        abandonDialog.setCancelable(false);
+                        abandonDialog.setContentView(R.layout.dialog_abandon_post);
+                        abandonDialog.findViewById(R.id.abandon_dismiss)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        abandonDialog.dismiss();
+                                    }
+                                });
+                        abandonDialog.findViewById(R.id.abandon_abandon)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        abandonDialog.dismiss();
+                                        //
+                                        discard();
+                                    }
+                                });
+                        abandonDialog.findViewById(R.id.abandon_save)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        abandonDialog.dismiss();
+                                        callApi(Constants.JOB_STATUS_DRAFT);
+                                    }
+                                });
+                        abandonDialog.show();
+                    }
+                } else {
+                    discard();
+                }
                 return true;
         }
         return false;
@@ -441,12 +475,74 @@ public class PreviewJobFragment extends Fragment {
                 .putBoolean(Constants.KEY_UNFINISHED, false)
                 .remove(Constants.KEY_REQUEST)
                 .commit();
+        getActivity().finish();
         startActivity(new Intent(getActivity(), MainEmployerActivity.class));
     }
 
     @OnClick(R.id.publish)
     public void publish() {
         callApi(Constants.JOB_STATUS_LIVE);
+    }
+
+    @OnClick(R.id.cancel)
+    public void cancel() {
+        //
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_cancel_job);
+        dialog.findViewById(R.id.no)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+        dialog.findViewById(R.id.yes)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                        callApiCancel(createRequest.id);
+                    }
+                });
+        dialog.show();
+    }
+
+    private void callApiCancel(int id) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .cancelJob(id)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        //
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+
+                            getActivity()
+                                    .getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
+                                    .edit()
+                                    .putBoolean(Constants.KEY_UNFINISHED, false)
+                                    .putInt(Constants.KEY_STEP, 0)
+                                    .remove(Constants.KEY_REQUEST)
+                                    .commit();
+
+                            Intent intent = new Intent(getActivity(), MainEmployerActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            getActivity().finish();
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
     }
 
     private DialogInterface.OnClickListener gotoPaymentsListener =
@@ -456,6 +552,10 @@ public class PreviewJobFragment extends Fragment {
                     saveDraftThenSelectPlan();
                 }
             };
+
+    public void onRedirect() {
+        saveDraftThenSelectPlan();
+    }
 
     private void saveDraftThenSelectPlan() {
         try {
@@ -478,7 +578,9 @@ public class PreviewJobFragment extends Fragment {
                                             .commit();
                                     discard();
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response,
+                                    HandleErrors.parseError(getContext(), dialog,
+                                            response,
+                                            PreviewJobFragment.this,
                                             gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
@@ -497,7 +599,7 @@ public class PreviewJobFragment extends Fragment {
                     });
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             new AlertDialog.Builder(getContext())
                     .setMessage("Something went wrong!")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -540,7 +642,8 @@ public class PreviewJobFragment extends Fragment {
                                             .commit();
 
                                 } else {
-                                    HandleErrors.parseError(getContext(), dialog, response,
+                                    HandleErrors.parseError(getContext(), dialog,
+                                            response, PreviewJobFragment.this,
                                             gotoPaymentsListener, showCRNDialog);
                                 }
                             } catch (Exception e) {
@@ -559,7 +662,7 @@ public class PreviewJobFragment extends Fragment {
                     });
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             new AlertDialog.Builder(getContext())
                     .setMessage("Something went wrong!")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -572,6 +675,17 @@ public class PreviewJobFragment extends Fragment {
         }
     }
 
+    private void disableEditing() {
+        for (TextView view : edits) {
+            hideEditDrawableRight(view);
+        }
+        //getView().findViewById(R.id.cancel).setVisibility(View.GONE);
+        getView().findViewById(R.id.publish).setVisibility(View.GONE);
+    }
+
+    private void hideEditDrawableRight(TextView textView) {
+        textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+    }
 
     private final DialogInterface.OnClickListener showCRNDialog =
             new DialogInterface.OnClickListener() {

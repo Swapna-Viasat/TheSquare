@@ -16,17 +16,23 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.SMSSent;
 import construction.thesquare.shared.data.model.response.EmployerJobResponse;
 import construction.thesquare.shared.data.model.response.JobWorkersResponse;
+import construction.thesquare.shared.data.model.response.PricePlanResponse;
 import construction.thesquare.shared.data.model.response.QuickInviteResponse;
+import construction.thesquare.shared.help.HelpClickedResponse;
+import construction.thesquare.shared.help.HelpRecentAskedResponse;
 import construction.thesquare.shared.models.Company;
 import construction.thesquare.shared.models.ContactCategory;
 import construction.thesquare.shared.models.DataResponse;
 import construction.thesquare.shared.models.EnglishLevel;
 import construction.thesquare.shared.models.ExperienceQualification;
 import construction.thesquare.shared.models.ExperienceType;
+import construction.thesquare.shared.models.HelpWorkerResponse;
 import construction.thesquare.shared.models.Job;
+import construction.thesquare.shared.models.NotificationPreference;
 import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.models.RolesRequest;
+import construction.thesquare.shared.models.SingleNotificationPreference;
 import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.StaticData;
 import construction.thesquare.shared.models.StatusMessageResponse;
@@ -35,7 +41,6 @@ import construction.thesquare.shared.reviews.Review;
 import construction.thesquare.shared.reviews.ReviewResponse;
 import construction.thesquare.shared.reviews.ReviewUpdateResponse;
 import construction.thesquare.shared.reviews.ReviewsResponse;
-import construction.thesquare.shared.models.HelpWorkerResponse;
 import construction.thesquare.worker.jobmatches.model.Application;
 import construction.thesquare.worker.jobmatches.model.MatchesResponse;
 import construction.thesquare.worker.jobmatches.model.Ordering;
@@ -155,6 +160,10 @@ public interface BaseApiInterface {
     @GET("/employers/{pk}")
     Call<ResponseObject<Employer>> getEmployerProfile(@Path("pk") int id);
 
+    @GET("/employers/{pk}/")
+    Call<ResponseObject<construction.thesquare.shared.models.Employer>>
+    getFilteredEmployer(@Path("pk") int userId, @Query("fields") List<String> requiredFields);
+
     @POST("/employers/logout/")
     Call<ResponseObject<Logout>> logoutEmployer();
 
@@ -168,7 +177,7 @@ public interface BaseApiInterface {
     @GET("/employers/{pk}/workers/?like=true")
     Call<ResponseObject<List<construction.thesquare.employer.mygraftrs.model.Worker>>>
                     fetchLikedWorkers(@Path("pk") int id);
-    @GET("/employers/{pk}/workers/?status=2")
+    @GET("/employers/{pk}/workers/?status=2,4")
     Call<ResponseObject<List<construction.thesquare.employer.mygraftrs.model.Worker>>>
                     fetchBookedWorkers(@Path("pk") int id);
 
@@ -343,8 +352,14 @@ public interface BaseApiInterface {
     @DELETE("/payments/manage/cancel_all/")
     Call<ResponseBody> cancelAll();
 
+    @POST("/payments/manage/5/top_up/")
+    Call<ResponseBody> topup(@Body HashMap<String, Object> body);
+
     @POST("/payments/manage/manual_subscription/")
     Call<ResponseBody> submitAlternativePayment(@Body HashMap<String, Object> body);
+
+    @GET("/employers/0/subscriptions/")
+    Call<PricePlanResponse> fetchPaymentPlans();
 
     /**
      * Firebase token!
@@ -378,4 +393,28 @@ public interface BaseApiInterface {
      */
     @GET("/faq/")
     Call<HelpWorkerResponse> getSearchData(@Query("search") String search);
+
+    @GET("/faq/{pk}/click/")
+    Call<HelpClickedResponse> getSelectedQuestion(@Path("pk") int id);
+
+    @GET("/faq/{pk}/get_top/")
+    Call<HelpRecentAskedResponse> getTopQuestions(@Path("pk") int count);
+
+    /**
+     * Notifications preferences
+     */
+    @GET("/data/notifications/")
+    Call<ResponseObject<List<NotificationPreference>>> fetchNotificationPreferences();
+
+    @GET("/workers/notifications/")
+    Call<ResponseObject<List<SingleNotificationPreference>>> fetchWorkerNotificationPreferences();
+
+    @GET("/employers/notifications/")
+    Call<ResponseObject<List<SingleNotificationPreference>>> fetchEmployerNotificationPreferences();
+
+    @POST("/workers/toggle_notification/")
+    Call<ResponseBody> toggleWorkerNotification(@Body SingleNotificationPreference body);
+
+    @POST("/employers/toggle_notification/")
+    Call<ResponseBody> toggleEmployerNotification(@Body SingleNotificationPreference body);
 }

@@ -1,5 +1,6 @@
 package construction.thesquare.employer.createjob;
 
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +27,7 @@ public class PreviewJobActivity extends AppCompatActivity {
     private CreateRequest request;
 
     @BindView(R.id.toolbar_preview_job) Toolbar toolbar;
+    private boolean fromViewMore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,10 +37,12 @@ public class PreviewJobActivity extends AppCompatActivity {
         setToolbar(false);
 
         request = (CreateRequest) getIntent().getSerializableExtra("request");
+        fromViewMore = getIntent().getBooleanExtra("from_view_more", false);
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frame, PreviewJobFragment.newInstance(request))
+                .replace(R.id.frame, PreviewJobFragment
+                        .newInstance(request, fromViewMore))
                 .commit();
     }
 
@@ -48,6 +54,20 @@ public class PreviewJobActivity extends AppCompatActivity {
 
     private void setToolbar(boolean back) {
         setSupportActionBar(toolbar);
+        // find the title text view
+        TextView toolbarTitle;
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View child = toolbar.getChildAt(i);
+            if (child instanceof TextView) {
+                toolbarTitle = (TextView) child;
+                // set my custom font
+                Typeface typeface = Typeface.createFromAsset(getAssets(),
+                        "fonts/JosefinSans-Italic.ttf");
+                toolbarTitle.setTypeface(typeface);
+                break;
+            }
+        }
+
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setHomeAsUpIndicator(getMenuIcon());

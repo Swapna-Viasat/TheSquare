@@ -33,6 +33,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.Timesheet;
 import construction.thesquare.shared.data.model.TimesheetUnit;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.shared.view.widget.RatingView;
@@ -223,7 +224,7 @@ public class AccountFragment extends Fragment {
         try {
             meWorker = worker;
             if (!TextUtils.isEmpty(worker.picture)) {
-                Picasso.with(getContext()).load(worker.picture).into(avatar);
+                Picasso.with(getContext()).load(worker.picture).fit().centerCrop().into(avatar);
             } else {
                 avatar.setImageResource(R.drawable.bob);
             }
@@ -234,7 +235,7 @@ public class AccountFragment extends Fragment {
             reviewsCounter.setText(String.valueOf(worker.numReviews));
             switchCompat.setChecked(worker.now);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 

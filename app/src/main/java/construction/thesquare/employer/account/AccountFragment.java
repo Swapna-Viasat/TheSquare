@@ -46,6 +46,7 @@ import construction.thesquare.employer.settings.EmployerSettingsActivity;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Employer;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.MediaTools;
@@ -186,6 +187,7 @@ public class AccountFragment extends Fragment {
                         Picasso.with(getContext())
                                 .load(employer.company.logo)
                                 .fit()
+                                .centerCrop()
                                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                                 .into(logo);
                     } else {
@@ -222,7 +224,7 @@ public class AccountFragment extends Fragment {
                 reviewsCounter.setVisibility(View.GONE);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -316,7 +318,7 @@ public class AccountFragment extends Fragment {
                 startActivityForResult(takePictureIntent, LOGO_TAKE_PICTURE);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -337,7 +339,7 @@ public class AccountFragment extends Fragment {
             String file = Base64.encodeToString(bytes, Base64.NO_WRAP);
             updateLogo(file, (null != meEmployer) ? meEmployer.id : 0);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -349,7 +351,7 @@ public class AccountFragment extends Fragment {
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     prepPicture(bitmap);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             } else if (requestCode == LOGO_PICK_GALLERY) {
                 try {
@@ -357,7 +359,7 @@ public class AccountFragment extends Fragment {
                     Bitmap bitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), uri));
                     prepPicture(bitmap);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    CrashLogHelper.logException(e);
                 }
             }
         }

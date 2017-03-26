@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.net.SocketTimeoutException;
 
+import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.data.model.ResponseError;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.start.activity.StartActivity;
@@ -28,6 +29,9 @@ import retrofit2.Response;
 public class HandleErrors {
 
     private static final String TAG = "HandleErrors";
+    private static final String standardError = "Oops... \n" +
+            "Something's not right.\n" +
+            "Please try again in a few seconds.\n";
 
     public static void parseError(Context context, Dialog dialog, Response<?> response) {
         if (dialog != null)
@@ -47,14 +51,15 @@ public class HandleErrors {
                 DialogBuilder.showStandardDialog(context, "Error", responseError.getError().getMessage());
             }
 
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             TextTools.log(TAG, "Error sin parsear catch: " + response.errorBody().toString());
-            DialogBuilder.showStandardDialog(context, "Error", exception.getMessage());
+            DialogBuilder.showStandardDialog(context, "", standardError);
         }
     }
 
     public static void parseError(Context context, Dialog dialog,
                                   Response<?> response,
+                                  final PaymentRedirect payRedirect,
                                   final DialogInterface.OnClickListener gotoPaymentListener,
                                   final DialogInterface.OnClickListener listener) {
         if (dialog != null) {
@@ -77,15 +82,20 @@ public class HandleErrors {
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(),
                         onOkClickCallback);
-            } else if (responseError.getError().code == 102) {
+            } else if (responseError.getError().code == 103) {
                 //
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), listener);
             } else if (responseError.getError().code == 101) {
                 // no active subscription
-                DialogBuilder.showStandardDialog(context, "Error",
-                        responseError.getError().getMessage(), gotoPaymentListener);
+//                DialogBuilder.showStandardDialog(context, "Error",
+//                        responseError.getError().getMessage(), gotoPaymentListener);
                 //
+
+                if (null != payRedirect) {
+                    payRedirect.onRedirect();
+                }
+
             } else if (responseError.getError().getMessage().contains("We already have email address")) {
                 DialogBuilder.showStandardDialog(context, "Error",
                         responseError.getError().getMessage(), listener);
@@ -93,32 +103,33 @@ public class HandleErrors {
                 DialogBuilder.showStandardDialog(context, "Error", responseError.getError().getMessage());
             }
 
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             TextTools.log(TAG, "Response error: " + response.errorBody().toString());
-            DialogBuilder.showStandardDialog(context, "Error", exception.getMessage());
+            DialogBuilder.showStandardDialog(context, "", standardError);
         }
     }
 
     public static void parseFailureError(Context context, Dialog dialog, Throwable throwable) {
-        String error = "Unexpected Error";
-        if (dialog != null)
-            DialogBuilder.cancelDialog(dialog);
+        String error = standardError;
+        DialogBuilder.cancelDialog(dialog);
+
         if (throwable instanceof IOException)
             error = "Oops!\nThe network connection\nwas lost.";
 
         if (throwable instanceof SocketTimeoutException)
-            error = "Connection Time Out";
+            error = "Oops!\nConnection time out";
 
-        DialogBuilder.showStandardDialog(context, "Error", error);
+        DialogBuilder.showStandardDialog(context, "", error);
     }
 
     private static DialogBuilder.OnClickStandardDialog onOkClickCallback = new DialogBuilder.OnClickStandardDialog() {
         @Override
         public void onOKClickStandardDialog(Context context) {
             SharedPreferencesManager.getInstance(context).deleteToken();
-            if (SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId() > 0)
+            if (SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId() > 0) {
                 SharedPreferencesManager.getInstance(context).deleteSessionInfoWorker();
-            else if (SharedPreferencesManager.getInstance(context).loadSessionInfoEmployer().getUserId() > 0)
+                context.getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, Context.MODE_PRIVATE).edit().clear().apply();
+            } else if (SharedPreferencesManager.getInstance(context).loadSessionInfoEmployer().getUserId() > 0)
                 SharedPreferencesManager.getInstance(context).deleteSessionInfoEmployer();
 
             Intent intent = new Intent(context, StartActivity.class);

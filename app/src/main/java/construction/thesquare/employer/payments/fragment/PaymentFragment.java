@@ -13,6 +13,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.stripe.android.Stripe;
 import com.stripe.android.TokenCallback;
@@ -30,11 +32,14 @@ import construction.thesquare.employer.subscription.model.CreateCardRequest;
 import construction.thesquare.employer.subscription.model.CreateCardResponse;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
+import construction.thesquare.shared.data.model.response.PricePlanResponse;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -107,6 +112,8 @@ public class PaymentFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         //
         setUpCreditCardNumberInput(number);
         plan = getArguments().getInt(Constants.KEY_SELECTED_PLAN);
@@ -122,10 +129,49 @@ public class PaymentFragment extends Fragment {
     }
 
     private void setUpPlan(int planId, String cardToken) {
+        final Dialog resultDialog = new Dialog(getContext());
+        resultDialog.setCancelable(false);
+        resultDialog.setContentView(R.layout.dialog_payment_success);
+        resultDialog.findViewById(R.id.yes)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        resultDialog.dismiss();
+                        exit();
+                    }
+                });
+        if (draftJobInLimbo) {
+            //
+            if (voucher.getText().toString().trim().equals("")) {
+                //
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_payment_success_job));
+            } else {
+                //
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_payment_success_voucher_job));
+            }
+        } else {
+            //
+            if (voucher.getText().toString().trim().equals("")) {
+                //
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_payment_success));
+            } else {
+                //
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_payment_success_voucher));
+            }
+        }
+
+        //
         HashMap<String, Object> body = new HashMap<>();
         // body.put("stripe_id", "pk_test_iUGx8ZpCWm6GeSwBpfkdqjSQ");
         body.put("stripe_source_token", cardToken);
         body.put("payment_detail", planId);
+        if (!voucher.getText().toString().trim().equals("")) {
+            body.put("voucher_code", voucher.getText().toString());
+        }
         if (draftJobInLimbo) {
             body.put("job_id", draftJobInLimboId);
         }
@@ -140,12 +186,18 @@ public class PaymentFragment extends Fragment {
                         if (response.isSuccessful()) {
                             if (draftJobInLimbo) {
                                 //
-                                exit();
+                                resultDialog.show();
+                                //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
+                                //exit();
                                 //
                             } else {
-                                exit();
+                                //
+                                resultDialog.show();
+                                //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
+                                //exit();
                             }
                         } else {
+                            Toast.makeText(getContext(), "Something's not right.", Toast.LENGTH_LONG).show();
                             exit();
                         }
                     }
@@ -153,6 +205,7 @@ public class PaymentFragment extends Fragment {
                     @Override
                     public void onFailure(Call<ResponseObject> call, Throwable t) {
                         //
+                        Toast.makeText(getContext(), "Something's not right.", Toast.LENGTH_LONG).show();
                         exit();
                     }
                 });
@@ -160,7 +213,27 @@ public class PaymentFragment extends Fragment {
 
     @OnClick(R.id.confirm)
     public void submit() {
-         getCard();
+        if (!voucher.getText().toString().trim().equals("")) {
+            if (voucher.getText().toString().equalsIgnoreCase("SQUAREVIP")) {
+                getCard();
+            } else {
+                final Dialog resultDialog = new Dialog(getContext());
+                resultDialog.setCancelable(false);
+                resultDialog.setContentView(R.layout.dialog_payment_success);
+                resultDialog.findViewById(R.id.yes)
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                resultDialog.dismiss();
+                            }
+                        });
+                ((TextView) resultDialog.findViewById(R.id.dialog_payment_success))
+                        .setText(getString(R.string.payments_voucher_wrong));
+                resultDialog.show();
+            }
+        } else {
+            getCard();
+        }
     }
 
     private Card getCard() {
@@ -174,7 +247,7 @@ public class PaymentFragment extends Fragment {
             yearInt = Integer.valueOf(year.getText().toString());
             //
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
 
         Card card = new Card(number.getText().toString(),
@@ -202,7 +275,7 @@ public class PaymentFragment extends Fragment {
                                         dialogInterface.dismiss();
                                     }
                                 }).create().show();
-                        error.printStackTrace();
+                        CrashLogHelper.logException(error);
                     }
 
                     @Override
@@ -216,7 +289,7 @@ public class PaymentFragment extends Fragment {
                 });
             } catch (Exception e) {
                 DialogBuilder.cancelDialog(dialog);
-                e.printStackTrace();
+                CrashLogHelper.logException(e);
             }
         } else {
             TextTools.log(TAG, "couldn't validate");

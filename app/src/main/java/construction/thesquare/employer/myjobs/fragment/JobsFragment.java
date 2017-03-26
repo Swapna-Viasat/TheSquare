@@ -32,6 +32,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.response.EmployerJobResponse;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.models.Qualification;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import retrofit2.Call;
@@ -80,7 +81,7 @@ public class JobsFragment extends Fragment
             // default to live jobs
             viewPager.setCurrentItem(1);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -122,7 +123,7 @@ public class JobsFragment extends Fragment
             dialog.show(getChildFragmentManager(), "hello");
         } catch (IllegalStateException e) {
             dialog = null;
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 
@@ -303,7 +304,7 @@ public class JobsFragment extends Fragment
             //
             return result;
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
             return null;
         }
     }

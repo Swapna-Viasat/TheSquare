@@ -36,6 +36,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -122,6 +123,7 @@ public class SelectRoleFragment extends Fragment
 
     public void onResume() {
         super.onResume();
+        TextTools.log(TAG, "on resume");
 
         request = ((CreateRequest) getArguments().getSerializable("request"));
 
@@ -166,10 +168,14 @@ public class SelectRoleFragment extends Fragment
                     }
                 }
             }
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
 
+        try {
             filter.addTextChangedListener(filterTextWatcher);
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
     private void fetchRoles() {
@@ -230,7 +236,7 @@ public class SelectRoleFragment extends Fragment
                     bundle.putSerializable("request", request);
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.frame, PreviewJobFragment.newInstance(request))
+                            .replace(R.id.frame, PreviewJobFragment.newInstance(request, false))
                             .commit();
                 } else {
                     getActivity().getSupportFragmentManager()
@@ -280,7 +286,7 @@ public class SelectRoleFragment extends Fragment
             // safety first
             request.workersQuantity = selectedRole.amountWorkers;
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
         TextTools.log(TAG, "fragment");
         getActivity().getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
@@ -327,9 +333,13 @@ public class SelectRoleFragment extends Fragment
                 adapter.notifyDataSetChanged();
             } else {
                 filtered.clear();
-                for (Role o : data) {
-                    if (TextTools.contains(o.name.toLowerCase(), charSequence.toString().toLowerCase())) {
-                        filtered.add(o);
+
+                if (!data.isEmpty()) {
+                    for (Role o : data) {
+                        if (TextTools.contains(o.name.toLowerCase(),
+                                charSequence.toString().toLowerCase())) {
+                            filtered.add(o);
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -347,15 +357,15 @@ public class SelectRoleFragment extends Fragment
         filter.setText("");
     }
 
-    @OnEditorAction(R.id.filter)
-    boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (actionId == KeyEvent.KEYCODE_ENTER
-                || actionId == KeyEvent.ACTION_DOWN
-                ||  actionId== EditorInfo.IME_ACTION_DONE ) {
-            InputMethodManager imm = (InputMethodManager)
-                    v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
-        return false;
-    }
+//    @OnEditorAction(R.id.filter)
+//    boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//        if (actionId == KeyEvent.KEYCODE_ENTER
+//                || actionId == KeyEvent.ACTION_DOWN
+//                ||  actionId== EditorInfo.IME_ACTION_DONE ) {
+//            InputMethodManager imm = (InputMethodManager)
+//                    v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+//        }
+//        return false;
+//    }
 }

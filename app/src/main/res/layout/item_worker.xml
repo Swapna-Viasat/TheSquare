@@ -52,12 +52,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <construction.thesquare.shared.view.widget.RatingView
-                app:editable="no"
-                android:layout_marginTop="-10dp"
-                android:id="@+id/worker_rating"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent">
+
+                <construction.thesquare.shared.view.widget.RatingView
+                    android:id="@+id/worker_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    app:editable="no" />
+
+                <ImageView
+                    android:id="@+id/likeImage"
+                    android:padding="5dp"
+                    android:tint="@color/redSquareColor"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

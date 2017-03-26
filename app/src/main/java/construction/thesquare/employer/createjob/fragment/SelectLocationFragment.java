@@ -40,6 +40,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.ZipResponse;
 import construction.thesquare.shared.models.Employer;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.TextTools;
@@ -244,7 +245,7 @@ public class SelectLocationFragment extends Fragment
             //
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frame, PreviewJobFragment.newInstance(request))
+                    .replace(R.id.frame, PreviewJobFragment.newInstance(request, false))
                     .commit();
             //
         } else {
@@ -293,14 +294,14 @@ public class SelectLocationFragment extends Fragment
 
                         fetchMe(googleMap);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        CrashLogHelper.logException(e);
                     }
 
                     try {
                         centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
                         centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        CrashLogHelper.logException(e);
                     }
                 }
             });

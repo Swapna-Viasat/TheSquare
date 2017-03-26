@@ -13,7 +13,6 @@ import construction.thesquare.shared.models.Help;
 public interface HelpContract {
     interface View {
         void displaySearchData(List<Help> data);
-        void displayError(String message);
        }
     interface UserActionListener {
         void fetchSearch(String question);

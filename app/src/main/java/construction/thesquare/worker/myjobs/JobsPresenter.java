@@ -5,6 +5,7 @@ import android.content.Context;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Application;
+import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.worker.jobmatches.model.Job;
 import construction.thesquare.worker.myjobs.model.JobsResponse;
 import retrofit2.Call;
@@ -63,6 +64,7 @@ public class JobsPresenter implements JobsContract.UserActionsListener {
             @Override
             public void onFailure(Call<JobsResponse> call, Throwable t) {
                 mJobsView.displayProgress(false);
+                HandleErrors.parseFailureError(mJobsView.getContext(), null, t);
             }
         });
     }
