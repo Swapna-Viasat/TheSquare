@@ -1277,15 +1277,19 @@ public class SelectExperienceFragment extends Fragment
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bitmap bitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
-            passport_photo.setImageBitmap(bitmap);
-            uploadPicture(getActivity(), bitmap);
-        } else if (requestCode == REQUEST_IMAGE_SELECTION && resultCode == RESULT_OK) {
-            Uri imageUri = data.getData();
-            Bitmap imageBitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
-            passport_photo.setImageBitmap(imageBitmap);
-            uploadPicture(getActivity(), imageBitmap);
+        try {
+            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+                Bitmap bitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
+                passport_photo.setImageBitmap(bitmap);
+                uploadPicture(getActivity(), bitmap);
+            } else if (requestCode == REQUEST_IMAGE_SELECTION && resultCode == RESULT_OK) {
+                Uri imageUri = data.getData();
+                Bitmap imageBitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
+                passport_photo.setImageBitmap(imageBitmap);
+                uploadPicture(getActivity(), imageBitmap);
+            }
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
         }
     }
 
