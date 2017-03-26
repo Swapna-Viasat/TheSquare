@@ -283,7 +283,11 @@ public class SelectExperienceFragment extends Fragment
                                            Response<ResponseObject<CSCSCardWorker>> response) {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            populateCSCSDetails(response.body());
+                            try {
+                                populateCSCSDetails(response.body());
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
