@@ -18,8 +18,8 @@ android {
     signingConfigs {
         release {
             storeFile file("square_keystore")
-            storePassword "bowie1715"
-            keyAlias "baytree"
+            storePassword "adsl616net"
+            keyAlias "key0"
             keyPassword "adsl616net"
         }
     }
