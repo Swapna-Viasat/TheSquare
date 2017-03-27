@@ -3,6 +3,7 @@ package construction.thesquare.shared.settings.fragments;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -200,7 +201,12 @@ public class SettingsContactFragment extends Fragment {
                             //
                             DialogBuilder.cancelDialog(dialog);
 
-                            DialogBuilder.showStandardDialog(getContext(), getString(R.string.contact_us_thanks), getString(R.string.contact_us_thanks_message));
+                            DialogBuilder.showStandardDialog(getContext(), getString(R.string.contact_us_thanks), getString(R.string.contact_us_thanks_message),  new DialogBuilder.OnClickStandardDialog() {
+                                @Override
+                                public void onOKClickStandardDialog(Context context) {
+                                    getActivity().getSupportFragmentManager().popBackStack();
+                                }
+                            });
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
