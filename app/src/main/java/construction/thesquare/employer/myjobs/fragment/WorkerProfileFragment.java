@@ -167,19 +167,28 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void initComponents() {
         if (worker != null) {
 
-            fillWorkerImage();
-            fillWorkerName();
-            fillWorkerPosition();
-            fillCompanies();
-            fillWorkerBio();
-            fillLocationName();
-            initMap();
-            fillDateOfBirth();
-            fillNiNumber();
+            try {
+                fillWorkerImage();
+                fillWorkerName();
+                fillWorkerPosition();
+                fillCompanies();
+                fillWorkerBio();
+                fillLocationName();
+                initMap();
+                fillDateOfBirth();
+                fillNiNumber();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
 
-            if (worker.nationality != null)
+            if (worker.nationality != null) {
                 nationalityView.setText(worker.nationality.name);
-            englishLevel.setText(worker.englishLevel.name);
+            }
+            if (null != worker.englishLevel) {
+                if (null != worker.englishLevel.name) {
+                    englishLevel.setText(worker.englishLevel.name);
+                }
+            }
 
             if (!CollectionUtils.isEmpty(worker.languages)) {
                 List<String> languageNames = new ArrayList<>();
@@ -187,8 +196,17 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                 languagesView.setText(TextUtils.join(", ", languageNames));
             }
 
-            fillPassportImage();
-            likeImage.setImageResource(worker.liked ? R.drawable.ic_like_tab : R.drawable.ic_like);
+            try {
+                fillPassportImage();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+
+            try {
+                likeImage.setImageResource(worker.liked ? R.drawable.ic_like_tab : R.drawable.ic_like);
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
         }
     }
 
@@ -511,8 +529,13 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     }
 
     private void fillLocationName() {
-        if (worker != null)
-            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip.toUpperCase()));
+        if (worker != null) {
+            if (null != worker.zip) {
+                locationView
+                        .setText(getString(R.string.employer_view_worker_commute_time,
+                                worker.commuteTime, worker.zip.toUpperCase()));
+            }
+        }
     }
 
     private void drawMarker() {
@@ -578,10 +601,12 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         if (job != null) {
             if (worker != null) {
                 Application currentApplication = null;
-                if (!CollectionUtils.isEmpty(worker.applications)) {
-                    for (Application application : worker.applications) {
-                        if (application.jobId == jobId) {
-                            currentApplication = application;
+                if (null != worker.applications) {
+                    if (!CollectionUtils.isEmpty(worker.applications)) {
+                        for (Application application : worker.applications) {
+                            if (application.jobId == jobId) {
+                                currentApplication = application;
+                            }
                         }
                     }
                 }
@@ -811,7 +836,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                            Response<ResponseObject<CSCSCardWorker>> response) {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            populateCscs(response.body());
+                            try {
+                                populateCscs(response.body());
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
