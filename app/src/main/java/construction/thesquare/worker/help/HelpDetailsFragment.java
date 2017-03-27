@@ -100,6 +100,7 @@ public class HelpDetailsFragment extends Fragment  implements
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container, SettingsContactFragment.newInstance())
+                        .addToBackStack("contact")
                         .commit();
                 break;
         }
