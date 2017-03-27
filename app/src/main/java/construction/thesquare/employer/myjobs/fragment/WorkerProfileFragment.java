@@ -57,6 +57,7 @@ import construction.thesquare.shared.view.widget.StrikeJosefinSansTextView;
 import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
 import construction.thesquare.worker.signup.model.CSCSCardWorker;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.fabric.sdk.android.services.common.Crash;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -540,9 +541,15 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void drawMarker() {
         if (worker != null && worker.location != null) {
-            googleMap.clear();
-            googleMap.addMarker(new MarkerOptions().position(new LatLng(worker.location.getLatitude(), worker.location.getLongitude())));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(worker.location.getLatitude(), worker.location.getLongitude()), 12f));
+            if (null != googleMap) {
+                googleMap.clear();
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(worker.location.getLatitude(),
+                                worker.location.getLongitude())));
+                googleMap.moveCamera(CameraUpdateFactory
+                        .newLatLngZoom(new LatLng(worker.location.getLatitude(),
+                                worker.location.getLongitude()), 12f));
+            }
         }
     }
 
@@ -559,7 +566,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
                         if (response.isSuccessful()) {
                             job = response.body().getResponse();
-                            populateJobData();
+                            try {
+                                populateJobData();
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                             fetchCscsDetails(workerId);
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -584,7 +595,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
                             worker = response.body().getResponse();
-                            initComponents();
+                            try {
+                                initComponents();
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                             fetchJob();
                         } else
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -642,10 +657,13 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                     onApplicationNull();
                 }
 
-
-                fillExperienceAndQualifications();
-                fillSkills();
-                fillExperienceTypes();
+                try {
+                    fillExperienceAndQualifications();
+                    fillSkills();
+                    fillExperienceTypes();
+                } catch (Exception e) {
+                    CrashLogHelper.logException(e);
+                }
             }
         }
     }
@@ -814,7 +832,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                            Response<QuickInviteResponse> response) {
                         DialogBuilder.cancelDialog(dialog);
                         //
-                        showWorkerInviteSent(name);
+                        try {
+                            showWorkerInviteSent(name);
+                        } catch (Exception e) {
+                            CrashLogHelper.logException(e);
+                        }
                         //
                         fetchWorker();
                     }
@@ -893,7 +915,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         .load(FlavorSettings.API_URL + dataResponse.getResponse().cardPicture)
                         .fit().centerCrop().into(cscsImage);
 
-            cscsExpirationView.setText(DateUtils.getCscsExpirationDate(dataResponse.getResponse().expiryDate));
+            if (null != dataResponse.getResponse().expiryDate) {
+                cscsExpirationView.setText(DateUtils
+                        .getCscsExpirationDate(dataResponse.getResponse().expiryDate));
+            }
 
             try {
                 cscsRecordsLayout.removeAllViews();
@@ -917,8 +942,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void populateCscsStatus(int status) {
         if (status == VERIFICATION_VALID) {
             cscsStatus.setText(R.string.worker_cscs_verified);
-            if (booked) cscsContent.setVisibility(View.VISIBLE);
-            else cscsContent.setVisibility(View.GONE);
+            if (booked) {
+                cscsContent.setVisibility(View.VISIBLE);
+            } else {
+                cscsContent.setVisibility(View.GONE);
+            }
         } else {
             cscsStatus.setText(getString(R.string.worker_cscs_not_verified));
             cscsContent.setVisibility(View.GONE);
@@ -928,38 +956,51 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @OnClick(R.id.likeImage)
     void processLikeClick() {
         if (worker != null) {
-            if (worker.liked) likeWorkerConnector.unlikeWorker(getContext(), workerId);
-            else likeWorkerConnector.likeWorker(getContext(), workerId);
+            if (worker.liked) {
+                likeWorkerConnector.unlikeWorker(getContext(), workerId);
+            } else {
+                likeWorkerConnector.likeWorker(getContext(), workerId);
+            }
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mapView.onResume();
+        if (null != mapView) {
+            mapView.onResume();
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        mapView.onSaveInstanceState(outState);
+        if (null != mapView) {
+            mapView.onSaveInstanceState(outState);
+        }
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onPause() {
-        mapView.onPause();
+        if (null != mapView) {
+            mapView.onPause();
+        }
         super.onPause();
     }
 
     @Override
     public void onLowMemory() {
-        mapView.onLowMemory();
+        if (null != mapView) {
+            mapView.onLowMemory();
+        }
         super.onLowMemory();
     }
 
     @Override
     public void onDestroy() {
-        mapView.onDestroy();
+        if (null != mapView) {
+            mapView.onDestroy();
+        }
         super.onDestroy();
     }
 
@@ -971,26 +1012,38 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void populateWithMatchedItem(LinearLayout layout, String text) {
         if (TextUtils.isEmpty(text) || layout == null) return;
 
-        View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
-        ImageView status = (ImageView) item.findViewById(R.id.status);
-        StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
-        textView.setText(text);
-        textView.setStrikeVisibility(false);
-        status.setImageResource(R.drawable.red_bullet);
-        status.setPadding(2, 2, 2, 2);
-        layout.addView(item);
+        try {
+            View item = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_worker_details, null, false);
+            ImageView status = (ImageView) item.findViewById(R.id.status);
+            StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView)
+                    item.findViewById(R.id.worker_details);
+            textView.setText(text);
+            textView.setStrikeVisibility(false);
+            status.setImageResource(R.drawable.red_bullet);
+            status.setPadding(2, 2, 2, 2);
+            layout.addView(item);
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     private void populateWithUnmatchedItem(LinearLayout layout, String text) {
         if (TextUtils.isEmpty(text) || layout == null) return;
 
-        View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
-        ImageView status = (ImageView) item.findViewById(R.id.status);
-        StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
-        status.setPadding(0, 0, 0, 0);
-        textView.setText(text);
-        textView.setStrikeVisibility(true);
-        status.setImageResource(R.drawable.ic_clear_black_24dp);
-        layout.addView(item);
+        try {
+            View item = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_worker_details, null, false);
+            ImageView status = (ImageView) item.findViewById(R.id.status);
+            StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView)
+                    item.findViewById(R.id.worker_details);
+            status.setPadding(0, 0, 0, 0);
+            textView.setText(text);
+            textView.setStrikeVisibility(true);
+            status.setImageResource(R.drawable.ic_clear_black_24dp);
+            layout.addView(item);
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 }
