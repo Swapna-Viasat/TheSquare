@@ -53,7 +53,7 @@ public class CreateRequest implements Serializable {
     @SerializedName("budget_type") public int budgetType;
     public float budget;
     @SerializedName("pay_overtime") public boolean overtime;
-    @SerializedName("pay_overtime_value") public int overtimeValue;
+    @SerializedName("pay_overtime_value") public float overtimeValue;
     @SerializedName("contact_name") public String contactName;
     @SerializedName("contact_phone") public String contactPhone;
     @SerializedName("contact_phone_number") public long contactPhoneNumber;

@@ -329,7 +329,7 @@ public class SelectExperienceFragment extends Fragment
                 //
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.frame, PreviewJobFragment.newInstance(createRequest))
+                        .replace(R.id.frame, PreviewJobFragment.newInstance(createRequest, false))
                         .commit();
                 //
             } else {

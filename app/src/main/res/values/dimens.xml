@@ -16,4 +16,6 @@
     <dimen name="medium_padding">16dp</dimen>
     <dimen name="big_padding">24dp</dimen>
     <dimen name="extra_big_padding">72dp</dimen>
+
+    <dimen name="understanding_margin">16dp</dimen>
 </resources>

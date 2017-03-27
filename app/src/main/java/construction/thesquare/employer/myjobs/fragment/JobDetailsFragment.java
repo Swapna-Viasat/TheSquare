@@ -338,6 +338,7 @@ public class JobDetailsFragment extends Fragment
                             Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
                             intent.putExtra("request", result);
                             intent.putExtra("show_cancel", true);
+                            intent.putExtra("from_view_more", true);
                             intent.putExtra("editable", job.isEditable);
                             getActivity().finish();
                             startActivity(intent);

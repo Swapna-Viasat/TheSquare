@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +43,9 @@ public class SubscriptionFragment extends Fragment {
 
     @BindViews({R.id.top_basic, R.id.top_standard, R.id.top_premium})
     List<ViewGroup> top;
+
+    @BindView(R.id.first_time_user_text) TextView firstTime;
+    @BindView(R.id.understanding) LinearLayout understanding;
 
     public static SubscriptionFragment newInstance(boolean hasStripeToken,
                                                    boolean hasPlan) {
@@ -92,7 +95,7 @@ public class SubscriptionFragment extends Fragment {
     private void verifyPassword() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_verify_password);
+        dialog.setContentView(R.layout.dialog_verify_password_plan);
         dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,8 +165,24 @@ public class SubscriptionFragment extends Fragment {
         try {
             ((AppCompatActivity) getActivity()).getSupportActionBar()
                     .setDisplayHomeAsUpEnabled(true);
-            ((AppCompatActivity) getActivity()).getSupportActionBar()
-                    .setTitle("Change Plan");
+            if (!getArguments().getBoolean("has_token")) {
+                if (!getArguments().getBoolean("has_plan")) {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar()
+                            .setTitle("Choose Plan");
+                    firstTime.setVisibility(View.VISIBLE);
+                    understanding.setVisibility(View.VISIBLE);
+                } else {
+                    ((AppCompatActivity) getActivity()).getSupportActionBar()
+                            .setTitle("Change Plan");
+                    firstTime.setVisibility(View.GONE);
+                    understanding.setVisibility(View.GONE);
+                }
+            } else {
+                ((AppCompatActivity) getActivity()).getSupportActionBar()
+                        .setTitle("Change Plan");
+                firstTime.setVisibility(View.GONE);
+                understanding.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             CrashLogHelper.logException(e);
         }
@@ -245,6 +264,11 @@ public class SubscriptionFragment extends Fragment {
 
     @OnClick(R.id.understanding)
     public void understanding() {
-        Toast.makeText(getContext(), "understanding", Toast.LENGTH_LONG).show();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_employer_content,
+                        UnderstandingPlanFirstFragment.newInstance(true))
+                .addToBackStack("understanding")
+                .commit();
     }
 }

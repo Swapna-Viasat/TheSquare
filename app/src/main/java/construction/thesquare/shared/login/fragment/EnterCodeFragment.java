@@ -48,6 +48,7 @@ import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
 import construction.thesquare.worker.onboarding.OnboardingWorkerActivity;
 import construction.thesquare.worker.signup.model.WorkerVerify;
+import io.fabric.sdk.android.services.common.Crash;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -125,9 +126,15 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
     @Override
     public void onStop() {
         TextTools.log(TAG, "onStop");
-        DialogBuilder.cancelDialog(dialog);
+        if (null != dialog) {
+            DialogBuilder.cancelDialog(dialog);
+        }
         disableBroadcastReceiver();
-        handler.removeCallbacks(cancelDialogRunnable);
+        try {
+            handler.removeCallbacks(cancelDialogRunnable);
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
         super.onStop();
     }
 
@@ -442,13 +449,21 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
 
     private void enableBroadcastReceiver() {
         TextTools.log(TAG, "enableBroadcastReceiver");
-        getActivity().registerReceiver(smsInterceptor,
-                new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+        try {
+            getActivity().registerReceiver(smsInterceptor,
+                    new IntentFilter("android.provider.Telephony.SMS_RECEIVED"));
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     private void disableBroadcastReceiver() {
         TextTools.log(TAG, "disableBroadcastReceiver");
-        getActivity().unregisterReceiver(smsInterceptor);
+        try {
+            getActivity().unregisterReceiver(smsInterceptor);
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     private Runnable cancelDialogRunnable = new Runnable() {

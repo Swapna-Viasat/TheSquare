@@ -53,11 +53,11 @@ import construction.thesquare.employer.createjob.dialog.CRNDialog;
 import construction.thesquare.employer.createjob.dialog.JobDetailsDialog;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
 import construction.thesquare.employer.myjobs.fragment.JobDetailsFragment;
-import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.models.Role;
+import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
@@ -881,7 +881,14 @@ public class SelectDetailsFragment extends Fragment
     }
 
     private void selectTime() {
-        Date random6AMdate = new Date(2017, 1, 1, 6, 0);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2017);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 6);
+        cal.set(Calendar.MINUTE, 0);
+        Date random6AMdate = cal.getTime();
+
         com.jzxiang.pickerview.TimePickerDialog timePickerDialog
                 = new com.jzxiang.pickerview.TimePickerDialog
                 .Builder()

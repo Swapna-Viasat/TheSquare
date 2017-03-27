@@ -380,4 +380,14 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="UnderstandingHeader">
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+    </style>
+
+    <style name="UnderstandingBody">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

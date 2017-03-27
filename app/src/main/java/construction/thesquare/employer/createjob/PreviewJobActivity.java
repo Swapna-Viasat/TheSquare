@@ -27,6 +27,7 @@ public class PreviewJobActivity extends AppCompatActivity {
     private CreateRequest request;
 
     @BindView(R.id.toolbar_preview_job) Toolbar toolbar;
+    private boolean fromViewMore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,12 @@ public class PreviewJobActivity extends AppCompatActivity {
         setToolbar(false);
 
         request = (CreateRequest) getIntent().getSerializableExtra("request");
+        fromViewMore = getIntent().getBooleanExtra("from_view_more", false);
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame, PreviewJobFragment
-                        .newInstance(request))
+                        .newInstance(request, fromViewMore))
                 .commit();
     }
 

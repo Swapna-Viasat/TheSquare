@@ -114,9 +114,13 @@ public class PreviewJobFragment extends Fragment
 
     private SupportMapFragment mapFragment;
 
-    public static PreviewJobFragment newInstance(CreateRequest request) {
+    private boolean fromViewMore;
+
+    public static PreviewJobFragment newInstance(CreateRequest request,
+                                                 boolean fromViewMore) {
         PreviewJobFragment fragment = new PreviewJobFragment();
         Bundle bundle = new Bundle();
+        bundle.putBoolean("from_view_more", fromViewMore);
         bundle.putSerializable("request", request);
         fragment.setArguments(bundle);
         return fragment;
@@ -140,6 +144,7 @@ public class PreviewJobFragment extends Fragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createRequest = (CreateRequest) getArguments().getSerializable("request");
+        fromViewMore = getArguments().getBoolean("from_view_more");
         createRequest.detailsLowerPart = false;
         showCancel = getActivity().getIntent()
                 .getBooleanExtra("show_cancel", false);
@@ -243,6 +248,11 @@ public class PreviewJobFragment extends Fragment
             //
         } else {
             disableEditing();
+        }
+        if (fromViewMore) {
+            ((TextView) getView().findViewById(R.id.publish)).setText("Save");
+        } else {
+            //
         }
         try {
 
@@ -417,34 +427,38 @@ public class PreviewJobFragment extends Fragment
             case R.id.createJobCancel:
                 if (getActivity().getIntent()
                         .getBooleanExtra("editable", true)) {
-                    final Dialog abandonDialog = new Dialog(getContext());
-                    abandonDialog.setCancelable(false);
-                    abandonDialog.setContentView(R.layout.dialog_abandon_post);
-                    abandonDialog.findViewById(R.id.abandon_dismiss)
-                            .setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    abandonDialog.dismiss();
-                                }
-                            });
-                    abandonDialog.findViewById(R.id.abandon_abandon)
-                            .setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    abandonDialog.dismiss();
-                                    //
-                                    discard();
-                                }
-                            });
-                    abandonDialog.findViewById(R.id.abandon_save)
-                            .setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    abandonDialog.dismiss();
-                                    callApi(Constants.JOB_STATUS_DRAFT);
-                                }
-                            });
-                    abandonDialog.show();
+                    if (fromViewMore) {
+                        discard();
+                    } else {
+                        final Dialog abandonDialog = new Dialog(getContext());
+                        abandonDialog.setCancelable(false);
+                        abandonDialog.setContentView(R.layout.dialog_abandon_post);
+                        abandonDialog.findViewById(R.id.abandon_dismiss)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        abandonDialog.dismiss();
+                                    }
+                                });
+                        abandonDialog.findViewById(R.id.abandon_abandon)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        abandonDialog.dismiss();
+                                        //
+                                        discard();
+                                    }
+                                });
+                        abandonDialog.findViewById(R.id.abandon_save)
+                                .setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        abandonDialog.dismiss();
+                                        callApi(Constants.JOB_STATUS_DRAFT);
+                                    }
+                                });
+                        abandonDialog.show();
+                    }
                 } else {
                     discard();
                 }

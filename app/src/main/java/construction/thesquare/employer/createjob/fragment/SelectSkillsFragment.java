@@ -250,7 +250,7 @@ public class SelectSkillsFragment extends Fragment
             bundle.putSerializable("request", request);
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frame, PreviewJobFragment.newInstance(request))
+                    .replace(R.id.frame, PreviewJobFragment.newInstance(request, false))
                     .commit();
             //
         } else {

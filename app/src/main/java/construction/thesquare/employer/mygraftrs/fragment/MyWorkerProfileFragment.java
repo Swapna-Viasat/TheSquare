@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -482,7 +483,7 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
                             for (CSCSCardWorker.CscsRecord record : cscsRecordList) {
                                 View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_cscs_record, null, false);
                                 TextView cscsText = (TextView) itemView.findViewById(R.id.recordText);
-                                cscsText.setTextColor(getResources().getColor(R.color.blackSquareColor));
+                                cscsText.setTextColor(ContextCompat.getColor(getContext(), R.color.blackSquareColor));
                                 cscsText.setText(record.name + " - " + record.category.name);
                                 cscsRecordsLayout.addView(itemView);
                             }

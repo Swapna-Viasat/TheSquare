@@ -162,7 +162,7 @@ public class PricePlanFragment extends Fragment {
     private void displayCurrentPlan(String planName) {
         try {
             if (!planName.equalsIgnoreCase("NONE")) {
-                changePlan.setText("Change your plan");
+                changePlan.setText("Change my plan");
             }
             plan.setText(planName);
         } catch (IllegalStateException e) {
@@ -334,7 +334,8 @@ public class PricePlanFragment extends Fragment {
         } else {
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_employer_content, TopUpFragment.newInstance(currentPlan))
+                    .replace(R.id.main_employer_content,
+                            TopUpFragment.newInstance(currentPlan))
                     .addToBackStack("")
                     .commit();
         }
@@ -344,7 +345,18 @@ public class PricePlanFragment extends Fragment {
     public void alternative() {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_employer_content, AlternativePayFragment.newInstance())
+                .replace(R.id.main_employer_content,
+                        AlternativePayFragment.newInstance())
+                .addToBackStack("")
+                .commit();
+    }
+
+    @OnClick(R.id.understand)
+    public void understand() {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_employer_content,
+                        UnderstandingPlanFragment.newInstance())
                 .addToBackStack("")
                 .commit();
     }

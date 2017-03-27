@@ -47,8 +47,6 @@ public class SelectEmployerInfoFragment extends Fragment {
     TextInputLayout lastNameInput;
     @BindView(R.id.title_input)
     TextInputLayout titleInput;
-    @BindView(R.id.email_input)
-    TextInputLayout emailInput;
     @BindView(R.id.password_input)
     TextInputLayout passwordInput;
     @BindView(R.id.password2_input)
@@ -105,7 +103,6 @@ public class SelectEmployerInfoFragment extends Fragment {
 
         HashMap<String, Object> request = new HashMap();
         request.put("password", passwordInput.getEditText().getText().toString());
-        request.put("email", emailInput.getEditText().getText().toString());
         request.put("job_title", titleInput.getEditText().getText().toString());
         request.put("crn", companyNumberInput.getEditText().getText().toString());
         request.put("first_name", firstNameInput.getEditText().getText().toString());
@@ -153,9 +150,6 @@ public class SelectEmployerInfoFragment extends Fragment {
         } else if (TextUtils.isEmpty(lastNameInput.getEditText().getText().toString())) {
             lastNameInput.setError(getString(R.string.validate_last));
             result = false;
-        } else if (TextUtils.isEmpty(emailInput.getEditText().getText().toString())) {
-            emailInput.setError(getString(R.string.validate_email));
-            result = false;
         } else if (
                 (TextUtils.isEmpty(passwordInput.getEditText().getText().toString()))) {
             passwordInput.setError(getString(R.string.validate_password));
@@ -187,7 +181,6 @@ public class SelectEmployerInfoFragment extends Fragment {
             try {
                 TextTools.resetInputLayout(password2Input);
                 TextTools.resetInputLayout(passwordInput);
-                TextTools.resetInputLayout(emailInput);
                 TextTools.resetInputLayout(lastNameInput);
                 TextTools.resetInputLayout(firstNameInput);
                 TextTools.resetInputLayout(titleInput);
