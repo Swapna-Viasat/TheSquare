@@ -244,31 +244,79 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
         if (worker != null) {
             experienceYears = worker.yearsExperience;
 
-            fillWorkerImage();
-            fillWorkerName();
-            fillWorkerPosition();
-            fillExperienceAndQualifications();
-            fillSkills();
-            fillCompanies();
-            fillWorkerBio();
-            fillLocationName();
-            initMap();
-            fillNiNumber();
-            fillExperienceTypes();
-            if (worker.nationality != null)
+            try {
+                fillWorkerImage();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillWorkerName();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillWorkerPosition();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillExperienceAndQualifications();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillSkills();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillCompanies();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillWorkerBio();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillLocationName();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                initMap();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillNiNumber();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            try {
+                fillExperienceTypes();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+            if (worker.nationality != null) {
                 nationalityView.setText(worker.nationality.name);
+            }
             dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
             workerEmail.setText(worker.email);
             workerPhone.setText(SharedPreferencesManager.getInstance(getContext()).loadSessionInfoWorker().getPhoneNumber());
             englishLevel.setText(worker.englishLevel.name);
-            if (worker.passportUpload != null)
+            if (worker.passportUpload != null) {
                 Picasso.with(getContext())
                         .load(worker.passportUpload)
                         .fit().centerCrop().into(passportImage);
+            }
 
             if (!CollectionUtils.isEmpty(worker.languages)) {
                 List<String> languageNames = new ArrayList<>();
-                for (Language l : worker.languages) languageNames.add(l.name);
+                for (Language l : worker.languages) {
+                    languageNames.add(l.name);
+                }
                 languagesView.setText(TextUtils.join(", ", languageNames));
             }
         }
@@ -378,7 +426,11 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     }
 
     private void fillWorkerBio() {
-        if (!TextUtils.isEmpty(worker.bio)) bioView.setText(worker.bio);
+        if (null != worker.bio) {
+            if (!TextUtils.isEmpty(worker.bio)) {
+                bioView.setText(worker.bio);
+            }
+        }
     }
 
     private void initMap() {
@@ -429,7 +481,11 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                         if (response.isSuccessful()) {
                             worker = response.body().getResponse();
                             if (worker != null) fetchCscsDetails(worker.id);
-                            initComponents();
+                            try {
+                                initComponents();
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                         } else
                             HandleErrors.parseError(getContext(), dialog, response);
                     }
@@ -451,7 +507,11 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                                            Response<ResponseObject<CSCSCardWorker>> response) {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            populateCscs(response.body());
+                            try {
+                                populateCscs(response.body());
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
