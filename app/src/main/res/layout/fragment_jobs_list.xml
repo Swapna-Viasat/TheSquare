@@ -30,7 +30,7 @@
         <View
             android:layout_marginTop="8dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="24dp"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/ic_no_jobs"
             android:layout_width="140dp"
             android:layout_height="120dp"/>
