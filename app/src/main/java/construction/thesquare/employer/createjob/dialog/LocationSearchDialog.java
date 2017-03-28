@@ -79,7 +79,8 @@ public class LocationSearchDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         //
         // have to make this call otherwise shows blank white space in the title area
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if (getDialog() != null && getDialog().getWindow() != null)
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         // 
         adapter = new PlacesAutocompleteAdapter(context, client);
         adapter.setListener(listener, this);

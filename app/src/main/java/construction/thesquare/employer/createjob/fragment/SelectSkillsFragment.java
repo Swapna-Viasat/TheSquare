@@ -190,7 +190,8 @@ public class SelectSkillsFragment extends Fragment
             fetchRoleSkills(request.role);
         } else {
             request = (CreateRequest) getArguments().getSerializable("request");
-            fetchRoleSkills(request.role);
+            if (request != null)
+                fetchRoleSkills(request.role);
         }
 
     }

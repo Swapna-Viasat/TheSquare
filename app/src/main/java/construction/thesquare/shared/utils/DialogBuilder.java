@@ -44,7 +44,8 @@ DialogBuilder {
     public static Dialog showCustomDialog(Context context) {
         Dialog dialog = ProgressDialog.show(context, null, null);
         dialog.setContentView(R.layout.loader);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         return dialog;
     }
 
@@ -204,7 +205,7 @@ DialogBuilder {
             AlertDialog alert = builder.create();
             alert.show();
             TextView tvMessage = (TextView) alert.findViewById(android.R.id.message);
-            tvMessage.setTypeface(typeFaceSemiBold);
+            if (tvMessage != null) tvMessage.setTypeface(typeFaceSemiBold);
 
             TextView tvTitle = (TextView) alert.findViewById(android.R.id.title);
             if (tvTitle != null)

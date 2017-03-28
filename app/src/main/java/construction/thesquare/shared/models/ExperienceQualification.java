@@ -1,5 +1,7 @@
 package construction.thesquare.shared.models;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -10,7 +12,9 @@ import java.io.Serializable;
 
 public class ExperienceQualification implements Serializable {
     public int id;
+    @Nullable
     public String name;
+    @Nullable
     public String description;
     @SerializedName("construction_specific") public boolean constructionSpecific;
     @SerializedName("dedicated_model") public boolean dedicatedModel;

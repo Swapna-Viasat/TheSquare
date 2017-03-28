@@ -72,6 +72,7 @@ public class CreateJobDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         //
         // have to make this call otherwise shows blank white space in the title area
+        if (getDialog() != null && getDialog().getWindow() != null)
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         //
         selectNew.setOnCheckedChangeListener(new
@@ -81,7 +82,8 @@ public class CreateJobDialog extends DialogFragment {
 
         try {
             data.clear();
-            data.addAll((List<Job>) getArguments().getSerializable(Constants.KEY_DATA));
+            if (getArguments().getSerializable(Constants.KEY_DATA) != null)
+                data.addAll((List<Job>) getArguments().getSerializable(Constants.KEY_DATA));
         } catch (Exception e) {
             CrashLogHelper.logException(e);
         }

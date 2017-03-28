@@ -86,7 +86,8 @@ public class PlacesAutocompleteAdapter extends ArrayAdapter<AutocompletePredicti
         final AutocompletePrediction item = getItem(position);
         TextView title = (TextView) convertView.findViewById(R.id.title);
 
-        title.setText(item.getFullText(STYLE_NORMAL));
+        if (item != null)
+            title.setText(item.getFullText(STYLE_NORMAL));
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

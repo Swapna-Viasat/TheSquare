@@ -28,6 +28,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Trade;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -263,15 +264,16 @@ public class SelectTradeFragment extends Fragment
     private void populateData() {
         if (currentWorker != null) {
             selectedTrades.clear();
-            selectedTrades.addAll(currentWorker.trades);
+            if (!CollectionUtils.isEmpty(currentWorker.trades)) {
+                selectedTrades.addAll(currentWorker.trades);
 
-            for (Trade trade : trades) {
-                for (Trade selectedTrade : selectedTrades) {
-                    if (trade.id == selectedTrade.id)
-                        trade.selected = true;
+                for (Trade trade : trades) {
+                    for (Trade selectedTrade : selectedTrades) {
+                        if (trade.id == selectedTrade.id)
+                            trade.selected = true;
+                    }
                 }
             }
-
             adapter.notifyDataSetChanged();
         }
     }

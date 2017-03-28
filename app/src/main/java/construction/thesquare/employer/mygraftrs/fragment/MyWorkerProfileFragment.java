@@ -61,48 +61,87 @@ import retrofit2.Response;
 
 public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConnector.Callback {
 
-    @BindView(R.id.worker_view_profile_avatar) CircleImageView avatarImage;
-    @BindView(R.id.worker_view_profile_name) TextView nameView;
-    @BindView(R.id.worker_view_profile_position) TextView positionView;
-    @BindView(R.id.worker_view_profile_experience) TextView experienceYearsView;
-    @BindView(R.id.worker_view_profile_rating) RatingView ratingView;
-    @BindView(R.id.worker_profile_bio_text) TextView bioView;
-    @BindView(R.id.worker_details_bullet_list_experience) LinearLayout experienceView;
-    @BindView(R.id.worker_details_bullet_list_requirements) LinearLayout requirementsView;
-    @BindView(R.id.worker_details_bullet_list_skills) LinearLayout skillsView;
-    @BindView(R.id.worker_details_bullet_list_companies) TextView companiesView;
-    @BindView(R.id.worker_details_preferred_location) TextView locationView;
-    @BindView(R.id.mapView) MapView mapView;
+    @BindView(R.id.worker_view_profile_avatar)
+    CircleImageView avatarImage;
+    @BindView(R.id.worker_view_profile_name)
+    TextView nameView;
+    @BindView(R.id.worker_view_profile_position)
+    TextView positionView;
+    @BindView(R.id.worker_view_profile_experience)
+    TextView experienceYearsView;
+    @BindView(R.id.worker_view_profile_rating)
+    RatingView ratingView;
+    @BindView(R.id.worker_profile_bio_text)
+    TextView bioView;
+    @BindView(R.id.worker_details_bullet_list_experience)
+    LinearLayout experienceView;
+    @BindView(R.id.worker_details_bullet_list_requirements)
+    LinearLayout requirementsView;
+    @BindView(R.id.worker_details_bullet_list_skills)
+    LinearLayout skillsView;
+    @BindView(R.id.worker_details_bullet_list_companies)
+    TextView companiesView;
+    @BindView(R.id.worker_details_preferred_location)
+    TextView locationView;
+    @BindView(R.id.mapView)
+    MapView mapView;
     @BindViews({R.id.cscs1, R.id.cscs2, R.id.cscs3, R.id.cscs4,
-            R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8}) List<TextView> cscsNumbers;
-    @BindView(R.id.workerImage) ImageView cscsImage;
-    @BindView(R.id.cscs_status) TextView cscsStatus;
-    @BindView(R.id.cscsContent) View cscsContent;
+            R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8})
+    List<TextView> cscsNumbers;
+    @BindView(R.id.workerImage)
+    ImageView cscsImage;
+    @BindView(R.id.cscs_status)
+    TextView cscsStatus;
+    @BindView(R.id.cscsContent)
+    View cscsContent;
     @BindViews({R.id.nis1, R.id.nis2, R.id.nis3, R.id.nis4,
             R.id.nis5, R.id.nis6, R.id.nis7, R.id.nis8,
-            R.id.nis9}) List<TextView> nisNumbers;
-    @BindView(R.id.worker_profile_nationality_value) TextView nationalityView;
-    @BindView(R.id.worker_profile_birthday_value) TextView dateOfBirthView;
-    @BindView(R.id.worker_profile_languages_value) TextView languagesView;
-    @BindView(R.id.worker_profile_passport_value) ImageView passportImage;
-    @BindView(R.id.cscs_expires_value) TextView cscsExpirationView;
-    @BindView(R.id.cscsRecordsLayout) LinearLayout cscsRecordsLayout;
-    @BindView(R.id.worker_profile_email) TextView workerEmail;
-    @BindView(R.id.worker_profile_phone) TextView workerPhone;
-    @BindView(R.id.worker_profile_english_value) TextView englishLevel;
-    @BindView(R.id.worker_details_bullet_list_experience_type) LinearLayout experienceTypesView;
-    @BindView(R.id.book) JosefinSansTextView book;
-    @BindView(R.id.decline) JosefinSansTextView decline;
-    @BindView(R.id.bookedBanner) View bookedBanner;
-    @BindView(R.id.offered_hint_view) ViewGroup offeredHint;
-    @BindView(R.id.offered_hint_text) TextView offeredHintText;
-    @BindView(R.id.contactWorkerLayout) View contactWorkerLayout;
-    @BindView(R.id.nis_status) TextView nisStatus;
-    @BindView(R.id.nisNumberLayout) View nisNumberLayout;
-    @BindView(R.id.date_of_birth_status) TextView dateOfBirthStatusView;
-    @BindView(R.id.passport_status) TextView passportStatus;
-    @BindView(R.id.likeImage) ImageView likeImage;
-    @BindView(R.id.workerBioLayout) View workerBioLayout;
+            R.id.nis9})
+    List<TextView> nisNumbers;
+    @BindView(R.id.worker_profile_nationality_value)
+    TextView nationalityView;
+    @BindView(R.id.worker_profile_birthday_value)
+    TextView dateOfBirthView;
+    @BindView(R.id.worker_profile_languages_value)
+    TextView languagesView;
+    @BindView(R.id.worker_profile_passport_value)
+    ImageView passportImage;
+    @BindView(R.id.cscs_expires_value)
+    TextView cscsExpirationView;
+    @BindView(R.id.cscsRecordsLayout)
+    LinearLayout cscsRecordsLayout;
+    @BindView(R.id.worker_profile_email)
+    TextView workerEmail;
+    @BindView(R.id.worker_profile_phone)
+    TextView workerPhone;
+    @BindView(R.id.worker_profile_english_value)
+    TextView englishLevel;
+    @BindView(R.id.worker_details_bullet_list_experience_type)
+    LinearLayout experienceTypesView;
+    @BindView(R.id.book)
+    JosefinSansTextView book;
+    @BindView(R.id.decline)
+    JosefinSansTextView decline;
+    @BindView(R.id.bookedBanner)
+    View bookedBanner;
+    @BindView(R.id.offered_hint_view)
+    ViewGroup offeredHint;
+    @BindView(R.id.offered_hint_text)
+    TextView offeredHintText;
+    @BindView(R.id.contactWorkerLayout)
+    View contactWorkerLayout;
+    @BindView(R.id.nis_status)
+    TextView nisStatus;
+    @BindView(R.id.nisNumberLayout)
+    View nisNumberLayout;
+    @BindView(R.id.date_of_birth_status)
+    TextView dateOfBirthStatusView;
+    @BindView(R.id.passport_status)
+    TextView passportStatus;
+    @BindView(R.id.likeImage)
+    ImageView likeImage;
+    @BindView(R.id.workerBioLayout)
+    View workerBioLayout;
 
     private static final String KEY_WORKER_ID = "KEY_WORKER_ID";
 
@@ -160,17 +199,27 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
 
             fillWorkerImage();
             fillWorkerName();
-            fillWorkerPosition();
-            fillCompanies();
             fillWorkerBio();
-            fillLocationName();
-            initMap();
-            fillDateOfBirth();
-            fillNiNumber();
+            try {
+                fillWorkerPosition();
+                fillCompanies();
+                fillLocationName();
+                initMap();
+                fillDateOfBirth();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+
+            try {
+                fillNiNumber();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
 
             if (worker.nationality != null)
                 nationalityView.setText(worker.nationality.name);
-            englishLevel.setText(worker.englishLevel.name);
+            if (worker.englishLevel != null)
+                englishLevel.setText(worker.englishLevel.name);
 
             if (!CollectionUtils.isEmpty(worker.languages)) {
                 List<String> languageNames = new ArrayList<>();
@@ -179,7 +228,7 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
             }
 
             contactWorkerLayout.setVisibility(View.VISIBLE);
-            workerEmail.setText(worker.email);
+            if (worker.email != null) workerEmail.setText(worker.email);
             if (!CollectionUtils.isEmpty(worker.devices)) {
                 workerPhone.setText(worker.devices.get(0).phoneNumber);
             }
@@ -339,8 +388,10 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
 
     private void fillCompanies() {
         String text = "";
-        for (Company preference : worker.companies) {
-            text += "• " + preference.name + "\n";
+        if (!CollectionUtils.isEmpty(worker.companies)) {
+            for (Company preference : worker.companies) {
+                text += "• " + preference.name + "\n";
+            }
         }
         companiesView.setText(text);
     }
@@ -371,8 +422,9 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
     }
 
     private void fillLocationName() {
-        if (worker != null)
-            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip));
+        if (worker != null && !TextUtils.isEmpty(worker.zip))
+            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime,
+                    worker.zip.toUpperCase(Locale.UK)));
     }
 
     private void drawMarker() {

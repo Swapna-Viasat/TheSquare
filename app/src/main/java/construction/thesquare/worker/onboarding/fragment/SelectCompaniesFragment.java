@@ -28,6 +28,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Company;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -237,7 +238,8 @@ public class SelectCompaniesFragment extends Fragment
             } else {
                 filtered.clear();
                 for (Company o : data) {
-                    if (o.name.toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                    if (o != null && o.name != null
+                            && o.name.toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filtered.add(o);
                     }
                 }
@@ -286,7 +288,8 @@ public class SelectCompaniesFragment extends Fragment
     private void populateData() {
         if (currentWorker != null) {
             selected.clear();
-            selected.addAll(currentWorker.companies);
+            if (!CollectionUtils.isEmpty(currentWorker.companies))
+                selected.addAll(currentWorker.companies);
 
             for (Company company : filtered) {
                 for (Company selectedCompany : selected) {
