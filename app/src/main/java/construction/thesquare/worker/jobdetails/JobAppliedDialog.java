@@ -52,15 +52,18 @@ public class JobAppliedDialog extends DialogFragment implements View.OnClickList
     @Override
     public void onResume() {
         Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(android.R.color.white);
-        ViewGroup.LayoutParams params = window.getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes((android.view.WindowManager.LayoutParams) params);
+        if (window != null) {
+            window.setBackgroundDrawableResource(android.R.color.white);
+            ViewGroup.LayoutParams params = window.getAttributes();
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes((android.view.WindowManager.LayoutParams) params);
+        }
         super.onResume();
     }
 
     private void setupViews(View view) {
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if (getDialog() != null && getDialog().getWindow() != null)
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         titleTextView = (TextView) view.findViewById(R.id.titleText);
         view.findViewById(R.id.btnClose).setOnClickListener(this);
         view.findViewById(R.id.closeImage).setOnClickListener(this);

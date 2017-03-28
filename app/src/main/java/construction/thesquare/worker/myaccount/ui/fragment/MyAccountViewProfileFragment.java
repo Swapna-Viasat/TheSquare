@@ -305,7 +305,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
             dateOfBirthView.setText(DateUtils.getParsedBirthDate(worker.dateOfBirth));
             workerEmail.setText(worker.email);
             workerPhone.setText(SharedPreferencesManager.getInstance(getContext()).loadSessionInfoWorker().getPhoneNumber());
-            englishLevel.setText(worker.englishLevel.name);
+            if (worker.englishLevel != null) englishLevel.setText(worker.englishLevel.name);
             if (worker.passportUpload != null) {
                 Picasso.with(getContext())
                         .load(worker.passportUpload)
@@ -389,12 +389,13 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     private void fillExperienceAndQualifications() {
         String qualificationsText = "";
         String requirementsText = "";
-
-        for (Qualification qualification : worker.qualifications) {
-            if (qualification.onExperience) {
-                requirementsText += "• " + qualification.name + "\n";
-            } else
-                qualificationsText += "• " + qualification.name + "\n";
+        if (!CollectionUtils.isEmpty(worker.qualifications)) {
+            for (Qualification qualification : worker.qualifications) {
+                if (qualification.onExperience) {
+                    requirementsText += "• " + qualification.name + "\n";
+                } else
+                    qualificationsText += "• " + qualification.name + "\n";
+            }
         }
         experienceView.setText(qualificationsText);
         requirementsView.setText(requirementsText);
@@ -402,16 +403,20 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     private void fillSkills() {
         String text = "";
-        for (Skill preference : worker.skills) {
-            text += "• " + preference.name + "\n";
+        if (!CollectionUtils.isEmpty(worker.qualifications)) {
+            for (Skill preference : worker.skills) {
+                text += "• " + preference.name + "\n";
+            }
         }
         skillsView.setText(text);
     }
 
     private void fillCompanies() {
         String text = "";
-        for (Company preference : worker.companies) {
-            text += "• " + preference.name + "\n";
+        if (!CollectionUtils.isEmpty(worker.companies)) {
+            for (Company preference : worker.companies) {
+                text += "• " + preference.name + "\n";
+            }
         }
         companiesView.setText(text);
     }
@@ -452,7 +457,7 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     }
 
     private void fillLocationName() {
-        if (worker != null) {
+        if (worker != null && !TextUtils.isEmpty(worker.zip)) {
             commuteTimeView.setText(getString(R.string.worker_commute_time, worker.commuteTime, worker.zip.toUpperCase()));
         }
     }

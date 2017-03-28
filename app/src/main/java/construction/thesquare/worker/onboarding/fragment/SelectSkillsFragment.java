@@ -31,6 +31,7 @@ import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.models.RolesRequest;
 import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -301,12 +302,14 @@ public class SelectSkillsFragment extends Fragment
     private void populateData() {
         if (currentWorker != null) {
             selected.clear();
-            selected.addAll(currentWorker.skills);
+            if (!CollectionUtils.isEmpty(currentWorker.skills)) {
+                selected.addAll(currentWorker.skills);
 
-            for (Skill skill : filtered) {
-                for (Skill selectedSkill : selected) {
-                    if (skill.id == selectedSkill.id)
-                        skill.selected = true;
+                for (Skill skill : filtered) {
+                    for (Skill selectedSkill : selected) {
+                        if (skill.id == selectedSkill.id)
+                            skill.selected = true;
+                    }
                 }
             }
 

@@ -60,7 +60,6 @@ import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by maizaga on 27/12/16.
- * 
  */
 public class AccountFragment extends Fragment {
 
@@ -71,18 +70,28 @@ public class AccountFragment extends Fragment {
     static final int REQUEST_PERMISSIONS = 335;
     static final int REQUEST_PERMISSION_READ_STORAGE = 336;
 
-    @BindView(R.id.employer_account_logo) ImageView logo;
-    @BindView(R.id.employer_account_name) TextView name;
-    @BindView(R.id.employer_account_owner) TextView owner;
-    @BindView(R.id.employer_account_rating) RatingView rating;
+    @BindView(R.id.employer_account_logo)
+    ImageView logo;
+    @BindView(R.id.employer_account_name)
+    TextView name;
+    @BindView(R.id.employer_account_owner)
+    TextView owner;
+    @BindView(R.id.employer_account_rating)
+    RatingView rating;
     // @BindView(R.id.employer_company_description) TextView description;
-    @BindView(R.id.employer_account_reviews_counter) TextView reviewsCounter;
-    @BindView(R.id.employer_account_task_counter) TextView myTasksCounter;
+    @BindView(R.id.employer_account_reviews_counter)
+    TextView reviewsCounter;
+    @BindView(R.id.employer_account_task_counter)
+    TextView myTasksCounter;
 
-    @BindView(R.id.employer_account_my_tasks_layout) RelativeLayout myTasksLayout;
-    @BindView(R.id.employer_account_invoices_layout) RelativeLayout invoicesLayout;
-    @BindView(R.id.employer_account_leaderboards_layout) RelativeLayout leaderBoardsLayout;
-    @BindView(R.id.employer_account_user_management) RelativeLayout accountUserManagementLayout;
+    @BindView(R.id.employer_account_my_tasks_layout)
+    RelativeLayout myTasksLayout;
+    @BindView(R.id.employer_account_invoices_layout)
+    RelativeLayout invoicesLayout;
+    @BindView(R.id.employer_account_leaderboards_layout)
+    RelativeLayout leaderBoardsLayout;
+    @BindView(R.id.employer_account_user_management)
+    RelativeLayout accountUserManagementLayout;
 
     private Employer meEmployer;
 
@@ -110,8 +119,11 @@ public class AccountFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar()
-                .setTitle("My Account");
+        if (getActivity() != null) {
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            if (activity != null && activity.getSupportActionBar() != null)
+                activity.getSupportActionBar().setTitle("My Account");
+        }
     }
 
     @Override
@@ -137,19 +149,19 @@ public class AccountFragment extends Fragment {
         HttpRestServiceConsumer.getBaseApiClient()
                 .meEmployer()
                 .enqueue(new Callback<ResponseObject<Employer>>() {
-            @Override
-            public void onResponse(Call<ResponseObject<Employer>> call,
-                                   Response<ResponseObject<Employer>> response) {
-                if (response.isSuccessful()) {
-                    populateView(response.body().getResponse());
-                }
-            }
+                    @Override
+                    public void onResponse(Call<ResponseObject<Employer>> call,
+                                           Response<ResponseObject<Employer>> response) {
+                        if (response.isSuccessful()) {
+                            populateView(response.body().getResponse());
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<ResponseObject<Employer>> call, Throwable t) {
-                Log.e(TAG, "Error updating worker: " + t.getMessage());
-            }
-        });
+                    @Override
+                    public void onFailure(Call<ResponseObject<Employer>> call, Throwable t) {
+                        Log.e(TAG, "Error updating worker: " + t.getMessage());
+                    }
+                });
     }
 
     private void updateLogo(String picture, int id) {
@@ -180,34 +192,36 @@ public class AccountFragment extends Fragment {
 
     private void populateView(Employer employer) {
         try {
-            if (null != employer) meEmployer = employer;
-            if (null != employer.company) {
-                if (null != employer.company.logo) {
-                    if (!TextUtils.isEmpty(employer.company.logo)) {
-                        Picasso.with(getContext())
-                                .load(employer.company.logo)
-                                .fit()
-                                .centerCrop()
-                                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                                .into(logo);
+            if (null != employer) {
+                meEmployer = employer;
+
+                if (null != employer.company) {
+                    if (null != employer.company.logo) {
+                        if (!TextUtils.isEmpty(employer.company.logo)) {
+                            Picasso.with(getContext())
+                                    .load(employer.company.logo)
+                                    .fit()
+                                    .centerCrop()
+                                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                    .into(logo);
+                        } else {
+                            logo.setImageDrawable(ContextCompat
+                                    .getDrawable(getContext(), R.drawable.ic_logo_placeholder));
+                        }
                     } else {
                         logo.setImageDrawable(ContextCompat
                                 .getDrawable(getContext(), R.drawable.ic_logo_placeholder));
                     }
-                } else {
-                    logo.setImageDrawable(ContextCompat
-                            .getDrawable(getContext(), R.drawable.ic_logo_placeholder));
-                }
-                if (null != employer.company.name) {
-                    name.setText(employer.company.name);
-                }
+                    if (null != employer.company.name) {
+                        name.setText(employer.company.name);
+                    }
 //                if (null != employer.company.description) {
 //                    description.setText(employer.company.description);
 //                }
-            }
+                }
 
-            owner.setText(employer.firstName + " " + employer.lastName);
-            rating.setRating(employer.reviewInt);
+                owner.setText(employer.firstName + " " + employer.lastName);
+                rating.setRating(employer.reviewInt);
 //
 //            if (null != employer.picture) {
 //                Picasso.with(getContext())
@@ -217,11 +231,12 @@ public class AccountFragment extends Fragment {
 //                        .into(logo);
 //            }
 
-            if (employer.reviewCount > 0) {
-                reviewsCounter.setText(String.valueOf(employer.reviewCount));
-                reviewsCounter.setVisibility(View.VISIBLE);
-            } else {
-                reviewsCounter.setVisibility(View.GONE);
+                if (employer.reviewCount > 0) {
+                    reviewsCounter.setText(String.valueOf(employer.reviewCount));
+                    reviewsCounter.setVisibility(View.VISIBLE);
+                } else {
+                    reviewsCounter.setVisibility(View.GONE);
+                }
             }
         } catch (Exception e) {
             CrashLogHelper.logException(e);

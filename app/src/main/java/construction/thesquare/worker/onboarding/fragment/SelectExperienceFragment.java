@@ -886,7 +886,7 @@ public class SelectExperienceFragment extends Fragment
     }
 
     public void onExperienceClick(ExperienceQualification experience) {
-        if (experience.name.equals("CSCS Card")) {
+        if (experience != null && experience.name != null && experience.name.equals("CSCS Card")) {
             experience.selected = !experience.selected;
             populateQualifications();
             if (!experience.selected) {
@@ -1042,20 +1042,20 @@ public class SelectExperienceFragment extends Fragment
             LocalDate dateOfBirth = DateUtils.getParsedLocalDate(currentWorker.dateOfBirth);
 
             for (String day : days) {
-                if (TextUtils.equals(day.startsWith("0") ? day.substring(1) : day,
+                if (dateOfBirth != null && TextUtils.equals(day.startsWith("0") ? day.substring(1) : day,
                         String.valueOf(dateOfBirth.getDayOfMonth()))) {
                     spinnerDay.setSelection(days.indexOf(day));
                 }
             }
 
             for (String month : months) {
-                if (TextUtils.equals(month, dateOfBirth.toString("MMMM"))) {
+                if (dateOfBirth != null && TextUtils.equals(month, dateOfBirth.toString("MMMM"))) {
                     spinnerMonth.setSelection(months.indexOf(month));
                 }
             }
 
             for (String year : years) {
-                if (TextUtils.equals(year, String.valueOf(dateOfBirth.getYear()))) {
+                if (dateOfBirth != null && TextUtils.equals(year, String.valueOf(dateOfBirth.getYear()))) {
                     spinnerYear.setSelection(years.indexOf(year));
                 }
             }

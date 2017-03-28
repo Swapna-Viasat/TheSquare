@@ -57,7 +57,6 @@ import construction.thesquare.shared.view.widget.StrikeJosefinSansTextView;
 import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
 import construction.thesquare.worker.signup.model.CSCSCardWorker;
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.fabric.sdk.android.services.common.Crash;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,48 +64,87 @@ import retrofit2.Response;
 
 public class WorkerProfileFragment extends Fragment implements LikeWorkerConnector.Callback {
 
-    @BindView(R.id.worker_view_profile_avatar) CircleImageView avatarImage;
-    @BindView(R.id.worker_view_profile_name) TextView nameView;
-    @BindView(R.id.worker_view_profile_position) TextView positionView;
-    @BindView(R.id.worker_view_profile_experience) TextView experienceYearsView;
-    @BindView(R.id.worker_view_profile_rating) RatingView ratingView;
-    @BindView(R.id.worker_profile_bio_text) TextView bioView;
-    @BindView(R.id.worker_details_bullet_list_experience) LinearLayout experienceView;
-    @BindView(R.id.worker_details_bullet_list_requirements) LinearLayout requirementsView;
-    @BindView(R.id.worker_details_bullet_list_skills) LinearLayout skillsView;
-    @BindView(R.id.worker_details_bullet_list_companies) TextView companiesView;
-    @BindView(R.id.worker_details_preferred_location) TextView locationView;
-    @BindView(R.id.mapView) MapView mapView;
+    @BindView(R.id.worker_view_profile_avatar)
+    CircleImageView avatarImage;
+    @BindView(R.id.worker_view_profile_name)
+    TextView nameView;
+    @BindView(R.id.worker_view_profile_position)
+    TextView positionView;
+    @BindView(R.id.worker_view_profile_experience)
+    TextView experienceYearsView;
+    @BindView(R.id.worker_view_profile_rating)
+    RatingView ratingView;
+    @BindView(R.id.worker_profile_bio_text)
+    TextView bioView;
+    @BindView(R.id.worker_details_bullet_list_experience)
+    LinearLayout experienceView;
+    @BindView(R.id.worker_details_bullet_list_requirements)
+    LinearLayout requirementsView;
+    @BindView(R.id.worker_details_bullet_list_skills)
+    LinearLayout skillsView;
+    @BindView(R.id.worker_details_bullet_list_companies)
+    TextView companiesView;
+    @BindView(R.id.worker_details_preferred_location)
+    TextView locationView;
+    @BindView(R.id.mapView)
+    MapView mapView;
     @BindViews({R.id.cscs1, R.id.cscs2, R.id.cscs3, R.id.cscs4,
-            R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8}) List<TextView> cscsNumbers;
-    @BindView(R.id.workerImage) ImageView cscsImage;
-    @BindView(R.id.cscs_status) TextView cscsStatus;
-    @BindView(R.id.cscsContent) View cscsContent;
+            R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8})
+    List<TextView> cscsNumbers;
+    @BindView(R.id.workerImage)
+    ImageView cscsImage;
+    @BindView(R.id.cscs_status)
+    TextView cscsStatus;
+    @BindView(R.id.cscsContent)
+    View cscsContent;
     @BindViews({R.id.nis1, R.id.nis2, R.id.nis3, R.id.nis4,
             R.id.nis5, R.id.nis6, R.id.nis7, R.id.nis8,
-            R.id.nis9}) List<TextView> nisNumbers;
-    @BindView(R.id.worker_profile_nationality_value) TextView nationalityView;
-    @BindView(R.id.worker_profile_birthday_value) TextView dateOfBirthView;
-    @BindView(R.id.worker_profile_languages_value) TextView languagesView;
-    @BindView(R.id.worker_profile_passport_value) ImageView passportImage;
-    @BindView(R.id.cscs_expires_value) TextView cscsExpirationView;
-    @BindView(R.id.cscsRecordsLayout) LinearLayout cscsRecordsLayout;
-    @BindView(R.id.worker_profile_email) TextView workerEmail;
-    @BindView(R.id.worker_profile_phone) TextView workerPhone;
-    @BindView(R.id.worker_profile_english_value) TextView englishLevel;
-    @BindView(R.id.worker_details_bullet_list_experience_type) LinearLayout experienceTypesView;
-    @BindView(R.id.book) JosefinSansTextView book;
-    @BindView(R.id.decline) JosefinSansTextView decline;
-    @BindView(R.id.bookedBanner) View bookedBanner;
-    @BindView(R.id.offered_hint_view) ViewGroup offeredHint;
-    @BindView(R.id.offered_hint_text) TextView offeredHintText;
-    @BindView(R.id.contactWorkerLayout) View contactWorkerLayout;
-    @BindView(R.id.nis_status) TextView nisStatus;
-    @BindView(R.id.nisNumberLayout) View nisNumberLayout;
-    @BindView(R.id.date_of_birth_status) TextView dateOfBirthStatusView;
-    @BindView(R.id.passport_status) TextView passportStatus;
-    @BindView(R.id.likeImage) ImageView likeImage;
-    @BindView(R.id.workerBioLayout) View workerBioLayout;
+            R.id.nis9})
+    List<TextView> nisNumbers;
+    @BindView(R.id.worker_profile_nationality_value)
+    TextView nationalityView;
+    @BindView(R.id.worker_profile_birthday_value)
+    TextView dateOfBirthView;
+    @BindView(R.id.worker_profile_languages_value)
+    TextView languagesView;
+    @BindView(R.id.worker_profile_passport_value)
+    ImageView passportImage;
+    @BindView(R.id.cscs_expires_value)
+    TextView cscsExpirationView;
+    @BindView(R.id.cscsRecordsLayout)
+    LinearLayout cscsRecordsLayout;
+    @BindView(R.id.worker_profile_email)
+    TextView workerEmail;
+    @BindView(R.id.worker_profile_phone)
+    TextView workerPhone;
+    @BindView(R.id.worker_profile_english_value)
+    TextView englishLevel;
+    @BindView(R.id.worker_details_bullet_list_experience_type)
+    LinearLayout experienceTypesView;
+    @BindView(R.id.book)
+    JosefinSansTextView book;
+    @BindView(R.id.decline)
+    JosefinSansTextView decline;
+    @BindView(R.id.bookedBanner)
+    View bookedBanner;
+    @BindView(R.id.offered_hint_view)
+    ViewGroup offeredHint;
+    @BindView(R.id.offered_hint_text)
+    TextView offeredHintText;
+    @BindView(R.id.contactWorkerLayout)
+    View contactWorkerLayout;
+    @BindView(R.id.nis_status)
+    TextView nisStatus;
+    @BindView(R.id.nisNumberLayout)
+    View nisNumberLayout;
+    @BindView(R.id.date_of_birth_status)
+    TextView dateOfBirthStatusView;
+    @BindView(R.id.passport_status)
+    TextView passportStatus;
+    @BindView(R.id.likeImage)
+    ImageView likeImage;
+    @BindView(R.id.workerBioLayout)
+    View workerBioLayout;
 
     private static final String KEY_WORKER_ID = "KEY_WORKER_ID";
 
@@ -498,8 +536,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillCompanies() {
         String text = "";
-        for (Company preference : worker.companies) {
-            text += "• " + preference.name + "\n";
+        if (!CollectionUtils.isEmpty(worker.companies)) {
+            for (Company preference : worker.companies) {
+                text += "• " + preference.name + "\n";
+            }
         }
         companiesView.setText(text);
     }
@@ -639,7 +679,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                     CrashLogHelper.logException(e);
                                 }
                                 onOffered((null != worker.firstName) ?
-                                        worker.firstName : "",
+                                                worker.firstName : "",
                                         (null != job.role) ? job.role.name : "", start);
                             }
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {

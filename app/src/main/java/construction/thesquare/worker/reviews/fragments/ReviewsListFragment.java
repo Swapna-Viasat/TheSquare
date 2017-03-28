@@ -197,19 +197,21 @@ public class ReviewsListFragment extends Fragment
                             displayProgress(false);
                             aggregate.setVisibility(View.VISIBLE);
                             worker = response.body().getResponse();
-                            companyReviews.setText(String.valueOf(worker.reviewData.reviewsCount));
-                            turnedUpReviews.setText(String.valueOf(worker.reviewData.showedToWorkTotal)+"%");
-                            companiesTurnedUpReviews.setText(String.valueOf(worker.reviewData.wouldWorkTotal)+"%");
-                            quality.makeStarsRed();
-                            quality.setRating(worker.reviewData.quality);
-                            attitude.makeStarsRed();
-                            attitude.setRating(worker.reviewData.attitude);
-                            reliability.makeStarsRed();
-                            reliability.setRating(worker.reviewData.reliability);
-                            safety.makeStarsRed();
-                            safety.setRating(worker.reviewData.safe);
-                            global.makeStarsRed();
-                            global.setRating(worker.reviewData.globalRating);
+                            if (worker != null && worker.reviewData != null) {
+                                companyReviews.setText(String.valueOf(worker.reviewData.reviewsCount));
+                                turnedUpReviews.setText(String.valueOf(worker.reviewData.showedToWorkTotal)+"%");
+                                companiesTurnedUpReviews.setText(String.valueOf(worker.reviewData.wouldWorkTotal)+"%");
+                                quality.makeStarsRed();
+                                quality.setRating(worker.reviewData.quality);
+                                attitude.makeStarsRed();
+                                attitude.setRating(worker.reviewData.attitude);
+                                reliability.makeStarsRed();
+                                reliability.setRating(worker.reviewData.reliability);
+                                safety.makeStarsRed();
+                                safety.setRating(worker.reviewData.safe);
+                                global.makeStarsRed();
+                                global.setRating(worker.reviewData.globalRating);
+                            }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }

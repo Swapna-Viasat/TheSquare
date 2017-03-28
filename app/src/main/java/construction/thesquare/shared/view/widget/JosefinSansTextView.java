@@ -3,9 +3,9 @@ package construction.thesquare.shared.view.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import construction.thesquare.R;
 
@@ -13,7 +13,7 @@ import construction.thesquare.R;
  * Created by maizaga on 2/10/16.
  */
 
-public class JosefinSansTextView extends TextView {
+public class JosefinSansTextView extends AppCompatTextView {
 
     public JosefinSansTextView(Context context) {
         super(context);

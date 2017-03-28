@@ -29,6 +29,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.ExperienceType;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -297,7 +298,8 @@ public class SelectExperienceTypeFragment extends Fragment
     private void populateData() {
         if (currentWorker != null) {
             selected.clear();
-            selected.addAll(currentWorker.experienceTypes);
+            if (!CollectionUtils.isEmpty(currentWorker.experienceTypes))
+                selected.addAll(currentWorker.experienceTypes);
 
             for (ExperienceType experienceType : filtered) {
                 for (ExperienceType selectedExperienceType : selected) {

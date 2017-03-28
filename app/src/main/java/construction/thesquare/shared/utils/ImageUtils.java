@@ -43,7 +43,7 @@ public class ImageUtils {
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
         // close the input stream
-        inputStream.close();
+        if (inputStream != null) inputStream.close();
         // reopen the input stream
         inputStream = context.getContentResolver().openInputStream(selectedImage);
         // Decode bitmap with inSampleSize set

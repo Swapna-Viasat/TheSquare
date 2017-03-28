@@ -323,14 +323,15 @@ public class SelectQualificationsFragment extends Fragment
         if (currentWorker != null) {
             selected.clear();
 
-            for (Qualification qualification : filtered) {
-                for (Qualification selectedQualification : currentWorker.qualifications) {
-                    if (qualification.id == selectedQualification.id && !selectedQualification.onExperience) {
-                        qualification.selected = true;
-                        selected.add(qualification);
+            if (!CollectionUtils.isEmpty(currentWorker.qualifications))
+                for (Qualification qualification : filtered) {
+                    for (Qualification selectedQualification : currentWorker.qualifications) {
+                        if (qualification.id == selectedQualification.id && !selectedQualification.onExperience) {
+                            qualification.selected = true;
+                            selected.add(qualification);
+                        }
                     }
                 }
-            }
 
             adapter.notifyDataSetChanged();
         }

@@ -33,6 +33,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.Timesheet;
 import construction.thesquare.shared.data.model.TimesheetUnit;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
@@ -229,7 +230,7 @@ public class AccountFragment extends Fragment {
                 avatar.setImageResource(R.drawable.bob);
             }
             name.setText(worker.firstName + " " + worker.lastName);
-            if (worker.roles.size() > 0) ocupation.setText(worker.roles.get(0).name);
+            if (!CollectionUtils.isEmpty(worker.roles)) ocupation.setText(worker.roles.get(0).name);
             rating.setRating((int) worker.rating);
             if (worker.numReviews > 0) reviewsCounter.setVisibility(View.VISIBLE);
             reviewsCounter.setText(String.valueOf(worker.numReviews));

@@ -71,7 +71,8 @@ public class EditCscsDetailsDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if (getDialog() != null && getDialog().getWindow() != null)
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.dialog_edit_worker_cscs, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -210,9 +211,11 @@ public class EditCscsDetailsDialog extends DialogFragment {
     @Override
     public void onResume() {
         Window window = getDialog().getWindow();
-        ViewGroup.LayoutParams params = window.getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes((WindowManager.LayoutParams) params);
+        if (window != null) {
+            ViewGroup.LayoutParams params = window.getAttributes();
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes((WindowManager.LayoutParams) params);
+        }
         super.onResume();
     }
 }
