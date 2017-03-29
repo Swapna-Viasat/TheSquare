@@ -1,4 +1,4 @@
-package construction.thesquare.shared.login.fragment;
+package construction.thesquare.shared.login.controller;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,6 +23,7 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.LoginUser;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
+import construction.thesquare.shared.login.fragment.ForgotPasswordFragment;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
