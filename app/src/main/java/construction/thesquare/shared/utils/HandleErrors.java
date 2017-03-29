@@ -74,37 +74,36 @@ public class HandleErrors {
         ResponseError responseError;
 
         try {
-            responseError = converter.convert(response.errorBody());
-            TextTools.log(TAG, "Error sin parsear try after assing: "
-                    + responseError.getError().getMessage());
+            responseError = converter.convert(response.errorBody()); 
 
             if (responseError.getError().getMessage().contains("Invalid token")) {
-                DialogBuilder.showStandardDialog(context, "Error",
+                DialogBuilder.showStandardDialog(context, "",
                         responseError.getError().getMessage(),
                         onOkClickCallback);
             } else if (responseError.getError().code == 103) {
                 //
-                DialogBuilder.showStandardDialog(context, "Error",
+                DialogBuilder.showStandardDialog(context, "",
                         responseError.getError().getMessage(), listener);
             } else if (responseError.getError().code == 101) {
                 // no active subscription
 //                DialogBuilder.showStandardDialog(context, "Error",
 //                        responseError.getError().getMessage(), gotoPaymentListener);
                 //
-
+                // as per jira ticket redirect without prompt
                 if (null != payRedirect) {
                     payRedirect.onRedirect();
                 }
 
             } else if (responseError.getError().getMessage().contains("We already have email address")) {
-                DialogBuilder.showStandardDialog(context, "Error",
+                DialogBuilder.showStandardDialog(context, "",
                         responseError.getError().getMessage(), listener);
             } else {
-                DialogBuilder.showStandardDialog(context, "Error", responseError.getError().getMessage());
+                DialogBuilder.showStandardDialog(context, "", responseError.getError().getMessage());
             }
 
         } catch (Exception exception) {
             TextTools.log(TAG, "Response error: " + response.errorBody().toString());
+            CrashLogHelper.logException(exception);
             DialogBuilder.showStandardDialog(context, "", standardError);
         }
     }
