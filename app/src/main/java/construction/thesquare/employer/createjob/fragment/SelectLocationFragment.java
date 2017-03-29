@@ -325,11 +325,16 @@ public class SelectLocationFragment extends Fragment
                         //
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            if (null != response.body().getResponse().company) {
-                                if (null != response.body().getResponse().company.postCode) {
+                            if (response.body() != null
+                                    && response.body().getResponse() != null
+                                    && response.body().getResponse().company != null) {
+                                if (response.body().getResponse().company.postCode != null) {
                                     // centering on postal code
-                                    centerOnPostalCode(response.body()
-                                            .getResponse().company.postCode, googleMap);
+                                    try {
+                                        centerOnPostalCode(response.body().getResponse().company.postCode, googleMap);
+                                    } catch (Exception e) {
+                                        CrashLogHelper.logException(e);
+                                    }
                                 }
                             }
                         } else {

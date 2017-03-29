@@ -26,8 +26,10 @@ public class JobDetailsDialog extends DialogFragment {
 
     public static final String TAG = "JobDetailsDialog";
 
-    @BindView(R.id.job_details_input) EditText input;
-    @BindView(R.id.title) TextView title;
+    @BindView(R.id.job_details_input)
+    EditText input;
+    @BindView(R.id.title)
+    TextView title;
     private DetailsListener listener;
     private String initialText;
 
@@ -106,9 +108,11 @@ public class JobDetailsDialog extends DialogFragment {
     @Override
     public void onResume() {
         Window window = getDialog().getWindow();
-        ViewGroup.LayoutParams params = window.getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes((WindowManager.LayoutParams) params);
+        if (window != null) {
+            ViewGroup.LayoutParams params = window.getAttributes();
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes((WindowManager.LayoutParams) params);
+        }
         super.onResume();
     }
 }

@@ -6,9 +6,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.widget.SeekBar;
 
 import construction.thesquare.R;
 
@@ -16,7 +16,7 @@ import construction.thesquare.R;
  * Created by gherg on 12/2/2016.
  */
 
-public class DayRateSeekBar extends SeekBar {
+public class DayRateSeekBar extends AppCompatSeekBar {
     private int mThumbSize;
     private TextPaint mTextPaint;
     private double rate;

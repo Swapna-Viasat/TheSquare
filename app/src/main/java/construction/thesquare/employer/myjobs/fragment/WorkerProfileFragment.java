@@ -64,48 +64,87 @@ import retrofit2.Response;
 
 public class WorkerProfileFragment extends Fragment implements LikeWorkerConnector.Callback {
 
-    @BindView(R.id.worker_view_profile_avatar) CircleImageView avatarImage;
-    @BindView(R.id.worker_view_profile_name) TextView nameView;
-    @BindView(R.id.worker_view_profile_position) TextView positionView;
-    @BindView(R.id.worker_view_profile_experience) TextView experienceYearsView;
-    @BindView(R.id.worker_view_profile_rating) RatingView ratingView;
-    @BindView(R.id.worker_profile_bio_text) TextView bioView;
-    @BindView(R.id.worker_details_bullet_list_experience) LinearLayout experienceView;
-    @BindView(R.id.worker_details_bullet_list_requirements) LinearLayout requirementsView;
-    @BindView(R.id.worker_details_bullet_list_skills) LinearLayout skillsView;
-    @BindView(R.id.worker_details_bullet_list_companies) TextView companiesView;
-    @BindView(R.id.worker_details_preferred_location) TextView locationView;
-    @BindView(R.id.mapView) MapView mapView;
+    @BindView(R.id.worker_view_profile_avatar)
+    CircleImageView avatarImage;
+    @BindView(R.id.worker_view_profile_name)
+    TextView nameView;
+    @BindView(R.id.worker_view_profile_position)
+    TextView positionView;
+    @BindView(R.id.worker_view_profile_experience)
+    TextView experienceYearsView;
+    @BindView(R.id.worker_view_profile_rating)
+    RatingView ratingView;
+    @BindView(R.id.worker_profile_bio_text)
+    TextView bioView;
+    @BindView(R.id.worker_details_bullet_list_experience)
+    LinearLayout experienceView;
+    @BindView(R.id.worker_details_bullet_list_requirements)
+    LinearLayout requirementsView;
+    @BindView(R.id.worker_details_bullet_list_skills)
+    LinearLayout skillsView;
+    @BindView(R.id.worker_details_bullet_list_companies)
+    TextView companiesView;
+    @BindView(R.id.worker_details_preferred_location)
+    TextView locationView;
+    @BindView(R.id.mapView)
+    MapView mapView;
     @BindViews({R.id.cscs1, R.id.cscs2, R.id.cscs3, R.id.cscs4,
-            R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8}) List<TextView> cscsNumbers;
-    @BindView(R.id.workerImage) ImageView cscsImage;
-    @BindView(R.id.cscs_status) TextView cscsStatus;
-    @BindView(R.id.cscsContent) View cscsContent;
+            R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8})
+    List<TextView> cscsNumbers;
+    @BindView(R.id.workerImage)
+    ImageView cscsImage;
+    @BindView(R.id.cscs_status)
+    TextView cscsStatus;
+    @BindView(R.id.cscsContent)
+    View cscsContent;
     @BindViews({R.id.nis1, R.id.nis2, R.id.nis3, R.id.nis4,
             R.id.nis5, R.id.nis6, R.id.nis7, R.id.nis8,
-            R.id.nis9}) List<TextView> nisNumbers;
-    @BindView(R.id.worker_profile_nationality_value) TextView nationalityView;
-    @BindView(R.id.worker_profile_birthday_value) TextView dateOfBirthView;
-    @BindView(R.id.worker_profile_languages_value) TextView languagesView;
-    @BindView(R.id.worker_profile_passport_value) ImageView passportImage;
-    @BindView(R.id.cscs_expires_value) TextView cscsExpirationView;
-    @BindView(R.id.cscsRecordsLayout) LinearLayout cscsRecordsLayout;
-    @BindView(R.id.worker_profile_email) TextView workerEmail;
-    @BindView(R.id.worker_profile_phone) TextView workerPhone;
-    @BindView(R.id.worker_profile_english_value) TextView englishLevel;
-    @BindView(R.id.worker_details_bullet_list_experience_type) LinearLayout experienceTypesView;
-    @BindView(R.id.book) JosefinSansTextView book;
-    @BindView(R.id.decline) JosefinSansTextView decline;
-    @BindView(R.id.bookedBanner) View bookedBanner;
-    @BindView(R.id.offered_hint_view) ViewGroup offeredHint;
-    @BindView(R.id.offered_hint_text) TextView offeredHintText;
-    @BindView(R.id.contactWorkerLayout) View contactWorkerLayout;
-    @BindView(R.id.nis_status) TextView nisStatus;
-    @BindView(R.id.nisNumberLayout) View nisNumberLayout;
-    @BindView(R.id.date_of_birth_status) TextView dateOfBirthStatusView;
-    @BindView(R.id.passport_status) TextView passportStatus;
-    @BindView(R.id.likeImage) ImageView likeImage;
-    @BindView(R.id.workerBioLayout) View workerBioLayout;
+            R.id.nis9})
+    List<TextView> nisNumbers;
+    @BindView(R.id.worker_profile_nationality_value)
+    TextView nationalityView;
+    @BindView(R.id.worker_profile_birthday_value)
+    TextView dateOfBirthView;
+    @BindView(R.id.worker_profile_languages_value)
+    TextView languagesView;
+    @BindView(R.id.worker_profile_passport_value)
+    ImageView passportImage;
+    @BindView(R.id.cscs_expires_value)
+    TextView cscsExpirationView;
+    @BindView(R.id.cscsRecordsLayout)
+    LinearLayout cscsRecordsLayout;
+    @BindView(R.id.worker_profile_email)
+    TextView workerEmail;
+    @BindView(R.id.worker_profile_phone)
+    TextView workerPhone;
+    @BindView(R.id.worker_profile_english_value)
+    TextView englishLevel;
+    @BindView(R.id.worker_details_bullet_list_experience_type)
+    LinearLayout experienceTypesView;
+    @BindView(R.id.book)
+    JosefinSansTextView book;
+    @BindView(R.id.decline)
+    JosefinSansTextView decline;
+    @BindView(R.id.bookedBanner)
+    View bookedBanner;
+    @BindView(R.id.offered_hint_view)
+    ViewGroup offeredHint;
+    @BindView(R.id.offered_hint_text)
+    TextView offeredHintText;
+    @BindView(R.id.contactWorkerLayout)
+    View contactWorkerLayout;
+    @BindView(R.id.nis_status)
+    TextView nisStatus;
+    @BindView(R.id.nisNumberLayout)
+    View nisNumberLayout;
+    @BindView(R.id.date_of_birth_status)
+    TextView dateOfBirthStatusView;
+    @BindView(R.id.passport_status)
+    TextView passportStatus;
+    @BindView(R.id.likeImage)
+    ImageView likeImage;
+    @BindView(R.id.workerBioLayout)
+    View workerBioLayout;
 
     private static final String KEY_WORKER_ID = "KEY_WORKER_ID";
 
@@ -167,19 +206,28 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void initComponents() {
         if (worker != null) {
 
-            fillWorkerImage();
-            fillWorkerName();
-            fillWorkerPosition();
-            fillCompanies();
-            fillWorkerBio();
-            fillLocationName();
-            initMap();
-            fillDateOfBirth();
-            fillNiNumber();
+            try {
+                fillWorkerImage();
+                fillWorkerName();
+                fillWorkerPosition();
+                fillCompanies();
+                fillWorkerBio();
+                fillLocationName();
+                initMap();
+                fillDateOfBirth();
+                fillNiNumber();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
 
-            if (worker.nationality != null)
+            if (worker.nationality != null) {
                 nationalityView.setText(worker.nationality.name);
-            englishLevel.setText(worker.englishLevel.name);
+            }
+            if (null != worker.englishLevel) {
+                if (null != worker.englishLevel.name) {
+                    englishLevel.setText(worker.englishLevel.name);
+                }
+            }
 
             if (!CollectionUtils.isEmpty(worker.languages)) {
                 List<String> languageNames = new ArrayList<>();
@@ -187,8 +235,17 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                 languagesView.setText(TextUtils.join(", ", languageNames));
             }
 
-            fillPassportImage();
-            likeImage.setImageResource(worker.liked ? R.drawable.ic_like_tab : R.drawable.ic_like);
+            try {
+                fillPassportImage();
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
+
+            try {
+                likeImage.setImageResource(worker.liked ? R.drawable.ic_like_tab : R.drawable.ic_like);
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
         }
     }
 
@@ -479,8 +536,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     private void fillCompanies() {
         String text = "";
-        for (Company preference : worker.companies) {
-            text += "• " + preference.name + "\n";
+        if (!CollectionUtils.isEmpty(worker.companies)) {
+            for (Company preference : worker.companies) {
+                text += "• " + preference.name + "\n";
+            }
         }
         companiesView.setText(text);
     }
@@ -511,15 +570,26 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     }
 
     private void fillLocationName() {
-        if (worker != null)
-            locationView.setText(getString(R.string.employer_view_worker_commute_time, worker.commuteTime, worker.zip.toUpperCase()));
+        if (worker != null) {
+            if (null != worker.zip) {
+                locationView
+                        .setText(getString(R.string.employer_view_worker_commute_time,
+                                worker.commuteTime, worker.zip.toUpperCase()));
+            }
+        }
     }
 
     private void drawMarker() {
         if (worker != null && worker.location != null) {
-            googleMap.clear();
-            googleMap.addMarker(new MarkerOptions().position(new LatLng(worker.location.getLatitude(), worker.location.getLongitude())));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(worker.location.getLatitude(), worker.location.getLongitude()), 12f));
+            if (null != googleMap) {
+                googleMap.clear();
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(worker.location.getLatitude(),
+                                worker.location.getLongitude())));
+                googleMap.moveCamera(CameraUpdateFactory
+                        .newLatLngZoom(new LatLng(worker.location.getLatitude(),
+                                worker.location.getLongitude()), 12f));
+            }
         }
     }
 
@@ -536,7 +606,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
                         if (response.isSuccessful()) {
                             job = response.body().getResponse();
-                            populateJobData();
+                            try {
+                                populateJobData();
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                             fetchCscsDetails(workerId);
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -561,7 +635,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
                             worker = response.body().getResponse();
-                            initComponents();
+                            try {
+                                initComponents();
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                             fetchJob();
                         } else
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -578,10 +656,12 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         if (job != null) {
             if (worker != null) {
                 Application currentApplication = null;
-                if (!CollectionUtils.isEmpty(worker.applications)) {
-                    for (Application application : worker.applications) {
-                        if (application.jobId == jobId) {
-                            currentApplication = application;
+                if (null != worker.applications) {
+                    if (!CollectionUtils.isEmpty(worker.applications)) {
+                        for (Application application : worker.applications) {
+                            if (application.jobId == jobId) {
+                                currentApplication = application;
+                            }
                         }
                     }
                 }
@@ -599,7 +679,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                     CrashLogHelper.logException(e);
                                 }
                                 onOffered((null != worker.firstName) ?
-                                        worker.firstName : "",
+                                                worker.firstName : "",
                                         (null != job.role) ? job.role.name : "", start);
                             }
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {
@@ -617,10 +697,13 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                     onApplicationNull();
                 }
 
-
-                fillExperienceAndQualifications();
-                fillSkills();
-                fillExperienceTypes();
+                try {
+                    fillExperienceAndQualifications();
+                    fillSkills();
+                    fillExperienceTypes();
+                } catch (Exception e) {
+                    CrashLogHelper.logException(e);
+                }
             }
         }
     }
@@ -789,7 +872,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                            Response<QuickInviteResponse> response) {
                         DialogBuilder.cancelDialog(dialog);
                         //
-                        showWorkerInviteSent(name);
+                        try {
+                            showWorkerInviteSent(name);
+                        } catch (Exception e) {
+                            CrashLogHelper.logException(e);
+                        }
                         //
                         fetchWorker();
                     }
@@ -811,7 +898,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                            Response<ResponseObject<CSCSCardWorker>> response) {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            populateCscs(response.body());
+                            try {
+                                populateCscs(response.body());
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
@@ -864,7 +955,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                         .load(FlavorSettings.API_URL + dataResponse.getResponse().cardPicture)
                         .fit().centerCrop().into(cscsImage);
 
-            cscsExpirationView.setText(DateUtils.getCscsExpirationDate(dataResponse.getResponse().expiryDate));
+            if (null != dataResponse.getResponse().expiryDate) {
+                cscsExpirationView.setText(DateUtils
+                        .getCscsExpirationDate(dataResponse.getResponse().expiryDate));
+            }
 
             try {
                 cscsRecordsLayout.removeAllViews();
@@ -888,8 +982,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void populateCscsStatus(int status) {
         if (status == VERIFICATION_VALID) {
             cscsStatus.setText(R.string.worker_cscs_verified);
-            if (booked) cscsContent.setVisibility(View.VISIBLE);
-            else cscsContent.setVisibility(View.GONE);
+            if (booked) {
+                cscsContent.setVisibility(View.VISIBLE);
+            } else {
+                cscsContent.setVisibility(View.GONE);
+            }
         } else {
             cscsStatus.setText(getString(R.string.worker_cscs_not_verified));
             cscsContent.setVisibility(View.GONE);
@@ -899,38 +996,51 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @OnClick(R.id.likeImage)
     void processLikeClick() {
         if (worker != null) {
-            if (worker.liked) likeWorkerConnector.unlikeWorker(getContext(), workerId);
-            else likeWorkerConnector.likeWorker(getContext(), workerId);
+            if (worker.liked) {
+                likeWorkerConnector.unlikeWorker(getContext(), workerId);
+            } else {
+                likeWorkerConnector.likeWorker(getContext(), workerId);
+            }
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mapView.onResume();
+        if (null != mapView) {
+            mapView.onResume();
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        mapView.onSaveInstanceState(outState);
+        if (null != mapView) {
+            mapView.onSaveInstanceState(outState);
+        }
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onPause() {
-        mapView.onPause();
+        if (null != mapView) {
+            mapView.onPause();
+        }
         super.onPause();
     }
 
     @Override
     public void onLowMemory() {
-        mapView.onLowMemory();
+        if (null != mapView) {
+            mapView.onLowMemory();
+        }
         super.onLowMemory();
     }
 
     @Override
     public void onDestroy() {
-        mapView.onDestroy();
+        if (null != mapView) {
+            mapView.onDestroy();
+        }
         super.onDestroy();
     }
 
@@ -942,26 +1052,38 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void populateWithMatchedItem(LinearLayout layout, String text) {
         if (TextUtils.isEmpty(text) || layout == null) return;
 
-        View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
-        ImageView status = (ImageView) item.findViewById(R.id.status);
-        StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
-        textView.setText(text);
-        textView.setStrikeVisibility(false);
-        status.setImageResource(R.drawable.red_bullet);
-        status.setPadding(2, 2, 2, 2);
-        layout.addView(item);
+        try {
+            View item = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_worker_details, null, false);
+            ImageView status = (ImageView) item.findViewById(R.id.status);
+            StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView)
+                    item.findViewById(R.id.worker_details);
+            textView.setText(text);
+            textView.setStrikeVisibility(false);
+            status.setImageResource(R.drawable.red_bullet);
+            status.setPadding(2, 2, 2, 2);
+            layout.addView(item);
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     private void populateWithUnmatchedItem(LinearLayout layout, String text) {
         if (TextUtils.isEmpty(text) || layout == null) return;
 
-        View item = LayoutInflater.from(getContext()).inflate(R.layout.item_worker_details, null, false);
-        ImageView status = (ImageView) item.findViewById(R.id.status);
-        StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView) item.findViewById(R.id.worker_details);
-        status.setPadding(0, 0, 0, 0);
-        textView.setText(text);
-        textView.setStrikeVisibility(true);
-        status.setImageResource(R.drawable.ic_clear_black_24dp);
-        layout.addView(item);
+        try {
+            View item = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_worker_details, null, false);
+            ImageView status = (ImageView) item.findViewById(R.id.status);
+            StrikeJosefinSansTextView textView = (StrikeJosefinSansTextView)
+                    item.findViewById(R.id.worker_details);
+            status.setPadding(0, 0, 0, 0);
+            textView.setText(text);
+            textView.setStrikeVisibility(true);
+            status.setImageResource(R.drawable.ic_clear_black_24dp);
+            layout.addView(item);
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 }

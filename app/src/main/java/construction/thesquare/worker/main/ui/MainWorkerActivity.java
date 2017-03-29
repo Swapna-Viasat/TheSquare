@@ -124,6 +124,7 @@ public class MainWorkerActivity extends AppCompatActivity {
 
     private Drawable getMenuIcon() {
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_menu_black_24dp, null);
+        if (drawable != null)
         DrawableCompat.setTint(drawable, ResourcesCompat.getColor(getResources(), R.color.redSquareColor, null));
 
         return drawable;

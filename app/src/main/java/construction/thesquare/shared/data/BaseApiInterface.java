@@ -22,7 +22,6 @@ import construction.thesquare.shared.help.HelpClickedResponse;
 import construction.thesquare.shared.help.HelpRecentAskedResponse;
 import construction.thesquare.shared.models.Company;
 import construction.thesquare.shared.models.ContactCategory;
-import construction.thesquare.shared.models.DataResponse;
 import construction.thesquare.shared.models.EnglishLevel;
 import construction.thesquare.shared.models.ExperienceQualification;
 import construction.thesquare.shared.models.ExperienceType;
@@ -34,7 +33,6 @@ import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.models.RolesRequest;
 import construction.thesquare.shared.models.SingleNotificationPreference;
 import construction.thesquare.shared.models.Skill;
-import construction.thesquare.shared.models.StaticData;
 import construction.thesquare.shared.models.StatusMessageResponse;
 import construction.thesquare.shared.models.Trade;
 import construction.thesquare.shared.reviews.Review;
@@ -72,12 +70,6 @@ public interface BaseApiInterface {
     Call<ResponseBody> updateLogo(@Path("company_id") int companyId,
                                   @Body HashMap<String, String> body);
 
-    @GET("/data/")
-    Call<DataResponse> fetchData();
-
-    @GET("/data/qualifications/")
-    Call<ResponseObject<List<Qualification>>> fetchQualifications();
-
     @GET("/data/experience_qualifications/")
     Call<ResponseObject<List<ExperienceQualification>>> fetchExperienceQualifications();
 
@@ -90,9 +82,6 @@ public interface BaseApiInterface {
     @GET("/data/worked_companies/")
     Call<ResponseObject<List<Company>>> fetchCompanies();
 
-    @GET("/data/roles/")
-    Call<ResponseObject<List<Role>>> fetchRoles();
-
     @GET("/role/summary/")
     Call<ResponseObject<List<Role>>> fetchRolesBrief();
 
@@ -102,14 +91,8 @@ public interface BaseApiInterface {
     @GET("/data/experience_types/")
     Call<ResponseObject<List<ExperienceType>>> fetchExperienceTypes();
 
-    @GET("/data/skills/")
-    Call<ResponseObject<List<Skill>>> fetchSkills();
-
     @GET("/data/{pk}/role_skills/")
     Call<ResponseObject<List<Skill>>> fetchRoleSkills(@Path("pk") int roleId);
-
-    @GET("/data/statics/")
-    Call<ResponseObject<StaticData>> fetchStaticData();
 
     @POST("/role/qualifications/")
     Call<ResponseObject<List<Qualification>>> fetchRoleQualifications(@Body RolesRequest request);
@@ -203,9 +186,6 @@ public interface BaseApiInterface {
     @Multipart
     @PATCH("/workers/{pk}/")
     Call<ResponseObject<construction.thesquare.shared.models.Worker>> uploadProfileImageWorker(@Path("pk") int id, @Part MultipartBody.Part file);
-
-    @PATCH("/workers/{pk}/")
-    Call<ResponseObject<Worker>> persistWorkerLocation(@Path("pk") int id, @Body HashMap<String, Object> workerLocationRequest);
 
     @GET("/workers/{pk}/")
     Call<ResponseObject<construction.thesquare.shared.models.Worker>> getWorkerProfile(@Path("pk") int id);

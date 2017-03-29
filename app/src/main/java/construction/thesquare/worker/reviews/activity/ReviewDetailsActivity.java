@@ -20,12 +20,18 @@ import construction.thesquare.shared.view.widget.RatingView;
 public class ReviewDetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "ReviewDetailsActivity";
-    @BindView(R.id.rating_view_attitude) RatingView attitude;
-    @BindView(R.id.rating_view_quality) RatingView quality;
-    @BindView(R.id.rating_view_reliability) RatingView reliability;
-    @BindView(R.id.rating_view_safety) RatingView safety;
-    @BindView(R.id.review_details_name) JosefinSansTextView name;
-    @BindView(R.id.review_details_overview) JosefinSansTextView again;
+    @BindView(R.id.rating_view_attitude)
+    RatingView attitude;
+    @BindView(R.id.rating_view_quality)
+    RatingView quality;
+    @BindView(R.id.rating_view_reliability)
+    RatingView reliability;
+    @BindView(R.id.rating_view_safety)
+    RatingView safety;
+    @BindView(R.id.review_details_name)
+    JosefinSansTextView name;
+    @BindView(R.id.review_details_overview)
+    JosefinSansTextView again;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +48,13 @@ public class ReviewDetailsActivity extends AppCompatActivity {
             if (null != getIntent().getExtras().getSerializable("data")) {
                 TextTools.log(TAG, "review object isn't null");
                 Review review = (Review) getIntent().getExtras().getSerializable("data");
-                TextTools.log(TAG, String.valueOf(review.safe));
-                TextTools.log(TAG, String.valueOf(review.attitude));
-                TextTools.log(TAG, String.valueOf(review.reliability));
-                TextTools.log(TAG, String.valueOf(review.quality));
-                populate(review);
+                if (review != null) {
+                    TextTools.log(TAG, String.valueOf(review.safe));
+                    TextTools.log(TAG, String.valueOf(review.attitude));
+                    TextTools.log(TAG, String.valueOf(review.reliability));
+                    TextTools.log(TAG, String.valueOf(review.quality));
+                    populate(review);
+                }
             }
         }
     }

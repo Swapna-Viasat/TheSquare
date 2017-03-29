@@ -10,7 +10,6 @@ import com.google.android.gms.analytics.Tracker;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import io.branch.referral.Branch;
 import io.fabric.sdk.android.Fabric;
-//import io.intercom.android.sdk.Intercom;
 
 public class MainApplication extends MultiDexApplication {
 
@@ -19,13 +18,15 @@ public class MainApplication extends MultiDexApplication {
     private static Tracker mTracker;
     private static GoogleAnalytics googleAnalytics;
 
+    private ApplicationComponent component;
 
     public void onCreate() {
         super.onCreate();
 
-
-//        Intercom.initialize(this, getString(R.string.misc_intercom_key_test),
-//                getString(R.string.misc_intercom_app_id_test));
+        component = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
+        component.injectApplication(this);
 
         googleAnalytics = GoogleAnalytics.getInstance(this);
         mTracker = getDefaultTracker();
@@ -39,6 +40,10 @@ public class MainApplication extends MultiDexApplication {
         if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
+    }
+
+    ApplicationComponent getComponent() {
+        return component;
     }
 
     synchronized public Tracker getDefaultTracker() {

@@ -173,7 +173,7 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
     @Override
     public void onExperience(ExperienceQualification experience) {
         //
-        if (experience.name.equals("CSCS Card")) {
+        if (experience != null && experience.name != null && experience.name.equals("CSCS Card")) {
             experience.selected = !experience.selected;
             experienceAdapter.notifyDataSetChanged();
             if (experience.selected) {
