@@ -112,7 +112,7 @@ public class MyGraftrsFragment extends Fragment implements WorkersAdapter.Worker
             presenter.fetchLikedWorkers(employerId);
         } else if (getArguments().getInt("category") == PAGE_BOOKED) {
             //
-            noMatchesText.setText("Any workers you book or cancel appear here...");
+            noMatchesText.setText("This is where all your previous \n         workers are kept...");
             presenter.fetchBookedWorkers(employerId);
         }
     }
