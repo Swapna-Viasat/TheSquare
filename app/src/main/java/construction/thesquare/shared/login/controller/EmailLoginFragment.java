@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import java.util.HashMap;
 
@@ -23,11 +21,15 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.LoginUser;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
-import construction.thesquare.shared.login.fragment.ForgotPasswordFragment;
+import construction.thesquare.shared.login.model.AccountValidator;
+import construction.thesquare.shared.login.presenter.LoginPresenter;
+import construction.thesquare.shared.login.view.LoginForm;
+import construction.thesquare.shared.utils.CrashLogHelper;
+import construction.thesquare.shared.utils.TextTools;
+import construction.thesquare.shared.veriphone.fragment.ForgotPasswordFragment;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
-import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
 import construction.thesquare.worker.onboarding.OnboardingWorkerActivity;
 import retrofit2.Call;
@@ -36,39 +38,55 @@ import retrofit2.Response;
 
 /**
  * Created by Vadim Goroshevsky
+ * refactored by Evgheni Gherghelejiu
+ * on 3/29/2017
  * Copyright (c) 2017 The Square Tech. All rights reserved.
  */
 
-public class EmailLoginFragment extends Fragment {
+public class EmailLoginFragment extends Fragment
+        implements LoginController {
+
+    public static final String TAG = "LoginFragment";
 
     private static final int TYPE_EMPLOYER = 1;
     private static final int TYPE_WORKER = 2;
 
-    @BindView(R.id.emailEditText)
-    EditText emailInput;
-
-    @BindView(R.id.passwordEditText)
-    EditText passwordInput;
+    @BindView(R.id.login_form) LoginForm mLoginFormView;
+    private Dialog progressDialog;
+    LoginPresenter loginPresenter;
+    AccountValidator accountValidator;
 
     public EmailLoginFragment() {
+        // required empty constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        accountValidator = new AccountValidator();
+        loginPresenter = new LoginPresenter(accountValidator);
+        loginPresenter.register(this);
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login_email, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
 
-    @OnClick(R.id.loginButton)
-    void login() {
-        if (validateInput()) {
-            HashMap<String, String> payload = new HashMap<>();
-            payload.put("email", emailInput.getText().toString());
-            payload.put("password", passwordInput.getText().toString());
-            callApi(payload);
-        }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mLoginFormView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attemptLogin();
+            }
+        });
     }
 
     @OnClick(R.id.forgotPass)
@@ -77,21 +95,6 @@ public class EmailLoginFragment extends Fragment {
                 .beginTransaction()
                 .replace(R.id.phone_verify_content, new ForgotPasswordFragment())
                 .commit();
-    }
-
-    private boolean validateInput() {
-        boolean result = true;
-        if (TextUtils.isEmpty(emailInput.getText().toString())) {
-            emailInput.setError(getString(R.string.empty_email));
-            result = false;
-        } else if (!TextTools.isEmailValid(emailInput.getText().toString())) {
-            result = false;
-            emailInput.setError(getString(R.string.validate_email));
-        } else if (TextUtils.isEmpty(passwordInput.getText().toString())) {
-            result = false;
-            passwordInput.setError("Please enter your password");
-        }
-        return result;
     }
 
     private void callApi(HashMap<String, String> body) {
@@ -130,7 +133,8 @@ public class EmailLoginFragment extends Fragment {
             } else if (response.body().getResponse().user.userType == TYPE_WORKER) {
                 processWorker(response);
             }
-        } else DialogBuilder.showStandardDialog(getContext(), "", getString(R.string.login_error));
+        } else DialogBuilder.showStandardDialog(getContext(), "",
+                getString(R.string.login_error));
     }
 
     private void processWorker(Response<ResponseObject<LoginUser>> response) {
@@ -175,5 +179,52 @@ public class EmailLoginFragment extends Fragment {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+        if (show) {
+            if (progressDialog == null) {
+                progressDialog = DialogBuilder.showCustomDialog(getContext());
+            }
+        } else {
+            if (null != progressDialog) {
+                DialogBuilder.cancelDialog(progressDialog);
+            }
+        }
+    }
+
+    @Override
+    public void showRetrofitError(Throwable throwable) {
+        //
+        if (null != throwable) {
+            TextTools.log(TAG, (null != throwable.getMessage()) ? throwable.getMessage() : "null");
+        }
+    }
+
+    @Override
+    public void showError(Response<ResponseObject<LoginUser>> response) {
+        try {
+            if (response.code() == 404) {
+                DialogBuilder.showStandardDialog(getContext(), "",
+                        getString(R.string.login_error));
+            } else {
+                HandleErrors.parseError(getContext(), null, response);
+            }
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
+    }
+
+    @Override
+    public void showSuccess(Response<ResponseObject<LoginUser>> response) {
+        TextTools.log(TAG, "successful login - proceeding...");
+        processResponse(response);
+    }
+
+    private void attemptLogin() {
+        TextTools.log(TAG, "attempting login...");
+        loginPresenter.onLoginButtonClick(mLoginFormView.getEmail(),
+                mLoginFormView.getPassword());
     }
 }

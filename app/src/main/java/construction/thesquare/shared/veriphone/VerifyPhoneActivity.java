@@ -1,4 +1,4 @@
-package construction.thesquare.shared.login;
+package construction.thesquare.shared.veriphone;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.login.controller.EmailLoginFragment;
-import construction.thesquare.shared.login.fragment.VerifyPhoneFragment;
+import construction.thesquare.shared.veriphone.fragment.VerifyPhoneFragment;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 

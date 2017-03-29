@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.StartEmployerActivity;
-import construction.thesquare.shared.login.VerifyPhoneActivity;
+import construction.thesquare.shared.veriphone.VerifyPhoneActivity;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.worker.signup.StartWorkerActivity;
 

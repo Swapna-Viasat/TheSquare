@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
-import construction.thesquare.shared.login.VerifyPhoneActivity;
+import construction.thesquare.shared.veriphone.VerifyPhoneActivity;
 import construction.thesquare.shared.start.ActionBarViewHolder;
 import construction.thesquare.shared.start.fragment.TutorialFragmentStep;
 import construction.thesquare.shared.start.fragment.TutorialPagerAdapterGeneric;

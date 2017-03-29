@@ -34,5 +34,7 @@ public class LoginFormPresenter {
             loginForm.showEmailError(emailResponse.getErrorType());
             return;
         }
+
+        loginForm.processValidInput();
     }
 }

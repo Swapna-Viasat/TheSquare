@@ -1,4 +1,4 @@
-package construction.thesquare.shared.login.fragment;
+package construction.thesquare.shared.veriphone.fragment;
 
 import android.app.Dialog;
 import android.content.Context;
