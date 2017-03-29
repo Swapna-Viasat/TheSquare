@@ -11,9 +11,12 @@ import android.view.ViewGroup;
 
 import java.util.HashMap;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import construction.thesquare.MainApplication;
 import construction.thesquare.R;
 import construction.thesquare.employer.MainEmployerActivity;
 import construction.thesquare.employer.onboarding.OnboardingEmployerActivity;
@@ -53,7 +56,7 @@ public class EmailLoginFragment extends Fragment
 
     @BindView(R.id.login_form) LoginForm mLoginFormView;
     private Dialog progressDialog;
-    LoginPresenter loginPresenter;
+    @Inject LoginPresenter loginPresenter;
     AccountValidator accountValidator;
 
     public EmailLoginFragment() {
@@ -63,8 +66,14 @@ public class EmailLoginFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         accountValidator = new AccountValidator();
-        loginPresenter = new LoginPresenter(accountValidator);
+        ((MainApplication) getActivity().getApplication()).component()
+                .inject(this);
         loginPresenter.register(this);
     }
 
