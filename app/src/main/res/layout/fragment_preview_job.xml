@@ -498,7 +498,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Promote -->
+            <!-- Cancel -->
             <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/cancel"
                 android:layout_marginTop="12dp"
@@ -532,5 +532,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
+            android:id="@+id/draft"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@color/redSquareColor"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:text="save as draft"
+            android:layout_weight="1"
+            app:josefin_style="semiBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>
