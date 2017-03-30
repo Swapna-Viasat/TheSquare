@@ -54,7 +54,7 @@ public class LoginFormTest {
         passwordView.setText("longEnoughPassword");
         loginForm.setOnClickListener(testListener);
         signInButton.performClick();
-        assertThat(testListener.click).isTrue(); 
+        assertThat(testListener.click).isTrue();
     }
 
     private class TestListener implements View.OnClickListener {
