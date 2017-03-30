@@ -34,6 +34,7 @@ import butterknife.OnClick;
 import construction.thesquare.FlavorSettings;
 import construction.thesquare.R;
 import construction.thesquare.employer.myjobs.LikeWorkerConnector;
+import construction.thesquare.shared.applications.model.Feedback;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.response.QuickInviteResponse;
@@ -64,87 +65,51 @@ import retrofit2.Response;
 
 public class WorkerProfileFragment extends Fragment implements LikeWorkerConnector.Callback {
 
-    @BindView(R.id.worker_view_profile_avatar)
-    CircleImageView avatarImage;
-    @BindView(R.id.worker_view_profile_name)
-    TextView nameView;
-    @BindView(R.id.worker_view_profile_position)
-    TextView positionView;
-    @BindView(R.id.worker_view_profile_experience)
-    TextView experienceYearsView;
-    @BindView(R.id.worker_view_profile_rating)
-    RatingView ratingView;
-    @BindView(R.id.worker_profile_bio_text)
-    TextView bioView;
-    @BindView(R.id.worker_details_bullet_list_experience)
-    LinearLayout experienceView;
-    @BindView(R.id.worker_details_bullet_list_requirements)
-    LinearLayout requirementsView;
-    @BindView(R.id.worker_details_bullet_list_skills)
-    LinearLayout skillsView;
-    @BindView(R.id.worker_details_bullet_list_companies)
-    TextView companiesView;
-    @BindView(R.id.worker_details_preferred_location)
-    TextView locationView;
-    @BindView(R.id.mapView)
-    MapView mapView;
+    @BindView(R.id.worker_view_profile_avatar) CircleImageView avatarImage;
+    @BindView(R.id.worker_view_profile_name) TextView nameView;
+    @BindView(R.id.worker_view_profile_position) TextView positionView;
+    @BindView(R.id.worker_view_profile_experience) TextView experienceYearsView;
+    @BindView(R.id.worker_view_profile_rating) RatingView ratingView;
+    @BindView(R.id.worker_profile_bio_text) TextView bioView;
+    @BindView(R.id.worker_details_bullet_list_experience) LinearLayout experienceView;
+    @BindView(R.id.worker_details_bullet_list_requirements) LinearLayout requirementsView;
+    @BindView(R.id.worker_details_bullet_list_skills) LinearLayout skillsView;
+    @BindView(R.id.worker_details_bullet_list_companies) TextView companiesView;
+    @BindView(R.id.worker_details_preferred_location) TextView locationView;
+    @BindView(R.id.mapView) MapView mapView;
     @BindViews({R.id.cscs1, R.id.cscs2, R.id.cscs3, R.id.cscs4,
             R.id.cscs5, R.id.cscs6, R.id.cscs7, R.id.cscs8})
     List<TextView> cscsNumbers;
-    @BindView(R.id.workerImage)
-    ImageView cscsImage;
-    @BindView(R.id.cscs_status)
-    TextView cscsStatus;
-    @BindView(R.id.cscsContent)
-    View cscsContent;
+    @BindView(R.id.workerImage) ImageView cscsImage;
+    @BindView(R.id.cscs_status) TextView cscsStatus;
+    @BindView(R.id.cscsContent) View cscsContent;
     @BindViews({R.id.nis1, R.id.nis2, R.id.nis3, R.id.nis4,
             R.id.nis5, R.id.nis6, R.id.nis7, R.id.nis8,
             R.id.nis9})
     List<TextView> nisNumbers;
-    @BindView(R.id.worker_profile_nationality_value)
-    TextView nationalityView;
-    @BindView(R.id.worker_profile_birthday_value)
-    TextView dateOfBirthView;
-    @BindView(R.id.worker_profile_languages_value)
-    TextView languagesView;
-    @BindView(R.id.worker_profile_passport_value)
-    ImageView passportImage;
-    @BindView(R.id.cscs_expires_value)
-    TextView cscsExpirationView;
-    @BindView(R.id.cscsRecordsLayout)
-    LinearLayout cscsRecordsLayout;
-    @BindView(R.id.worker_profile_email)
-    TextView workerEmail;
-    @BindView(R.id.worker_profile_phone)
-    TextView workerPhone;
-    @BindView(R.id.worker_profile_english_value)
-    TextView englishLevel;
-    @BindView(R.id.worker_details_bullet_list_experience_type)
-    LinearLayout experienceTypesView;
-    @BindView(R.id.book)
-    JosefinSansTextView book;
-    @BindView(R.id.decline)
-    JosefinSansTextView decline;
-    @BindView(R.id.bookedBanner)
-    View bookedBanner;
-    @BindView(R.id.offered_hint_view)
-    ViewGroup offeredHint;
-    @BindView(R.id.offered_hint_text)
-    TextView offeredHintText;
-    @BindView(R.id.contactWorkerLayout)
-    View contactWorkerLayout;
-    @BindView(R.id.nis_status)
-    TextView nisStatus;
-    @BindView(R.id.nisNumberLayout)
-    View nisNumberLayout;
-    @BindView(R.id.date_of_birth_status)
-    TextView dateOfBirthStatusView;
-    @BindView(R.id.passport_status)
-    TextView passportStatus;
-    @BindView(R.id.likeImage)
-    ImageView likeImage;
-    @BindView(R.id.workerBioLayout)
-    View workerBioLayout;
+    @BindView(R.id.worker_profile_nationality_value) TextView nationalityView;
+    @BindView(R.id.worker_profile_birthday_value) TextView dateOfBirthView;
+    @BindView(R.id.worker_profile_languages_value) TextView languagesView;
+    @BindView(R.id.worker_profile_passport_value) ImageView passportImage;
+    @BindView(R.id.cscs_expires_value) TextView cscsExpirationView;
+    @BindView(R.id.cscsRecordsLayout) LinearLayout cscsRecordsLayout;
+    @BindView(R.id.worker_profile_email) TextView workerEmail;
+    @BindView(R.id.worker_profile_phone) TextView workerPhone;
+    @BindView(R.id.worker_profile_english_value) TextView englishLevel;
+    @BindView(R.id.worker_details_bullet_list_experience_type) LinearLayout experienceTypesView;
+    @BindView(R.id.book) JosefinSansTextView book;
+    @BindView(R.id.decline) JosefinSansTextView decline;
+    @BindView(R.id.withdraw) JosefinSansTextView withdraw;
+    @BindView(R.id.bookedBanner) View bookedBanner;
+    @BindView(R.id.offered_hint_view) ViewGroup offeredHint;
+    @BindView(R.id.offered_hint_text) TextView offeredHintText;
+    @BindView(R.id.contactWorkerLayout) View contactWorkerLayout;
+    @BindView(R.id.nis_status) TextView nisStatus;
+    @BindView(R.id.nisNumberLayout) View nisNumberLayout;
+    @BindView(R.id.date_of_birth_status) TextView dateOfBirthStatusView;
+    @BindView(R.id.passport_status) TextView passportStatus;
+    @BindView(R.id.likeImage) ImageView likeImage;
+    @BindView(R.id.workerBioLayout) View workerBioLayout;
 
     private static final String KEY_WORKER_ID = "KEY_WORKER_ID";
 
@@ -680,7 +645,8 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                 }
                                 onOffered((null != worker.firstName) ?
                                                 worker.firstName : "",
-                                        (null != job.role) ? job.role.name : "", start);
+                                        (null != job.role) ? job.role.name : "", start,
+                                        currentApplication.id);
                             }
                         } else if (currentApplication.status.id == ApplicationStatus.STATUS_APPROVED) {
                             //
@@ -815,13 +781,53 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         });
     }
 
-    private void onOffered(String workerName, String jobName, String startDate) {
+    private void onOffered(String workerName,
+                           String jobName,
+                           String startDate,
+                           final int currentApplicationId) {
+        withdraw.setVisibility(View.VISIBLE);
+        withdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                withdrawOffer(currentApplicationId);
+            }
+        });
         book.setVisibility(View.GONE);
         offeredHint.setVisibility(View.VISIBLE);
         offeredHintText.setText(
                 String.format(getString(R.string.offered_hint),
                         workerName, jobName, startDate)
         );
+    }
+
+    private void withdrawOffer(int id) {
+        try {
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            HttpRestServiceConsumer.getBaseApiClient()
+                    .cancelBooking(id, new Feedback("n/a"))
+                    .enqueue(new Callback<ResponseObject<construction.thesquare.worker.jobmatches.model.Application>>() {
+                        @Override
+                        public void onResponse(Call<ResponseObject<construction.thesquare.worker.jobmatches.model.Application>> call, Response<ResponseObject<construction.thesquare.worker.jobmatches.model.Application>> response) {
+                            if (response.isSuccessful()) {
+                                //
+                                DialogBuilder.cancelDialog(dialog);
+                                offeredHint.setVisibility(View.GONE);
+                                withdraw.setVisibility(View.GONE);
+                                fetchWorker();
+                                //
+                            } else {
+                                HandleErrors.parseError(getContext(), dialog, response);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseObject<construction.thesquare.worker.jobmatches.model.Application>> call, Throwable t) {
+                            HandleErrors.parseFailureError(getContext(), dialog, t);
+                        }
+                    });
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     //TODO move strings into resources
