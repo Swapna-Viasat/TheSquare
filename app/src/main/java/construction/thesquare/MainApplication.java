@@ -7,7 +7,12 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
+import javax.inject.Singleton;
+
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
+import construction.thesquare.shared.login.LoginModule;
+import construction.thesquare.shared.login.controller.EmailLoginFragment;
+import dagger.Component;
 import io.branch.referral.Branch;
 import io.fabric.sdk.android.Fabric;
 
@@ -18,15 +23,25 @@ public class MainApplication extends MultiDexApplication {
     private static Tracker mTracker;
     private static GoogleAnalytics googleAnalytics;
 
+    @Singleton
+    @Component(
+            modules = { LoginModule.class }
+    )
+
+    public interface ApplicationComponent {
+        void inject(EmailLoginFragment emailLoginFragment);
+    }
+
     private ApplicationComponent component;
+
+    public ApplicationComponent component() {
+        return component;
+    }
 
     public void onCreate() {
         super.onCreate();
 
-        component = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
-        component.injectApplication(this);
+        component = DaggerMainApplication_ApplicationComponent.create();
 
         googleAnalytics = GoogleAnalytics.getInstance(this);
         mTracker = getDefaultTracker();

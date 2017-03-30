@@ -1,4 +1,4 @@
-package construction.thesquare.shared.login.fragment;
+package construction.thesquare.shared.veriphone.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -38,8 +38,9 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.SMSSent;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
-import construction.thesquare.shared.login.OnSmsReceivedListener;
-import construction.thesquare.shared.login.SmsInterceptor;
+import construction.thesquare.shared.veriphone.OnSmsReceivedListener;
+import construction.thesquare.shared.veriphone.SmsInterceptor;
+import construction.thesquare.shared.login.controller.EmailLoginFragment;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -48,7 +49,6 @@ import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
 import construction.thesquare.worker.onboarding.OnboardingWorkerActivity;
 import construction.thesquare.worker.signup.model.WorkerVerify;
-import io.fabric.sdk.android.services.common.Crash;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

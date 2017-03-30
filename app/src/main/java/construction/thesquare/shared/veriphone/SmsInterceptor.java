@@ -3,7 +3,7 @@
  * Copyright (c) 2017 FusionWorks. All rights reserved.
  */
 
-package construction.thesquare.shared.login;
+package construction.thesquare.shared.veriphone;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -87,7 +87,7 @@
             android:name="io.fabric.ApiKey"
             android:value="f0abb5e7f4da4f3abaa9f45c6910ebb015eaa400" />
 
-        <receiver android:name=".shared.login.SmsInterceptor">
+        <receiver android:name=".shared.veriphone.SmsInterceptor">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
@@ -155,7 +155,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarMain" />
         <activity
-            android:name=".shared.login.VerifyPhoneActivity"
+            android:name=".shared.veriphone.VerifyPhoneActivity"
             android:exported="true"
             android:label="@string/menu_worker_my_jobs_matches_home"
             android:screenOrientation="portrait"
