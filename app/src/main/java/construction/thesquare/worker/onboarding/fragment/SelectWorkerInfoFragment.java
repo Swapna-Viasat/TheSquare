@@ -354,7 +354,7 @@ public class SelectWorkerInfoFragment extends Fragment {
     }
 
     private void validateZip(final boolean showAddresses) {
-        zip = zipLayout.getEditText().getText().toString();
+        zip = zipLayout.getEditText().getText().toString().trim();
         // Api call to validate postal code
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
 
