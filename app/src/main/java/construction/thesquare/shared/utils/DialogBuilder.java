@@ -52,8 +52,12 @@ DialogBuilder {
     }
 
     public static void cancelDialog(Dialog dialog) {
-        if (dialog != null) {
-            dialog.cancel();
+        try {
+            if (dialog != null) {
+                dialog.cancel();
+            }
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
         }
     }
 
