@@ -835,7 +835,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                 DialogBuilder.cancelDialog(dialog);
                                 offeredHint.setVisibility(View.GONE);
                                 withdraw.setVisibility(View.GONE);
-                                fetchWorker();
+                                getActivity().finish();
                                 //
                             } else {
                                 HandleErrors.parseError(getContext(), dialog, response);
