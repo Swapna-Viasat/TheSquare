@@ -94,7 +94,8 @@ public class SelectLocationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         try {
-            rootView = inflater.inflate(R.layout.fragment_worker_select_location, container, false);
+            rootView = inflater.inflate(R.layout.fragment_worker_select_location,
+                    container, false);
         } catch (Exception e) {
             CrashLogHelper.logException(e);
         }
@@ -191,29 +192,32 @@ public class SelectLocationFragment extends Fragment {
 
     private void centerOnPostalCode(String code) {
         if (TextUtils.isEmpty(code)) return;
+        try {
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            ZipCodeVerifier.getInstance()
+                    .api()
+                    .verify(code, ZipCodeVerifier.API_KEY)
+                    .enqueue(new Callback<ZipResponse>() {
+                        @Override
+                        public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
+                            DialogBuilder.cancelDialog(dialog);
+                            if (response.isSuccessful()) {
+                                if (response.body().message == null) {
+                                    LatLng latLng = new LatLng(response.body().lat, response.body().lang);
 
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        ZipCodeVerifier.getInstance()
-                .api()
-                .verify(code, ZipCodeVerifier.API_KEY)
-                .enqueue(new Callback<ZipResponse>() {
-                    @Override
-                    public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
-                        DialogBuilder.cancelDialog(dialog);
-                        if (response.isSuccessful()) {
-                            if (response.body().message == null) {
-                                LatLng latLng = new LatLng(response.body().lat, response.body().lang);
-
-                                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
+                                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ZipResponse> call, Throwable t) {
-                        DialogBuilder.cancelDialog(dialog);
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ZipResponse> call, Throwable t) {
+                            DialogBuilder.cancelDialog(dialog);
+                        }
+                    });
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     private void editPostCode() {

@@ -44,14 +44,17 @@ DialogBuilder {
     public static Dialog showCustomDialog(Context context) {
         Dialog dialog = ProgressDialog.show(context, null, null);
         dialog.setContentView(R.layout.loader);
-        if (dialog.getWindow() != null)
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        if (dialog.getWindow() != null) {
+            dialog.getWindow()
+                    .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
         return dialog;
     }
 
     public static void cancelDialog(Dialog dialog) {
-        if (dialog != null)
+        if (dialog != null) {
             dialog.cancel();
+        }
     }
 
     public static void showStandardDialog(Context context, String title, String message) {
