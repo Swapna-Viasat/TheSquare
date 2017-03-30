@@ -800,7 +800,29 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         );
     }
 
-    private void withdrawOffer(int id) {
+    private void withdrawOffer(final int appId) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_withdraw_offer);
+        dialog.findViewById(R.id.yes)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        withdrawOfferCallApi(appId);
+                    }
+                });
+        dialog.findViewById(R.id.no)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+        dialog.show();
+    }
+
+    private void withdrawOfferCallApi(int id) {
         try {
             final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
             HttpRestServiceConsumer.getBaseApiClient()

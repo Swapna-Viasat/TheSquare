@@ -370,6 +370,7 @@
     <string name="employer_dialog_contract_last_day">Select the last working day of %s. (included)</string>
     <string name="employer_dialog_contract_day_hint">Day</string>
     <string name="employer_dialog_contract_comments">Comments</string>
+    <string name="employer_dialog_withdraw_offer">Are you sure you want to withdraw this job offer?</string>
     <string name="employer_dialog_contract_show">They didn\'t show up to work</string>
 
     <string name="employer_worker_details">View Profile</string>
