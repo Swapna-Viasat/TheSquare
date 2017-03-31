@@ -215,8 +215,11 @@ public class EmailLoginFragment extends Fragment
     public void showError(Response<ResponseObject<LoginUser>> response) {
         try {
             if (response.code() == 404) {
-                DialogBuilder.showStandardDialog(getContext(), "",
-                        getString(R.string.login_error));
+                HandleErrors.parseError(getContext(), null, response);
+//                i'm just gonna leave this here commented out because
+//                they'll prolly change their mind again
+//                DialogBuilder.showStandardDialog(getContext(), "",
+//                        getString(R.string.login_error));
             } else {
                 HandleErrors.parseError(getContext(), null, response);
             }

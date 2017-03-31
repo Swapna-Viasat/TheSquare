@@ -42,17 +42,16 @@ public class HandleErrors {
         ResponseError responseError = null;
         try {
             responseError = converter.convert(response.errorBody());
-            TextTools.log(TAG, "Response error: " + responseError.getError().getMessage());
 
             if (responseError.getError().getMessage().contains("Invalid token")) {
-                DialogBuilder.showStandardDialog(context, "Error", responseError.getError().getMessage(),
+                DialogBuilder.showStandardDialog(context, "", responseError.getError().getMessage(),
                         onOkClickCallback);
             } else {
-                DialogBuilder.showStandardDialog(context, "Error", responseError.getError().getMessage());
+                DialogBuilder.showStandardDialog(context, "", responseError.getError().getMessage());
             }
 
         } catch (Exception exception) {
-            TextTools.log(TAG, "Error sin parsear catch: " + response.errorBody().toString());
+            //
             DialogBuilder.showStandardDialog(context, "", standardError);
         }
     }
