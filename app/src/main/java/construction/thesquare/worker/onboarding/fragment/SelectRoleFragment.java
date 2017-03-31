@@ -233,6 +233,7 @@ public class SelectRoleFragment extends Fragment
                 selectedRoles.add(role1);
             }
         }
+        adapter.notifyDataSetChanged();
     }
 
     private TextWatcher filterTextWatcher = new TextWatcher() {
