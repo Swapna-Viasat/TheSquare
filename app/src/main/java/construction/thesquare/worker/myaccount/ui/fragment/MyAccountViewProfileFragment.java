@@ -564,10 +564,16 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
                 ButterKnife.apply(cscsNumbers, ENABLED, true);
             }
 
-            if (dataResponse.getResponse().cardPicture != null)
+            if (dataResponse.getResponse().cardPicture != null) {
                 Picasso.with(getContext())
                         .load(FlavorSettings.API_URL + dataResponse.getResponse().cardPicture)
                         .fit().centerCrop().into(cscsImage);
+
+                if (worker.picture == null)
+                    Picasso.with(getContext())
+                            .load(FlavorSettings.API_URL + dataResponse.getResponse().cardPicture)
+                            .fit().centerCrop().into(avatarImage);
+            }
 
             cscsExpirationView.setText(DateUtils.getCscsExpirationDate(dataResponse.getResponse().expiryDate));
 
