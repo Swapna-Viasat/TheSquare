@@ -2,48 +2,58 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="280dp"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
+    android:layout_margin="6dp"
     android:orientation="vertical"
-    card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="0dp">
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_margin="8dp"
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/question"
+                android:textSize="16dp"
                 android:textColor="@color/blackSquareColor"
                 app:josefin_style="italic"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-            <!--  <construction.thesquare.shared.view.widget.JosefinSansTextView
-                  android:layout_width="match_parent"
-                  android:layout_marginTop="4dp"
-                  android:layout_marginBottom="5dp"
-                  android:id="@+id/answer"
-                  android:layout_height="wrap_content"/>-->
-
-            <WebView
-                android:id="@+id/webview"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+                app:ael_expanded="false"
+                android:orientation="vertical"
+                app:ael_duration="500"
+                android:id="@+id/expandableLayoutTopFive"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none" />
+                android:layout_height="wrap_content">
 
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
+                    style="@style/UnderstandingBody"
+                    android:textColor="@color/blackSquareColor"
+                    android:layout_margin="@dimen/understanding_margin"
+                    android:id="@+id/answer"
+                    app:josefin_style="light"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    />
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 
         </LinearLayout>
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/redSquareColor" />
 </android.support.v7.widget.CardView>
