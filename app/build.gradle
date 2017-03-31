@@ -46,6 +46,14 @@ android {
     }
 }
 
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -93,7 +101,13 @@ dependencies {
         exclude module: 'answers-shim'
     }
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
+
+    // testing
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.+'
+    testCompile 'org.assertj:assertj-core:1.+'
+    testCompile 'org.robolectric:robolectric:3.1.2'
+    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
 
     // butter knife
     compile 'com.jakewharton:butterknife:8.5.1'

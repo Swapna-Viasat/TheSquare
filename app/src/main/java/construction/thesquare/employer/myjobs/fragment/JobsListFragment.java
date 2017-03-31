@@ -116,7 +116,6 @@ public class JobsListFragment extends Fragment
 
     @Override
     public void onViewDraft(Job job) {
-        // Toast.makeText(getContext(), "Under Development", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
         intent.putExtra("request", prepareDraftDetails(job));
         startActivity(intent);
@@ -134,7 +133,6 @@ public class JobsListFragment extends Fragment
                         });
                 break;
             case JobsAdapter.ACTION_REPUBLISH:
-                // Toast.makeText(getContext(), "Under Development", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
                 intent.putExtra("request", prepareDraftDetails(job));
                 startActivity(intent);

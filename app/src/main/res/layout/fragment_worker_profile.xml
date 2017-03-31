@@ -841,5 +841,19 @@
                 android:textSize="16sp"
                 android:visibility="gone" />
         </LinearLayout>
+
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
+            android:id="@+id/withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@color/redSquareColor"
+            android:padding="12dp"
+            android:gravity="center"
+            android:text="Withdraw offer"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
     </LinearLayout>
 </ScrollView>

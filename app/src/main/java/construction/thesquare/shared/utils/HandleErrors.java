@@ -74,7 +74,7 @@ public class HandleErrors {
         ResponseError responseError;
 
         try {
-            responseError = converter.convert(response.errorBody()); 
+            responseError = converter.convert(response.errorBody());
 
             if (responseError.getError().getMessage().contains("Invalid token")) {
                 DialogBuilder.showStandardDialog(context, "",
