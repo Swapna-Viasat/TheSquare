@@ -790,8 +790,9 @@
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
     <string name="payments_booking_credits">My Booking Credits</string>
+    <string name="payments_alt_title_desc">If you can\'t pay by credit card we can send a VAT invoice to you or your preferred bill payer. Once paid, you will get access to The Square and will be able to promote jobs and get matched to workers.</string>
     <string name="payments_alt_title">Please enter the details below
-                to activate an invoice service</string>
+                and we\'ll have the invoice sent out.</string>
     <string name="payments_alt_error">Oops. Please fill in all the details first!</string>
     <string name="payments_alt_spinner_title">Subscription plan</string>
     <string name="payments_alt_name">Bill payer\'s name *</string>
