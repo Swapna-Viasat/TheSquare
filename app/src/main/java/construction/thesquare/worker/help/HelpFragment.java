@@ -88,7 +88,7 @@ public class HelpFragment extends Fragment implements HelpTopDetailsAdapter.Help
         fetchRecentQueries(count);
     }
 
-    @OnClick({R.id.search_button/*, R.id.contact_us*/})
+    @OnClick({R.id.search_button , R.id.contact_us})
     public void action(View view) {
         switch (view.getId()) {
             case R.id.search_button:
@@ -98,12 +98,13 @@ public class HelpFragment extends Fragment implements HelpTopDetailsAdapter.Help
                         .replace(R.id.container, HelpDetailsFragment.newInstance(search.getText().toString()))
                         .commit();
                 break;
-           /* case R.id.contact_us:
+           case R.id.contact_us:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.container, SettingsContactFragment.newInstance())
+                        .addToBackStack("contact")
                         .commit();
-                break;*/
+                break;
         }
     }
 
