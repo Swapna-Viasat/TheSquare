@@ -230,18 +230,22 @@ public class SelectSkillsFragment extends Fragment
     private void proceed() {
         if (getActivity() == null || !isAdded()) return;
 
-        if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
-            getActivity().setResult(Activity.RESULT_OK);
-            getActivity().finish();
-            return;
+        try {
+            if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
+                getActivity().setResult(Activity.RESULT_OK);
+                getActivity().finish();
+                return;
+            }
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
+                    .replace(R.id.onboarding_content, SelectExperienceTypeFragment
+                            .newInstance(false))
+                    .addToBackStack("")
+                    .commit();
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
         }
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                .replace(R.id.onboarding_content, SelectExperienceTypeFragment
-                        .newInstance(false))
-                .addToBackStack("")
-                .commitAllowingStateLoss();
     }
 
     private TextWatcher filterTextWatcher = new TextWatcher() {

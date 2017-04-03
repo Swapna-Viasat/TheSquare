@@ -119,6 +119,8 @@ public class MyGraftrsFragment extends Fragment implements WorkersAdapter.Worker
 
     // Presenter callbacks
     public void showWorkerList(List<Worker> data) {
+        if (getActivity() == null || !isAdded()) return;
+
         noMatches.setVisibility(View.GONE);
         if (!workers.isEmpty()) workers.clear();
 
@@ -288,6 +290,8 @@ public class MyGraftrsFragment extends Fragment implements WorkersAdapter.Worker
 
     @Override
     public void onConnectorSuccess() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (getArguments().getInt("category") == PAGE_LIKED) {
             //
             presenter.fetchLikedWorkers(employerId);
