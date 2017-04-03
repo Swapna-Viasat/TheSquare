@@ -27,12 +27,12 @@ import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.login.model.AccountValidator;
 import construction.thesquare.shared.login.presenter.LoginPresenter;
 import construction.thesquare.shared.login.view.LoginForm;
-import construction.thesquare.shared.utils.CrashLogHelper;
-import construction.thesquare.shared.utils.TextTools;
-import construction.thesquare.shared.veriphone.fragment.ForgotPasswordFragment;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
+import construction.thesquare.shared.utils.TextTools;
+import construction.thesquare.shared.veriphone.fragment.ForgotPasswordFragment;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
 import construction.thesquare.worker.onboarding.OnboardingWorkerActivity;
 import retrofit2.Call;
@@ -106,7 +106,7 @@ public class EmailLoginFragment extends Fragment
                 .commit();
     }
 
-    private void callApi(HashMap<String, String> body) {
+    private void callApi(HashMap<String, Object> body) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
                 .loginUser(body)
@@ -133,6 +133,8 @@ public class EmailLoginFragment extends Fragment
     }
 
     private void processResponse(Response<ResponseObject<LoginUser>> response) {
+        if (getActivity() == null || !isAdded()) return;
+
         if (response.body() != null && response.body().getResponse() != null
                 && response.body().getResponse().user != null) {
 
@@ -147,6 +149,8 @@ public class EmailLoginFragment extends Fragment
     }
 
     private void processWorker(Response<ResponseObject<LoginUser>> response) {
+        if (getActivity() == null || !isAdded()) return;
+
         String name = response.body().getResponse().
                 user.getFirst_name() + " " +
                 response.body().getResponse()
@@ -167,6 +171,8 @@ public class EmailLoginFragment extends Fragment
     }
 
     private void processEmployer(Response<ResponseObject<LoginUser>> response) {
+        if (getActivity() == null || !isAdded()) return;
+
         String name = response.body().getResponse().
                 user.getFirst_name() + " " +
                 response.body().getResponse()

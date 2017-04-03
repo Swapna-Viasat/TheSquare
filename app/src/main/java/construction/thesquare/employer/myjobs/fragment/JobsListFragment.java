@@ -142,6 +142,7 @@ public class JobsListFragment extends Fragment
 
     @Override
     public void displayJobs(List<Job> jobs) {
+        if (getActivity() == null || !isAdded()) return;
         //
         data.clear();
         for (Job job : jobs) {

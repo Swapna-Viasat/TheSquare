@@ -212,6 +212,8 @@ public class SelectCompaniesFragment extends Fragment
     }
 
     private void proceed() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
@@ -289,6 +291,8 @@ public class SelectCompaniesFragment extends Fragment
     }
 
     private void populateData() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (currentWorker != null) {
             selected.clear();
             if (!CollectionUtils.isEmpty(currentWorker.companies))

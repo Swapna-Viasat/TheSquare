@@ -1,8 +1,6 @@
 package construction.thesquare.worker.onboarding.adapter;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.models.Role;
+import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 
 /**
@@ -37,9 +36,11 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
 
     @Override
     public RoleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RoleHolder(LayoutInflater
+        RoleHolder holder = new RoleHolder(LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.item_role_worker, parent, false));
+        holder.setIsRecyclable(false);
+        return holder;
     }
 
     @Override
@@ -49,19 +50,24 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
         if (role.selected) {
             holder.itemView.setBackgroundColor(
                     ContextCompat.getColor(holder.itemView.getRootView().getContext(), R.color.redSquareColor));
-            PorterDuffColorFilter redFilter = new PorterDuffColorFilter(
-                    ContextCompat.getColor(holder.itemView.getContext(), R.color.transparentRedSquareColor), PorterDuff.Mode.SRC_ATOP);
-            holder.image.setColorFilter(redFilter);
+            holder.blur.setVisibility(View.VISIBLE);
         } else {
             holder.itemView.setBackgroundColor(Color.WHITE);
-            holder.image.setColorFilter(null);
+            holder.blur.setVisibility(View.GONE);
         }
 
-        Picasso.with(holder.itemView.getContext())
-                .load(role.image)
-                .fit()
-                .centerCrop()
-                .into(holder.image);
+        try {
+            Picasso.with(holder.itemView.getContext()).cancelRequest(holder.image);
+
+            Picasso.with(holder.itemView.getContext())
+                    .load(role.image)
+                    .fit()
+                    .centerCrop()
+                    .into(holder.image);
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +90,8 @@ public class RolesAdapter extends RecyclerView.Adapter<RolesAdapter.RoleHolder> 
         JosefinSansTextView title;
         @BindView(R.id.image)
         ImageView image;
+        @BindView(R.id.blur)
+        View blur;
 
         public RoleHolder(View view) {
             super(view);

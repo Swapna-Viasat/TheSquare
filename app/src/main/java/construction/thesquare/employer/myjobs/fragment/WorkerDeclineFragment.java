@@ -106,7 +106,8 @@ public class WorkerDeclineFragment extends Fragment {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
                             //
-                            getActivity().finish();
+                            if (getActivity() != null)
+                                getActivity().finish();
                             //
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);

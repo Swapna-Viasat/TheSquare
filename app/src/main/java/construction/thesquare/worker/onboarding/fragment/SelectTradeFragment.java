@@ -265,6 +265,7 @@ public class SelectTradeFragment extends Fragment
     }
 
     private void populateData() {
+        if (getActivity() == null || !isAdded()) return;
         if (currentWorker != null) {
             selectedTrades.clear();
             if (!CollectionUtils.isEmpty(currentWorker.trades)) {

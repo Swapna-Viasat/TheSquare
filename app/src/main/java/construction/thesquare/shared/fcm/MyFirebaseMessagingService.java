@@ -61,17 +61,49 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 if (null != workerEmail) {
                     //
                     if (workerEmail.equals(receivedEmail)) {
-                        //proceed(remoteMessage);
-                        sendDataNotification((null != body.get("message")) ?
-                                body.get("message") : "");
+                        //
+                        if (null != body.get("custom_screen")) {
+                            if (body.get("custom_screen").equals("true")) {
+                                //
+                                if (null != body.get("job_id")) {
+                                    //
+                                } else {
+                                    sendDataNotification((null != body.get("message")) ?
+                                            body.get("message") : "");
+                                }
+                                //
+                            } else {
+                                sendDataNotification((null != body.get("message")) ?
+                                        body.get("message") : "");
+                            }
+                        } else {
+                            sendDataNotification((null != body.get("message")) ?
+                                    body.get("message") : "");
+                        }
                     }
                 }
                 if (null != employerEmail) {
                     //
                     if (employerEmail.equals(receivedEmail)) {
-                        //proceed(remoteMessage);
-                        sendDataNotification((null != body.get("message")) ?
-                                body.get("message") : "");
+                        //
+                        if (null != body.get("custom_screen")) {
+                            if (body.get("custom_screen").equals("true")) {
+                                //
+                                if (null != body.get("job_id") && null != body.get("worker_id")) {
+                                    //
+                                } else {
+                                    sendDataNotification((null != body.get("message")) ?
+                                            body.get("message") : "");
+                                }
+                                //
+                            } else {
+                                sendDataNotification((null != body.get("message")) ?
+                                        body.get("message") : "");
+                            }
+                        } else {
+                            sendDataNotification((null != body.get("message")) ?
+                                    body.get("message") : "");
+                        }
                     }
                 }
             }
@@ -98,6 +130,55 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
                         .setContentTitle("The Square Construction")
                         .setContentText(messageBody)
+                        //.setContentIntent(null)
+                        .setAutoCancel(true)
+                        .setLargeIcon(BitmapFactory
+                                .decodeResource(getResources(),
+                                        R.drawable.ic_big_notification))
+                        .setSmallIcon(R.drawable.ic_action_the_square_sq)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    private void sendDeepLinkNotificationWorker(String messageBody, int jobId) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this)
+                        //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
+                        .setContentTitle("The Square Construction")
+                        .setContentText(messageBody)
+                        //.setContentIntent(null)
+                        .setAutoCancel(true)
+                        .setLargeIcon(BitmapFactory
+                                .decodeResource(getResources(),
+                                        R.drawable.ic_big_notification))
+                        .setSmallIcon(R.drawable.ic_action_the_square_sq)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    private void sendDeepLinkNotificationEmployer(String messageBody, int workerId, int jobId) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this)
+                        //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
+                        .setContentTitle("The Square Construction")
+                        .setContentText(messageBody)
+                        //.setContentIntent(null)
                         .setAutoCancel(true)
                         .setLargeIcon(BitmapFactory
                                 .decodeResource(getResources(),

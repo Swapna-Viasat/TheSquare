@@ -280,6 +280,8 @@ public class SelectLocationFragment extends Fragment {
     }
 
     private void showAddressDialog(final String workerZipCode, final List<String> result) {
+        if (getActivity() == null || !isAdded()) return;
+
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.autocomplete);
@@ -370,6 +372,8 @@ public class SelectLocationFragment extends Fragment {
     }
 
     private void populateData() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (currentWorker != null) {
             if (!TextUtils.isEmpty(currentWorker.address)) filter.setText(currentWorker.address);
 
