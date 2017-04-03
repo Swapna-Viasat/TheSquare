@@ -461,6 +461,8 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void populateCSCSDetails(ResponseObject<CSCSCardWorker> dataResponse) {
+        if (getActivity() == null || !isAdded()) return;
+
         if (workerSurname != null) surname.setText(workerSurname);
         surname.setEnabled(false);
         String regnum = dataResponse.getResponse().registrationNumber;
@@ -898,7 +900,7 @@ public class SelectExperienceFragment extends Fragment
                     populateCscsStatus(cscsStatus);
                 cscs.setVisibility(View.VISIBLE);
             }
-        } else {
+        } else if (experience != null) {
             experience.selected = !experience.selected;
             populateQualifications();
         }
@@ -939,6 +941,8 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void showLanguagesSelectDialog(List<Language> languageList) {
+        if (getActivity() == null || !isAdded()) return;
+
         fetchedLanguages = languageList;
 
         List<String> languageNames = new ArrayList<>();
@@ -957,6 +961,7 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void openLanguageSelectDialog(CharSequence[] dialogList) {
+        if (getContext() != null)
         DialogBuilder.showMultiSelectDialog(getContext(), dialogList, this);
     }
 

@@ -146,8 +146,7 @@ public class SelectSkillsFragment extends Fragment
                         DialogBuilder.cancelDialog(dialog);
 
                         if (response.isSuccessful() && response.body().getResponse() != null) {
-                            processData(response.body().getResponse());
-                            populateData();
+                            onSuccessfulResponse(response.body().getResponse());
                         }
 
                     }
@@ -157,6 +156,15 @@ public class SelectSkillsFragment extends Fragment
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
+    }
+
+    private void onSuccessfulResponse(List<Skill> response) {
+        try {
+            processData(response);
+            populateData();
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     private void processData(List<Skill> fetchedSkills) {
@@ -220,6 +228,8 @@ public class SelectSkillsFragment extends Fragment
     }
 
     private void proceed() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
@@ -231,7 +241,7 @@ public class SelectSkillsFragment extends Fragment
                 .replace(R.id.onboarding_content, SelectExperienceTypeFragment
                         .newInstance(false))
                 .addToBackStack("")
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     private TextWatcher filterTextWatcher = new TextWatcher() {

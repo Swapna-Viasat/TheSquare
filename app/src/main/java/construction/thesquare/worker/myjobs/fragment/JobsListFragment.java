@@ -115,6 +115,8 @@ public class JobsListFragment extends Fragment
     }
 
     public void displayJobs(List<Job> data) {
+        if (getActivity() == null || !isAdded()) return;
+
         if (!jobs.isEmpty()) jobs.clear();
         jobs.addAll(data);
         jobsAdapter.notifyDataSetChanged();

@@ -64,6 +64,8 @@ public class JobMatchesFragment extends Fragment
 
     @Override
     public void displayMatches(List<Job> data) {
+        if (getActivity() == null || !isAdded()) return;
+
         jobs = data;
         adapter.setData(jobs);
         updateEmptyViewVisibility();
@@ -81,6 +83,7 @@ public class JobMatchesFragment extends Fragment
 
     @Override
     public void displayHint(boolean show) {
+        if (getActivity() == null || !isAdded()) return;
         hint.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 

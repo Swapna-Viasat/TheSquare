@@ -107,6 +107,8 @@ public class ReviewsListFragment extends Fragment
 
     @Override
     public void displayReviews(List<Review> reviews) {
+        if (getActivity() == null || !isAdded()) return;
+
         if (!data.isEmpty()) data.clear();
         if (getArguments().getInt("category") == Review.CAT_PENDING) {
             aggregate.setVisibility(View.GONE);

@@ -115,6 +115,8 @@ public class SelectRoleFragment extends Fragment
 
     private void proceed() {
 
+        if (getActivity() == null || !isAdded()) return;
+
         tradeRoles.clear();
         for (Role role : data) {
             if (role.selected) {

@@ -299,6 +299,8 @@ public class SelectExperienceTypeFragment extends Fragment
     }
 
     private void populateData() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (currentWorker != null) {
             selected.clear();
             if (!CollectionUtils.isEmpty(currentWorker.experienceTypes))
