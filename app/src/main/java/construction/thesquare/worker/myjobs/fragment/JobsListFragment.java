@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class JobsListFragment extends Fragment
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.no_matches)
-    View noMatches;
+    TextView noMatches;
     private Dialog dialog;
 
     public static JobsListFragment newInstance(int jobType) {
@@ -91,6 +92,20 @@ public class JobsListFragment extends Fragment
 
     public void onFragmentBecameVisible() {
         if (null != presenter) presenter.init(jobType);
+
+        switch (jobType) {
+            case Job.TYPE_BOOKED:
+                if (noMatches != null) noMatches.setText("This is where all your booked jobs are kept.");
+                break;
+            case Job.TYPE_OFFER:
+                if (noMatches != null) noMatches.setText("This is where all your job offers & applications are kept.");
+                break;
+            case Job.TYPE_LIKED:
+                if (noMatches != null) noMatches.setText("This is where all your liked jobs are kept.");
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
