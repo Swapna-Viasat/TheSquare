@@ -115,6 +115,8 @@ public class SelectRoleFragment extends Fragment
 
     private void proceed() {
 
+        if (getActivity() == null || !isAdded()) return;
+
         tradeRoles.clear();
         for (Role role : data) {
             if (role.selected) {
@@ -233,6 +235,7 @@ public class SelectRoleFragment extends Fragment
                 selectedRoles.add(role1);
             }
         }
+        adapter.notifyDataSetChanged();
     }
 
     private TextWatcher filterTextWatcher = new TextWatcher() {

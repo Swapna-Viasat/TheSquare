@@ -314,6 +314,8 @@ public class WorkerListFragment extends Fragment
     }
 
     private void showWorkerInviteSent(String workerName) {
+        if (getActivity() == null || !isAdded()) return;
+
         final Dialog dialog = new Dialog(getContext());
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_offer_confirm);

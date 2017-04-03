@@ -146,8 +146,7 @@ public class SelectSkillsFragment extends Fragment
                         DialogBuilder.cancelDialog(dialog);
 
                         if (response.isSuccessful() && response.body().getResponse() != null) {
-                            processData(response.body().getResponse());
-                            populateData();
+                            onSuccessfulResponse(response.body().getResponse());
                         }
 
                     }
@@ -157,6 +156,15 @@ public class SelectSkillsFragment extends Fragment
                         HandleErrors.parseFailureError(getContext(), dialog, t);
                     }
                 });
+    }
+
+    private void onSuccessfulResponse(List<Skill> response) {
+        try {
+            processData(response);
+            populateData();
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     private void processData(List<Skill> fetchedSkills) {
@@ -220,18 +228,24 @@ public class SelectSkillsFragment extends Fragment
     }
 
     private void proceed() {
-        if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
-            getActivity().setResult(Activity.RESULT_OK);
-            getActivity().finish();
-            return;
+        if (getActivity() == null || !isAdded()) return;
+
+        try {
+            if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
+                getActivity().setResult(Activity.RESULT_OK);
+                getActivity().finish();
+                return;
+            }
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
+                    .replace(R.id.onboarding_content, SelectExperienceTypeFragment
+                            .newInstance(false))
+                    .addToBackStack("")
+                    .commit();
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
         }
-        getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
-                .replace(R.id.onboarding_content, SelectExperienceTypeFragment
-                        .newInstance(false))
-                .addToBackStack("")
-                .commit();
     }
 
     private TextWatcher filterTextWatcher = new TextWatcher() {

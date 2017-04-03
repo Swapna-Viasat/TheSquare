@@ -3,7 +3,6 @@ package construction.thesquare.worker.myjobs.adapter;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,8 +130,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                     if (listener != null) listener.onLikeJob(job);
                 }
             });
-            if (TextUtils.equals(job.status.name, "Old")) holder.liked.setVisibility(View.GONE);
-            else holder.liked.setVisibility(View.VISIBLE);
+            //if (TextUtils.equals(job.status.name, "Old")) holder.liked.setVisibility(View.GONE);
+            //else holder.liked.setVisibility(View.VISIBLE);
 
             if (getBannerImage(job) != 0) holder.bannerImage.setImageResource(getBannerImage(job));
             else holder.bannerImage.setVisibility(View.GONE);

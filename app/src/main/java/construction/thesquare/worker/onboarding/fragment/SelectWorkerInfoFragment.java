@@ -505,40 +505,46 @@ public class SelectWorkerInfoFragment extends Fragment {
     }
 
     private void showAddressDialog(final List<String> result) {
-        final Dialog dialog = new Dialog(getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.autocomplete);
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                getResources().getDisplayMetrics().heightPixels * 8 / 12);
-        ((TextView) dialog.findViewById(R.id.autocomplete_title))
-                .setText(getString(R.string.create_job_address));
+        if (getActivity() == null || !isAdded()) return;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, result);
-        ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
-        final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                search.setText(result.get(position));
-            }
-        });
+        try {
+            final Dialog dialog = new Dialog(getContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.autocomplete);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    getResources().getDisplayMetrics().heightPixels * 8 / 12);
+            ((TextView) dialog.findViewById(R.id.autocomplete_title))
+                    .setText(getString(R.string.create_job_address));
 
-        dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // all good
-                address = search.getText().toString();
-                zipLayout.getEditText().setText(address.replace(", , , ,", ", ") + ", " + zip);
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, result);
+            ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
+            final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    search.setText(result.get(position));
+                }
+            });
+
+            dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // all good
+                    address = search.getText().toString();
+                    zipLayout.getEditText().setText(address.replace(", , , ,", ", ") + ", " + zip);
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 }

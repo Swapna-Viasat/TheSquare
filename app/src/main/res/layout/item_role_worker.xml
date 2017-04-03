@@ -19,6 +19,14 @@
             android:layout_height="match_parent"
             android:background="@color/transparentSquareColor" />
 
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/blur"
+            android:scaleType="centerCrop"
+            android:background="#80FF0000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_centerInParent="true"
