@@ -103,6 +103,9 @@ public class JobsListFragment extends Fragment
             case Job.TYPE_LIKED:
                 if (noMatches != null) noMatches.setText("This is where all your liked jobs are kept.");
                 break;
+            case Job.TYPE_OLD:
+                if (noMatches != null) noMatches.setText("This is where all your old jobs are kept.");
+                break;
             default:
                 break;
         }
