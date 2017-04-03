@@ -25,7 +25,7 @@ public class LoginPresenterTest {
     public void setup() throws Exception {
         testLoginController = new TestLoginController();
         loginPresenter = new LoginPresenter(new TestAccountValidator());
-        loginPresenter.register(testLoginController); 
+        loginPresenter.register(testLoginController);
     }
 
     @Test

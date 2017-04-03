@@ -10,6 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Title Desc-->
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
+            android:textColor="@color/redSquareColor"
+            android:textSize="16sp"
+            app:josefin_style="light"
+            android:textAlignment="center"
+            android:id="@+id/title_desc"
+            android:text="@string/payments_alt_title_desc"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
         <!-- Title -->
         <construction.thesquare.shared.view.widget.JosefinSansTextView
             android:textColor="@color/redSquareColor"
@@ -19,6 +33,7 @@
             android:textAlignment="center"
             android:text="@string/payments_alt_title"
             android:layout_margin="24dp"
+            android:layout_below="@+id/title_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

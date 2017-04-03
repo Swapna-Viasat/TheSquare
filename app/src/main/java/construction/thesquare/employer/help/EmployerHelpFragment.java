@@ -27,7 +27,7 @@ import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
-import construction.thesquare.worker.help.adapter.HelpTopDetailsAdapter;
+import construction.thesquare.employer.help.adapter.HelpTopDetailsAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -91,7 +91,7 @@ public class EmployerHelpFragment extends Fragment implements HelpTopDetailsAdap
         }
     };
 
-    @OnClick({R.id.search_button/*, R.id.contact_us*/})
+    @OnClick({R.id.search_button, R.id.contact_us})
     public void action(View view) {
         switch (view.getId()) {
             case R.id.search_button:
@@ -103,14 +103,14 @@ public class EmployerHelpFragment extends Fragment implements HelpTopDetailsAdap
                             .addToBackStack("")
                             .commit();
                 break;
-            /*case R.id.contact_us:
+            case R.id.contact_us:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_employer_content,
                                 SettingsContactFragment.newInstance())
                         .addToBackStack("contact")
                         .commit();
-                break;*/
+                break;
         }
     }
 

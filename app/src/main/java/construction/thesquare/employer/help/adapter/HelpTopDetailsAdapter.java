@@ -2,11 +2,19 @@ package construction.thesquare.employer.help.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
+
+import com.github.aakira.expandablelayout.ExpandableLayout;
+import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
+import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +33,14 @@ public class HelpTopDetailsAdapter extends RecyclerView.Adapter<HelpTopDetailsAd
     private List<Help> data = new ArrayList<>();
     private Context context;
     private HelpTopDetailsListener listener;
-
+    private SparseBooleanArray expandState = new SparseBooleanArray();
     public HelpTopDetailsAdapter(List<Help> list, Context context, HelpTopDetailsListener listener) {
         this.data = list;
         this.context = context;
         this.listener = listener;
+        for (int i = 0; i < data.size(); i++) {
+            expandState.append(i, false);
+        }
     }
 
     public interface HelpTopDetailsListener {
@@ -45,16 +56,17 @@ public class HelpTopDetailsAdapter extends RecyclerView.Adapter<HelpTopDetailsAd
 
     @Override
     public int getItemCount() {
-        System.out.println("**"+data.size());
         return data.size();
     }
 
     public static class HelpTopDetailsHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.question)
         JosefinSansTextView question;
+        @BindView(R.id.answer)
+        JosefinSansTextView answer;
+        @BindView(R.id.expandableLayoutTopFive)
+        ExpandableLinearLayout expandableLayout;
 
-        @BindView(R.id.webview)
-        WebView webview;
         public HelpTopDetailsHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -62,24 +74,42 @@ public class HelpTopDetailsAdapter extends RecyclerView.Adapter<HelpTopDetailsAd
     }
 
     @Override
-    public void onBindViewHolder(final HelpTopDetailsHolder holder, int position) {
+    public void onBindViewHolder(final HelpTopDetailsHolder holder, final int position) {
         final Help faq = data.get(position);
-        holder.webview.setVisibility(View.GONE);
-        if (faq.question != null) {
+         if (faq.question != null) {
             holder.question.setText(faq.question);
         }
 
-       WebSettings settings= holder.webview.getSettings();
-        settings.setDefaultFontSize(10);
-        settings.setSansSerifFontFamily("sans-serif");
+        holder.setIsRecyclable(false);
+        holder.expandableLayout.setInRecyclerView(true);
+        holder.expandableLayout.setExpanded(expandState.get(position));
+        holder.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
+            @Override
+            public void onPreOpen() {
+                expandState.put(position, true);
+            }
+
+            @Override
+            public void onPreClose() {
+                expandState.put(position, false);
+            }
+        });
         if (null != listener) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    holder.webview.setVisibility(View.VISIBLE);
-                    holder.webview.loadDataWithBaseURL(null, faq.answer, "text/html", "utf-8", null);
+                    onClickButton(holder.expandableLayout,holder.answer,faq.answer);
                 }
             });
         }
     }
+
+    private void onClickButton(final ExpandableLayout expandableLayout, TextView ans, String answer) {
+
+        ans.setText(Html.fromHtml(answer));
+        ans.setMovementMethod(LinkMovementMethod.getInstance());
+        ans.setWidth(500);
+        expandableLayout.toggle();
+    }
+
 }
