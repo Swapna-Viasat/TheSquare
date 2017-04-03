@@ -218,7 +218,8 @@ public interface BaseApiInterface {
 
     @GET("/workers/{pk}/my_jobs/")
     Call<JobsResponse> getMyJobs(@Path("pk") int workerId,
-                                 @Query("status") Integer status,
+                                 @Query("status") Integer applicationStatus,
+                                 @Query("job_status") Integer jobStatus,
                                  @Query("like") boolean liked,
                                  @Query("offer") boolean isOffer);
 
