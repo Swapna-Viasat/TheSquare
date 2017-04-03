@@ -106,7 +106,7 @@ public class EmailLoginFragment extends Fragment
                 .commit();
     }
 
-    private void callApi(HashMap<String, String> body) {
+    private void callApi(HashMap<String, Object> body) {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
                 .loginUser(body)

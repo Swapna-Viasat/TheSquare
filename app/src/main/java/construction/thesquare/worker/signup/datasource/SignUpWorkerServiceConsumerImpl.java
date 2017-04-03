@@ -26,7 +26,7 @@ public class SignUpWorkerServiceConsumerImpl implements SignUpWorkerServiceConsu
     private Dialog dialog;
     private Context context;
 
-    public void verifyWorkerNumber(Context aContext, HashMap<String, String> verificationRequest, final OnVerificationWorkerNumberFinishedListener listener) {
+    public void verifyWorkerNumber(Context aContext, HashMap<String, Object> verificationRequest, final OnVerificationWorkerNumberFinishedListener listener) {
         context = aContext;
         dialog = DialogBuilder.showCustomDialog(context);
         Call<ResponseObject<WorkerVerify>> workerVerify = HttpRestServiceConsumer.getBaseApiClient().verifyWorkerNumber(verificationRequest);

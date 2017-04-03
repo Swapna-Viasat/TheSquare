@@ -98,6 +98,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
                         .setContentTitle("The Square Construction")
                         .setContentText(messageBody)
+                        //.setContentIntent(null)
                         .setAutoCancel(true)
                         .setLargeIcon(BitmapFactory
                                 .decodeResource(getResources(),
