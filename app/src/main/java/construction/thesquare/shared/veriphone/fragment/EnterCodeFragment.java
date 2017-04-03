@@ -61,18 +61,12 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
 
     public static final String TAG = "EnterCodeFragment";
 
-    @BindView(R.id.eVerificationCode1)
-    EditText eVerificationCode1;
-    @BindView(R.id.eVerificationCode2)
-    EditText eVerificationCode2;
-    @BindView(R.id.eVerificationCode3)
-    EditText eVerificationCode3;
-    @BindView(R.id.eVerificationCode4)
-    EditText eVerificationCode4;
-    @BindView(R.id.btnPhoneVerificationContinue)
-    Button btnContinue;
-    @BindView(R.id.tvPhoneNumber)
-    TextView tvPhoneNumber;
+    @BindView(R.id.eVerificationCode1) EditText eVerificationCode1;
+    @BindView(R.id.eVerificationCode2) EditText eVerificationCode2;
+    @BindView(R.id.eVerificationCode3) EditText eVerificationCode3;
+    @BindView(R.id.eVerificationCode4) EditText eVerificationCode4;
+    @BindView(R.id.btnPhoneVerificationContinue) Button btnContinue;
+    @BindView(R.id.tvPhoneNumber) TextView tvPhoneNumber;
 
     private EditText selectedEditText;
     private String verificationCode;
@@ -168,18 +162,19 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
         if (validateFields()) {
             // call api
 
-            HashMap<String, String> verificationRequest = new HashMap<>();
+            HashMap<String, Object> verificationRequest = new HashMap<>();
             verificationRequest.put("country_code", currentCountryCode);
             verificationRequest.put("phone_number", currentPhone);
             verificationRequest.put("email", getArguments().getString("email"));
             verificationRequest.put("verification_number", verificationCode);
+            verificationRequest.put("platform", Constants.PLATFORM_ANDROID);
 
             callApi(getArguments().getInt(Constants.KEY_VERIFY_PHONE, 1),
                     verificationRequest);
         }
     }
 
-    private void callApi(int key, HashMap<String, String> body) {
+    private void callApi(int key, HashMap<String, Object> body) {
         TextTools.log(TAG, String.valueOf(key));
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         switch (key) {

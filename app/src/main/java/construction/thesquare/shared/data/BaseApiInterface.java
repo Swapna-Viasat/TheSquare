@@ -104,7 +104,7 @@ public interface BaseApiInterface {
     Call<ResponseObject<List<EnglishLevel>>> fetchEnglishLevels();
 
     @POST("/users/login/")
-    Call<ResponseObject<LoginUser>> loginUser(@Body HashMap<String, String> loginRequest);
+    Call<ResponseObject<LoginUser>> loginUser(@Body HashMap<String, Object> loginRequest);
 
     @POST("/users/forgot_password/")
     Call<StatusMessageResponse> forgotPassword(@Body HashMap<String, String> submitRequest);
@@ -120,7 +120,8 @@ public interface BaseApiInterface {
     Call<ResponseObject<Employer>> registrationEmployer(@Body HashMap<String, String> registrationRequest);
 
     @POST("/employers/verify/")
-    Call<ResponseObject<EmployerVerify>> verifyEmployerNumber(@Body HashMap<String, String> verificationNumberRequest);
+    Call<ResponseObject<EmployerVerify>>
+            verifyEmployerNumber(@Body HashMap<String, Object> verificationNumberRequest);
 
     @PATCH("/employers/{pk}/")
     Call<ResponseObject<Employer>> persistOnboardingEmployer(@Path("pk") int id, @Body HashMap<String, Object> onBoardingRequestEmployer);
@@ -173,7 +174,8 @@ public interface BaseApiInterface {
     Call<ResponseObject<Worker>> registrationWorker(@Body HashMap<String, String> registrationRequest);
 
     @POST("/workers/verify/")
-    Call<ResponseObject<WorkerVerify>> verifyWorkerNumber(@Body HashMap<String, String> verificationNumberRequest);
+    Call<ResponseObject<WorkerVerify>>
+            verifyWorkerNumber(@Body HashMap<String, Object> verificationNumberRequest);
 
     @PATCH("/workers/{pk}/")
     Call<ResponseObject<construction.thesquare.shared.models.Worker>>

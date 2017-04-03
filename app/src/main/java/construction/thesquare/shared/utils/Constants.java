@@ -66,4 +66,6 @@ public class Constants {
 
     public static final String KEY_APPLICATION_ID = "application_id";
     public static final String KEY_HAS_APPLIED = "has_applied";
+
+    public static final int PLATFORM_ANDROID = 2;
 }
