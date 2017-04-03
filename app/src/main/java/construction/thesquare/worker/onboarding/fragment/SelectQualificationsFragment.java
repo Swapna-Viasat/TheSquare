@@ -237,7 +237,7 @@ public class SelectQualificationsFragment extends Fragment
     }
 
     private void proceed() {
-        if (getActivity() != null || !isAdded()) return;
+        if (getActivity() == null || !isAdded()) return;
 
         if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
             getActivity().setResult(Activity.RESULT_OK);
