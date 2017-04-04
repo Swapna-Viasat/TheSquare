@@ -12,6 +12,7 @@ import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -51,6 +53,7 @@ import construction.thesquare.employer.createjob.CreateRequest;
 import construction.thesquare.employer.createjob.PreviewJobActivity;
 import construction.thesquare.employer.createjob.dialog.CRNDialog;
 import construction.thesquare.employer.createjob.dialog.JobDetailsDialog;
+import construction.thesquare.employer.createjob.listener.ConnectCheckListener;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
 import construction.thesquare.employer.myjobs.fragment.JobDetailsFragment;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
@@ -100,6 +103,14 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.rb_day) RadioButton rbDay;
     @BindView(R.id.rb_poa) RadioButton rbPOA;
 
+    // new feature items
+    @BindView(R.id.check_connect) CheckBox checkBoxConnect;
+    @BindView(R.id.check_book) CheckBox checkBoxBook;
+    private ConnectCheckListener connectCheckListener;
+    @BindView(R.id.connect_contact_info) CardView connectContactInfo;
+    @BindView(R.id.book_contact_info) CardView bookContactInfo;
+    @BindView(R.id.connect_deadline) CardView connectDeadline;
+
     @BindView(R.id.in_layout_extra) TextInputLayout layoutExtra;
     @BindView(R.id.extra) JosefinSansEditText extra;
     @BindView(R.id.in_layout_address) TextInputLayout layoutAddress;
@@ -148,6 +159,15 @@ public class SelectDetailsFragment extends Fragment
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        connectCheckListener = new ConnectCheckListener(
+                checkBoxConnect,
+                checkBoxBook,
+                connectContactInfo,
+                connectDeadline,
+                bookContactInfo);
+        checkBoxConnect.setOnCheckedChangeListener(connectCheckListener);
+        checkBoxBook.setOnCheckedChangeListener(connectCheckListener);
 
         request = (CreateRequest) getArguments().getSerializable("request");
 

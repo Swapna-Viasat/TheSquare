@@ -1259,4 +1259,12 @@
                 matched workers or do you just want to book?</string>
     <string name="connect_connect_yes">I want to speak with them before hiring</string>
     <string name="connect_connect_no">I want to book them to turn up and start</string>
+    <string name="connect_contact_header">All marked information will only be
+        provided to workers who you connect with. If this is left blank,
+        your name and contact details will be provided.</string>
+    <string name="connect_application_deadline">Application deadline</string>
+    <string name="connect_contact">Contact</string>
+    <string name="connect_email">Email address</string>
+    <string name="connect_number">Contact number</string>
+    <string name="connect_person">Contact person</string>
 </resources>
