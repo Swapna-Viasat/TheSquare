@@ -523,6 +523,7 @@
     <string name="worker_reviews_requested_by_worker">Requested by \n me</string>
     <string name="worker_reviews_turned_up">of the time you turned up</string>
     <string name="worker_reviews_companies_turned_up">of firms\nwould hire you again</string>
+    <string name="worker_reviews_requested_by_employer">Requested by \n Employer </string>
 
     <!-- Employer Reviews -->
     <string name="employer_reviews_work_again">Would work for you again</string>
@@ -542,6 +543,11 @@
     <string name="worker_turned_up">Did %s turn up?</string>
     <string name="employer_review_request">You have no reviews to give right now! </string>
     <string name="employer_review_request_detail">We\'ll let you know as soon as you do. Remember, reviews are super important for you, your workers and The Square community. Reviews should be done fast &amp; fairly.</string>
+    <string name="hire_again">You would hire %s\'s \n again</string>
+    <string name="not_hire_again">You wouldn\'t hire %s\'s \n again</string>
+    <string name="worker_rate_employer">Please rate %s\'s</string>
+    <string name="employer_reviews_workers_turned_up">of workers\nwould work for you again</string>
+    <string name="work_again">Would you work for them again? %s </string>
 
     <!-- Employer My Account -->
     <string name="employer_account_price_plan">My Price Plan</string>

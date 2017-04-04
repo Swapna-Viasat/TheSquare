@@ -22,6 +22,23 @@ public class ReviewData implements Serializable {
     public int showedToWorkTotal;
     @SerializedName("reviews_count")
     public int reviewsCount;
+    @SerializedName("environment")
+    public int environment;
+    @SerializedName("team")
+    public int team;
+    @SerializedName("payers")
+    public int payers;
+    @SerializedName("induction")
+    public int induction;
+
+    public ReviewData(int environment, int team, int payers, int induction, int globalRating) {
+        this.environment = environment;
+        this.team = team;
+        this.payers = payers;
+        this.induction = induction;
+        this.globalRating = globalRating;
+    }
+
 
     public ReviewData(int quality, int reliability, int attitude, int safe, int wouldWorkTotal, int showedToWorkTotal, int reviewsCount, int globalRating) {
         this.quality = quality;

@@ -288,9 +288,10 @@ public interface BaseApiInterface {
     @POST("applications/{pk}/accept/")
     Call<ResponseBody> acceptApplication(@Path("pk") int id);
 
+    //Reviews
 
     @GET("/reviews/")
-    Call<ReviewsResponse> getReviews();
+    Call<ReviewsResponse> getReviews(@Query("tab") int tabvalue);
 
     @GET("/reviews/{pk}/")
     Call<ReviewResponse> getReview(@Path("pk") int id);
@@ -303,6 +304,10 @@ public interface BaseApiInterface {
 
     @GET("/workers/{pk}/")
     Call<ResponseObject<construction.thesquare.shared.models.Worker>> getWorkerAggregateReview(@Path("pk") int id);
+
+    @GET("/employers/{pk}/")
+    Call<ResponseObject<construction.thesquare.shared.models.Employer>> getEmployerAggregateReview(@Path("pk") int id);
+
 
     //    APPLICATIONS
     @POST("/applications/{pk}/cancel_booking/")

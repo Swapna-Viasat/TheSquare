@@ -3,6 +3,7 @@ package construction.thesquare.worker.reviews.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.RadioGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,11 +33,13 @@ public class ReviewDetailsActivity extends AppCompatActivity {
     JosefinSansTextView name;
     @BindView(R.id.review_details_overview)
     JosefinSansTextView again;
+    @BindView(R.id.radio_group)
+    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_details);
+        setContentView(R.layout.activity_employer_review_details);
         ButterKnife.bind(this);
     }
 
@@ -49,10 +52,10 @@ public class ReviewDetailsActivity extends AppCompatActivity {
                 TextTools.log(TAG, "review object isn't null");
                 Review review = (Review) getIntent().getExtras().getSerializable("data");
                 if (review != null) {
-                    TextTools.log(TAG, String.valueOf(review.safe));
-                    TextTools.log(TAG, String.valueOf(review.attitude));
-                    TextTools.log(TAG, String.valueOf(review.reliability));
-                    TextTools.log(TAG, String.valueOf(review.quality));
+                    TextTools.log(TAG, String.valueOf(review.environment));
+                    TextTools.log(TAG, String.valueOf(review.team));
+                    TextTools.log(TAG, String.valueOf(review.payers));
+                    TextTools.log(TAG, String.valueOf(review.induction));
                     populate(review);
                 }
             }
@@ -61,18 +64,26 @@ public class ReviewDetailsActivity extends AppCompatActivity {
 
     private void populate(Review review) {
         quality.makeStarsRed();
-        quality.setRating((int) review.quality);
-        TextTools.log(TAG, String.valueOf(review.quality));
+        quality.setRating((int) review.environment);
+        TextTools.log(TAG, String.valueOf(review.environment));
         attitude.makeStarsRed();
-        attitude.setRating((int) review.attitude);
-        TextTools.log(TAG, String.valueOf(review.attitude));
+        attitude.setRating((int) review.team);
+        TextTools.log(TAG, String.valueOf(review.team));
         reliability.makeStarsRed();
-        reliability.setRating((int) review.reliability);
-        TextTools.log(TAG, String.valueOf(review.reliability));
+        reliability.setRating((int) review.payers);
+        TextTools.log(TAG, String.valueOf(review.payers));
         safety.makeStarsRed();
-        safety.setRating((int) review.safe);
-        TextTools.log(TAG, String.valueOf(review.safe));
-        again.setVisibility(review.wouldHireAgain ? View.VISIBLE : View.GONE);
+        safety.setRating((int) review.induction);
+        TextTools.log(TAG, String.valueOf(review.induction));
+        if(review.wouldHireAgain) {
+            radioGroup.check(R.id.radio_yes);
+        }
+        else{
+            radioGroup.check(R.id.radio_no);
+        }
+        if (null != review.company) {
+            name.setText(review.company);
+        }
     }
 
     @OnClick(R.id.close)

@@ -51,4 +51,7 @@ public class Employer implements Serializable {
 
     @Nullable
     @SerializedName("stripe_customer_token") public String stripeToken;
+    @Nullable
+    @SerializedName("review_data")
+    public ReviewData reviewData;
 }

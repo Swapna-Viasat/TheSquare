@@ -58,9 +58,9 @@ public class ReviewsPresenter implements ReviewsContract.UserActionListener {
     }
 
     @Override
-    public void fetchReviews() {
+    public void fetchReviews(int tabId) {
         final Dialog dialog = DialogBuilder.showCustomDialog(context);
-        Call<ReviewsResponse> call = HttpRestServiceConsumer.getBaseApiClient().getReviews();
+        Call<ReviewsResponse> call = HttpRestServiceConsumer.getBaseApiClient().getReviews(tabId);
         call.enqueue(new Callback<ReviewsResponse>() {
             @Override
             public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
