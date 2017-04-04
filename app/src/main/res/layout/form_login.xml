@@ -18,7 +18,7 @@
         android:padding="10dp"
         android:textColor="@color/blackSquareColor"
         android:textColorHint="@color/black_overlay"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:josefin_style="semiBold" />
 
     <construction.thesquare.shared.view.widget.JosefinSansEditText
@@ -33,7 +33,7 @@
         android:padding="10dp"
         android:textColor="@color/black_overlay"
         android:textColorHint="@color/black_overlay"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:josefin_style="semiBold" />
 
     <construction.thesquare.shared.view.widget.JosefinSansTextView
