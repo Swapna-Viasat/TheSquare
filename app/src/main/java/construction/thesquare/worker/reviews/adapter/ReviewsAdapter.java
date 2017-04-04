@@ -70,14 +70,14 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
 
 
         if(review.type.id == Review.REVIEW_TYPE_WORKER ) {
-            if (null != review.requestCompany && review.automatedRequest == "false") {
+            if (null != review.requestCompany && review.automatedRequest == false) {
                 holder.company.setText(review.requestCompany);
                 if (null != review.dateReviewRequested)
                     holder.date.setText("Date Requested: " + review.dateReviewRequested);
                 holder.requestedby.setText(R.string.worker_reviews_requested_by_worker);
             }
             if (null != review.company) {
-                if (review.automatedRequest == "true" && null != review.dateReviewRequested) {
+                if (review.automatedRequest == true && null != review.dateReviewRequested) {
                     holder.company.setText(review.company);
                     holder.date.setText("Date Requested: " + review.dateReviewRequested);
                     holder.requestedby.setText(R.string.worker_reviews_requested_by_square);
