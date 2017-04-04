@@ -64,7 +64,7 @@ public class Review implements Serializable {
     @SerializedName("company")
     public String company;
     @SerializedName("automated_request")
-    public String automatedRequest;
+    public boolean automatedRequest;
     @SerializedName("pending_verification")
     public boolean pendingVerification;
 
