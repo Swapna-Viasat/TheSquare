@@ -46,6 +46,7 @@ import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.models.Skill;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
+import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -143,8 +144,6 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
     @BindView(R.id.workerBioLayout)
     View workerBioLayout;
 
-    private static final String KEY_WORKER_ID = "KEY_WORKER_ID";
-
     private static final int VERIFICATION_NONE = 1;     // Verification hasn't been requested yet.
     private static final int VERIFICATION_FAILED = 2;   // Infrastructural issues: cannot verify cards (e.g. failed to connect to citb website).
     private static final int VERIFICATION_INVALID = 3;  // Supplied card details have been confirmed as invalid.
@@ -158,7 +157,7 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
     public static MyWorkerProfileFragment newInstance(int workerId) {
         MyWorkerProfileFragment fragment = new MyWorkerProfileFragment();
         Bundle args = new Bundle();
-        args.putInt(KEY_WORKER_ID, workerId);
+        args.putInt(Constants.KEY_WORKER_ID, workerId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -166,7 +165,7 @@ public class MyWorkerProfileFragment extends Fragment implements LikeWorkerConne
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        workerId = getArguments().getInt(KEY_WORKER_ID, 0);
+        workerId = getArguments().getInt(Constants.KEY_WORKER_ID, 0);
         likeWorkerConnector = new LikeWorkerConnector(this);
     }
 
