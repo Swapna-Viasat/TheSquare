@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +35,7 @@ import construction.thesquare.shared.data.model.Invoice;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.Timesheet;
 import construction.thesquare.shared.data.model.TimesheetUnit;
+import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.CrashLogHelper;
@@ -235,14 +237,24 @@ public class AccountFragment extends Fragment {
                 fetchCscsDetails(meWorker.id);
             }
             name.setText(worker.firstName + " " + worker.lastName);
-            if (!CollectionUtils.isEmpty(worker.roles)) ocupation.setText(worker.roles.get(0).name);
             rating.setRating((int) worker.rating);
             if (worker.numReviews > 0) reviewsCounter.setVisibility(View.VISIBLE);
             reviewsCounter.setText(String.valueOf(worker.numReviews));
             switchCompat.setChecked(worker.now);
+            fillPosition(worker);
         } catch (Exception e) {
             CrashLogHelper.logException(e);
         }
+    }
+
+    private void fillPosition(Worker worker) {
+        List<String> stringRoles = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(worker.roles)) {
+            for (Role role : worker.roles) {
+                stringRoles.add(role.name);
+            }
+        }
+        ocupation.setText(TextUtils.join("\n", stringRoles));
     }
 
     private void fetchCscsDetails(int currentWorkerId) {
