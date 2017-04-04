@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
             android:layout_gravity="center" >
-            <construction.thesquare.shared.view.widget.JosefinSansTextView
-                android:id="@+id/contact_us"
+                <construction.thesquare.shared.view.widget.JosefinSansTextView
+                    android:id="@+id/contact_us"
                 android:textAlignment="center"
                 android:text="@string/help_contact_us"
                 android:drawableBottom="@android:drawable/sym_action_email"
