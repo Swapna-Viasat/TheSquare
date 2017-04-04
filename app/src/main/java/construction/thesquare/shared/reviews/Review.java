@@ -17,8 +17,13 @@ public class Review implements Serializable {
     public static final int CAT_PUBLISHED = 2;
     public static final int CAT_PENDING = 1;
 
-    public static final int TAB_GIVEN = 5;
-    public static final int TAB_RECEIVED = 6;
+    public static final int REVIEW_TYPE_WORKER = 1;
+    public static final int REVIEW_TYPE_EMPLOYER = 2;
+
+    public static final int TAB_RECEIVED = 1;
+    public static final int TAB_GIVEN = 2;
+    public static final int TAB_PENDING = 3;
+
 
     public int id;
     public String date;
@@ -33,14 +38,14 @@ public class Review implements Serializable {
     public int attitude;
     @SerializedName("safe")
     public int safe;
-  /*  @SerializedName("environment")
+    @SerializedName("environment")
     public int environment;
     @SerializedName("team")
     public int team;
     @SerializedName("payers")
     public int payers;
     @SerializedName("induction")
-    public int induction;*/
+    public int induction;
     @SerializedName("work_together_again") public boolean wouldHireAgain;
     @SerializedName("got_hired") public boolean gotHired;
     @SerializedName("email_address")

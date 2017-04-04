@@ -1,8 +1,7 @@
-package construction.thesquare.employer.reviews;
+package construction.thesquare.worker.reviews.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
@@ -21,21 +20,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Evgheni on 11/22/2016.
+ * Created by swapna on 4/3/2017.
  */
 
-public class RateWorkerActivity extends AppCompatActivity {
+public class RateEmployerActivity extends AppCompatActivity {
 
     public static final String TAG = "RateWorkerActivity";
 
-    @BindView(R.id.review_details_name) JosefinSansTextView header;
-    @BindView(R.id.rating_view_attitude) RatingView attitude;
-    @BindView(R.id.rating_view_quality) RatingView quality;
-    @BindView(R.id.rating_view_reliability) RatingView reliability;
-    @BindView(R.id.rating_view_safety) RatingView safety;
-    @BindView(R.id.again) JosefinSansTextView again;
-    @BindView(R.id.got_hired) JosefinSansTextView gotHired;
-    @BindView(R.id.rate_your_worker)
+    @BindView(R.id.review_details_name)
+    JosefinSansTextView header;
+    @BindView(R.id.rating_view_attitude)
+    RatingView attitude;
+    @BindView(R.id.rating_view_quality)
+    RatingView quality;
+    @BindView(R.id.rating_view_reliability)
+    RatingView reliability;
+    @BindView(R.id.rating_view_safety)
+    RatingView safety;
+    @BindView(R.id.again)
+    JosefinSansTextView again;
+    /*  @BindView(R.id.got_hired) JosefinSansTextView gotHired;
+     */ @BindView(R.id.rate_your_worker)
     LinearLayout rateWorker;
     @BindView(R.id.hired_view)
     LinearLayout hiredView;
@@ -46,13 +51,14 @@ public class RateWorkerActivity extends AppCompatActivity {
     public static final int HIRE_AGAIN_NO = 2;
     public static final int GOT_HIRE_AGAIN_YES = 1;
     public static final int GOT_HIRE_AGAIN_NO = 2;
-    @BindView(R.id.radio_group) RadioGroup radioGroup;
-    @BindView(R.id.radio_group_got_hired) RadioGroup radioGroupGotHired;
+    @BindView(R.id.radio_group)
+    RadioGroup radioGroup;
+  /*  @BindView(R.id.radio_group_got_hired) RadioGroup radioGroupGotHired;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rate_worker);
+        setContentView(R.layout.activity_rate_employer);
         ButterKnife.bind(this);
     }
 
@@ -65,7 +71,7 @@ public class RateWorkerActivity extends AppCompatActivity {
             this.review = (Review) getIntent().getExtras().getSerializable("data");
             populate(review);
         }
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+       radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
@@ -76,17 +82,15 @@ public class RateWorkerActivity extends AppCompatActivity {
                         quality.setValue(0);
                         reliability.setValue(0);
                         safety.setValue(0);
-                        hiredView.setVisibility(View.GONE);
                         break;
                     case R.id.radio_yes:
                         //Toast.makeText(getApplicationContext(), "yes", Toast.LENGTH_SHORT).show();
                         hireAgain = true;
-                        hiredView.setVisibility(View.VISIBLE);
                         break;
                 }
             }
         });
-        radioGroupGotHired.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+       /*  radioGroupGotHired.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
@@ -99,18 +103,18 @@ public class RateWorkerActivity extends AppCompatActivity {
                         rateWorker.setVisibility(View.GONE);
                         break;
                     case R.id.radio_yes_got_hired:
-                         gotHiredAgain = true;
+                        gotHiredAgain = true;
                         rateWorker.setVisibility(View.VISIBLE);
                         break;
                 }
             }
-        });
+        });*/
     }
 
     private void populate(Review review) {
-        header.setText(String.format(getString(R.string.employer_rate_worker), review.workerSummary.name));
-        again.setText(String.format(getString(R.string.employer_rate_again), review.workerSummary.name));
-        gotHired.setText(String.format(getString(R.string.worker_turned_up), review.workerSummary.name));
+        header.setText(String.format(getString(R.string.worker_rate_employer), review.company));
+        again.setText(R.string.employer_reviews_work_again);
+       // gotHired.setText(String.format(getString(R.string.worker_turned_up), review.workerSummary.name));
     }
 
     @OnClick(R.id.close)
@@ -123,13 +127,12 @@ public class RateWorkerActivity extends AppCompatActivity {
         if (null != review) {
             Review patchedReview = new Review();
             try {
-                patchedReview.attitude = attitude.getValue();
-                patchedReview.quality = quality.getValue();
-                patchedReview.reliability = reliability.getValue();
-                patchedReview.safe = safety.getValue();
+                patchedReview.environment = attitude.getValue();
+                patchedReview.team = quality.getValue();
+                patchedReview.payers = reliability.getValue();
+                patchedReview.induction = safety.getValue();
                 patchedReview.wouldHireAgain = hireAgain;
-                patchedReview.gotHired = gotHiredAgain;
-                patchedReview.automatedRequest = "true";
+             //   patchedReview.gotHired = gotHiredAgain;
             } catch (Exception e) {
                 TextTools.log("dx", (null != e.getMessage()) ? e.getMessage() : "");
             }
@@ -139,7 +142,7 @@ public class RateWorkerActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ReviewUpdateResponse> call,
                                                Response<ReviewUpdateResponse> response) {
-                             finish();
+                            finish();
                         }
 
                         @Override

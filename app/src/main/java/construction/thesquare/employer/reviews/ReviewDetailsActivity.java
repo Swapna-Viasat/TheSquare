@@ -65,10 +65,11 @@ public class ReviewDetailsActivity extends AppCompatActivity {
         reliability.setRating(review.reliability);
         safety.makeStarsRed();
         safety.setRating(review.safe);
-
-        again.setVisibility(review.wouldHireAgain ? View.VISIBLE : View.GONE);
-        again.setText(String.format(getString(R.string.employer_rate_given), review.workerSummary.name));
-
+        if(review.wouldHireAgain){
+            again.setText(String.format(getString(R.string.hire_again), review.workerSummary.name));
+        }else{
+            again.setText(String.format(getString(R.string.not_hire_again), review.workerSummary.name));
+        }
         if (null != review.workerSummary.name) {
                 name.setText(review.workerSummary.name);
         }

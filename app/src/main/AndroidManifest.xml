@@ -211,6 +211,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBarMain" />
         <activity
+            android:name=".worker.reviews.activity.RateEmployerActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarMain" />
+        <activity
             android:name=".shared.start.activity.TermsActivity"
             android:exported="true"
             android:screenOrientation="portrait"
