@@ -4,14 +4,10 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.DisplayMetrics;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableLayout;
@@ -84,6 +80,8 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
         holder.setIsRecyclable(false);
         holder.expandableLayout.setInRecyclerView(true);
         holder.expandableLayout.setExpanded(expandState.get(position));
+        holder.answer.setText(Html.fromHtml(faq.answer));
+        holder.answer.setMovementMethod(LinkMovementMethod.getInstance());
         holder.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
             @Override
             public void onPreOpen() {
@@ -99,19 +97,14 @@ public class HelpDetailsAdapter extends RecyclerView.Adapter<HelpDetailsAdapter.
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                     onClickButton(holder.expandableLayout,holder.answer,faq.answer);
+                     onClickButton(holder.expandableLayout);
                 }
             });
         }
     }
 
-    private void onClickButton(final ExpandableLayout expandableLayout, TextView ans, String answer) {
-
-        System.out.println("sdsf"+answer);
-        ans.setText(Html.fromHtml(answer));
-        ans.setMovementMethod(LinkMovementMethod.getInstance());
-        ans.setWidth(500);
-        expandableLayout.toggle();
+    private void onClickButton(final ExpandableLayout expandableLayout) {
+     expandableLayout.toggle();
     }
 
 }
