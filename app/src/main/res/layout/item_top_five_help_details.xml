@@ -34,18 +34,17 @@
                 android:orientation="vertical"
                 app:ael_duration="500"
                 android:id="@+id/expandableLayoutTopFive"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
                     style="@style/UnderstandingBody"
                     android:textColor="@color/blackSquareColor"
-                    android:layout_margin="@dimen/understanding_margin"
-                    android:id="@+id/answer"
+                     android:id="@+id/answer"
                     app:josefin_style="light"
                     android:textSize="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     />
             </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 
