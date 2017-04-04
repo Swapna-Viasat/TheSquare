@@ -83,6 +83,9 @@ public class HelpTopDetailsAdapter extends RecyclerView.Adapter<HelpTopDetailsAd
         holder.setIsRecyclable(false);
         holder.expandableLayout.setInRecyclerView(true);
         holder.expandableLayout.setExpanded(expandState.get(position));
+        holder.answer.setText(Html.fromHtml(faq.answer));
+        holder.answer.setMovementMethod(LinkMovementMethod.getInstance());
+
         holder.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
             @Override
             public void onPreOpen() {
@@ -98,17 +101,13 @@ public class HelpTopDetailsAdapter extends RecyclerView.Adapter<HelpTopDetailsAd
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickButton(holder.expandableLayout,holder.answer,faq.answer);
+                    onClickButton(holder.expandableLayout);
                 }
             });
         }
     }
 
-    private void onClickButton(final ExpandableLayout expandableLayout, TextView ans, String answer) {
-
-        ans.setText(Html.fromHtml(answer));
-        ans.setMovementMethod(LinkMovementMethod.getInstance());
-        ans.setWidth(500);
+    private void onClickButton(final ExpandableLayout expandableLayout) {
         expandableLayout.toggle();
     }
 
