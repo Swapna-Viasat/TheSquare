@@ -18,7 +18,8 @@ public class MyGraftrsEmployerPagerAdapter extends FragmentPagerAdapter {
     private int MY_GRAFTRS_EMPLOYER_PAGES_COUNT = 1;
     private Context mContext;
 
-    public MyGraftrsEmployerPagerAdapter(FragmentManager fragmentManager, Context context) {
+    public MyGraftrsEmployerPagerAdapter(FragmentManager fragmentManager,
+                                         Context context) {
         super(fragmentManager);
         this.mContext = context;
     }

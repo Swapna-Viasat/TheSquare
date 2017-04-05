@@ -1,4 +1,4 @@
-package construction.thesquare.shared.login.fragment;
+package construction.thesquare.shared.veriphone.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -38,8 +38,9 @@ import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.SMSSent;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
-import construction.thesquare.shared.login.OnSmsReceivedListener;
-import construction.thesquare.shared.login.SmsInterceptor;
+import construction.thesquare.shared.veriphone.OnSmsReceivedListener;
+import construction.thesquare.shared.veriphone.SmsInterceptor;
+import construction.thesquare.shared.login.controller.EmailLoginFragment;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -48,7 +49,6 @@ import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
 import construction.thesquare.worker.onboarding.OnboardingWorkerActivity;
 import construction.thesquare.worker.signup.model.WorkerVerify;
-import io.fabric.sdk.android.services.common.Crash;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,18 +61,12 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
 
     public static final String TAG = "EnterCodeFragment";
 
-    @BindView(R.id.eVerificationCode1)
-    EditText eVerificationCode1;
-    @BindView(R.id.eVerificationCode2)
-    EditText eVerificationCode2;
-    @BindView(R.id.eVerificationCode3)
-    EditText eVerificationCode3;
-    @BindView(R.id.eVerificationCode4)
-    EditText eVerificationCode4;
-    @BindView(R.id.btnPhoneVerificationContinue)
-    Button btnContinue;
-    @BindView(R.id.tvPhoneNumber)
-    TextView tvPhoneNumber;
+    @BindView(R.id.eVerificationCode1) EditText eVerificationCode1;
+    @BindView(R.id.eVerificationCode2) EditText eVerificationCode2;
+    @BindView(R.id.eVerificationCode3) EditText eVerificationCode3;
+    @BindView(R.id.eVerificationCode4) EditText eVerificationCode4;
+    @BindView(R.id.btnPhoneVerificationContinue) Button btnContinue;
+    @BindView(R.id.tvPhoneNumber) TextView tvPhoneNumber;
 
     private EditText selectedEditText;
     private String verificationCode;
@@ -168,18 +162,19 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
         if (validateFields()) {
             // call api
 
-            HashMap<String, String> verificationRequest = new HashMap<>();
+            HashMap<String, Object> verificationRequest = new HashMap<>();
             verificationRequest.put("country_code", currentCountryCode);
             verificationRequest.put("phone_number", currentPhone);
             verificationRequest.put("email", getArguments().getString("email"));
             verificationRequest.put("verification_number", verificationCode);
+            verificationRequest.put("platform", Constants.PLATFORM_ANDROID);
 
             callApi(getArguments().getInt(Constants.KEY_VERIFY_PHONE, 1),
                     verificationRequest);
         }
     }
 
-    private void callApi(int key, HashMap<String, String> body) {
+    private void callApi(int key, HashMap<String, Object> body) {
         TextTools.log(TAG, String.valueOf(key));
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         switch (key) {

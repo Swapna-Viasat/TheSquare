@@ -11,11 +11,10 @@ import construction.thesquare.shared.reviews.Review;
 public interface ReviewsContract {
     interface View {
         void displayReviews(List<Review> data);
-        void displayProgress(boolean show);
         void displayReview(Review review);
     }
     interface UserActionListener {
         void fetchReview(Review review);
-        void fetchReviews();
+        void fetchReviews(int tabId);
     }
 }

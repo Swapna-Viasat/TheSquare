@@ -24,48 +24,11 @@
         android:textSize="20sp"
         app:josefin_style="light" />
 
-    <construction.thesquare.shared.view.widget.JosefinSansEditText
-        android:id="@+id/emailEditText"
+    <!-- Extracted the login form for easier automated testing -->
+    <construction.thesquare.shared.login.view.LoginForm
+        android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@color/lightgraySquareColor"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textColor="@color/black_overlay"
-        android:textColorHint="@color/black_overlay"
-        android:textSize="16sp"
-        app:josefin_style="light" />
-
-    <construction.thesquare.shared.view.widget.JosefinSansEditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@color/lightgraySquareColor"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:textColor="@color/black_overlay"
-        android:textColorHint="@color/black_overlay"
-        android:textSize="16sp"
-        app:josefin_style="light" />
-
-    <construction.thesquare.shared.view.widget.JosefinSansTextView
-        android:id="@+id/loginButton"
-        style="@style/BaseButton"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="20dp"
-        android:text="Log in"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        app:josefin_style="light" />
+        android:layout_height="wrap_content"/>
     
     <LinearLayout
         android:layout_width="match_parent"

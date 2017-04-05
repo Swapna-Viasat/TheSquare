@@ -22,6 +22,7 @@ public class CreateRequest implements Serializable {
     public Calendar rawDate;
     public boolean detailsLowerPart;
 
+    @SerializedName("is_connect") public boolean isConnect;
 
     public int status;
     public int role;

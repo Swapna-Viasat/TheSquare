@@ -63,3 +63,6 @@ gradle-wrapper.jar
 
 # Fabric
 fabric.properties
+
+# Keystore files
+*.jks

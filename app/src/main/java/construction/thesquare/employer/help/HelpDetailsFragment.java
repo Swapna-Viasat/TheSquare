@@ -43,7 +43,8 @@ public class HelpDetailsFragment extends Fragment  implements
     RecyclerView rv;
     @BindView(R.id.no_matches)
     JosefinSansTextView noMatches;
-
+    @BindView(R.id.contact_us)
+    JosefinSansTextView contact;
     public static HelpDetailsFragment newInstance(String search) {
         HelpDetailsFragment helpDetailsFragment = new HelpDetailsFragment();
         Bundle bundle = new Bundle();
@@ -87,16 +88,25 @@ public class HelpDetailsFragment extends Fragment  implements
         public void onChanged() {
             if (data.isEmpty()) {
                 noMatches.setVisibility(View.VISIBLE);
+                contact.setVisibility(View.GONE);
             } else {
                 noMatches.setVisibility(View.GONE);
+                contact.setVisibility(View.VISIBLE);
             }
         }
     };
 
-    @OnClick({R.id.no_matches})
+    @OnClick({R.id.no_matches,R.id.contact_us})
     public void action(View view) {
         switch (view.getId()) {
             case R.id.no_matches:
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_employer_content, SettingsContactFragment.newInstance())
+                        .addToBackStack("contact")
+                        .commit();
+                break;
+            case R.id.contact_us:
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_employer_content, SettingsContactFragment.newInstance())

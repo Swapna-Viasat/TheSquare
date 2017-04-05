@@ -164,6 +164,8 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
     }
 
     private void proceed() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (getArguments() != null && getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
@@ -173,13 +175,10 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
     @Override
     public void onExperience(ExperienceQualification experience) {
         //
-        if (experience.name.equals("CSCS Card")) {
+        if (experience != null && experience.name != null && experience.name.equals("CSCS Card")) {
             experience.selected = !experience.selected;
             experienceAdapter.notifyDataSetChanged();
-            if (experience.selected) {
-               // startActivity(new Intent(getActivity(), CSCSActivity.class));
-            }
-        } else {
+        } else if (experience != null) {
             experience.selected = !experience.selected;
             experienceAdapter.notifyDataSetChanged();
         }

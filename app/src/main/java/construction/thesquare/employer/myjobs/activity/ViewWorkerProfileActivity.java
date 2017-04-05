@@ -31,8 +31,6 @@ public class ViewWorkerProfileActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
 
-    public static final String WORKER_ID = "WORKER_ID";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +40,8 @@ public class ViewWorkerProfileActivity extends AppCompatActivity {
         setToolbar();
 
         Intent intent = getIntent();
-        int workerId = intent.getIntExtra(WORKER_ID, 0);
-        int jobId = intent.getIntExtra(Constants.KEY_JOB_ID, 0);
+        int workerId = intent.getIntExtra(Constants.KEY_WORKER_ID, 0);
+        int jobId = intent.getIntExtra(Constants.KEY_JOB_ID_DETAILS, 0);
 
 //        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
 //            if (null != intent.getData()) {

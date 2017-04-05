@@ -21,6 +21,7 @@ public class Job implements Serializable {
     public static final int TYPE_APP = 347;
     public static final int TYPE_LIKED = 348;
     public static final int TYPE_COMPLETED = 349;
+    public static final int TYPE_OLD = 350;
 
     public boolean liked;
     public int id;

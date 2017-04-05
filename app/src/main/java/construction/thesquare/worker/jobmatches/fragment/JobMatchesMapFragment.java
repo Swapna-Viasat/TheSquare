@@ -224,6 +224,8 @@ public class JobMatchesMapFragment extends Fragment implements OnMapReadyCallbac
     }
 
     private void processJobs() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (!CollectionUtils.isEmpty(jobs)) {
             if (map != null) {
                 try {

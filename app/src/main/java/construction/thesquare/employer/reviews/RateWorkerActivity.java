@@ -48,6 +48,7 @@ public class RateWorkerActivity extends AppCompatActivity {
     public static final int GOT_HIRE_AGAIN_NO = 2;
     @BindView(R.id.radio_group) RadioGroup radioGroup;
     @BindView(R.id.radio_group_got_hired) RadioGroup radioGroupGotHired;
+    private boolean automatedRequest = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +130,7 @@ public class RateWorkerActivity extends AppCompatActivity {
                 patchedReview.safe = safety.getValue();
                 patchedReview.wouldHireAgain = hireAgain;
                 patchedReview.gotHired = gotHiredAgain;
+                patchedReview.automatedRequest = automatedRequest;
             } catch (Exception e) {
                 TextTools.log("dx", (null != e.getMessage()) ? e.getMessage() : "");
             }

@@ -270,7 +270,7 @@ public class WorkerListFragment extends Fragment
     public void onViewWorkerProfile(Worker worker) {
         if (worker != null) {
             Intent viewWorkerProfileIntent = new Intent(getContext(), ViewWorkerProfileActivity.class);
-            viewWorkerProfileIntent.putExtra(ViewWorkerProfileActivity.WORKER_ID, worker.id);
+            viewWorkerProfileIntent.putExtra(Constants.KEY_WORKER_ID, worker.id);
             viewWorkerProfileIntent.putExtra(Constants.KEY_JOB_ID,
                     getArguments().getInt(Constants.KEY_JOB_ID));
 
@@ -314,6 +314,8 @@ public class WorkerListFragment extends Fragment
     }
 
     private void showWorkerInviteSent(String workerName) {
+        if (getActivity() == null || !isAdded()) return;
+
         final Dialog dialog = new Dialog(getContext());
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_offer_confirm);

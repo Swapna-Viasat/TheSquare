@@ -30,26 +30,31 @@ public class JobsPresenter implements JobsContract.UserActionsListener {
     public void init(int jobType) {
         switch (jobType) {
             case Job.TYPE_BOOKED:
-                fetchJobs(Application.STATUS_APPROVED, false, false);
+                fetchJobs(Application.STATUS_APPROVED, null, false, false);
                 break;
             case Job.TYPE_OFFER:
-                fetchJobs(Application.STATUS_PENDING, false, false);
+                fetchJobs(Application.STATUS_PENDING, null, false, false);
                 break;
             case Job.TYPE_COMPLETED:
-                fetchJobs(Application.STATUS_ENDED_CONTRACT, false, false);
+                fetchJobs(Application.STATUS_ENDED_CONTRACT, null, false, false);
                 break;
             case Job.TYPE_LIKED:
-                fetchJobs(null, true, false);
+                fetchJobs(null, null, true, false);
+                break;
+            case Job.TYPE_OLD:
+                //fetch Old jobs
+                fetchJobs(null, 3, false, false);
                 break;
             default:
                 break;
         }
     }
 
-    private void fetchJobs(Integer type, boolean liked, boolean isOffer) {
+    private void fetchJobs(Integer applicationStatus, Integer jobStatus, boolean liked, boolean isOffer) {
         mJobsView.displayProgress(true);
         int id = SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId();
-        Call<JobsResponse> call = HttpRestServiceConsumer.getBaseApiClient().getMyJobs(id, type, liked, isOffer);
+        Call<JobsResponse> call = HttpRestServiceConsumer
+                .getBaseApiClient().getMyJobs(id, applicationStatus, jobStatus, liked, isOffer);
         call.enqueue(new Callback<JobsResponse>() {
             @Override
             public void onResponse(Call<JobsResponse> call, Response<JobsResponse> response) {

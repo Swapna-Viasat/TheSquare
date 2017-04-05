@@ -35,6 +35,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -113,6 +114,8 @@ public class SelectRoleFragment extends Fragment
     }
 
     private void proceed() {
+
+        if (getActivity() == null || !isAdded()) return;
 
         tradeRoles.clear();
         for (Role role : data) {
@@ -232,6 +235,7 @@ public class SelectRoleFragment extends Fragment
                 selectedRoles.add(role1);
             }
         }
+        adapter.notifyDataSetChanged();
     }
 
     private TextWatcher filterTextWatcher = new TextWatcher() {
@@ -320,12 +324,14 @@ public class SelectRoleFragment extends Fragment
     private void populateData() {
         if (currentWorker != null) {
             selectedRoles.clear();
-            selectedRoles.addAll(currentWorker.roles);
+            if (!CollectionUtils.isEmpty(currentWorker.roles)) {
+                selectedRoles.addAll(currentWorker.roles);
 
-            for (Role role : roles) {
-                for (Role selectedRole : selectedRoles) {
-                    if (role.id == selectedRole.id)
-                        role.selected = true;
+                for (Role role : roles) {
+                    for (Role selectedRole : selectedRoles) {
+                        if (role.id == selectedRole.id)
+                            role.selected = true;
+                    }
                 }
             }
 

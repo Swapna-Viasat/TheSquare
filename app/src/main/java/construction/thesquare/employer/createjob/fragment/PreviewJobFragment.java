@@ -484,6 +484,11 @@ public class PreviewJobFragment extends Fragment
         callApi(Constants.JOB_STATUS_LIVE);
     }
 
+    @OnClick(R.id.draft)
+    public void saveDraft() {
+        callApi(Constants.JOB_STATUS_DRAFT);
+    }
+
     @OnClick(R.id.cancel)
     public void cancel() {
         //

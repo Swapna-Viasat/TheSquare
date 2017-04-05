@@ -3,9 +3,9 @@ package construction.thesquare.shared.view.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
 import construction.thesquare.R;
 
@@ -13,7 +13,7 @@ import construction.thesquare.R;
  * Created by maizaga on 3/10/16.
  */
 
-public class JosefinSansEditText extends EditText {
+public class JosefinSansEditText extends AppCompatEditText {
 
     public JosefinSansEditText(Context context) {
         super(context);

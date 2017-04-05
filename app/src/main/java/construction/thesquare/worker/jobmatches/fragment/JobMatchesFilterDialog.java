@@ -67,7 +67,8 @@ public class JobMatchesFilterDialog extends DialogFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_job_matches_filter, container, false);
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if (getDialog() != null && getDialog().getWindow() != null)
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         setupViews(view);
         return view;
     }
@@ -137,10 +138,12 @@ public class JobMatchesFilterDialog extends DialogFragment implements View.OnCli
     @Override
     public void onResume() {
         Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(android.R.color.white);
-        ViewGroup.LayoutParams params = window.getAttributes();
-        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes((android.view.WindowManager.LayoutParams) params);
+        if (window != null) {
+            window.setBackgroundDrawableResource(android.R.color.white);
+            ViewGroup.LayoutParams params = window.getAttributes();
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes((android.view.WindowManager.LayoutParams) params);
+        }
         super.onResume();
 
         if (previousOrdering != null)
@@ -196,7 +199,7 @@ public class JobMatchesFilterDialog extends DialogFragment implements View.OnCli
 
                             if (response.isSuccessful()) {
                                 if (response.body() != null && response.body().getResponse() != null)
-                                previousCommuteTime = response.body().getResponse().filterCommuteTime;
+                                    previousCommuteTime = response.body().getResponse().filterCommuteTime;
                                 seekBar.setRate(previousCommuteTime);
                             }
                         }

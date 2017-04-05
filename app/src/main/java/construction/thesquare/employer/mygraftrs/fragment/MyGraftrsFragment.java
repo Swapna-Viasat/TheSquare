@@ -33,6 +33,7 @@ import construction.thesquare.employer.mygraftrs.presenter.WorkerContract;
 import construction.thesquare.employer.mygraftrs.presenter.WorkersPresenter;
 import construction.thesquare.employer.myjobs.LikeWorkerConnector;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
+import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 
 public class MyGraftrsFragment extends Fragment implements WorkersAdapter.WorkersActionListener, WorkerContract.View,
@@ -112,13 +113,15 @@ public class MyGraftrsFragment extends Fragment implements WorkersAdapter.Worker
             presenter.fetchLikedWorkers(employerId);
         } else if (getArguments().getInt("category") == PAGE_BOOKED) {
             //
-            noMatchesText.setText("Any workers you book or cancel appear here...");
+            noMatchesText.setText("This is where all your previous \n         workers are kept...");
             presenter.fetchBookedWorkers(employerId);
         }
     }
 
     // Presenter callbacks
     public void showWorkerList(List<Worker> data) {
+        if (getActivity() == null || !isAdded()) return;
+
         noMatches.setVisibility(View.GONE);
         if (!workers.isEmpty()) workers.clear();
 
@@ -151,7 +154,7 @@ public class MyGraftrsFragment extends Fragment implements WorkersAdapter.Worker
         if (worker != null) {
             Intent viewWorkerProfileIntent = new Intent(getContext(),
                     WorkerDetailsActivity.class);
-            viewWorkerProfileIntent.putExtra(WorkerDetailsActivity.WORKER_ID, worker.id);
+            viewWorkerProfileIntent.putExtra(Constants.KEY_WORKER_ID, worker.id);
             getActivity().startActivity(viewWorkerProfileIntent);
         }
     }
@@ -288,6 +291,8 @@ public class MyGraftrsFragment extends Fragment implements WorkersAdapter.Worker
 
     @Override
     public void onConnectorSuccess() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (getArguments().getInt("category") == PAGE_LIKED) {
             //
             presenter.fetchLikedWorkers(employerId);

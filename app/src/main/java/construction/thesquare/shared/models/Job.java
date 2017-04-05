@@ -17,6 +17,8 @@ public class Job implements Serializable {
     public static final int TAB_DRAFT = 1;
     public static final int TAB_LIVE = 2;
 
+    @SerializedName("is_connect") public boolean isConnect;
+
     public int id;
     public int experience;
     public boolean liked;

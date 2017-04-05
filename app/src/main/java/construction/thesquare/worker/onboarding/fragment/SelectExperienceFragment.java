@@ -283,7 +283,11 @@ public class SelectExperienceFragment extends Fragment
                                            Response<ResponseObject<CSCSCardWorker>> response) {
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            populateCSCSDetails(response.body());
+                            try {
+                                populateCSCSDetails(response.body());
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
                         }
@@ -457,6 +461,8 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void populateCSCSDetails(ResponseObject<CSCSCardWorker> dataResponse) {
+        if (getActivity() == null || !isAdded()) return;
+
         if (workerSurname != null) surname.setText(workerSurname);
         surname.setEnabled(false);
         String regnum = dataResponse.getResponse().registrationNumber;
@@ -882,7 +888,7 @@ public class SelectExperienceFragment extends Fragment
     }
 
     public void onExperienceClick(ExperienceQualification experience) {
-        if (experience.name.equals("CSCS Card")) {
+        if (experience != null && experience.name != null && experience.name.equals("CSCS Card")) {
             experience.selected = !experience.selected;
             populateQualifications();
             if (!experience.selected) {
@@ -894,7 +900,7 @@ public class SelectExperienceFragment extends Fragment
                     populateCscsStatus(cscsStatus);
                 cscs.setVisibility(View.VISIBLE);
             }
-        } else {
+        } else if (experience != null) {
             experience.selected = !experience.selected;
             populateQualifications();
         }
@@ -935,6 +941,8 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void showLanguagesSelectDialog(List<Language> languageList) {
+        if (getActivity() == null || !isAdded()) return;
+
         fetchedLanguages = languageList;
 
         List<String> languageNames = new ArrayList<>();
@@ -953,6 +961,7 @@ public class SelectExperienceFragment extends Fragment
     }
 
     private void openLanguageSelectDialog(CharSequence[] dialogList) {
+        if (getContext() != null)
         DialogBuilder.showMultiSelectDialog(getContext(), dialogList, this);
     }
 
@@ -1038,20 +1047,20 @@ public class SelectExperienceFragment extends Fragment
             LocalDate dateOfBirth = DateUtils.getParsedLocalDate(currentWorker.dateOfBirth);
 
             for (String day : days) {
-                if (TextUtils.equals(day.startsWith("0") ? day.substring(1) : day,
+                if (dateOfBirth != null && TextUtils.equals(day.startsWith("0") ? day.substring(1) : day,
                         String.valueOf(dateOfBirth.getDayOfMonth()))) {
                     spinnerDay.setSelection(days.indexOf(day));
                 }
             }
 
             for (String month : months) {
-                if (TextUtils.equals(month, dateOfBirth.toString("MMMM"))) {
+                if (dateOfBirth != null && TextUtils.equals(month, dateOfBirth.toString("MMMM"))) {
                     spinnerMonth.setSelection(months.indexOf(month));
                 }
             }
 
             for (String year : years) {
-                if (TextUtils.equals(year, String.valueOf(dateOfBirth.getYear()))) {
+                if (dateOfBirth != null && TextUtils.equals(year, String.valueOf(dateOfBirth.getYear()))) {
                     spinnerYear.setSelection(years.indexOf(year));
                 }
             }

@@ -95,7 +95,11 @@ public class SelectQualificationsFragment extends Fragment
         if (null != request) {
             fetchQualifications(request.role);
         } else {
-            fetchQualifications(((CreateRequest) getArguments().getSerializable("request")).role);
+            try {
+                fetchQualifications(((CreateRequest) getArguments().getSerializable("request")).role);
+            } catch (Exception e) {
+                CrashLogHelper.logException(e);
+            }
         }
     }
 

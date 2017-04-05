@@ -339,7 +339,8 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     }
 
     private void setupMenuIconsVisibility() {
-        if (currentJob == null) return;
+        if (currentJob == null || likeJobMenuItem == null || unlikeJobMenuItem == null) return;
+
         if (currentJob.liked) {
             likeJobMenuItem.setVisible(false);
             unlikeJobMenuItem.setVisible(true);

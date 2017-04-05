@@ -1,5 +1,6 @@
 package construction.thesquare.worker.myaccount.ui.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import construction.thesquare.FlavorSettings;
 import construction.thesquare.R;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.Invoice;
@@ -33,8 +35,11 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.Timesheet;
 import construction.thesquare.shared.data.model.TimesheetUnit;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
+import construction.thesquare.shared.utils.DialogBuilder;
+import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.shared.view.widget.RatingView;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
@@ -42,6 +47,7 @@ import construction.thesquare.worker.myaccount.ui.activity.MyAccountBillingActiv
 import construction.thesquare.worker.myaccount.ui.activity.MyAccountViewProfileActivity;
 import construction.thesquare.worker.reviews.activity.ReviewActivity;
 import construction.thesquare.worker.settings.ui.activity.WorkerSettingsActivity;
+import construction.thesquare.worker.signup.model.CSCSCardWorker;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -226,10 +232,10 @@ public class AccountFragment extends Fragment {
             if (!TextUtils.isEmpty(worker.picture)) {
                 Picasso.with(getContext()).load(worker.picture).fit().centerCrop().into(avatar);
             } else {
-                avatar.setImageResource(R.drawable.bob);
+                fetchCscsDetails(meWorker.id);
             }
             name.setText(worker.firstName + " " + worker.lastName);
-            if (worker.roles.size() > 0) ocupation.setText(worker.roles.get(0).name);
+            if (!CollectionUtils.isEmpty(worker.roles)) ocupation.setText(worker.roles.get(0).name);
             rating.setRating((int) worker.rating);
             if (worker.numReviews > 0) reviewsCounter.setVisibility(View.VISIBLE);
             reviewsCounter.setText(String.valueOf(worker.numReviews));
@@ -237,6 +243,38 @@ public class AccountFragment extends Fragment {
         } catch (Exception e) {
             CrashLogHelper.logException(e);
         }
+    }
+
+    private void fetchCscsDetails(int currentWorkerId) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+        HttpRestServiceConsumer.getBaseApiClient()
+                .getWorkerCSCSCard(currentWorkerId)
+                .enqueue(new Callback<ResponseObject<CSCSCardWorker>>() {
+                    @Override
+                    public void onResponse(Call<ResponseObject<CSCSCardWorker>> call,
+                                           Response<ResponseObject<CSCSCardWorker>> response) {
+                        if (response.isSuccessful()) {
+                            DialogBuilder.cancelDialog(dialog);
+                            try {
+                                Picasso.with(getContext())
+                                        .load(FlavorSettings.API_URL + response.body().getResponse().cardPicture)
+                                        .fit()
+                                        .centerCrop()
+                                        .into(avatar);
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
+                        } else {
+                            HandleErrors.parseError(getContext(), dialog, response);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseObject<CSCSCardWorker>> call, Throwable t) {
+                        HandleErrors.parseFailureError(getContext(), dialog, t);
+                    }
+                });
+
     }
 
     private ArrayList<Timesheet> mockTimesheets() {

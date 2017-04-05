@@ -370,6 +370,7 @@
     <string name="employer_dialog_contract_last_day">Select the last working day of %s. (included)</string>
     <string name="employer_dialog_contract_day_hint">Day</string>
     <string name="employer_dialog_contract_comments">Comments</string>
+    <string name="employer_dialog_withdraw_offer">Are you sure you want to withdraw this job offer?</string>
     <string name="employer_dialog_contract_show">They didn\'t show up to work</string>
 
     <string name="employer_worker_details">View Profile</string>
@@ -522,6 +523,7 @@
     <string name="worker_reviews_requested_by_worker">Requested by \n me</string>
     <string name="worker_reviews_turned_up">of the time you turned up</string>
     <string name="worker_reviews_companies_turned_up">of firms\nwould hire you again</string>
+    <string name="worker_reviews_requested_by_employer">Requested by \n Employer </string>
 
     <!-- Employer Reviews -->
     <string name="employer_reviews_work_again">Would work for you again</string>
@@ -541,6 +543,11 @@
     <string name="worker_turned_up">Did %s turn up?</string>
     <string name="employer_review_request">You have no reviews to give right now! </string>
     <string name="employer_review_request_detail">We\'ll let you know as soon as you do. Remember, reviews are super important for you, your workers and The Square community. Reviews should be done fast &amp; fairly.</string>
+    <string name="hire_again">You would hire %s\'s \n again</string>
+    <string name="not_hire_again">You wouldn\'t hire %s\'s \n again</string>
+    <string name="worker_rate_employer">Please rate %s\'s</string>
+    <string name="employer_reviews_workers_turned_up">of workers\nwould work for you again</string>
+    <string name="work_again">Would you work for them again? %s </string>
 
     <!-- Employer My Account -->
     <string name="employer_account_price_plan">My Price Plan</string>
@@ -654,7 +661,7 @@
     <string name="onboarding_location">Where are you looking for work?</string>
     <string name="onboarding_companies">Add any notable companies \nyou\'ve worked for.</string>
     <string name="onboarding_roles">OK %s, which jobs \nbest describe what you do?</string>
-    <string name="onboarding_trades">You can chose up to 3 trades below...</string>
+    <string name="onboarding_trades">You can choose up to 3 trades below...</string>
     <string name="onboarding_trades_apprenticeships">(we recommend you don\'t select any, to be matched to all apprenticeships)</string>
     <string name="onboarding_cscs">Please confirm your \nCSCS details.</string>
     <string name="onboarding_cscs_surname">Surname</string>
@@ -790,8 +797,9 @@
             \nAccess to one of the fastest growing construction networks in the world.
     </string>
     <string name="payments_booking_credits">My Booking Credits</string>
+    <string name="payments_alt_title_desc">If you can\'t pay by credit card we can send a VAT invoice to you or your preferred bill payer. Once paid, you will get access to The Square and will be able to promote jobs and get matched to workers.</string>
     <string name="payments_alt_title">Please enter the details below
-                to activate an invoice service</string>
+                and we\'ll have the invoice sent out.</string>
     <string name="payments_alt_error">Oops. Please fill in all the details first!</string>
     <string name="payments_alt_spinner_title">Subscription plan</string>
     <string name="payments_alt_name">Bill payer\'s name *</string>
@@ -1245,4 +1253,18 @@
         payments are non-refundable and we do not provide refunds or
         credits for any partial-month subscription periods or unused
         Booking Credits.</font></string>
+    
+    <!-- New feature Connect --> 
+    <string name="connect_header">Do you want to interview/connect with
+                matched workers or do you just want to book?</string>
+    <string name="connect_connect_yes">I want to speak with them before hiring</string>
+    <string name="connect_connect_no">I want to book them to turn up and start</string>
+    <string name="connect_contact_header">All marked information will only be
+        provided to workers who you connect with. If this is left blank,
+        your name and contact details will be provided.</string>
+    <string name="connect_application_deadline">Application deadline</string>
+    <string name="connect_contact">Contact</string>
+    <string name="connect_email">Email address</string>
+    <string name="connect_number">Contact number</string>
+    <string name="connect_person">Contact person</string>
 </resources>

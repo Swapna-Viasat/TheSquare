@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="18dp"
             android:text="@string/employer_liked"
             app:josefin_style="italic" />
 

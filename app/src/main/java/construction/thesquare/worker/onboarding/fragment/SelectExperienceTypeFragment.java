@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.ExperienceType;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -78,6 +80,8 @@ public class SelectExperienceTypeFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_select_experience_type, container, false);
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -295,9 +299,12 @@ public class SelectExperienceTypeFragment extends Fragment
     }
 
     private void populateData() {
+        if (getActivity() == null || !isAdded()) return;
+
         if (currentWorker != null) {
             selected.clear();
-            selected.addAll(currentWorker.experienceTypes);
+            if (!CollectionUtils.isEmpty(currentWorker.experienceTypes))
+                selected.addAll(currentWorker.experienceTypes);
 
             for (ExperienceType experienceType : filtered) {
                 for (ExperienceType selectedExperienceType : selected) {

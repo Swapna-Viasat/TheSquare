@@ -54,8 +54,6 @@ public class Constants {
     public static final int KEY_ONBOARDING_AVAILABILITY = 10;
     public static final int KEY_STEP_REQUIREMENTS = 11;
 
-
-
     public static final int JOB_STATUS_DRAFT = 1;
     public static final int JOB_STATUS_LIVE = 2;
     public static final int JOB_STATUS_OLD = 3;
@@ -66,4 +64,9 @@ public class Constants {
 
     public static final String KEY_APPLICATION_ID = "application_id";
     public static final String KEY_HAS_APPLIED = "has_applied";
+
+    public static final int PLATFORM_ANDROID = 2;
+
+    public static final String KEY_WORKER_ID = "WORKER_ID";
+    public static final String KEY_JOB_ID_DETAILS = "jobArgument";
 }

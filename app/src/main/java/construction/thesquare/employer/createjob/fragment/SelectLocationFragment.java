@@ -127,7 +127,6 @@ public class SelectLocationFragment extends Fragment
         }
     }
 
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_create_job, menu);
@@ -228,17 +227,13 @@ public class SelectLocationFragment extends Fragment
     public void next() {
         Location pickedLocation = new Location();
         if (null != googleMap) {
-            TextTools.log(TAG, "google map not null");
             pickedLocation.latitude = googleMap.getCameraPosition().target.latitude;
-            TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.latitude));
             pickedLocation.longitude = googleMap.getCameraPosition().target.longitude;
-            TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.longitude));
         } else {
-            TextTools.log(TAG, "google map is null");
+            //
         }
-        // request.location = centerMapLocation;
+
         request.location = pickedLocation;
-        TextTools.log(TAG, request.location.toString());
         request.locationName = filter.getText().toString();
 
         if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
@@ -287,8 +282,6 @@ public class SelectLocationFragment extends Fragment
                             public void onCameraMove() {
                                 centerMapLocation.latitude = googleMap.getCameraPosition().target.latitude;
                                 centerMapLocation.longitude = googleMap.getCameraPosition().target.longitude;
-
-                                TextTools.log(TAG, String.valueOf(googleMap.getCameraPosition().target.toString()));
                             }
                         });
 
@@ -325,11 +318,17 @@ public class SelectLocationFragment extends Fragment
                         //
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            if (null != response.body().getResponse().company) {
-                                if (null != response.body().getResponse().company.postCode) {
+                            if (response.body() != null
+                                    && response.body().getResponse() != null
+                                    && response.body().getResponse().company != null) {
+                                if (response.body().getResponse().company.postCode != null) {
                                     // centering on postal code
-                                    centerOnPostalCode(response.body()
-                                            .getResponse().company.postCode, googleMap);
+                                    try {
+                                        centerOnPostalCode(response.body()
+                                                .getResponse().company.postCode, googleMap);
+                                    } catch (Exception e) {
+                                        CrashLogHelper.logException(e);
+                                    }
                                 }
                             }
                         } else {
@@ -352,31 +351,35 @@ public class SelectLocationFragment extends Fragment
                 getContext(), getChildFragmentManager(), filter, googleApiClient,
                 filter.getText().toString()));
         //
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        ZipCodeVerifier.getInstance()
-                .api()
-                .verify(code, ZipCodeVerifier.API_KEY)
-                .enqueue(new Callback<ZipResponse>() {
-                    @Override
-                    public void onResponse(Call<ZipResponse> call,
-                                           Response<ZipResponse> response) {
-                        DialogBuilder.cancelDialog(dialog);
-                        if (response.isSuccessful()) {
-                            if (null == response.body().message) {
-                                LatLng latLng = new LatLng(response.body().lat, response.body().lang);
-                                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+        try {
+            final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+            ZipCodeVerifier.getInstance()
+                    .api()
+                    .verify(code.trim(), ZipCodeVerifier.API_KEY)
+                    .enqueue(new Callback<ZipResponse>() {
+                        @Override
+                        public void onResponse(Call<ZipResponse> call,
+                                               Response<ZipResponse> response) {
+                            DialogBuilder.cancelDialog(dialog);
+                            if (response.isSuccessful()) {
+                                if (null == response.body().message) {
+                                    LatLng latLng = new LatLng(response.body().lat, response.body().lang);
+                                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+                                }
+                            } else {
+                                //
                             }
-                        } else {
+                        }
+
+                        @Override
+                        public void onFailure(Call<ZipResponse> call, Throwable t) {
+                            //
+                            DialogBuilder.cancelDialog(dialog);
                             //
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ZipResponse> call, Throwable t) {
-                        //
-                        DialogBuilder.cancelDialog(dialog);
-                        //
-                    }
-                });
+                    });
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 }
