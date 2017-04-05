@@ -17,10 +17,14 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Map;
 
 import construction.thesquare.R;
+import construction.thesquare.employer.mygraftrs.WorkerDetailsActivity;
+import construction.thesquare.employer.myjobs.activity.ViewWorkerProfileActivity;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.main.activity.MainActivity;
+import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.TextTools;
+import construction.thesquare.worker.jobdetails.JobDetailActivity;
 
 //import io.intercom.android.sdk.push.IntercomPushClient;
 
@@ -67,6 +71,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                 //
                                 if (null != body.get("job_id")) {
                                     //
+                                    sendDeepLinkNotificationWorker((null != body.get("message")) ?
+                                                    body.get("message") : "",
+                                            Integer.valueOf(body.get("job_id")));
+                                    //
                                 } else {
                                     sendDataNotification((null != body.get("message")) ?
                                             body.get("message") : "");
@@ -90,6 +98,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             if (body.get("custom_screen").equals("true")) {
                                 //
                                 if (null != body.get("job_id") && null != body.get("worker_id")) {
+                                    //
+                                    sendDeepLinkNotificationEmployer((null != body.get("message")) ?
+                                            body.get("message") : "",
+                                            Integer.valueOf(body.get("worker_id")),
+                                            Integer.valueOf(body.get("job_id")));
                                     //
                                 } else {
                                     sendDataNotification((null != body.get("message")) ?
@@ -120,6 +133,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendDataNotification(String messageBody) {
+        TextTools.log("push...:", "standard");
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent
@@ -127,10 +141,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
-                        //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
                         .setContentTitle("The Square Construction")
                         .setContentText(messageBody)
-                        //.setContentIntent(null)
                         .setAutoCancel(true)
                         .setLargeIcon(BitmapFactory
                                 .decodeResource(getResources(),
@@ -144,17 +156,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendDeepLinkNotificationWorker(String messageBody, int jobId) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, JobDetailActivity.class);
+        intent.putExtra(Constants.KEY_JOB_ID_DETAILS, jobId);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent
-                .getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                .getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
-                        //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
                         .setContentTitle("The Square Construction")
                         .setContentText(messageBody)
-                        //.setContentIntent(null)
                         .setAutoCancel(true)
                         .setLargeIcon(BitmapFactory
                                 .decodeResource(getResources(),
@@ -168,17 +179,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendDeepLinkNotificationEmployer(String messageBody, int workerId, int jobId) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ViewWorkerProfileActivity.class);
+        intent.putExtra(Constants.KEY_WORKER_ID, workerId);
+        intent.putExtra(Constants.KEY_JOB_ID_DETAILS, jobId);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent
-                .getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                .getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
-                        //.setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
                         .setContentTitle("The Square Construction")
                         .setContentText(messageBody)
-                        //.setContentIntent(null)
                         .setAutoCancel(true)
                         .setLargeIcon(BitmapFactory
                                 .decodeResource(getResources(),
