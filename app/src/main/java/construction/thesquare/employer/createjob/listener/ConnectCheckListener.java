@@ -21,12 +21,15 @@ public class ConnectCheckListener
     private CardView connectContact;
     private CardView bookContact;
     private CardView connectDeadline;
+    private boolean isConnect;
 
-    public ConnectCheckListener(CheckBox checkBox1,
+    public ConnectCheckListener(boolean isConnect,
+                                CheckBox checkBox1,
                                 CheckBox checkBox2,
                                 CardView cardView1,
                                 CardView cardView2,
                                 CardView cardView3) {
+        this.isConnect = isConnect;
         this.connect = checkBox1;
         this.book = checkBox2;
         this.connectContact = cardView1;

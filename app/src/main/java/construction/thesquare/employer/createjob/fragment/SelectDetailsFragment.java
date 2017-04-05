@@ -30,7 +30,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.hbb20.CountryCodePicker;
 import com.jzxiang.pickerview.data.Type;
@@ -104,12 +106,27 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.rb_poa) RadioButton rbPOA;
 
     // new feature items
+    private boolean isConnect;
     @BindView(R.id.check_connect) CheckBox checkBoxConnect;
     @BindView(R.id.check_book) CheckBox checkBoxBook;
     private ConnectCheckListener connectCheckListener;
     @BindView(R.id.connect_contact_info) CardView connectContactInfo;
     @BindView(R.id.book_contact_info) CardView bookContactInfo;
     @BindView(R.id.connect_deadline) CardView connectDeadline;
+    // contact fields
+    @BindView(R.id.connect_person_input) TextInputLayout connectPersonLayout;
+    @BindView(R.id.connect_person) EditText connectPerson;
+    @BindView(R.id.connect_email_input) TextInputLayout connectEmailLayout;
+    @BindView(R.id.connect_email) EditText connectEmail;
+    @BindView(R.id.connect_phone_input) TextInputLayout connectPhoneInput;
+    @BindView(R.id.connect_phone) EditText connectPhone;
+    @BindView(R.id.ccp_connect) CountryCodePicker ccpConnect;
+    // deadline
+    @BindView(R.id.connect_date) ImageButton connectDate;
+    @BindView(R.id.edit_connect_date) TextView editConnectDate;
+    @BindView(R.id.connect_time) ImageButton connectTime;
+    @BindView(R.id.edit_connect_time) TextView editConnectTime;
+    // end new feature items
 
     @BindView(R.id.in_layout_extra) TextInputLayout layoutExtra;
     @BindView(R.id.extra) JosefinSansEditText extra;
@@ -119,6 +136,7 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.phone) JosefinSansEditText phone;
     @BindView(R.id.in_layout_contact) TextInputLayout layoutContact;
     @BindView(R.id.contact) JosefinSansEditText contact;
+    @BindView(R.id.ccp) CountryCodePicker ccp;
 
     @BindView(R.id.hour_seek_bar) HourRateSeekBar hourSeek;
     @BindView(R.id.day_seek_bar) DayRateSeekBar daySeek;
@@ -132,7 +150,6 @@ public class SelectDetailsFragment extends Fragment
 
     @BindView(R.id.edit_date) JosefinSansTextView editDate;
     @BindView(R.id.edit_time) JosefinSansTextView editTime;
-    @BindView(R.id.ccp) CountryCodePicker ccp;
 
     private CreateRequest request;
     private Role selectedRole;
@@ -161,6 +178,7 @@ public class SelectDetailsFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         connectCheckListener = new ConnectCheckListener(
+                isConnect,
                 checkBoxConnect,
                 checkBoxBook,
                 connectContactInfo,
@@ -190,7 +208,6 @@ public class SelectDetailsFragment extends Fragment
             timer.start();
         }
 
-
         selectedRole = request.roleObject;
 
         overtimeSwitch.setChecked(false);
@@ -217,18 +234,33 @@ public class SelectDetailsFragment extends Fragment
                     editDate.setText(tempDate.split("-")[2] + "-"
                             + tempDate.split("-")[1] + "-"
                             + tempDate.split("-")[0]);
+                    editConnectDate.setText(tempDate.split("-")[2] + "-"
+                            + tempDate.split("-")[1] + "-"
+                            + tempDate.split("-")[0]);
                 }
                 if (null != request.time) {
                     tempTime = request.time;
                     editTime.setText(request.time);
+                    editConnectTime.setText(request.time);
                 }
-                if (null != request.contactName) contact.setText(request.contactName);
+                if (null != request.contactName) {
+                    contact.setText(request.contactName);
+                    connectPerson.setText(request.contactName);
+                }
+                if (null != request.connectEmail) {
+                    connectEmail.setText(request.connectEmail);
+                } else {
+                    connectEmail.setText("n/a...");
+                }
 
                 phone.setText(String.valueOf(request.contactPhoneNumber));
                 ccp.setCountryForPhoneCode(request.contactCountryCode);
-                // fucking ccp
+                connectPhone.setText(String.valueOf(request.contactPhoneNumber));
+                ccpConnect.setCountryForPhoneCode(request.contactCountryCode);
+                // ccp
                 if (request.contactCountryCode == 44) {
                     ccp.setCountryForNameCode("UK");
+                    ccpConnect.setCountryForNameCode("UK");
                 }
 
                 if (null != request.notes) extra.setText(request.notes);
@@ -308,6 +340,7 @@ public class SelectDetailsFragment extends Fragment
             loadRequest();
 
             HashMap<String, Object> payload = new HashMap<>();
+            payload.put("is_connect", request.isConnect);
             payload.put("id", request.id);
             payload.put("status", Constants.JOB_STATUS_DRAFT);
             payload.put("role", selectedRole.id);
@@ -425,6 +458,7 @@ public class SelectDetailsFragment extends Fragment
             loadRequest();
 
             HashMap<String, Object> payload = new HashMap<>();
+            payload.put("is_connect", request.isConnect);
             payload.put("id", request.id);
             payload.put("status", status);
             payload.put("role", selectedRole.id);
@@ -603,6 +637,8 @@ public class SelectDetailsFragment extends Fragment
     }
 
     private void loadRequest() {
+
+        request.isConnect = isConnect;
 
         if (request.overtime) {
             request.overtimeValue = Integer.valueOf(overtime.getText().toString());
@@ -876,6 +912,9 @@ public class SelectDetailsFragment extends Fragment
             editDate.setText(String.valueOf(dayOfMonth) + "-" +
                     String.valueOf(monthOfYear + 1) + "-" +
                     String.valueOf(year));
+            editConnectDate.setText(String.valueOf(dayOfMonth) + "-" +
+                    String.valueOf(monthOfYear + 1) + "-" +
+                    String.valueOf(year));
             tempDate = String.valueOf(year) + "-"
                     + String.valueOf(monthOfYear + 1) + "-"
                     + String.valueOf(dayOfMonth);
@@ -926,6 +965,7 @@ public class SelectDetailsFragment extends Fragment
                         tempTime = String
                                 .valueOf(calendar.get(Calendar.HOUR)) + ":" +
                                 String.valueOf(calendar.get(Calendar.MINUTE));
+                        editConnectTime.setText(tempTime);
                         editTime.setText(tempTime);
                         if (null != request.rawDate) {
                             request.rawDate = null;

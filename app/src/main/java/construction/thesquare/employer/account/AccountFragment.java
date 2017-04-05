@@ -70,28 +70,18 @@ public class AccountFragment extends Fragment {
     static final int REQUEST_PERMISSIONS = 335;
     static final int REQUEST_PERMISSION_READ_STORAGE = 336;
 
-    @BindView(R.id.employer_account_logo)
-    ImageView logo;
-    @BindView(R.id.employer_account_name)
-    TextView name;
-    @BindView(R.id.employer_account_owner)
-    TextView owner;
-    @BindView(R.id.employer_account_rating)
-    RatingView rating;
-    // @BindView(R.id.employer_company_description) TextView description;
-    @BindView(R.id.employer_account_reviews_counter)
-    TextView reviewsCounter;
-    @BindView(R.id.employer_account_task_counter)
-    TextView myTasksCounter;
+    @BindView(R.id.employer_account_logo) ImageView logo;
+    @BindView(R.id.employer_account_name) TextView name;
+    @BindView(R.id.employer_account_owner) TextView owner;
+    @BindView(R.id.employer_account_rating) RatingView rating;
 
-    @BindView(R.id.employer_account_my_tasks_layout)
-    RelativeLayout myTasksLayout;
-    @BindView(R.id.employer_account_invoices_layout)
-    RelativeLayout invoicesLayout;
-    @BindView(R.id.employer_account_leaderboards_layout)
-    RelativeLayout leaderBoardsLayout;
-    @BindView(R.id.employer_account_user_management)
-    RelativeLayout accountUserManagementLayout;
+    @BindView(R.id.employer_account_reviews_counter) TextView reviewsCounter;
+    @BindView(R.id.employer_account_task_counter) TextView myTasksCounter;
+
+    @BindView(R.id.employer_account_my_tasks_layout) RelativeLayout myTasksLayout;
+    @BindView(R.id.employer_account_invoices_layout) RelativeLayout invoicesLayout;
+    @BindView(R.id.employer_account_leaderboards_layout) RelativeLayout leaderBoardsLayout;
+    @BindView(R.id.employer_account_user_management) RelativeLayout accountUserManagementLayout;
 
     private Employer meEmployer;
 
@@ -215,21 +205,10 @@ public class AccountFragment extends Fragment {
                     if (null != employer.company.name) {
                         name.setText(employer.company.name);
                     }
-//                if (null != employer.company.description) {
-//                    description.setText(employer.company.description);
-//                }
                 }
 
                 owner.setText(employer.firstName + " " + employer.lastName);
                 rating.setRating(employer.reviewInt);
-//
-//            if (null != employer.picture) {
-//                Picasso.with(getContext())
-//                        .load(employer.picture)
-//                        .fit()
-//                        .memoryPolicy(MemoryPolicy.NO_CACHE)
-//                        .into(logo);
-//            }
 
                 if (employer.reviewCount > 0) {
                     reviewsCounter.setText(String.valueOf(employer.reviewCount));
@@ -304,9 +283,11 @@ public class AccountFragment extends Fragment {
     }
 
     private void openCamera() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) ==
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.CAMERA) ==
                 PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                ContextCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
                         PackageManager.PERMISSION_GRANTED) {
             dispatchTakePictureIntent();
         } else {
@@ -317,7 +298,8 @@ public class AccountFragment extends Fragment {
     }
 
     private void openGallery() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
             dispatchOpenGalleryIntent();
         } else {
@@ -371,7 +353,8 @@ public class AccountFragment extends Fragment {
             } else if (requestCode == LOGO_PICK_GALLERY) {
                 try {
                     Uri uri = data.getData();
-                    Bitmap bitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), uri));
+                    Bitmap bitmap = BitmapFactory
+                            .decodeFile(MediaTools.getPath(getActivity(), uri));
                     prepPicture(bitmap);
                 } catch (Exception e) {
                     CrashLogHelper.logException(e);
@@ -382,7 +365,8 @@ public class AccountFragment extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
+                                           String[] permissions,
+                                           int[] grantResults) {
         switch (requestCode) {
             case REQUEST_PERMISSIONS:
                 if (grantResults.length > 1 &&
