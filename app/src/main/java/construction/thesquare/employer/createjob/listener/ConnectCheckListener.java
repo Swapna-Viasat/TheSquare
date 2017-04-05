@@ -21,15 +21,19 @@ public class ConnectCheckListener
     private CardView connectContact;
     private CardView bookContact;
     private CardView connectDeadline;
-    private boolean isConnect;
+    private IsConnectInterface isConnectInterface;
 
-    public ConnectCheckListener(boolean isConnect,
+    public interface IsConnectInterface {
+        void onConnectSelected(boolean yes);
+    }
+
+    public ConnectCheckListener(IsConnectInterface listener,
                                 CheckBox checkBox1,
                                 CheckBox checkBox2,
                                 CardView cardView1,
                                 CardView cardView2,
                                 CardView cardView3) {
-        this.isConnect = isConnect;
+        this.isConnectInterface = listener;
         this.connect = checkBox1;
         this.book = checkBox2;
         this.connectContact = cardView1;
@@ -41,11 +45,13 @@ public class ConnectCheckListener
     public void onCheckedChanged(CompoundButton compoundButton,
                                  boolean checked) {
         if (compoundButton == connect && checked) {
+            isConnectInterface.onConnectSelected(true);
             book.setChecked(false);
             bookContact.setVisibility(View.GONE);
             connectDeadline.setVisibility(View.VISIBLE);
             connectContact.setVisibility(View.VISIBLE);
         } else if (compoundButton == book && checked) {
+            isConnectInterface.onConnectSelected(false);
             connect.setChecked(false);
             bookContact.setVisibility(View.VISIBLE);
             connectDeadline.setVisibility(View.GONE);

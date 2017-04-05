@@ -431,7 +431,7 @@
                             android:maxLines="1"
                             android:id="@+id/connect_person"
                             style="@style/square_edit_text"
-                            android:inputType="textCapSentences" />
+                            android:inputType="textCapWords" />
                     </android.support.design.widget.TextInputLayout>
 
                     <!-- Phone -->
@@ -487,7 +487,7 @@
                             android:maxLines="1"
                             android:id="@+id/connect_email"
                             style="@style/square_edit_text"
-                            android:inputType="textCapSentences" />
+                            android:inputType="textEmailAddress" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>

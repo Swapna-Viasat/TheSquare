@@ -179,6 +179,14 @@ public class JobDetailsFragment extends Fragment
         try {
             final CreateRequest result = new CreateRequest();
             //
+            if (null != job.connectEmail) {
+                TextTools.log(TAG, "connect_email not null");
+                result.connectEmail = job.connectEmail;
+            } else {
+                TextTools.log(TAG, "connect_email null");
+            }
+            result.isConnect = job.isConnect;
+
             result.id = job.id;
             result.roleName = job.role.name;
             result.role = job.role.id;
@@ -486,8 +494,13 @@ public class JobDetailsFragment extends Fragment
                         String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) +
                         DateUtils.suffix(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
                         DateUtils.monthShort(calendar.get(Calendar.MONTH));
-                startDate.setText(String.format(getResources()
-                        .getString(R.string.employer_jobs_starts), startString));
+                if (!job.isConnect) {
+                    startDate.setText(String.format(getResources()
+                            .getString(R.string.employer_jobs_starts), startString));
+                } else {
+                    startDate.setText(String.format(getResources()
+                            .getString(R.string.employer_jobs_app_deadline), startString));
+                }
 
             } catch (Exception e) {
                 CrashLogHelper.logException(e);

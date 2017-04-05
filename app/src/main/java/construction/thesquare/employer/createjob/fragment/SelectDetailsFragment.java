@@ -85,7 +85,8 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class SelectDetailsFragment extends Fragment
-        implements JobDetailsDialog.DetailsListener, PaymentRedirect {
+        implements JobDetailsDialog.DetailsListener,
+                        PaymentRedirect, ConnectCheckListener.IsConnectInterface {
 
     public static final String TAG = "SelectDetailsFragment";
 
@@ -174,11 +175,16 @@ public class SelectDetailsFragment extends Fragment
         return view;
     }
 
+    public void onConnectSelected(boolean yes) {
+        isConnect = yes;
+        TextTools.log(TAG, String.valueOf(isConnect));
+    }
+
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         connectCheckListener = new ConnectCheckListener(
-                isConnect,
+                this,
                 checkBoxConnect,
                 checkBoxBook,
                 connectContactInfo,
@@ -188,6 +194,12 @@ public class SelectDetailsFragment extends Fragment
         checkBoxBook.setOnCheckedChangeListener(connectCheckListener);
 
         request = (CreateRequest) getArguments().getSerializable("request");
+
+        if (request.isConnect) {
+            TextTools.log(TAG, " is a connect job create request");
+            isConnect = true;
+            checkBoxConnect.performClick();
+        }
 
         CountDownTimer timer = new CountDownTimer(200, 200) {
             @Override
@@ -659,29 +671,43 @@ public class SelectDetailsFragment extends Fragment
 
         request.description = (!tempDescription.equals("")) ?
                 tempDescription : description.getText().toString();
-        request.contactName = contact.getText().toString();
         //
-        request.contactPhone = ccp.getSelectedCountryCodeWithPlus() + " "
-                + phone.getText().toString();
-        request.contactCountryCode = ccp.getSelectedCountryCodeAsInt();
-        try {
-            request.contactPhoneNumber = Long.valueOf(phone.getText().toString());
-        } catch (NumberFormatException e) {
-            CrashLogHelper.logException(e);
-        }
         //
         request.address = address.getText().toString();
         request.notes = extra.getText().toString();
 
-        request.date = tempDate;
-        request.time = editTime.getText().toString();
+        if (isConnect) {
+            request.contactName = connectPerson.getText().toString();
+            request.contactPhone = ccpConnect.getSelectedCountryCodeWithPlus() + " "
+                    + connectPhone.getText().toString();
+            request.contactCountryCode = ccpConnect.getSelectedCountryCodeAsInt();
+            try {
+                request.contactPhoneNumber = Long.valueOf(connectPhone.getText().toString());
+            } catch (NumberFormatException e) {
+                CrashLogHelper.logException(e);
+            }
+            request.connectEmail = connectEmail.getText().toString();
+            request.date = tempDate;
+            request.time = editConnectTime.getText().toString();
+        } else {
+            request.contactName = contact.getText().toString();
+            request.contactPhone = ccp.getSelectedCountryCodeWithPlus() + " "
+                    + phone.getText().toString();
+            request.contactCountryCode = ccp.getSelectedCountryCodeAsInt();
+            try {
+                request.contactPhoneNumber = Long.valueOf(phone.getText().toString());
+            } catch (NumberFormatException e) {
+                CrashLogHelper.logException(e);
+            }
+            request.date = tempDate;
+            request.time = editTime.getText().toString();
+        }
 
         request.roleName = (request.roleObject).name;
     }
 
     private boolean validate() {
         boolean result = true;
-        String message = "";
 
         if (request.overtime) {
             if (overtime.getText().toString().isEmpty()) {
@@ -689,31 +715,37 @@ public class SelectDetailsFragment extends Fragment
                 result = false;
             }
         }
-//        if (tempDate == null) {
-//            message = "Please enter a date";
-//            result = false;
-//        }
-//        if (tempTime == null) {
-//            message = "Please enter a time";
-//            result = false;
-//        }
-        if (phone.getText().toString().isEmpty()) {
-            phone.setError("Please enter a Phone no.");
-            result = false;
-        }
 
-        if (contact.getText().toString().isEmpty()) {
-            contact.setError("Please enter a name");
-            result = false;
-        }
+        if (request.isConnect) {
+            if (connectPhone.getText().toString().isEmpty()) {
+                connectPhone.setError("Please enter a Phone no.");
+                result = false;
+            }
 
-        if (address.getText().toString().isEmpty()) {
-            address.setError("Please enter an address");
-            result = false;
-        }
+            if (connectPerson.getText().toString().isEmpty()) {
+                connectPerson.setError("Please enter a name");
+                result = false;
+            }
 
-        if (!message.isEmpty()) {
-            DialogBuilder.showStandardDialog(getContext(), "", message);
+            if (connectEmail.getText().toString().isEmpty()) {
+                connectEmail.setError("Please enter an address");
+                result = false;
+            }
+        } else {
+            if (phone.getText().toString().isEmpty()) {
+                phone.setError("Please enter a Phone no.");
+                result = false;
+            }
+
+            if (contact.getText().toString().isEmpty()) {
+                contact.setError("Please enter a name");
+                result = false;
+            }
+
+            if (address.getText().toString().isEmpty()) {
+                address.setError("Please enter an address");
+                result = false;
+            }
         }
 
         return result;
@@ -804,12 +836,6 @@ public class SelectDetailsFragment extends Fragment
         persistProgress();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, String.valueOf(this.hashCode()));
-    }
-
     private void persistProgress() {
         getActivity().getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
                 .edit()
@@ -890,16 +916,21 @@ public class SelectDetailsFragment extends Fragment
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.date, R.id.time})
+    @OnClick({R.id.date, R.id.connect_date,
+            R.id.time, R.id.connect_time})
     public void time(View view) {
         switch (view.getId()) {
             case R.id.date:
                 selectDate();
                 break;
             case R.id.time:
-                //
                 selectTime();
-                //
+                break;
+            case R.id.connect_date:
+                selectDate();
+                break;
+            case R.id.connect_time:
+                selectTime();
                 break;
         }
     }
