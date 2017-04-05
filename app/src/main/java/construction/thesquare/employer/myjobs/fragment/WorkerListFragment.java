@@ -269,7 +269,8 @@ public class WorkerListFragment extends Fragment
     @Override
     public void onViewWorkerProfile(Worker worker) {
         if (worker != null) {
-            Intent viewWorkerProfileIntent = new Intent(getContext(), ViewWorkerProfileActivity.class);
+            Intent viewWorkerProfileIntent = new Intent(getContext(),
+                    ViewWorkerProfileActivity.class);
             viewWorkerProfileIntent.putExtra(Constants.KEY_WORKER_ID, worker.id);
             viewWorkerProfileIntent.putExtra(Constants.KEY_JOB_ID,
                     getArguments().getInt(Constants.KEY_JOB_ID));
