@@ -100,9 +100,6 @@ public class JobDetailsFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        adapter = new JobDetailsPagerAdapter(getContext(),
-                getChildFragmentManager(),
-                getArguments().getInt(Constants.KEY_JOB_ID));
     }
 
     @Override
@@ -428,6 +425,11 @@ public class JobDetailsFragment extends Fragment
         setupEditing(job);
 
         if (job.status.id == Job.TAB_LIVE) {
+            adapter = new JobDetailsPagerAdapter(getContext(),
+                    getChildFragmentManager(),
+                    getArguments().getInt(Constants.KEY_JOB_ID),
+                    job.isConnect ? Constants.ADAPTER_FOR_CONNECT
+                            : Constants.ADAPTER_FOR_BOOK);
             viewPager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
             viewPager.setAdapter(adapter);

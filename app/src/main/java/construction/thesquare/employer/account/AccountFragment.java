@@ -193,6 +193,9 @@ public class AccountFragment extends Fragment {
                                     .fit()
                                     .centerCrop()
                                     .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                    .placeholder(ContextCompat
+                                            .getDrawable(getContext(),
+                                                    R.drawable.ic_logo_placeholder))
                                     .into(logo);
                         } else {
                             logo.setImageDrawable(ContextCompat

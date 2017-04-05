@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.models.Application;
 import construction.thesquare.shared.models.Worker;
+import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.shared.view.widget.RatingView;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -34,11 +35,16 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
     private List<Worker> data = new ArrayList<>();
     private WorkersActionListener listener;
     private Context context;
+    private int type;
 
-    public WorkersAdapter(List<Worker> list, Context context, WorkersActionListener l) {
+    public WorkersAdapter(List<Worker> list,
+                          Context context,
+                          WorkersActionListener l,
+                          int adapterType) {
         this.data = list;
         this.context = context;
         this.listener = l;
+        this.type = adapterType;
     }
 
     public interface WorkersActionListener {
@@ -61,6 +67,15 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
     @Override
     public void onBindViewHolder(WorkerHolder holder, int position) {
         final Worker worker = data.get(position);
+
+        switch (type) {
+            case Constants.ADAPTER_FOR_BOOK:
+                holder.workerAction.setText("Offer Job");
+                break;
+            case Constants.ADAPTER_FOR_CONNECT:
+                holder.workerAction.setText("Connect");
+                break;
+        }
 
         holder.workerRating.makeStarsRed();
 

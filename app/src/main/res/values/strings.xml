@@ -884,7 +884,7 @@
     <string name="employer_jobs_old">Old</string>
     <string name="employer_jobs_live">Live</string>
     <string name="employer_jobs_drafts">Drafts</string>
-    <string name="employer_jobs_booked">Booked</string>
+    <string name="employer_jobs_booked">Booked &amp; \nConnected</string>
     <string name="employer_jobs_offers">Offered &amp; \nApplied</string>
     <string name="employer_jobs_matched">Matched</string>
     <string name="employer_jobs_declined">Declined</string>
