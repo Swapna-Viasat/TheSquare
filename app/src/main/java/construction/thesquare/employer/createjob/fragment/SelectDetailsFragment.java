@@ -55,6 +55,7 @@ import construction.thesquare.employer.createjob.CreateRequest;
 import construction.thesquare.employer.createjob.PreviewJobActivity;
 import construction.thesquare.employer.createjob.dialog.CRNDialog;
 import construction.thesquare.employer.createjob.dialog.JobDetailsDialog;
+import construction.thesquare.employer.createjob.dialog.JobNameDialog;
 import construction.thesquare.employer.createjob.listener.ConnectCheckListener;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
 import construction.thesquare.employer.myjobs.fragment.JobDetailsFragment;
@@ -86,7 +87,9 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class SelectDetailsFragment extends Fragment
         implements JobDetailsDialog.DetailsListener,
-                        PaymentRedirect, ConnectCheckListener.IsConnectInterface {
+                        PaymentRedirect,
+                    ConnectCheckListener.IsConnectInterface,
+                    JobNameDialog.NameListener {
 
     public static final String TAG = "SelectDetailsFragment";
 
@@ -146,8 +149,11 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.overtime_switch) SwitchCompat overtimeSwitch;
     @BindView(R.id.overtime) JosefinSansEditText overtime;
     @BindView(R.id.description) JosefinSansTextView description;
+    @BindView(R.id.job_name) JosefinSansTextView jobName;
     public String tempDescription = "";
+    public String tempName = "";
     private JobDetailsDialog jobDetailsDialog;
+    private JobNameDialog jobNameDialog;
 
     @BindView(R.id.edit_date) JosefinSansTextView editDate;
     @BindView(R.id.edit_time) JosefinSansTextView editTime;
@@ -315,9 +321,18 @@ public class SelectDetailsFragment extends Fragment
 
     @OnClick(R.id.description)
     public void describe() {
-        jobDetailsDialog = JobDetailsDialog.newInstance(this, description.getText().toString());
+        jobDetailsDialog = JobDetailsDialog
+                .newInstance(this, description.getText().toString());
         jobDetailsDialog.setCancelable(false);
         jobDetailsDialog.show(getActivity().getSupportFragmentManager(), "");
+    }
+
+    @OnClick(R.id.job_name)
+    public void name() {
+        jobNameDialog = JobNameDialog
+                .newInstance(this, jobName.getText().toString());
+        jobNameDialog.setCancelable(false);
+        jobNameDialog.show(getActivity().getSupportFragmentManager(), "");
     }
 
     public void onDone(String string, boolean cancel) {
@@ -328,6 +343,18 @@ public class SelectDetailsFragment extends Fragment
             if (null != string) {
                 tempDescription = string;
                 description.setText(string);
+            }
+        }
+    }
+
+    public void onName(String string, boolean cancel) {
+        if (null != jobNameDialog) {
+            jobNameDialog.dismiss();
+        }
+        if (!cancel) {
+            if (null != string) {
+                tempName = string;
+                jobName.setText(string);
             }
         }
     }
@@ -352,6 +379,9 @@ public class SelectDetailsFragment extends Fragment
             loadRequest();
 
             HashMap<String, Object> payload = new HashMap<>();
+            if (null != request.name) {
+                payload.put("name", request.name);
+            }
             payload.put("is_connect", request.isConnect);
             payload.put("id", request.id);
             payload.put("status", Constants.JOB_STATUS_DRAFT);
@@ -470,6 +500,9 @@ public class SelectDetailsFragment extends Fragment
             loadRequest();
 
             HashMap<String, Object> payload = new HashMap<>();
+            if (null != request.name) {
+                payload.put("name", request.name);
+            }
             payload.put("is_connect", request.isConnect);
             payload.put("id", request.id);
             payload.put("status", status);
@@ -651,6 +684,8 @@ public class SelectDetailsFragment extends Fragment
     private void loadRequest() {
 
         request.isConnect = isConnect;
+        request.name = (!tempName.equals("") ?
+                tempName : jobName.getText().toString());
 
         if (request.overtime) {
             request.overtimeValue = Integer.valueOf(overtime.getText().toString());

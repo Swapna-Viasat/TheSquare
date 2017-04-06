@@ -24,6 +24,7 @@ public class CreateRequest implements Serializable {
 
     @SerializedName("is_connect") public boolean isConnect;
     @SerializedName("connect_email") public String connectEmail;
+    public String name;
 
     public int status;
     public int role;

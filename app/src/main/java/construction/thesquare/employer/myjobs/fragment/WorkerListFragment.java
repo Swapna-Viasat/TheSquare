@@ -250,9 +250,13 @@ public class WorkerListFragment extends Fragment
 
     //TODO move strings into resources
     public void onInvite(final Worker worker) {
+        String promptBook = String.format(getString(R.string.connect_prompt_book),
+                (null != worker.firstName) ? worker.firstName : "...");
+        String promptConnect = String.format(getString(R.string.connect_prompt_connect),
+                (null != worker.firstName) ? worker.firstName : "...");
         new AlertDialog.Builder(getContext(), R.style.DialogTheme)
-                .setMessage("Are you sure you'd like to offer this job to "
-                        + ((null != worker.firstName) ? worker.firstName : "...") + "?")
+                .setMessage((adapterType == Constants.ADAPTER_FOR_BOOK) ?
+                                promptBook : promptConnect)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -320,12 +324,16 @@ public class WorkerListFragment extends Fragment
     private void showWorkerInviteSent(String workerName) {
         if (getActivity() == null || !isAdded()) return;
 
+        String confirmBook = String.format(getString(R.string.offer_job_confirm),
+                workerName);
+        String confirmConnect = String.format(getString(R.string.connect_confirm),
+                workerName);
         final Dialog dialog = new Dialog(getContext());
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_offer_confirm);
         ((TextView) dialog.findViewById(R.id.dialog_offer_job_confirm))
-                .setText(String.format(getString(R.string.offer_job_confirm),
-                        workerName));
+                .setText((adapterType == Constants.ADAPTER_FOR_BOOK)
+                        ? confirmBook : confirmConnect);
         dialog.findViewById(R.id.offer_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
