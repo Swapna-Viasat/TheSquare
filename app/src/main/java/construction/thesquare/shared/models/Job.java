@@ -18,6 +18,7 @@ public class Job implements Serializable {
     public static final int TAB_LIVE = 2;
 
     @SerializedName("is_connect") public boolean isConnect;
+    @SerializedName("connect_email") public String connectEmail;
 
     public int id;
     public int experience;

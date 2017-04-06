@@ -100,9 +100,6 @@ public class JobDetailsFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        adapter = new JobDetailsPagerAdapter(getContext(),
-                getChildFragmentManager(),
-                getArguments().getInt(Constants.KEY_JOB_ID));
     }
 
     @Override
@@ -179,6 +176,14 @@ public class JobDetailsFragment extends Fragment
         try {
             final CreateRequest result = new CreateRequest();
             //
+            if (null != job.connectEmail) {
+                TextTools.log(TAG, "connect_email not null");
+                result.connectEmail = job.connectEmail;
+            } else {
+                TextTools.log(TAG, "connect_email null");
+            }
+            result.isConnect = job.isConnect;
+
             result.id = job.id;
             result.roleName = job.role.name;
             result.role = job.role.id;
@@ -420,6 +425,11 @@ public class JobDetailsFragment extends Fragment
         setupEditing(job);
 
         if (job.status.id == Job.TAB_LIVE) {
+            adapter = new JobDetailsPagerAdapter(getContext(),
+                    getChildFragmentManager(),
+                    getArguments().getInt(Constants.KEY_JOB_ID),
+                    job.isConnect ? Constants.ADAPTER_FOR_CONNECT
+                            : Constants.ADAPTER_FOR_BOOK);
             viewPager.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
             viewPager.setAdapter(adapter);
@@ -486,8 +496,13 @@ public class JobDetailsFragment extends Fragment
                         String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) +
                         DateUtils.suffix(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
                         DateUtils.monthShort(calendar.get(Calendar.MONTH));
-                startDate.setText(String.format(getResources()
-                        .getString(R.string.employer_jobs_starts), startString));
+                if (!job.isConnect) {
+                    startDate.setText(String.format(getResources()
+                            .getString(R.string.employer_jobs_starts), startString));
+                } else {
+                    startDate.setText(String.format(getResources()
+                            .getString(R.string.employer_jobs_app_deadline), startString));
+                }
 
             } catch (Exception e) {
                 CrashLogHelper.logException(e);

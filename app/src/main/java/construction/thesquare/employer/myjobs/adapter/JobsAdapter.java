@@ -89,8 +89,14 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                 String startString = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) +
                         DateUtils.suffix(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
                         DateUtils.monthShort(calendar.get(Calendar.MONTH));
-                holder.starts.setText(String.format(holder.itemView.getResources()
-                        .getString(R.string.employer_jobs_starts), startString));
+
+                if (job.isConnect) {
+                    holder.starts.setText(String.format(holder.itemView.getResources()
+                            .getString(R.string.employer_jobs_app_deadline), startString));
+                } else {
+                    holder.starts.setText(String.format(holder.itemView.getResources()
+                            .getString(R.string.employer_jobs_starts), startString));
+                }
 
             } catch (Exception e) {
                 CrashLogHelper.logException(e);

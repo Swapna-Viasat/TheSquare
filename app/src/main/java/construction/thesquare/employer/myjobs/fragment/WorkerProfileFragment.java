@@ -63,7 +63,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WorkerProfileFragment extends Fragment implements LikeWorkerConnector.Callback {
+public class WorkerProfileFragment extends Fragment
+        implements LikeWorkerConnector.Callback {
 
     @BindView(R.id.worker_view_profile_avatar) CircleImageView avatarImage;
     @BindView(R.id.worker_view_profile_name) TextView nameView;
@@ -678,6 +679,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         decline.setVisibility(View.VISIBLE);
         book.setVisibility(View.VISIBLE);
         book.setText("BOOK");
+        if (null != job) {
+            if (job.isConnect) {
+                book.setText("CONNECT");
+            }
+        }
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -772,6 +778,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         bookedBanner.setVisibility(View.GONE);
         contactWorkerLayout.setVisibility(View.GONE);
         book.setText("OFFER JOB");
+        if (null != job) {
+            if (job.isConnect) {
+                book.setText("CONNECT");
+            }
+        }
         book.setVisibility(View.VISIBLE);
         book.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -944,6 +955,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     }
 
+    /**
+     * CSCS
+     * @param dataResponse
+     */
     private void populateCscs(ResponseObject<CSCSCardWorker> dataResponse) {
         if (dataResponse != null) {
 
@@ -1006,7 +1021,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
             }
         }
     }
-
     private void populateCscsStatus(int status) {
         if (status == VERIFICATION_VALID) {
             cscsStatus.setText(R.string.worker_cscs_verified);
@@ -1077,6 +1091,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         fetchWorker();
     }
 
+    /**
+     * Utils
+     * @param layout
+     * @param text
+     */
     private void populateWithMatchedItem(LinearLayout layout, String text) {
         if (TextUtils.isEmpty(text) || layout == null) return;
 
@@ -1095,7 +1114,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
             CrashLogHelper.logException(e);
         }
     }
-
     private void populateWithUnmatchedItem(LinearLayout layout, String text) {
         if (TextUtils.isEmpty(text) || layout == null) return;
 

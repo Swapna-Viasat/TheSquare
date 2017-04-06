@@ -53,18 +53,20 @@ public class WorkerListFragment extends Fragment
     public static final int WORKERS_DECLINED = 85;
     public static final int WORKERS_BOOKED = 86;
 
-    @BindView(R.id.rv)
-    RecyclerView rv;
-    @BindView(R.id.no_matches)
-    View noMatches;
+    @BindView(R.id.rv) RecyclerView rv;
+    @BindView(R.id.no_matches) View noMatches;
     private List<Worker> data = new ArrayList<>();
     private WorkersAdapter adapter;
     private LikeWorkerConnector likeWorkerConnector;
+    private int adapterType;
 
-    public static WorkerListFragment newInstance(int type, int jobId) {
+    public static WorkerListFragment newInstance(int type,
+                                                 int jobId,
+                                                 int adapterType) {
         WorkerListFragment fragment = new WorkerListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
+        bundle.putInt("adapter_type", adapterType);
         bundle.putInt(Constants.KEY_JOB_ID, jobId);
         fragment.setArguments(bundle);
         return fragment;
@@ -82,7 +84,8 @@ public class WorkerListFragment extends Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new WorkersAdapter(data, getContext(), this);
+        adapterType = getArguments().getInt("adapter_type", 0);
+        adapter = new WorkersAdapter(data, getContext(), this, adapterType);
         adapter.registerAdapterDataObserver(observer);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setAdapter(adapter);
@@ -269,7 +272,8 @@ public class WorkerListFragment extends Fragment
     @Override
     public void onViewWorkerProfile(Worker worker) {
         if (worker != null) {
-            Intent viewWorkerProfileIntent = new Intent(getContext(), ViewWorkerProfileActivity.class);
+            Intent viewWorkerProfileIntent = new Intent(getContext(),
+                    ViewWorkerProfileActivity.class);
             viewWorkerProfileIntent.putExtra(Constants.KEY_WORKER_ID, worker.id);
             viewWorkerProfileIntent.putExtra(Constants.KEY_JOB_ID,
                     getArguments().getInt(Constants.KEY_JOB_ID));
