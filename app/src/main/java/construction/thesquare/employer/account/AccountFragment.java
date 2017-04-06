@@ -356,8 +356,12 @@ public class AccountFragment extends Fragment {
             } else if (requestCode == LOGO_PICK_GALLERY) {
                 try {
                     Uri uri = data.getData();
-                    Bitmap bitmap = BitmapFactory
-                            .decodeFile(MediaTools.getPath(getActivity(), uri));
+//                    Bitmap bitmap = BitmapFactory
+//                            .decodeFile(MediaTools.getPath(getActivity(), uri));
+
+                    Bitmap bitmap = MediaStore.Images.Media
+                            .getBitmap(getActivity().getContentResolver(), uri);
+
                     prepPicture(bitmap);
                 } catch (Exception e) {
                     CrashLogHelper.logException(e);
