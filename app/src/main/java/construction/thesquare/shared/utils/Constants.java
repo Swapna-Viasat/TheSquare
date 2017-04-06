@@ -72,4 +72,5 @@ public class Constants {
 
     public static final int ADAPTER_FOR_CONNECT = 222;
     public static final int ADAPTER_FOR_BOOK = 223;
+
 }
