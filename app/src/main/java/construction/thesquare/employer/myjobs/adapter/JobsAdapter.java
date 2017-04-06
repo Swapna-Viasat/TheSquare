@@ -146,6 +146,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
 
         holder.jobId.setText("Job ref ID: " + job.jobRef);
+        if (null != job.name) {
+            holder.jobName.setText(job.name);
+        }
     }
 
     @Override
@@ -166,6 +169,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         @BindView(R.id.item_job_salary_period) JosefinSansTextView salaryPeriod;
         @BindView(R.id.item_job_salary_number) JosefinSansTextView salaryNumber;
         @BindView(R.id.item_job_id) JosefinSansTextView jobId;
+        @BindView(R.id.item_job_name) JosefinSansTextView jobName;
         @BindView(R.id.item_job_company_name) JosefinSansTextView companyName;
         @BindView(R.id.item_job_logo) ImageView logo;
 

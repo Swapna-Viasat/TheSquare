@@ -75,8 +75,9 @@ public class JobDetailsFragment extends Fragment
     @BindView(R.id.item_job_occupation) JosefinSansTextView occupation;
     @BindView(R.id.item_job_experience) JosefinSansTextView experience;
     @BindView(R.id.item_job_logo) ImageView logo;
-    @BindView(R.id.item_job_company_name) JosefinSansTextView name;
+    @BindView(R.id.item_job_company_name) JosefinSansTextView jobName;
     @BindView(R.id.item_job_id) JosefinSansTextView id;
+    @BindView(R.id.item_job_name) JosefinSansTextView name;
     @BindView(R.id.view_more) JosefinSansTextView viewMore;
     @BindView(R.id.toggle_edit) Switch toggleEdit;
 
@@ -440,6 +441,10 @@ public class JobDetailsFragment extends Fragment
 
         if (null != job.role) {
             occupation.setText(job.role.name);
+        }
+
+        if (null != job.name) {
+            jobName.setText(job.name);
         }
 
         if (null != job.locationName) {

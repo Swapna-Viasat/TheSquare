@@ -19,6 +19,7 @@ public class Job implements Serializable {
 
     @SerializedName("is_connect") public boolean isConnect;
     @SerializedName("connect_email") public String connectEmail;
+    public String name;
 
     public int id;
     public int experience;

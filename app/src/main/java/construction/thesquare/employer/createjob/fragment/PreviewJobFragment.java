@@ -382,6 +382,9 @@ public class PreviewJobFragment extends Fragment
             if (null != createRequest.connectEmail) {
                 payload.put("connect_email", createRequest.connectEmail);
             }
+            if (null != createRequest.name) {
+                payload.put("name", createRequest.name);
+            }
             payload.put("is_connect", createRequest.isConnect);
 
             if (createRequest.id != 0) {

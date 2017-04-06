@@ -166,6 +166,39 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+            <!-- Description -->
+            <android.support.v7.widget.CardView
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <LinearLayout
+                    android:background="#ededed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        style="@style/body_dark_text"
+                        android:text="Name your job"/>
+
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/job_name"
+                        android:gravity="top"
+                        android:padding="12dp"
+                        android:text="Enter a name" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
             <!-- Budget -->
             <android.support.v7.widget.CardView
                 android:layout_marginLeft="12dp"
