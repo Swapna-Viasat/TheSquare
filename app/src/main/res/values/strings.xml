@@ -278,7 +278,7 @@
     <string name="tutorial_worker_five_title">Sleep easy</string>
 
     <string name="tutorial_worker_one_text">The Square uses clever technology to cut out the middleman. That means more cash in your back pocket.</string>
-    <string name="tutorial_worker_two_text">Once your profile is live, we\'ll notify you as soon as you\'re matched to a job that suits\nyou. We do the hard graft for you 24/7.</string>
+    <string name="tutorial_worker_two_text">Once your profile is live, we\'ll notify you \n as soon as you\'re matched to a job that suits you. \nWe do the hard graft for you 24/7.</string>
     <string name="tutorial_worker_three_text">As one of the fastest growing networks of skilled construction workers in the world we attract the best companies in the industry.</string>
     <string name="tutorial_worker_four_text">Working in partnership with Build UK and Trade Associations we\'re driving up Health and Safety standards, creating better working conditions for you.</string>
     <string name="tutorial_worker_five_text">We take care of your monthly and annual tax returns, so you don\'t have to worry. We\'re making your life easier.</string>
@@ -1279,4 +1279,11 @@
     <string name="connect_worker_connected">Cool! %s is now a connection.</string>
     <string name="connect_worker_connected_more">Get in touch with %s to
                                 confirm next steps.</string>
+  
+    <!-- New feature Suggest Role -->
+    <string name="suggest_role">Role not listed?</string>
+    <string name="suggest_role_title">Please suggest a role which is not listed</string>
+    <string name="suggest_role_thanks">Thanks for suggesting this new role We\'ll be adding it to the list very soon...</string>
+
+
 </resources>

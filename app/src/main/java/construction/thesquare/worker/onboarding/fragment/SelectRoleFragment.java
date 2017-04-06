@@ -44,6 +44,7 @@ import construction.thesquare.shared.utils.KeyboardUtils;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.onboarding.adapter.RolesAdapter;
+import construction.thesquare.worker.onboarding.dialog.RoleDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -358,5 +359,19 @@ public class SelectRoleFragment extends Fragment
                 .edit()
                 .putString(Constants.KEY_PERSISTED_WORKER, GsonConfig.buildDefault().toJson(currentWorker))
                 .apply();
+    }
+
+    //New feature
+    @OnClick(R.id.suggest_role)
+    public void suggestRole() {
+        RoleDialog roleDialog = RoleDialog.newInstance(new RoleDialog.RoleListener() {
+            @Override
+            public void onResult(boolean success) {
+                if (success) {
+                    DialogBuilder.showStandardDialog(getContext(), "", getResources().getString(R.string.suggest_role_thanks));
+                }
+            }
+        });
+        roleDialog.show(getChildFragmentManager(), "");
     }
 }
