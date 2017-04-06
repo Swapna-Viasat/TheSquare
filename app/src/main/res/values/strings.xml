@@ -1268,4 +1268,5 @@
     <string name="connect_number">Contact number</string>
     <string name="connect_person">Contact person</string>
     <string name="employer_jobs_app_deadline">Application \ndeadline %s</string>
+    <string name="connect_connected">Connected</string>
 </resources>
