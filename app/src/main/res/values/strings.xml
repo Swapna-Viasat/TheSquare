@@ -1269,4 +1269,10 @@
     <string name="connect_person">Contact person</string>
     <string name="employer_jobs_app_deadline">Application \ndeadline %s</string>
     <string name="connect_connected">Connected</string>
+
+    <!-- New feature Suggest Role -->
+    <string name="suggest_role">Role not listed?</string>
+    <string name="suggest_role_title">Please suggest a role which is not listed</string>
+    <string name="suggest_role_thanks">Thanks for suggesting this new role We\'ll be adding it to the list very soon...</string>
+
 </resources>
