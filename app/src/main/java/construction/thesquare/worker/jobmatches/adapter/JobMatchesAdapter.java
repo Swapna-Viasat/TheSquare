@@ -95,6 +95,10 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
                     holder.salary.setVisibility(View.GONE);
                 }
             }
+
+            if (null != job.locationName) {
+                holder.location.setText(job.locationName);
+            }
 //
 //            if (null != job.owner) {
 //                if (null != job.owner.picture) {
@@ -116,9 +120,7 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
                             job.experience, context.getResources().getQuantityString(R.plurals.year_plural, job.experience)));
 
             if (null != job.company) {
-                if (null != job.company.postCode) {
-                    holder.location.setText(job.company.postCode);
-                }
+
                 if (null != job.company.logo) {
                     holder.logo.setVisibility(View.VISIBLE);
                     holder.companyName.setVisibility(View.GONE);

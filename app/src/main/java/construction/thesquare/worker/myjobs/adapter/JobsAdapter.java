@@ -100,10 +100,15 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                     .setText(String.format(context.getString(R.string.item_match_format_experience),
                             job.experience, context.getResources().getQuantityString(R.plurals.year_plural, job.experience)));
 
-            if (null != job.company) {
-                if (null != job.company.postCode) {
-                    holder.location.setText(job.company.postCode);
-                }
+//            if (null != job.company) {
+//                if (null != job.company.postCode) {
+//                    holder.location.setText(job.company.postCode);
+//                }
+//            }
+
+
+            if (null != job.locationName) {
+                holder.location.setText(job.locationName);
             }
 
             DateTime dateTime = new DateTime(job.startTime);
