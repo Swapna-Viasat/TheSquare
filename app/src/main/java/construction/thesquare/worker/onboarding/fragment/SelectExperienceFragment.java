@@ -962,7 +962,7 @@ public class SelectExperienceFragment extends Fragment
 
     private void openLanguageSelectDialog(CharSequence[] dialogList) {
         if (getContext() != null)
-        DialogBuilder.showMultiSelectDialog(getContext(), dialogList, this);
+            DialogBuilder.showMultiSelectDialog(getContext(), dialogList, this);
     }
 
     @Override
@@ -1008,8 +1008,15 @@ public class SelectExperienceFragment extends Fragment
                     english = level.id;
                 }
             }
-            fluencyAdapter.notifyDataSetChanged();
+        } else {
+            for (EnglishLevel level : levels) {
+                if (level != null && level.id == 1) { // 1 = Basic
+                    level.selected = true;
+                    english = 1;
+                }
+            }
         }
+        fluencyAdapter.notifyDataSetChanged();
     }
 
     private void populateSavedRequirements() {
