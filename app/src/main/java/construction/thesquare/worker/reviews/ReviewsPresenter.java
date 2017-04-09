@@ -59,26 +59,29 @@ public class ReviewsPresenter implements ReviewsContract.UserActionListener {
     }
 
     @Override
-    public void fetchReviews() {
-        mReviewsView.displayProgress(true);
-        Call<ReviewsResponse> call = HttpRestServiceConsumer.getBaseApiClient().getReviews();
+    public void fetchReviews(int tabId) {
+        final Dialog dialog = DialogBuilder.showCustomDialog(context);
+        Call<ReviewsResponse> call = HttpRestServiceConsumer.getBaseApiClient().getReviews(tabId);
         call.enqueue(new Callback<ReviewsResponse>() {
             @Override
             public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
-                mReviewsView.displayProgress(false);
+                if (response.isSuccessful()) {
+                    DialogBuilder.cancelDialog(dialog);
                 if (null != response) {
                     if (null != response.body()) {
                         if (null != response.body().response) {
                             mReviewsView.displayReviews(response.body().response);
                         }
                     }
+                }}else {
+                    HandleErrors.parseError(context, dialog, response);
                 }
             }
 
             @Override
             public void onFailure(Call<ReviewsResponse> call, Throwable t) {
-                mReviewsView.displayProgress(false);
                 TextTools.log(TAG, (t.getMessage() != null) ? t.getMessage() : "");
+                HandleErrors.parseFailureError(context, dialog, t);
             }
         });
     }

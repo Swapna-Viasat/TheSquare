@@ -45,7 +45,7 @@
                     app:josefin_style="light"
                     android:textSize="14dp"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
+                    android:layout_height="wrap_content"
                    />
             </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 

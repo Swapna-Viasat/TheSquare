@@ -33,6 +33,7 @@ import construction.thesquare.employer.mygraftrs.presenter.WorkerContract;
 import construction.thesquare.employer.mygraftrs.presenter.WorkersPresenter;
 import construction.thesquare.employer.myjobs.LikeWorkerConnector;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
+import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 
 public class MyGraftrsFragment extends Fragment implements WorkersAdapter.WorkersActionListener, WorkerContract.View,
@@ -153,7 +154,7 @@ public class MyGraftrsFragment extends Fragment implements WorkersAdapter.Worker
         if (worker != null) {
             Intent viewWorkerProfileIntent = new Intent(getContext(),
                     WorkerDetailsActivity.class);
-            viewWorkerProfileIntent.putExtra(WorkerDetailsActivity.WORKER_ID, worker.id);
+            viewWorkerProfileIntent.putExtra(Constants.KEY_WORKER_ID, worker.id);
             getActivity().startActivity(viewWorkerProfileIntent);
         }
     }

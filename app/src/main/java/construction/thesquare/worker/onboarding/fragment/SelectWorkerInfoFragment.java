@@ -418,7 +418,11 @@ public class SelectWorkerInfoFragment extends Fragment {
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
 
-                            proceed(response.body().getResponse());
+                            try {
+                                proceed(response.body().getResponse());
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
 
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);

@@ -48,41 +48,42 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
     public void onBindViewHolder(ReviewHolder holder, int position) {
         final Review review = data.get(position);
         if (null != listener) {
-            if(review.status.id == Review.CAT_PENDING ) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listener.onCompleteReview(review);
-                    }
-                });
-            }else if (review.status.id == Review.CAT_PUBLISHED) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        listener.onViewDetails(review);
-                    }
-                });
-            } else if (review.status.id == Review.CAT_PENDING) {
-               //do nothing
+            if(review.type.id == Review.REVIEW_TYPE_WORKER ) {
+                if (review.status.id == Review.CAT_PENDING) {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listener.onCompleteReview(review);
+                        }
+                    });
+                } else if (review.status.id == Review.CAT_PUBLISHED) {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listener.onViewDetails(review);
+                        }
+                    });
+                }
             }
         }
+        if(review.type.id == Review.REVIEW_TYPE_WORKER ) {
+            if (null != review.workerSummary.name) {
+                holder.name.setText(review.workerSummary.name);
+            }
+            if (null != review.workerSummary.role) {
+                holder.position.setText(review.workerSummary.role);
+            }
+            if (null != review.workerSummary.picture) {
+                Picasso.with(context)
+                        .load(review.workerSummary.picture)
+                        .into(holder.avatar);
+            } else {
+                holder.avatar.setImageResource(R.drawable.bob);
+            }
 
-        if (null != review.workerSummary.name){
-           holder.name.setText(review.workerSummary.name);
-        }
-        if (null != review.workerSummary.role){
-            holder.position.setText(review.workerSummary.role);
-        }
-        if (null != review.workerSummary.picture) {
-            Picasso.with(context)
-                    .load(review.workerSummary.picture)
-                    .into(holder.avatar);
-        } else {
-            holder.avatar.setImageResource(R.drawable.bob);
-        }
-
-        if (null != review.dateReviewRequested){
-            holder.date.setText("Date Requested: "+review.dateReviewRequested);
+            if (null != review.dateReviewRequested) {
+                holder.date.setText("Date Requested: " + review.dateReviewRequested);
+            }
         }
     }
 

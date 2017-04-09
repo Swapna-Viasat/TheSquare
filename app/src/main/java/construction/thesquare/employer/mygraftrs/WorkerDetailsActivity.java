@@ -17,14 +17,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.employer.mygraftrs.fragment.MyWorkerProfileFragment;
+import construction.thesquare.shared.utils.Constants;
 import construction.thesquare.shared.utils.TextTools;
 
 public class WorkerDetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "WorkerDetailsActivity";
     @BindView(R.id.toolbar) Toolbar toolbar;
-
-    public static final String WORKER_ID = "WORKER_ID";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,14 +34,14 @@ public class WorkerDetailsActivity extends AppCompatActivity {
         setToolbar();
 
         Intent intent = getIntent();
-        int workerId = intent.getIntExtra(WORKER_ID, 0);
+        int workerId = intent.getIntExtra(Constants.KEY_WORKER_ID, 0);
 
         if (savedInstanceState == null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container,
-                    MyWorkerProfileFragment.newInstance(workerId));
-            fragmentTransaction.commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container,
+                            MyWorkerProfileFragment.newInstance(workerId))
+                    .commit();
         }
     }
 

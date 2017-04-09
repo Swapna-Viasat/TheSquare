@@ -278,7 +278,7 @@
     <string name="tutorial_worker_five_title">Sleep easy</string>
 
     <string name="tutorial_worker_one_text">The Square uses clever technology to cut out the middleman. That means more cash in your back pocket.</string>
-    <string name="tutorial_worker_two_text">Once your profile is live, we\'ll notify you as soon as you\'re matched to a job that suits\nyou. We do the hard graft for you 24/7.</string>
+    <string name="tutorial_worker_two_text">Once your profile is live, we\'ll notify you \n as soon as you\'re matched to a job that suits you. \nWe do the hard graft for you 24/7.</string>
     <string name="tutorial_worker_three_text">As one of the fastest growing networks of skilled construction workers in the world we attract the best companies in the industry.</string>
     <string name="tutorial_worker_four_text">Working in partnership with Build UK and Trade Associations we\'re driving up Health and Safety standards, creating better working conditions for you.</string>
     <string name="tutorial_worker_five_text">We take care of your monthly and annual tax returns, so you don\'t have to worry. We\'re making your life easier.</string>
@@ -523,6 +523,7 @@
     <string name="worker_reviews_requested_by_worker">Requested by \n me</string>
     <string name="worker_reviews_turned_up">of the time you turned up</string>
     <string name="worker_reviews_companies_turned_up">of firms\nwould hire you again</string>
+    <string name="worker_reviews_requested_by_employer">Requested by \n Employer </string>
 
     <!-- Employer Reviews -->
     <string name="employer_reviews_work_again">Would work for you again</string>
@@ -542,6 +543,11 @@
     <string name="worker_turned_up">Did %s turn up?</string>
     <string name="employer_review_request">You have no reviews to give right now! </string>
     <string name="employer_review_request_detail">We\'ll let you know as soon as you do. Remember, reviews are super important for you, your workers and The Square community. Reviews should be done fast &amp; fairly.</string>
+    <string name="hire_again">You would hire %s\'s \n again</string>
+    <string name="not_hire_again">You wouldn\'t hire %s\'s \n again</string>
+    <string name="worker_rate_employer">Please rate %s\'s</string>
+    <string name="employer_reviews_workers_turned_up">of workers\nwould work for you again</string>
+    <string name="work_again">Would you work for them again? %s </string>
 
     <!-- Employer My Account -->
     <string name="employer_account_price_plan">My Price Plan</string>
@@ -1247,4 +1253,18 @@
         payments are non-refundable and we do not provide refunds or
         credits for any partial-month subscription periods or unused
         Booking Credits.</font></string>
+    
+    <!-- New feature Connect --> 
+    <string name="connect_header">Do you want to interview/connect with
+                matched workers or do you just want to book?</string>
+    <string name="connect_connect_yes">I want to speak with them before hiring</string>
+    <string name="connect_connect_no">I want to book them to turn up and start</string>
+    <string name="connect_contact_header">All marked information will only be
+        provided to workers who you connect with. If this is left blank,
+        your name and contact details will be provided.</string>
+    <string name="connect_application_deadline">Application deadline</string>
+    <string name="connect_contact">Contact</string>
+    <string name="connect_email">Email address</string>
+    <string name="connect_number">Contact number</string>
+    <string name="connect_person">Contact person</string>
 </resources>

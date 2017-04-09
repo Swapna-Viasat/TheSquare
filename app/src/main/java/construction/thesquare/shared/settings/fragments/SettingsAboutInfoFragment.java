@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
+import construction.thesquare.shared.view.widget.JosefinSansTextView;
 
 /**
  * Created by swapna on 3/8/2017.
@@ -37,8 +38,6 @@ public class SettingsAboutInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = layoutInflater.inflate(R.layout.fragment_terms_conditions, container, false);
         ButterKnife.bind(this, view);
-        WebSettings settings= webview.getSettings();
-        settings.setDefaultFontSize(12);
         webview.loadUrl("file:///android_asset/about.html");
         return view;
     }

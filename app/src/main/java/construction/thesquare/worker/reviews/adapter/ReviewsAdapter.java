@@ -28,8 +28,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
 
 
     public interface ReviewsListener {
-       // void onViewDetails(Review review);
-       // void onCompleteReview(Review review);
+         void onViewDetails(Review review);
+         void onCompleteReview(Review review);
     }
 
     public ReviewsAdapter(List<Review> reviews, Context context, ReviewsListener reviewsListener) {
@@ -47,29 +47,46 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
     @Override
     public void onBindViewHolder(ReviewHolder holder, int position) {
         final Review review = data.get(position);
-       /* if (null != listener) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onViewDetails(review);
+      if (null != listener) {
+            if(review.type.id == Review.REVIEW_TYPE_EMPLOYER ) {
+                if (review.status.id == Review.CAT_PENDING) {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listener.onCompleteReview(review);
+                        }
+                    });
+                } else if (review.status.id == Review.CAT_PUBLISHED) {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listener.onViewDetails(review);
+                        }
+                    });
                 }
-            });
-        }*/
-
-
-
-        if (null != review.requestCompany &&  review.automatedRequest == "false") {
-            holder.company.setText(review.requestCompany);
-            if (null != review.dateReviewRequested)
-            holder.date.setText("Date Requested: "+review.dateReviewRequested);
-            holder.requestedby.setText(R.string.worker_reviews_requested_by_worker);
-        }
-        if (null != review.company) {
-            if(review.automatedRequest == "true" && null != review.dateReviewRequested) {
-                holder.company.setText(review.company);
-                holder.date.setText("Date Requested: " + review.dateReviewRequested);
-                holder.requestedby.setText(R.string.worker_reviews_requested_by_square);
             }
+        }
+
+
+
+        if(review.type.id == Review.REVIEW_TYPE_WORKER ) {
+            if (null != review.requestCompany && review.automatedRequest == false) {
+                holder.company.setText(review.requestCompany);
+                if (null != review.dateReviewRequested)
+                    holder.date.setText("Date Requested: " + review.dateReviewRequested);
+                holder.requestedby.setText(R.string.worker_reviews_requested_by_worker);
+            }
+            if (null != review.company) {
+                if (review.automatedRequest == true && null != review.dateReviewRequested) {
+                    holder.company.setText(review.company);
+                    holder.date.setText("Date Requested: " + review.dateReviewRequested);
+                    holder.requestedby.setText(R.string.worker_reviews_requested_by_square);
+                }
+            }
+        }else if(review.type.id == Review.REVIEW_TYPE_EMPLOYER ) {
+            holder.company.setText(review.company);
+            holder.date.setText("Date Requested: " + review.dateReviewRequested);
+            holder.requestedby.setText(R.string.worker_reviews_requested_by_employer);
         }
     }
 

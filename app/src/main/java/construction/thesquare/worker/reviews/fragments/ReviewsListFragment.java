@@ -30,6 +30,7 @@ import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.shared.view.widget.RatingView;
 import construction.thesquare.worker.reviews.ReviewsContract;
 import construction.thesquare.worker.reviews.ReviewsPresenter;
+import construction.thesquare.worker.reviews.activity.RateEmployerActivity;
 import construction.thesquare.worker.reviews.activity.ReviewDetailsActivity;
 import construction.thesquare.worker.reviews.activity.ReviewRequestActivity;
 import construction.thesquare.worker.reviews.adapter.ReviewsAdapter;
@@ -98,33 +99,30 @@ public class ReviewsListFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        mUserActionListener.fetchReviews();
+        mUserActionListener.fetchReviews(getArguments().getInt("category"));
     }
 
-    @Override
-    public void displayProgress(boolean show) {
-       }
 
     @Override
     public void displayReviews(List<Review> reviews) {
         if (getActivity() == null || !isAdded()) return;
 
         if (!data.isEmpty()) data.clear();
-        if (getArguments().getInt("category") == Review.CAT_PENDING) {
+        if (getArguments().getInt("category") == Review.TAB_PENDING) {
             aggregate.setVisibility(View.GONE);
             for (Review review : reviews) {
-                if (review.status.id == Review.CAT_PENDING) {
+                if (review.status.id == Review.CAT_PENDING && review.type.id == Review.REVIEW_TYPE_EMPLOYER) {
                     data.add(review);
                 }
             }
         } else if (getArguments().getInt("category") == Review.TAB_GIVEN) {
             aggregate.setVisibility(View.GONE);
-           /* for (Review review : reviews) {
+            for (Review review : reviews) {
                 if (review.status.id == Review.CAT_PUBLISHED
-                        && review.type.id == Review.TYPE_GIVEN) {
+                        && review.type.id == Review.REVIEW_TYPE_EMPLOYER) {
                     data.add(review);
                 }
-            }*/
+            }
         } else if (getArguments().getInt("category") == Review.TAB_RECEIVED) {
            /* for (Review review : reviews) {
                 if (review.status.id == Review.CAT_PUBLISHED
@@ -149,15 +147,17 @@ public class ReviewsListFragment extends Fragment
     }
 
 
-    /*@Override
+    @Override
     public void onViewDetails(Review review) {
         mUserActionListener.fetchReview(review);
     }
-*/
-   /* @Override
+
+    @Override
     public void onCompleteReview(Review review) {
-        Toast.makeText(getContext(), "on complete review", Toast.LENGTH_LONG).show();
-    }*/
+        Intent intent = new Intent(getActivity(), RateEmployerActivity.class);
+        Bundle data = new Bundle(); data.putSerializable("data", review);
+        intent.putExtras(data); startActivity(intent);
+    }
 
     private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
         @Override
@@ -165,7 +165,7 @@ public class ReviewsListFragment extends Fragment
             super.onChanged();
             if (data.isEmpty()) noData.setVisibility(View.VISIBLE);
             else {
-                if ((getArguments().getInt("category") == Review.TAB_GIVEN) || (getArguments().getInt("category") == Review.CAT_PENDING)) {
+                if ((getArguments().getInt("category") == Review.TAB_GIVEN) || (getArguments().getInt("category") == Review.TAB_PENDING)) {
                     aggregate.setVisibility(View.GONE);
                     noData.setVisibility(View.GONE);
                 }
@@ -196,8 +196,7 @@ public class ReviewsListFragment extends Fragment
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
                             noData.setVisibility(View.GONE);
-                            displayProgress(false);
-                            aggregate.setVisibility(View.VISIBLE);
+                             aggregate.setVisibility(View.VISIBLE);
                             worker = response.body().getResponse();
                             if (worker != null && worker.reviewData != null) {
                                 companyReviews.setText(String.valueOf(worker.reviewData.reviewsCount));

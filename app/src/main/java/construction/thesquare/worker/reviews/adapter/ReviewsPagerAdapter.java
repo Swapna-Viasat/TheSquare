@@ -15,7 +15,7 @@ import construction.thesquare.worker.reviews.fragments.ReviewsListFragment;
 
 public class ReviewsPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int COUNT = 2;
+    private static final int COUNT = 3;
     private Context context;
 
     public ReviewsPagerAdapter(Context context, FragmentManager fragmentManager) {
@@ -28,10 +28,9 @@ public class ReviewsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 return context.getResources().getString(R.string.worker_reviews_received);
-            //this will be handled in Version 2.0
-          /*  case 1:
+            case 1:
                 return context.getResources().getString(R.string.worker_reviews_given);
-           */ case 1:
+            case 2:
                 return context.getResources().getString(R.string.worker_reviews_pending);
         }
         return null;
@@ -42,11 +41,10 @@ public class ReviewsPagerAdapter extends FragmentPagerAdapter {
         switch (index) {
             case 0:
                 return ReviewsListFragment.newInstance(Review.TAB_RECEIVED);
-            //this will be handled in Version 2.0
-            /*case 1:
-                return ReviewsListFragment.newInstance(Review.TAB_GIVEN);*/
             case 1:
-                return ReviewsListFragment.newInstance(Review.CAT_PENDING);
+                return ReviewsListFragment.newInstance(Review.TAB_GIVEN);
+            case 2:
+                return ReviewsListFragment.newInstance(Review.TAB_PENDING);
         }
         return null;
     }
