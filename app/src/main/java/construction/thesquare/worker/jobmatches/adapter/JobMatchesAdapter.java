@@ -145,14 +145,21 @@ public class JobMatchesAdapter extends RecyclerView.Adapter<JobMatchesAdapter.Jo
                 }
             });
 
-            if (!TextUtils.isEmpty(job.startTime)) {
-                holder.startDateTextView.setText(String.format(context.getString(R.string.item_match_format_starts),
-                        DateUtils.getFormattedJobDate(job.startTime)));
-            }
             holder.jobId.setText(context.getString(R.string.job_id, job.jobRef));
 
             if (getBannerImage(job) != 0) holder.bannerImage.setImageResource(getBannerImage(job));
             else holder.bannerImage.setVisibility(View.GONE);
+
+            if (job.isConnect) {
+                if (!TextUtils.isEmpty(job.startTime)) {
+                    holder.startDateTextView.setText(String.format(context.getString(R.string.employer_jobs_app_deadline), DateUtils.getFormattedJobDate(job.startTime)));
+                }
+            } else {
+                if (!TextUtils.isEmpty(job.startTime)) {
+                    holder.startDateTextView.setText(String.format(context.getString(R.string.item_match_format_starts),
+                            DateUtils.getFormattedJobDate(job.startTime)));
+                }
+            }
 
         } catch (Exception e) {
             CrashLogHelper.logException(e);

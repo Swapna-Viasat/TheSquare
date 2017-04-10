@@ -63,7 +63,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WorkerProfileFragment extends Fragment implements LikeWorkerConnector.Callback {
+public class WorkerProfileFragment extends Fragment
+        implements LikeWorkerConnector.Callback {
 
     @BindView(R.id.worker_view_profile_avatar) CircleImageView avatarImage;
     @BindView(R.id.worker_view_profile_name) TextView nameView;
@@ -100,7 +101,7 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     @BindView(R.id.book) JosefinSansTextView book;
     @BindView(R.id.decline) JosefinSansTextView decline;
     @BindView(R.id.withdraw) JosefinSansTextView withdraw;
-    @BindView(R.id.bookedBanner) View bookedBanner;
+    @BindView(R.id.bookedBanner) TextView bookedBanner;
     @BindView(R.id.offered_hint_view) ViewGroup offeredHint;
     @BindView(R.id.offered_hint_text) TextView offeredHintText;
     @BindView(R.id.contactWorkerLayout) View contactWorkerLayout;
@@ -146,7 +147,8 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_worker_profile, container, false);
         ButterKnife.bind(this, v);
@@ -678,6 +680,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         decline.setVisibility(View.VISIBLE);
         book.setVisibility(View.VISIBLE);
         book.setText("BOOK");
+        if (null != job) {
+            if (job.isConnect) {
+                book.setText("CONNECT");
+            }
+        }
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -716,22 +723,30 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
                                     dialog1.setContentView(R.layout.dialog_worker_booked);
                                     if (null != worker) {
                                         if (null != worker.firstName) {
+                                            String confirmBooked =
+                                                    String.format(
+                                                            getString(R.string.employer_worker_booked),
+                                                            worker.firstName);
+                                            String confirmBookedMore =
+                                                    String.format(
+                                                            getString(R.string.employer_worker_booked_more),
+                                                            worker.firstName);
+                                            String confirmConnected =
+                                                    String.format(
+                                                            getString(R.string.connect_worker_connected),
+                                                            worker.firstName);
+                                            String confirmConnectedMore =
+                                                    String.format(
+                                                            getString(R.string.connect_worker_connected_more),
+                                                            worker.firstName);
                                             ((TextView) dialog1
                                                     .findViewById(R.id.dialog_worker_booked_title))
-                                                    .setText(
-                                                            String.format(
-                                                                    getString(R.string.employer_worker_booked),
-                                                                    worker.firstName
-                                                            )
-                                                    );
+                                                    .setText((job.isConnect) ?
+                                                            confirmConnected : confirmBooked);
                                             ((TextView) dialog1
                                                     .findViewById(R.id.dialog_worker_booked_subtitle))
-                                                    .setText(
-                                                            String.format(
-                                                                    getString(R.string.employer_worker_booked_more),
-                                                                    worker.firstName
-                                                            )
-                                                    );
+                                                    .setText((job.isConnect) ?
+                                                            confirmConnectedMore : confirmBookedMore);
                                         }
                                     }
                                     dialog1.findViewById(R.id.yes)
@@ -760,6 +775,9 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
     private void onBooked() {
         booked = true;
         bookedBanner.setVisibility(View.VISIBLE);
+        if (job.isConnect) {
+            bookedBanner.setText(getString(R.string.connect_connected));
+        }
         contactWorkerLayout.setVisibility(View.VISIBLE);
         workerEmail.setText(worker.email);
         if (!CollectionUtils.isEmpty(worker.devices)) {
@@ -772,6 +790,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         bookedBanner.setVisibility(View.GONE);
         contactWorkerLayout.setVisibility(View.GONE);
         book.setText("OFFER JOB");
+        if (null != job) {
+            if (job.isConnect) {
+                book.setText("CONNECT");
+            }
+        }
         book.setVisibility(View.VISIBLE);
         book.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -794,10 +817,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         });
         book.setVisibility(View.GONE);
         offeredHint.setVisibility(View.VISIBLE);
-        offeredHintText.setText(
-                String.format(getString(R.string.offered_hint),
-                        workerName, jobName, startDate)
-        );
+        String hintTextOffered = String.format(getString(R.string.offered_hint),
+                workerName, jobName, startDate);
+        String hintTextConnected = String.format(getString(R.string.connect_hint_sent),
+                workerName);
+        offeredHintText.setText((job.isConnect) ? hintTextConnected : hintTextOffered);
     }
 
     private void withdrawOffer(final int appId) {
@@ -854,9 +878,13 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     //TODO move strings into resources
     private void onInvite() {
+        String bookPrompt = String.format(getString(R.string.connect_prompt_book),
+                (null != worker.firstName) ? worker.firstName : "...");
+        String connectPrompt = String.format(getString(R.string.connect_prompt_connect),
+                (null != worker.firstName) ? worker.firstName : "...");
+
         new AlertDialog.Builder(getContext(), R.style.DialogTheme)
-                .setMessage("Are you sure you'd like to offer this job to "
-                        + ((null != worker.firstName) ? worker.firstName : "...") + "?")
+                .setMessage((job.isConnect) ? connectPrompt : bookPrompt)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -876,9 +904,12 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         final Dialog dialog = new Dialog(getContext());
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_offer_confirm);
+        String confirmMessageConnect = String.format(getString(R.string.connect_confirm),
+                workerName);
+        String confirmMessageBook = String.format(getString(R.string.offer_job_confirm),
+                workerName);
         ((TextView) dialog.findViewById(R.id.dialog_offer_job_confirm))
-                .setText(String.format(getString(R.string.offer_job_confirm),
-                        workerName));
+                .setText((job.isConnect) ? confirmMessageConnect : confirmMessageBook);
         dialog.findViewById(R.id.offer_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -944,6 +975,10 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
 
     }
 
+    /**
+     * CSCS
+     * @param dataResponse
+     */
     private void populateCscs(ResponseObject<CSCSCardWorker> dataResponse) {
         if (dataResponse != null) {
 
@@ -1006,7 +1041,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
             }
         }
     }
-
     private void populateCscsStatus(int status) {
         if (status == VERIFICATION_VALID) {
             cscsStatus.setText(R.string.worker_cscs_verified);
@@ -1077,6 +1111,11 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
         fetchWorker();
     }
 
+    /**
+     * Utils
+     * @param layout
+     * @param text
+     */
     private void populateWithMatchedItem(LinearLayout layout, String text) {
         if (TextUtils.isEmpty(text) || layout == null) return;
 
@@ -1095,7 +1134,6 @@ public class WorkerProfileFragment extends Fragment implements LikeWorkerConnect
             CrashLogHelper.logException(e);
         }
     }
-
     private void populateWithUnmatchedItem(LinearLayout layout, String text) {
         if (TextUtils.isEmpty(text) || layout == null) return;
 

@@ -410,7 +410,7 @@
     <string name="matches_filter_best_rated_employers">Best rated employers</string>
 
     <!-- Worker Jobs -->
-    <string name="worker_jobs_booked">Booked</string>
+    <string name="worker_jobs_booked">Booked &amp; Connected</string>
     <string name="worker_jobs_offers_applications">Offers &amp;\nApplications</string>
     <string name="worker_jobs_liked">Liked</string>
     <string name="worker_jobs_completed">Completed</string>
@@ -884,7 +884,7 @@
     <string name="employer_jobs_old">Old</string>
     <string name="employer_jobs_live">Live</string>
     <string name="employer_jobs_drafts">Drafts</string>
-    <string name="employer_jobs_booked">Booked</string>
+    <string name="employer_jobs_booked">Booked &amp; \nConnected</string>
     <string name="employer_jobs_offers">Offered &amp; \nApplied</string>
     <string name="employer_jobs_matched">Matched</string>
     <string name="employer_jobs_declined">Declined</string>
@@ -1267,4 +1267,23 @@
     <string name="connect_email">Email address</string>
     <string name="connect_number">Contact number</string>
     <string name="connect_person">Contact person</string>
+    <string name="employer_jobs_app_deadline">Application \ndeadline %s</string>
+    <string name="connect_connected">Connected</string>
+    <string name="connect_prompt_book">Are you sure you\'d
+                    like to offer this job to %s ?</string>
+    <string name="connect_prompt_connect">Are you sure you\'d like
+                    to connect with %s ?</string>
+    <string name="connect_confirm">Thanks! \n\nWe\'ll let you know when %s connects.</string>
+    <string name="connect_hint_sent">You\'ve offered to connect.
+        \n\nWe\'ll let you know when %s connects.</string>
+    <string name="connect_worker_connected">Cool! %s is now a connection.</string>
+    <string name="connect_worker_connected_more">Get in touch with %s to
+                                confirm next steps.</string>
+  
+    <!-- New feature Suggest Role -->
+    <string name="suggest_role">Role not listed?</string>
+    <string name="suggest_role_title">Please suggest a role which is not listed</string>
+    <string name="suggest_role_thanks">Thanks for suggesting this new role We\'ll be adding it to the list very soon...</string>
+
+
 </resources>

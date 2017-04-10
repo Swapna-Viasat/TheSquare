@@ -23,6 +23,8 @@ public class CreateRequest implements Serializable {
     public boolean detailsLowerPart;
 
     @SerializedName("is_connect") public boolean isConnect;
+    @SerializedName("connect_email") public String connectEmail;
+    public String name;
 
     public int status;
     public int role;

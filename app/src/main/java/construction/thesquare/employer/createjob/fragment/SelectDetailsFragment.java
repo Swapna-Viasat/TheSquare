@@ -30,7 +30,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.hbb20.CountryCodePicker;
 import com.jzxiang.pickerview.data.Type;
@@ -53,6 +55,7 @@ import construction.thesquare.employer.createjob.CreateRequest;
 import construction.thesquare.employer.createjob.PreviewJobActivity;
 import construction.thesquare.employer.createjob.dialog.CRNDialog;
 import construction.thesquare.employer.createjob.dialog.JobDetailsDialog;
+import construction.thesquare.employer.createjob.dialog.JobNameDialog;
 import construction.thesquare.employer.createjob.listener.ConnectCheckListener;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
 import construction.thesquare.employer.myjobs.fragment.JobDetailsFragment;
@@ -83,7 +86,10 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class SelectDetailsFragment extends Fragment
-        implements JobDetailsDialog.DetailsListener, PaymentRedirect {
+        implements JobDetailsDialog.DetailsListener,
+                        PaymentRedirect,
+                    ConnectCheckListener.IsConnectInterface,
+                    JobNameDialog.NameListener {
 
     public static final String TAG = "SelectDetailsFragment";
 
@@ -104,12 +110,27 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.rb_poa) RadioButton rbPOA;
 
     // new feature items
+    private boolean isConnect;
     @BindView(R.id.check_connect) CheckBox checkBoxConnect;
     @BindView(R.id.check_book) CheckBox checkBoxBook;
     private ConnectCheckListener connectCheckListener;
     @BindView(R.id.connect_contact_info) CardView connectContactInfo;
     @BindView(R.id.book_contact_info) CardView bookContactInfo;
     @BindView(R.id.connect_deadline) CardView connectDeadline;
+    // contact fields
+    @BindView(R.id.connect_person_input) TextInputLayout connectPersonLayout;
+    @BindView(R.id.connect_person) EditText connectPerson;
+    @BindView(R.id.connect_email_input) TextInputLayout connectEmailLayout;
+    @BindView(R.id.connect_email) EditText connectEmail;
+    @BindView(R.id.connect_phone_input) TextInputLayout connectPhoneInput;
+    @BindView(R.id.connect_phone) EditText connectPhone;
+    @BindView(R.id.ccp_connect) CountryCodePicker ccpConnect;
+    // deadline
+    @BindView(R.id.connect_date) ImageButton connectDate;
+    @BindView(R.id.edit_connect_date) TextView editConnectDate;
+    @BindView(R.id.connect_time) ImageButton connectTime;
+    @BindView(R.id.edit_connect_time) TextView editConnectTime;
+    // end new feature items
 
     @BindView(R.id.in_layout_extra) TextInputLayout layoutExtra;
     @BindView(R.id.extra) JosefinSansEditText extra;
@@ -119,6 +140,7 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.phone) JosefinSansEditText phone;
     @BindView(R.id.in_layout_contact) TextInputLayout layoutContact;
     @BindView(R.id.contact) JosefinSansEditText contact;
+    @BindView(R.id.ccp) CountryCodePicker ccp;
 
     @BindView(R.id.hour_seek_bar) HourRateSeekBar hourSeek;
     @BindView(R.id.day_seek_bar) DayRateSeekBar daySeek;
@@ -127,12 +149,14 @@ public class SelectDetailsFragment extends Fragment
     @BindView(R.id.overtime_switch) SwitchCompat overtimeSwitch;
     @BindView(R.id.overtime) JosefinSansEditText overtime;
     @BindView(R.id.description) JosefinSansTextView description;
+    @BindView(R.id.job_name) JosefinSansTextView jobName;
     public String tempDescription = "";
+    public String tempName = "";
     private JobDetailsDialog jobDetailsDialog;
+    private JobNameDialog jobNameDialog;
 
     @BindView(R.id.edit_date) JosefinSansTextView editDate;
     @BindView(R.id.edit_time) JosefinSansTextView editTime;
-    @BindView(R.id.ccp) CountryCodePicker ccp;
 
     private CreateRequest request;
     private Role selectedRole;
@@ -157,10 +181,16 @@ public class SelectDetailsFragment extends Fragment
         return view;
     }
 
+    public void onConnectSelected(boolean yes) {
+        isConnect = yes;
+        TextTools.log(TAG, String.valueOf(isConnect));
+    }
+
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         connectCheckListener = new ConnectCheckListener(
+                this,
                 checkBoxConnect,
                 checkBoxBook,
                 connectContactInfo,
@@ -170,6 +200,12 @@ public class SelectDetailsFragment extends Fragment
         checkBoxBook.setOnCheckedChangeListener(connectCheckListener);
 
         request = (CreateRequest) getArguments().getSerializable("request");
+
+        if (request.isConnect) {
+            TextTools.log(TAG, " is a connect job create request");
+            isConnect = true;
+            checkBoxConnect.performClick();
+        }
 
         CountDownTimer timer = new CountDownTimer(200, 200) {
             @Override
@@ -189,7 +225,6 @@ public class SelectDetailsFragment extends Fragment
         if (request.detailsLowerPart) {
             timer.start();
         }
-
 
         selectedRole = request.roleObject;
 
@@ -217,18 +252,33 @@ public class SelectDetailsFragment extends Fragment
                     editDate.setText(tempDate.split("-")[2] + "-"
                             + tempDate.split("-")[1] + "-"
                             + tempDate.split("-")[0]);
+                    editConnectDate.setText(tempDate.split("-")[2] + "-"
+                            + tempDate.split("-")[1] + "-"
+                            + tempDate.split("-")[0]);
                 }
                 if (null != request.time) {
                     tempTime = request.time;
                     editTime.setText(request.time);
+                    editConnectTime.setText(request.time);
                 }
-                if (null != request.contactName) contact.setText(request.contactName);
+                if (null != request.contactName) {
+                    contact.setText(request.contactName);
+                    connectPerson.setText(request.contactName);
+                }
+                if (null != request.connectEmail) {
+                    connectEmail.setText(request.connectEmail);
+                } else {
+                    connectEmail.setText("n/a...");
+                }
 
                 phone.setText(String.valueOf(request.contactPhoneNumber));
                 ccp.setCountryForPhoneCode(request.contactCountryCode);
-                // fucking ccp
+                connectPhone.setText(String.valueOf(request.contactPhoneNumber));
+                ccpConnect.setCountryForPhoneCode(request.contactCountryCode);
+                // ccp
                 if (request.contactCountryCode == 44) {
                     ccp.setCountryForNameCode("UK");
+                    ccpConnect.setCountryForNameCode("UK");
                 }
 
                 if (null != request.notes) extra.setText(request.notes);
@@ -271,9 +321,18 @@ public class SelectDetailsFragment extends Fragment
 
     @OnClick(R.id.description)
     public void describe() {
-        jobDetailsDialog = JobDetailsDialog.newInstance(this, description.getText().toString());
+        jobDetailsDialog = JobDetailsDialog
+                .newInstance(this, description.getText().toString());
         jobDetailsDialog.setCancelable(false);
         jobDetailsDialog.show(getActivity().getSupportFragmentManager(), "");
+    }
+
+    @OnClick(R.id.job_name)
+    public void name() {
+        jobNameDialog = JobNameDialog
+                .newInstance(this, jobName.getText().toString());
+        jobNameDialog.setCancelable(false);
+        jobNameDialog.show(getActivity().getSupportFragmentManager(), "");
     }
 
     public void onDone(String string, boolean cancel) {
@@ -284,6 +343,18 @@ public class SelectDetailsFragment extends Fragment
             if (null != string) {
                 tempDescription = string;
                 description.setText(string);
+            }
+        }
+    }
+
+    public void onName(String string, boolean cancel) {
+        if (null != jobNameDialog) {
+            jobNameDialog.dismiss();
+        }
+        if (!cancel) {
+            if (null != string) {
+                tempName = string;
+                jobName.setText(string);
             }
         }
     }
@@ -308,6 +379,10 @@ public class SelectDetailsFragment extends Fragment
             loadRequest();
 
             HashMap<String, Object> payload = new HashMap<>();
+            if (null != request.name) {
+                payload.put("name", request.name);
+            }
+            payload.put("is_connect", request.isConnect);
             payload.put("id", request.id);
             payload.put("status", Constants.JOB_STATUS_DRAFT);
             payload.put("role", selectedRole.id);
@@ -425,6 +500,10 @@ public class SelectDetailsFragment extends Fragment
             loadRequest();
 
             HashMap<String, Object> payload = new HashMap<>();
+            if (null != request.name) {
+                payload.put("name", request.name);
+            }
+            payload.put("is_connect", request.isConnect);
             payload.put("id", request.id);
             payload.put("status", status);
             payload.put("role", selectedRole.id);
@@ -604,6 +683,10 @@ public class SelectDetailsFragment extends Fragment
 
     private void loadRequest() {
 
+        request.isConnect = isConnect;
+        request.name = (!tempName.equals("") ?
+                tempName : jobName.getText().toString());
+
         if (request.overtime) {
             request.overtimeValue = Integer.valueOf(overtime.getText().toString());
         }
@@ -623,29 +706,43 @@ public class SelectDetailsFragment extends Fragment
 
         request.description = (!tempDescription.equals("")) ?
                 tempDescription : description.getText().toString();
-        request.contactName = contact.getText().toString();
         //
-        request.contactPhone = ccp.getSelectedCountryCodeWithPlus() + " "
-                + phone.getText().toString();
-        request.contactCountryCode = ccp.getSelectedCountryCodeAsInt();
-        try {
-            request.contactPhoneNumber = Long.valueOf(phone.getText().toString());
-        } catch (NumberFormatException e) {
-            CrashLogHelper.logException(e);
-        }
         //
         request.address = address.getText().toString();
         request.notes = extra.getText().toString();
 
-        request.date = tempDate;
-        request.time = editTime.getText().toString();
+        if (isConnect) {
+            request.contactName = connectPerson.getText().toString();
+            request.contactPhone = ccpConnect.getSelectedCountryCodeWithPlus() + " "
+                    + connectPhone.getText().toString();
+            request.contactCountryCode = ccpConnect.getSelectedCountryCodeAsInt();
+            try {
+                request.contactPhoneNumber = Long.valueOf(connectPhone.getText().toString());
+            } catch (NumberFormatException e) {
+                CrashLogHelper.logException(e);
+            }
+            request.connectEmail = connectEmail.getText().toString();
+            request.date = tempDate;
+            request.time = editConnectTime.getText().toString();
+        } else {
+            request.contactName = contact.getText().toString();
+            request.contactPhone = ccp.getSelectedCountryCodeWithPlus() + " "
+                    + phone.getText().toString();
+            request.contactCountryCode = ccp.getSelectedCountryCodeAsInt();
+            try {
+                request.contactPhoneNumber = Long.valueOf(phone.getText().toString());
+            } catch (NumberFormatException e) {
+                CrashLogHelper.logException(e);
+            }
+            request.date = tempDate;
+            request.time = editTime.getText().toString();
+        }
 
         request.roleName = (request.roleObject).name;
     }
 
     private boolean validate() {
         boolean result = true;
-        String message = "";
 
         if (request.overtime) {
             if (overtime.getText().toString().isEmpty()) {
@@ -653,31 +750,37 @@ public class SelectDetailsFragment extends Fragment
                 result = false;
             }
         }
-//        if (tempDate == null) {
-//            message = "Please enter a date";
-//            result = false;
-//        }
-//        if (tempTime == null) {
-//            message = "Please enter a time";
-//            result = false;
-//        }
-        if (phone.getText().toString().isEmpty()) {
-            phone.setError("Please enter a Phone no.");
-            result = false;
-        }
 
-        if (contact.getText().toString().isEmpty()) {
-            contact.setError("Please enter a name");
-            result = false;
-        }
+        if (isConnect) {
+            if (connectPhone.getText().toString().isEmpty()) {
+                connectPhone.setError("Please enter a Phone no.");
+                result = false;
+            }
 
-        if (address.getText().toString().isEmpty()) {
-            address.setError("Please enter an address");
-            result = false;
-        }
+            if (connectPerson.getText().toString().isEmpty()) {
+                connectPerson.setError("Please enter a name");
+                result = false;
+            }
 
-        if (!message.isEmpty()) {
-            DialogBuilder.showStandardDialog(getContext(), "", message);
+            if (connectEmail.getText().toString().isEmpty()) {
+                connectEmail.setError("Please enter an address");
+                result = false;
+            }
+        } else {
+            if (phone.getText().toString().isEmpty()) {
+                phone.setError("Please enter a Phone no.");
+                result = false;
+            }
+
+            if (contact.getText().toString().isEmpty()) {
+                contact.setError("Please enter a name");
+                result = false;
+            }
+
+            if (address.getText().toString().isEmpty()) {
+                address.setError("Please enter an address");
+                result = false;
+            }
         }
 
         return result;
@@ -768,12 +871,6 @@ public class SelectDetailsFragment extends Fragment
         persistProgress();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, String.valueOf(this.hashCode()));
-    }
-
     private void persistProgress() {
         getActivity().getSharedPreferences(Constants.CREATE_JOB_FLOW, MODE_PRIVATE)
                 .edit()
@@ -854,16 +951,21 @@ public class SelectDetailsFragment extends Fragment
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.date, R.id.time})
+    @OnClick({R.id.date, R.id.connect_date,
+            R.id.time, R.id.connect_time})
     public void time(View view) {
         switch (view.getId()) {
             case R.id.date:
                 selectDate();
                 break;
             case R.id.time:
-                //
                 selectTime();
-                //
+                break;
+            case R.id.connect_date:
+                selectDate();
+                break;
+            case R.id.connect_time:
+                selectTime();
                 break;
         }
     }
@@ -874,6 +976,9 @@ public class SelectDetailsFragment extends Fragment
         public void onDateSet(DatePicker view, int year,
                               int monthOfYear, int dayOfMonth) {
             editDate.setText(String.valueOf(dayOfMonth) + "-" +
+                    String.valueOf(monthOfYear + 1) + "-" +
+                    String.valueOf(year));
+            editConnectDate.setText(String.valueOf(dayOfMonth) + "-" +
                     String.valueOf(monthOfYear + 1) + "-" +
                     String.valueOf(year));
             tempDate = String.valueOf(year) + "-"
@@ -926,6 +1031,7 @@ public class SelectDetailsFragment extends Fragment
                         tempTime = String
                                 .valueOf(calendar.get(Calendar.HOUR)) + ":" +
                                 String.valueOf(calendar.get(Calendar.MINUTE));
+                        editConnectTime.setText(tempTime);
                         editTime.setText(tempTime);
                         if (null != request.rawDate) {
                             request.rawDate = null;

@@ -149,6 +149,11 @@ public class JobsFragment extends Fragment
     private CreateRequest prepareJobForRepublishing(Job job) {
         try {
             CreateRequest result = new CreateRequest();
+            // new feature
+            if (null != job.connectEmail) {
+                result.connectEmail = job.connectEmail;
+            }
+            result.isConnect = job.isConnect;
             //
             result.roleName = job.role.name;
             result.role = job.role.id;
@@ -320,21 +325,21 @@ public class JobsFragment extends Fragment
                         //
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
-                            List<Job> oldJobs = new ArrayList<>();
+                            List<Job> oldLiveJobs = new ArrayList<>();
 
                             if (response.body().response.isEmpty()) {
                                 create();
                             } else {
                                 for (Job job : response.body().response) {
-                                    if (job.status.id == 3) {
-                                        oldJobs.add(job);
+                                    if (job.status.id == 3 || job.status.id == 2) {
+                                        oldLiveJobs.add(job);
                                     }
                                 }
 
-                                if (oldJobs.isEmpty()) {
+                                if (oldLiveJobs.isEmpty()) {
                                     create();
                                 } else {
-                                    showCreateDialog(oldJobs);
+                                    showCreateDialog(oldLiveJobs);
                                 }
                             }
 

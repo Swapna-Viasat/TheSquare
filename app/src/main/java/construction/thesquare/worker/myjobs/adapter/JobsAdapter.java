@@ -3,6 +3,7 @@ package construction.thesquare.worker.myjobs.adapter;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,9 +111,16 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                 holder.location.setText(job.locationName);
             }
 
-            holder.startDate
-                    .setText(String.format(context.getString(R.string.item_match_format_starts),
+            if (job.isConnect) {
+                if (!TextUtils.isEmpty(job.startTime)) {
+                    holder.startDate.setText(String.format(context.getString(R.string.employer_jobs_app_deadline), DateUtils.getFormattedJobDate(job.startTime)));
+                }
+            } else {
+                if (!TextUtils.isEmpty(job.startTime)) {
+                    holder.startDate.setText(String.format(context.getString(R.string.item_match_format_starts),
                             DateUtils.getFormattedJobDate(job.startTime)));
+                }
+            }
 
             setLiked(job.liked, holder.liked);
             // holder.actionBlock.setVisibility(View.VISIBLE);

@@ -70,4 +70,8 @@ public class Constants {
 
     public static final String KEY_WORKER_ID = "WORKER_ID";
     public static final String KEY_JOB_ID_DETAILS = "key_job_id";
+
+    public static final int ADAPTER_FOR_CONNECT = 222;
+    public static final int ADAPTER_FOR_BOOK = 223;
+
 }

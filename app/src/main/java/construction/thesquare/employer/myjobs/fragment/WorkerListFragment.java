@@ -53,18 +53,20 @@ public class WorkerListFragment extends Fragment
     public static final int WORKERS_DECLINED = 85;
     public static final int WORKERS_BOOKED = 86;
 
-    @BindView(R.id.rv)
-    RecyclerView rv;
-    @BindView(R.id.no_matches)
-    View noMatches;
+    @BindView(R.id.rv) RecyclerView rv;
+    @BindView(R.id.no_matches) View noMatches;
     private List<Worker> data = new ArrayList<>();
     private WorkersAdapter adapter;
     private LikeWorkerConnector likeWorkerConnector;
+    private int adapterType;
 
-    public static WorkerListFragment newInstance(int type, int jobId) {
+    public static WorkerListFragment newInstance(int type,
+                                                 int jobId,
+                                                 int adapterType) {
         WorkerListFragment fragment = new WorkerListFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
+        bundle.putInt("adapter_type", adapterType);
         bundle.putInt(Constants.KEY_JOB_ID, jobId);
         fragment.setArguments(bundle);
         return fragment;
@@ -82,7 +84,8 @@ public class WorkerListFragment extends Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new WorkersAdapter(data, getContext(), this);
+        adapterType = getArguments().getInt("adapter_type", 0);
+        adapter = new WorkersAdapter(data, getContext(), this, adapterType);
         adapter.registerAdapterDataObserver(observer);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setAdapter(adapter);
@@ -247,9 +250,13 @@ public class WorkerListFragment extends Fragment
 
     //TODO move strings into resources
     public void onInvite(final Worker worker) {
+        String promptBook = String.format(getString(R.string.connect_prompt_book),
+                (null != worker.firstName) ? worker.firstName : "...");
+        String promptConnect = String.format(getString(R.string.connect_prompt_connect),
+                (null != worker.firstName) ? worker.firstName : "...");
         new AlertDialog.Builder(getContext(), R.style.DialogTheme)
-                .setMessage("Are you sure you'd like to offer this job to "
-                        + ((null != worker.firstName) ? worker.firstName : "...") + "?")
+                .setMessage((adapterType == Constants.ADAPTER_FOR_BOOK) ?
+                                promptBook : promptConnect)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -317,12 +324,16 @@ public class WorkerListFragment extends Fragment
     private void showWorkerInviteSent(String workerName) {
         if (getActivity() == null || !isAdded()) return;
 
+        String confirmBook = String.format(getString(R.string.offer_job_confirm),
+                workerName);
+        String confirmConnect = String.format(getString(R.string.connect_confirm),
+                workerName);
         final Dialog dialog = new Dialog(getContext());
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_offer_confirm);
         ((TextView) dialog.findViewById(R.id.dialog_offer_job_confirm))
-                .setText(String.format(getString(R.string.offer_job_confirm),
-                        workerName));
+                .setText((adapterType == Constants.ADAPTER_FOR_BOOK)
+                        ? confirmBook : confirmConnect);
         dialog.findViewById(R.id.offer_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

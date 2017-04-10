@@ -39,6 +39,7 @@ import construction.thesquare.shared.reviews.Review;
 import construction.thesquare.shared.reviews.ReviewResponse;
 import construction.thesquare.shared.reviews.ReviewUpdateResponse;
 import construction.thesquare.shared.reviews.ReviewsResponse;
+import construction.thesquare.shared.suggestions.Suggestion;
 import construction.thesquare.worker.jobmatches.model.Application;
 import construction.thesquare.worker.jobmatches.model.MatchesResponse;
 import construction.thesquare.worker.jobmatches.model.Ordering;
@@ -405,4 +406,7 @@ public interface BaseApiInterface {
 
     @POST("/employers/toggle_notification/")
     Call<ResponseBody> toggleEmployerNotification(@Body SingleNotificationPreference body);
+
+    @POST("/data/suggest/")
+    Call<ResponseBody> suggestRole(@Body Suggestion suggestion);
 }
