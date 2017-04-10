@@ -104,6 +104,11 @@ public class DateUtils {
         return day + " " + getSuffixDayOfMonth(Integer.valueOf(day)) + " " + stringMonth;
     }
 
+    public static String getFormattedJobDate(String strDate) {
+        DateTime date = ISODateTimeFormat.dateTimeParser().parseDateTime(strDate);
+        return date.toLocalDate().toString(DateTimeFormat.forPattern("dd/MM/yyyy"));
+    }
+
     private static String getSuffixDayOfMonth(int dayOfMonth) {
         if (dayOfMonth >= 11 && dayOfMonth <= 13) {
             return "th";

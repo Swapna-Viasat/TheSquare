@@ -703,10 +703,14 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
 
     @OnClick({R.id.worker_profile_nationality_edit,
             R.id.worker_profile_birthday_edit,
-            R.id.worker_profile_nis_edit,
-            R.id.worker_profile_passport_edit})
+            R.id.worker_profile_nis_edit})
     void openExperienceFragment() {
         editProfile(Constants.KEY_ONBOARDING_EXPERIENCE);
+    }
+
+    @OnClick(R.id.worker_profile_passport_edit)
+    void editPassport() {
+        editProfile(Constants.KEY_STEP_PASSPORT);
     }
 
     @OnClick(R.id.worker_profile_experience_type_edit)

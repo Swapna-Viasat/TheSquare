@@ -210,18 +210,21 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
 
             jobId.setText("Job ref ID: " + currentJob.jobRef);
 
-            if (currentJob.isConnect) {
-                if (!TextUtils.isEmpty(currentJob.startTime)) {
-                    startDate.setText(String.format(getString(R.string.employer_jobs_app_deadline),
-                            DateUtils.formatDateDayAndMonth(currentJob.startTime, true)));
-                }
-            } else {
-                if (!TextUtils.isEmpty(currentJob.startTime)) {
-                    startDate.setText(String.format(getString(R.string.item_match_format_starts),
-                            DateUtils.formatDateDayAndMonth(currentJob.startTime, true)));
-                }
-            }
             try {
+
+                if (currentJob.isConnect) {
+                    if (!TextUtils.isEmpty(currentJob.startTime)) {
+                        startDate.setText(String.format(getString(R.string.employer_jobs_app_deadline),
+                                DateUtils.getFormattedJobDate(currentJob.startTime)));
+                    }
+                } else {
+                    if (!TextUtils.isEmpty(currentJob.startTime)) {
+                        startDate.setText(String.format(getString(R.string.item_match_format_starts),
+                                DateUtils.getFormattedJobDate(currentJob.startTime)));
+                    }
+                }
+
+
                 description.setText(currentJob.description);
                 skills.setText(TextTools.toBulletList(currentJob.getSkillsList(), true));
                 qualifications.setText(TextTools.toBulletList(currentJob.getRequirementsList(), true));

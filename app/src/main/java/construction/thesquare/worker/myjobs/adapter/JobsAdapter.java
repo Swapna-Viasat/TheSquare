@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
-
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,22 +100,25 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                     .setText(String.format(context.getString(R.string.item_match_format_experience),
                             job.experience, context.getResources().getQuantityString(R.plurals.year_plural, job.experience)));
 
-            if (null != job.company) {
-                if (null != job.company.postCode) {
-                    holder.location.setText(job.company.postCode);
-                }
-            }
+//            if (null != job.company) {
+//                if (null != job.company.postCode) {
+//                    holder.location.setText(job.company.postCode);
+//                }
+//            }
 
-            DateTime dateTime = new DateTime(job.startTime);
+
+            if (null != job.locationName) {
+                holder.location.setText(job.locationName);
+            }
 
             if (job.isConnect) {
                 if (!TextUtils.isEmpty(job.startTime)) {
-                    holder.startDate.setText(String.format(context.getString(R.string.employer_jobs_app_deadline), DateUtils.formatDateDayAndMonth(job.startTime, true)));
+                    holder.startDate.setText(String.format(context.getString(R.string.employer_jobs_app_deadline), DateUtils.getFormattedJobDate(job.startTime)));
                 }
             } else {
                 if (!TextUtils.isEmpty(job.startTime)) {
                     holder.startDate.setText(String.format(context.getString(R.string.item_match_format_starts),
-                            DateUtils.formatDateDayAndMonth(job.startTime, true)));
+                            DateUtils.getFormattedJobDate(job.startTime)));
                 }
             }
 
