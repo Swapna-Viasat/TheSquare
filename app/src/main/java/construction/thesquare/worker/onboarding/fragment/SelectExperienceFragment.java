@@ -1,19 +1,10 @@
 package construction.thesquare.worker.onboarding.fragment;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -25,23 +16,17 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import org.joda.time.LocalDate;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -71,7 +56,6 @@ import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.shared.utils.KeyboardUtils;
-import construction.thesquare.shared.utils.MediaTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.onboarding.OnLanguagesSelectedListener;
@@ -80,9 +64,6 @@ import construction.thesquare.worker.signup.model.CSCSCardWorker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.Activity.RESULT_OK;
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * Created by gherg on 12/6/2016.
@@ -136,10 +117,6 @@ public class SelectExperienceFragment extends Fragment
     Button verify;
     @BindView(R.id.error_message)
     JosefinSansTextView cscsErrorMsg;
-    @BindView(R.id.passport_photo)
-    ImageView passport_photo;
-    @BindView(R.id.maximize)
-    ImageView maximize;
 
     private ArrayAdapter<CharSequence> monthAdapter;
     private ArrayAdapter<CharSequence> dayAdapter;
@@ -153,12 +130,6 @@ public class SelectExperienceFragment extends Fragment
     private List<ExperienceQualification> selected = new ArrayList<>();
     private Map<String, Integer> countryIds = new HashMap<>();
     private List<Language> fetchedLanguages;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int REQUEST_IMAGE_SELECTION = 2;
-    static final int REQUEST_PERMISSIONS = 3;
-    static final int REQUEST_PERMISSION_READ_STORAGE = 4;
-
-    private Uri imageUri;
 
     public static SelectExperienceFragment newInstance(boolean singleEdition) {
         SelectExperienceFragment selectExperienceFragment = new SelectExperienceFragment();
@@ -368,14 +339,6 @@ public class SelectExperienceFragment extends Fragment
                                 } else if (response.body().getResponse() != null) {
                                     workerSurname = response.body().getResponse().lastName;
                                     if (workerSurname != null) surname.setText(workerSurname);
-
-                                    Picasso.with(getContext())
-                                            .load(response.body().getResponse().passportUpload)
-                                            .fit()
-                                            .centerCrop()
-                                            .error(R.drawable.passport)
-                                            .placeholder(R.drawable.passport)
-                                            .into(passport_photo);
                                 }
                             } catch (Exception e) {
                                 CrashLogHelper.logException(e);
@@ -397,17 +360,11 @@ public class SelectExperienceFragment extends Fragment
     private void populateDetails(Worker worker) {
         try {
             currentWorker = worker;
-            if (!TextUtils.isEmpty(worker.passportUpload)) {
-                Picasso.with(getContext()).load(worker.passportUpload).fit().centerCrop().into(passport_photo);
-            } else {
-                passport_photo.setImageResource(R.drawable.passport);
-            }
 
             populateExperienceYears();
             populateDateOfBirth();
             populateNis();
             populateLanguages();
-            showPassportImage();
             if (workerSurname != null) surname.setText(workerSurname);
         } catch (Exception e) {
             CrashLogHelper.logException(e);
@@ -568,7 +525,7 @@ public class SelectExperienceFragment extends Fragment
         }
     }
 
-    @OnClick({R.id.next, R.id.verify_cscs, R.id.passport_photo, R.id.maximize})
+    @OnClick({R.id.next, R.id.verify_cscs})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.next:
@@ -588,163 +545,6 @@ public class SelectExperienceFragment extends Fragment
             case R.id.verify_cscs:
                 verify();
                 break;
-            case R.id.passport_photo:
-                showChooserDialog();
-                break;
-            case R.id.maximize:
-                showOriginalImage();
-                break;
-        }
-    }
-
-    private void showChooserDialog() {
-        CharSequence[] options = {getString(R.string.onboarding_take_photo),
-                getString(R.string.onboarding_choose_from_gallery),
-                getString(R.string.onboarding_cancel)};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getString(R.string.onboarding_add_photo));
-
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                switch (item) {
-                    case 0:
-                        openCamera();
-                        break;
-                    case 1:
-                        openGallery();
-                        break;
-                    case 2:
-                        dialog.cancel();
-                        break;
-                }
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    private void openCamera() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) ==
-                PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                        PackageManager.PERMISSION_GRANTED) {
-            dispatchTakePictureIntent();
-        } else {
-            requestPermissions(new String[]{Manifest.permission.CAMERA,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_PERMISSIONS);
-        }
-    }
-
-    private void openGallery() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-            dispatchOpenGalleryIntent();
-        } else {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    REQUEST_PERMISSION_READ_STORAGE);
-        }
-    }
-
-    private void dispatchTakePictureIntent() {
-        try {
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                imageUri = MediaTools.getOutputImageUri(getContext());
-            } else {
-                File file = MediaTools.getOutputImageFile();
-                if (file != null) imageUri = Uri.fromFile(file);
-            }
-
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (imageUri != null) takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            else {
-                DialogBuilder.showStandardDialog(getContext(), "Error", "Can not store image file to local storage");
-                return;
-            }
-            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        } catch (Exception e) {
-            CrashLogHelper.logException(e);
-        }
-    }
-
-    private void dispatchOpenGalleryIntent() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, getString(R.string.onboarding_select_image)),
-                REQUEST_IMAGE_SELECTION);
-    }
-
-    private void uploadPicture(Context context, Bitmap file) {
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
-        HashMap<String, Object> payload = new HashMap<>();
-        payload.put("passport_upload", MediaTools.encodeToBase64(file));
-        HttpRestServiceConsumer.getBaseApiClient()
-                .patchWorker(
-                        SharedPreferencesManager.getInstance(context).loadSessionInfoWorker().getUserId(), payload)
-                .enqueue(new Callback<ResponseObject<Worker>>() {
-                    @Override
-                    public void onResponse(Call<ResponseObject<Worker>> call,
-                                           Response<ResponseObject<Worker>> response) {
-
-                        if (response.isSuccessful()) {
-                            DialogBuilder.cancelDialog(dialog);
-
-                            if (currentWorker != null && response.body() != null && response.body().getResponse() != null) {
-                                currentWorker.passportUpload = response.body().getResponse().passportUpload;
-                            }
-                            showPassportImage();
-                        } else {
-                            HandleErrors.parseError(getContext(), dialog, response);
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseObject<Worker>> call, Throwable t) {
-                        HandleErrors.parseFailureError(getContext(), dialog, t);
-                    }
-                });
-    }
-
-    private void showPassportImage() {
-        if (currentWorker != null && currentWorker.passportUpload != null) {
-            Picasso.with(getContext())
-                    .load(currentWorker.passportUpload)
-                    .fit()
-                    .placeholder(R.drawable.passport)
-                    .error(R.drawable.passport)
-                    .centerCrop()
-                    .into(passport_photo);
-        }
-    }
-
-    private void showOriginalImage() {
-        LayoutInflater layoutInflater
-                = (LayoutInflater) getContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        final Dialog settingsDialog = new Dialog(getContext());
-        if (currentWorker != null && currentWorker.passportUpload != null) {
-            settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-            settingsDialog.setContentView(layoutInflater.inflate(R.layout.popup_passport_image, null));
-            ImageButton close = (ImageButton) settingsDialog.findViewById(R.id.passport_preview_close);
-            close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    settingsDialog.dismiss();
-                }
-            });
-            ImageView iv = (ImageView) settingsDialog.findViewById(R.id.original_image);
-            Picasso.with(getContext()).load(currentWorker.passportUpload).fit().centerCrop().into(iv);
-            //settingsDialog.getWindow().setLayout(700, 700);
-            settingsDialog.show();
-        } else {
-            DialogBuilder.showStandardDialog(getContext(), "",
-                    getString(R.string.passport_nophoto));
         }
     }
 
@@ -962,7 +762,7 @@ public class SelectExperienceFragment extends Fragment
 
     private void openLanguageSelectDialog(CharSequence[] dialogList) {
         if (getContext() != null)
-        DialogBuilder.showMultiSelectDialog(getContext(), dialogList, this);
+            DialogBuilder.showMultiSelectDialog(getContext(), dialogList, this);
     }
 
     @Override
@@ -1008,8 +808,15 @@ public class SelectExperienceFragment extends Fragment
                     english = level.id;
                 }
             }
-            fluencyAdapter.notifyDataSetChanged();
+        } else {
+            for (EnglishLevel level : levels) {
+                if (level != null && level.id == 1) { // 1 = Basic
+                    level.selected = true;
+                    english = 1;
+                }
+            }
         }
+        fluencyAdapter.notifyDataSetChanged();
     }
 
     private void populateSavedRequirements() {
@@ -1283,43 +1090,4 @@ public class SelectExperienceFragment extends Fragment
         languagesTextView.setText(TextUtils.join(", ", selectedLangs));
         selectedLanguages = selectedLangs;
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        try {
-            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-                Bitmap bitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
-                passport_photo.setImageBitmap(bitmap);
-                uploadPicture(getActivity(), bitmap);
-            } else if (requestCode == REQUEST_IMAGE_SELECTION && resultCode == RESULT_OK) {
-                Uri imageUri = data.getData();
-                Bitmap imageBitmap = BitmapFactory.decodeFile(MediaTools.getPath(getActivity(), imageUri));
-                passport_photo.setImageBitmap(imageBitmap);
-                uploadPicture(getActivity(), imageBitmap);
-            }
-        } catch (Exception e) {
-            CrashLogHelper.logException(e);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PERMISSIONS:
-                if (grantResults.length > 1 &&
-                        grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                        grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    dispatchTakePictureIntent();
-                }
-                break;
-            case REQUEST_PERMISSION_READ_STORAGE:
-                if (grantResults.length > 1 &&
-                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    dispatchOpenGalleryIntent();
-                }
-                break;
-        }
-    }
-
 }

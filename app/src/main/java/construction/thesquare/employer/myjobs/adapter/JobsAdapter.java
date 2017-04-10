@@ -10,10 +10,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,7 +37,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
     public interface JobsListener {
         void onJob(Job job);
+
         void onAction(Job job, int actionId);
+
         void onViewDraft(Job job);
     }
 
@@ -81,21 +80,14 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
         if (null != job.start) {
             try {
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat =
-                        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                Date date = simpleDateFormat.parse(job.start);
-                calendar.setTime(date);
-                String startString = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) +
-                        DateUtils.suffix(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        DateUtils.monthShort(calendar.get(Calendar.MONTH));
 
                 if (job.isConnect) {
                     holder.starts.setText(String.format(holder.itemView.getResources()
-                            .getString(R.string.employer_jobs_app_deadline), startString));
+                            .getString(R.string.employer_jobs_app_deadline,
+                                    DateUtils.getFormattedJobDate(job.start))));
                 } else {
                     holder.starts.setText(String.format(holder.itemView.getResources()
-                            .getString(R.string.employer_jobs_starts), startString));
+                            .getString(R.string.employer_jobs_starts), DateUtils.getFormattedJobDate(job.start)));
                 }
 
             } catch (Exception e) {
@@ -124,7 +116,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         // statuses
         if (job.status.id == Job.TAB_LIVE) {
             bindLive(holder, job);
-        } else if (job.status.id == Job.TAB_OLD || job.status.id == 4){
+        } else if (job.status.id == Job.TAB_OLD || job.status.id == 4) {
             bindOld(holder, job);
         } else {
             bindDraft(holder, job);
@@ -153,31 +145,48 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
     @Override
     public int getItemCount() {
-        return data.size(); 
+        return data.size();
     }
 
     public class JobHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.item_match_start_location) FrameLayout startLocationFrame;
-        @BindView(R.id.banner_cancelled) ImageView cancelled;
-        @BindView(R.id.view_more) JosefinSansTextView editDraft;
+        @BindView(R.id.item_match_start_location)
+        FrameLayout startLocationFrame;
+        @BindView(R.id.banner_cancelled)
+        ImageView cancelled;
+        @BindView(R.id.view_more)
+        JosefinSansTextView editDraft;
 
-        @BindView(R.id.item_job_location) JosefinSansTextView location;
-        @BindView(R.id.item_job_occupation) JosefinSansTextView occupation;
-        @BindView(R.id.item_job_experience) JosefinSansTextView experience;
-        @BindView(R.id.item_job_start_date) JosefinSansTextView starts;
-        @BindView(R.id.item_job_salary_period) JosefinSansTextView salaryPeriod;
-        @BindView(R.id.item_job_salary_number) JosefinSansTextView salaryNumber;
-        @BindView(R.id.item_job_id) JosefinSansTextView jobId;
-        @BindView(R.id.item_job_name) JosefinSansTextView jobName;
-        @BindView(R.id.item_job_company_name) JosefinSansTextView companyName;
-        @BindView(R.id.item_job_logo) ImageView logo;
+        @BindView(R.id.item_job_location)
+        JosefinSansTextView location;
+        @BindView(R.id.item_job_occupation)
+        JosefinSansTextView occupation;
+        @BindView(R.id.item_job_experience)
+        JosefinSansTextView experience;
+        @BindView(R.id.item_job_start_date)
+        JosefinSansTextView starts;
+        @BindView(R.id.item_job_salary_period)
+        JosefinSansTextView salaryPeriod;
+        @BindView(R.id.item_job_salary_number)
+        JosefinSansTextView salaryNumber;
+        @BindView(R.id.item_job_id)
+        JosefinSansTextView jobId;
+        @BindView(R.id.item_job_name)
+        JosefinSansTextView jobName;
+        @BindView(R.id.item_job_company_name)
+        JosefinSansTextView companyName;
+        @BindView(R.id.item_job_logo)
+        ImageView logo;
 
-        @BindView(R.id.delete_draft) View remove;
-        @BindView(R.id.awarded) JosefinSansTextView awarded;
+        @BindView(R.id.delete_draft)
+        View remove;
+        @BindView(R.id.awarded)
+        JosefinSansTextView awarded;
 
-        @BindView(R.id.item_job_action_block) FrameLayout actions;
-        @BindView(R.id.item_job_status) JosefinSansTextView action;
+        @BindView(R.id.item_job_action_block)
+        FrameLayout actions;
+        @BindView(R.id.item_job_status)
+        JosefinSansTextView action;
 
         public JobHolder(View view) {
             super(view);
@@ -211,9 +220,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
         // TODO: enable this awarded to label when we have the info from backend
         // holder.awarded.setVisibility(View.VISIBLE);
         holder.awarded.setVisibility(View.GONE);
-          holder.awarded.setText(String
-         .format(holder.itemView.getContext()
-         .getString(R.string.employer_jobs_awarded), String.valueOf(job.worker)));
+        holder.awarded.setText(String
+                .format(holder.itemView.getContext()
+                        .getString(R.string.employer_jobs_awarded), String.valueOf(job.worker)));
         holder.action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

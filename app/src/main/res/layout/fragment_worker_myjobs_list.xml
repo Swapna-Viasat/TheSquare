@@ -10,18 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <construction.thesquare.shared.view.widget.JosefinSansTextView
-        android:id="@+id/no_matches"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="80dp"
-        android:lineSpacingExtra="10dp"
-        android:text="@string/worker_myjobs_empty"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        app:josefin_style="light" />
+        android:orientation="vertical">
+
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
+            android:id="@+id/no_matches"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:lineSpacingExtra="10dp"
+            android:text="@string/worker_myjobs_empty"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            app:josefin_style="light" />
+
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
+            android:id="@+id/profile_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:lineSpacingExtra="10dp"
+            android:text="keep yours up to date!"
+            android:textAlignment="center"
+            android:textColor="@color/redSquareColor"
+            android:textSize="24sp"
+            app:josefin_style="light"
+            android:visibility="gone"/>
+    </LinearLayout>
 </LinearLayout>

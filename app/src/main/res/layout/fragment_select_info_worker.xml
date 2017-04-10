@@ -29,14 +29,14 @@
             android:gravity="center"
             android:text="@string/sign_up_worker_step_personal_information_title_2" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/avatar"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_margin="20dp"
-                android:src="@drawable/bob" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:src="@drawable/bob" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/first_name_input"
@@ -71,37 +71,14 @@
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
 
-        <RelativeLayout
+        <construction.thesquare.shared.view.widget.JosefinSansTextView
+            android:id="@+id/zip"
+            style="@style/square_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/zip_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/zipSearch"
-                app:hintEnabled="false">
-
-                <construction.thesquare.shared.view.widget.JosefinSansEditText
-                    android:id="@+id/zip"
-                    style="@style/square_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/sign_up_worker_step_personal_information_post_code_hint"
-                    android:inputType="textCapWords"
-                    android:maxLines="1" />
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/zipSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_search_black_24dp"
-                android:tint="@color/redSquareColor" />
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:hint="@string/sign_up_worker_step_personal_information_post_code_hint"
+            android:maxLines="1"
+            android:minLines="1"/>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/password_layout"
