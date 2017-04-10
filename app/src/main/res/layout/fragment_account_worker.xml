@@ -38,7 +38,10 @@
                 android:id="@+id/worker_account_occupation"
                 android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"/>
 
             <construction.thesquare.shared.view.widget.RatingView
                 android:id="@+id/worker_account_rating"

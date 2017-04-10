@@ -16,11 +16,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.worker.jobdetails.JobDetailActivity;
 import construction.thesquare.worker.jobdetails.LikeJobConnector;
 import construction.thesquare.worker.jobmatches.model.Job;
+import construction.thesquare.worker.myaccount.ui.activity.MyAccountViewProfileActivity;
 import construction.thesquare.worker.myjobs.JobsContract;
 import construction.thesquare.worker.myjobs.JobsPresenter;
 import construction.thesquare.worker.myjobs.adapter.JobsAdapter;
@@ -43,6 +45,8 @@ public class JobsListFragment extends Fragment
     RecyclerView rv;
     @BindView(R.id.no_matches)
     TextView noMatches;
+    @BindView(R.id.profile_link)
+    TextView profileLink;
     private Dialog dialog;
 
     public static JobsListFragment newInstance(int jobType) {
@@ -90,23 +94,37 @@ public class JobsListFragment extends Fragment
         rv.setAdapter(jobsAdapter);
     }
 
+    @OnClick(R.id.profile_link)
+    void openProfile() {
+        getContext().startActivity(new Intent(getContext(), MyAccountViewProfileActivity.class));
+    }
+
     public void onFragmentBecameVisible() {
         if (null != presenter) presenter.init(jobType);
 
         switch (jobType) {
             case Job.TYPE_BOOKED:
-                if (noMatches != null) noMatches.setText("This is where all your booked jobs are kept.");
+                if (noMatches != null) noMatches.setText("No jobs in here yet.\n" +
+                        "Booked workers have better profiles. Remember to ");
+                profileLink.setVisibility(View.VISIBLE);
                 break;
             case Job.TYPE_OFFER:
-                if (noMatches != null) noMatches.setText("This is where all your job offers & applications are kept.");
+                if (noMatches != null) noMatches.setText("No jobs in here yet.\n" +
+                        "Get applying!");
+                profileLink.setVisibility(View.GONE);
                 break;
             case Job.TYPE_LIKED:
-                if (noMatches != null) noMatches.setText("This is where all your liked jobs are kept.");
+                if (noMatches != null) noMatches.setText("No jobs in here yet!\n" +
+                        "We'll list all the jobs you like in here.");
+                profileLink.setVisibility(View.GONE);
                 break;
             case Job.TYPE_OLD:
-                if (noMatches != null) noMatches.setText("This is where all your old jobs are kept.");
+                if (noMatches != null)
+                    noMatches.setText("This is where all your old jobs are kept.");
+                profileLink.setVisibility(View.GONE);
                 break;
             default:
+                profileLink.setVisibility(View.GONE);
                 break;
         }
     }
@@ -141,6 +159,7 @@ public class JobsListFragment extends Fragment
                 noMatches.setVisibility(View.VISIBLE);
             } else {
                 noMatches.setVisibility(View.GONE);
+                profileLink.setVisibility(View.GONE);
             }
         }
     };

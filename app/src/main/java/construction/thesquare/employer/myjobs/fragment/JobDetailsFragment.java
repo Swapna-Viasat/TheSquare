@@ -16,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -49,9 +48,7 @@ import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
-import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -477,17 +474,8 @@ public class JobDetailsFragment extends Fragment
 
         if (null != job.start) {
             try {
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat =
-                        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                Date date = simpleDateFormat.parse(job.start);
-                calendar.setTime(date);
-                String startString =
-                        String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) +
-                        DateUtils.suffix(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        DateUtils.monthShort(calendar.get(Calendar.MONTH));
                 startDate.setText(String.format(getResources()
-                        .getString(R.string.employer_jobs_starts), startString));
+                        .getString(R.string.employer_jobs_starts), DateUtils.getFormattedJobDate(job.start)));
 
             } catch (Exception e) {
                 CrashLogHelper.logException(e);
