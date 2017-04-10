@@ -410,7 +410,7 @@
     <string name="matches_filter_best_rated_employers">Best rated employers</string>
 
     <!-- Worker Jobs -->
-    <string name="worker_jobs_booked">Booked</string>
+    <string name="worker_jobs_booked">Booked &amp; Connected</string>
     <string name="worker_jobs_offers_applications">Offers &amp;\nApplications</string>
     <string name="worker_jobs_liked">Liked</string>
     <string name="worker_jobs_completed">Completed</string>

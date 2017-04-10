@@ -57,6 +57,7 @@
                             android:tint="@android:color/white" />
 
                         <construction.thesquare.shared.view.widget.JosefinSansTextView
+                            android:id="@+id/bookedHint"
                             style="@style/subheader_white_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -130,8 +131,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
+                    <construction.thesquare.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/contactEmailView"
+                        android:textColor="@color/graySquareColor"
+                        android:textSize="16dp"
+                        app:josefin_style="italic"
+                        android:layout_marginTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+
                     <!-- Address to turn up at -->
                     <construction.thesquare.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/addressToArriveLabel"
                         android:text="@string/job_details_turn_up_address"
                         android:textColor="@android:color/white"
                         android:textSize="18dp"
@@ -153,6 +165,7 @@
 
                     <!-- Date and time to arrive -->
                     <construction.thesquare.shared.view.widget.JosefinSansTextView
+                        android:id="@+id/dateToArriveLabel"
                         android:text="@string/job_details_date_arrival"
                         android:textColor="@android:color/white"
                         android:textSize="18dp"

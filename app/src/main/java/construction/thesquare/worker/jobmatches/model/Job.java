@@ -68,6 +68,10 @@ public class Job implements Serializable {
     public String jobRef;
     public Owner owner;
     public Status status;
+    @SerializedName("is_connect")
+    public boolean isConnect;
+    @SerializedName("connect_email")
+    public String connectEmail;
 
     public List<String> getSkillsList() {
         List<String> result = new ArrayList<>();

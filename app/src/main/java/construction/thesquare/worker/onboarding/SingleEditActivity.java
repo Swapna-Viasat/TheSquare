@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.worker.onboarding.fragment.EditPassportImageFragment;
 import construction.thesquare.worker.onboarding.fragment.SelectAvailabilityFragment;
 import construction.thesquare.worker.onboarding.fragment.SelectCompaniesFragment;
 import construction.thesquare.worker.onboarding.fragment.SelectExperienceFragment;
@@ -127,6 +128,9 @@ public class SingleEditActivity extends AppCompatActivity {
                 break;
             case Constants.KEY_STEP_REQUIREMENTS:
                 fragmentTransaction.replace(R.id.onboarding_content, SelectRequirementsFragment.newInstance(true));
+                break;
+            case Constants.KEY_STEP_PASSPORT:
+                fragmentTransaction.replace(R.id.onboarding_content, new EditPassportImageFragment());
                 break;
             default:
                 return;

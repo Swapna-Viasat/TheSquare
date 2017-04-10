@@ -35,7 +35,6 @@ public class JosefinSansEditText extends AppCompatEditText {
             String fontName = getFontName(typedArray.getInt(R.styleable.JosefinSans_josefin_style, -1));
             typedArray.recycle();
             setFontFamily(fontName);
-
         }
     }
 
