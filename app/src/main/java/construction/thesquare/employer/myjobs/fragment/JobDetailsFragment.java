@@ -499,10 +499,6 @@ public class JobDetailsFragment extends Fragment
                             .getString(R.string.employer_jobs_app_deadline), DateUtils.getFormattedJobDate(job.start)));
                 }
 
-                startDate.setText(String.format(getResources()
-                        .getString(R.string.employer_jobs_starts), DateUtils.getFormattedJobDate(job.start)));
-
-
             } catch (Exception e) {
                 CrashLogHelper.logException(e);
             }
