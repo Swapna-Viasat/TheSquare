@@ -347,53 +347,6 @@
                             android:layout_marginStart="8dp"/>
                     </LinearLayout>
                 </LinearLayout></android.support.v7.widget.CardView>
-
-            <!-- upload Photo-->
-            <android.support.v7.widget.CardView
-                android:id="@+id/worker_onboarding_photo"
-                android:layout_margin="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="start"
-                    android:background="@color/lightgraySquareColor"
-                    android:padding="15dp">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                    <construction.thesquare.shared.view.widget.JosefinSansTextView
-                        android:textColor="@color/blackSquareColor"
-                        android:textSize="14sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/onboarding_uploadpic"/>
-                    <ImageView
-                        android:id="@+id/maximize"
-                        android:layout_alignParentRight="true"
-                        android:paddingBottom="5dp"
-                        android:layout_height="30dp"
-                        android:layout_width="30dp"
-                        android:scaleType="center"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/maximize" />
-                    </RelativeLayout>
-                    <ImageView
-                        android:id="@+id/passport_photo"
-                        android:layout_gravity="center"
-                        android:background="@color/lightgraySquareColor"
-                        android:layout_width="300dp"
-                        android:layout_height="140dp"
-                        android:layout_margin="5dp"
-                        android:scaleType="center"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/passport" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
             <!-- Fluency -->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/english"

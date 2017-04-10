@@ -272,6 +272,8 @@ public class AccountFragment extends Fragment {
                                         .load(FlavorSettings.API_URL + response.body().getResponse().cardPicture)
                                         .fit()
                                         .centerCrop()
+                                        .error(R.drawable.bob)
+                                        .placeholder(R.drawable.bob)
                                         .into(avatar);
                             } catch (Exception e) {
                                 CrashLogHelper.logException(e);
