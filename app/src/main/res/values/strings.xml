@@ -1282,8 +1282,14 @@
   
     <!-- New feature Suggest Role -->
     <string name="suggest_role">Role not listed?</string>
+    <string name="suggest_qual">Qualification not listed?</string>
+    <string name="suggest_skill">Skill not listed?</string>
+    <string name="suggest_experience">Experience  not listed?</string>
     <string name="suggest_role_title">Please suggest a role which is not listed</string>
-    <string name="suggest_role_thanks">Thanks for suggesting this new role We\'ll be adding it to the list very soon...</string>
+    <string name="suggest_role_thanks">Thanks for suggesting this new role. We\'ll be adding it to the list very soon...</string>
+    <string name="suggest_qual_thanks">Thanks for suggesting this new qualification. We\'ll be adding it to the list very soon...</string>
+    <string name="suggest_skill_thanks">Thanks for suggesting this new skill. We\'ll be adding it to the list very soon...</string>
+    <string name="suggest_experience_thanks">Thanks for suggesting this new experience. We\'ll be adding it to the list very soon...</string>
 
 
 </resources>
