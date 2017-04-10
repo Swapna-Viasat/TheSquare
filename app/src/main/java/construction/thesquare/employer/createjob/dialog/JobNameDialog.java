@@ -50,7 +50,7 @@ public class JobNameDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_create_job_details, container, false);
+        View view = inflater.inflate(R.layout.dialog_name_job, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
