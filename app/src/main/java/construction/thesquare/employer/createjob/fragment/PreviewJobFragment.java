@@ -87,6 +87,14 @@ public class PreviewJobFragment extends Fragment
             R.id.job_details_experience_types_label})
     List<TextView> edits;
 
+    // new feature
+    @BindView(R.id.job_details_connect_contact) ViewGroup connectContact;
+    @BindView(R.id.job_details_reporting_to) ViewGroup reportingTo;
+    @BindView(R.id.job_details_connect_person) TextView connectPerson;
+    @BindView(R.id.job_details_connect_phone) TextView connectPhone;
+    @BindView(R.id.job_details_connect_email) TextView connectEmail;
+    @BindView(R.id.job_details_connect_date) TextView connectDeadline;
+
     @BindView(R.id.preview_logo) ImageView logo;
     @BindView(R.id.preview_occupation) JosefinSansTextView role;
     @BindView(R.id.preview_trades) JosefinSansTextView trades;
@@ -144,6 +152,15 @@ public class PreviewJobFragment extends Fragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         createRequest = (CreateRequest) getArguments().getSerializable("request");
+
+        if (createRequest.isConnect) {
+            reportingTo.setVisibility(View.GONE);
+            connectContact.setVisibility(View.VISIBLE);
+        } else {
+            reportingTo.setVisibility(View.VISIBLE);
+            connectContact.setVisibility(View.GONE);
+        }
+
         fromViewMore = getArguments().getBoolean("from_view_more");
         createRequest.detailsLowerPart = false;
         showCancel = getActivity().getIntent()
@@ -170,6 +187,7 @@ public class PreviewJobFragment extends Fragment
             R.id.preview_occupation,
             R.id.preview_experience,
             R.id.preview_reporting_to,
+            R.id.preview_connect,
             R.id.preview_start_date,
             R.id.job_details_english_level_label,
             R.id.job_details_overtime_label,
@@ -187,6 +205,10 @@ public class PreviewJobFragment extends Fragment
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
             case R.id.preview_reporting_to:
+                createRequest.detailsLowerPart = true;
+                fragment = SelectDetailsFragment.newInstance(createRequest, true);
+                break;
+            case R.id.preview_connect:
                 createRequest.detailsLowerPart = true;
                 fragment = SelectDetailsFragment.newInstance(createRequest, true);
                 break;
@@ -273,14 +295,21 @@ public class PreviewJobFragment extends Fragment
              */
             if (null != createRequest.contactName) {
                 owner.setText(createRequest.contactName);
+                connectPerson.setText(createRequest.contactName);
             }
             ownerPhone.setText("+ " + createRequest.contactCountryCode
+                    + " " + createRequest.contactPhoneNumber);
+            connectPhone.setText("+ " + createRequest.contactCountryCode
                     + " " + createRequest.contactPhoneNumber);
             if (null != createRequest.address) {
                 ownerAddress.setText(createRequest.address);
             }
+            if (null != createRequest.connectEmail) {
+                connectEmail.setText(createRequest.connectEmail);
+            }
             //
             date.setText(createRequest.date + " - " + createRequest.time);
+            connectDeadline.setText(createRequest.date + " - " + createRequest.time);
             //
             notes.setText(createRequest.notes);
             // lists
@@ -349,6 +378,14 @@ public class PreviewJobFragment extends Fragment
     private HashMap<String, Object> loadRequest(int status) {
         HashMap<String, Object> payload = new HashMap<>();
         try {
+
+            if (null != createRequest.connectEmail) {
+                payload.put("connect_email", createRequest.connectEmail);
+            }
+            if (null != createRequest.name) {
+                payload.put("name", createRequest.name);
+            }
+            payload.put("is_connect", createRequest.isConnect);
 
             if (createRequest.id != 0) {
                 payload.put("id", createRequest.id);

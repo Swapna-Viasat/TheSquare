@@ -53,6 +53,7 @@ public class Constants {
     public static final int KEY_ONBOARDING_COMPANIES = 9;
     public static final int KEY_ONBOARDING_AVAILABILITY = 10;
     public static final int KEY_STEP_REQUIREMENTS = 11;
+    public static final int KEY_STEP_PASSPORT = 12;
 
     public static final int JOB_STATUS_DRAFT = 1;
     public static final int JOB_STATUS_LIVE = 2;
@@ -68,5 +69,9 @@ public class Constants {
     public static final int PLATFORM_ANDROID = 2;
 
     public static final String KEY_WORKER_ID = "WORKER_ID";
-    public static final String KEY_JOB_ID_DETAILS = "jobArgument";
+    public static final String KEY_JOB_ID_DETAILS = "key_job_id";
+
+    public static final int ADAPTER_FOR_CONNECT = 222;
+    public static final int ADAPTER_FOR_BOOK = 223;
+
 }

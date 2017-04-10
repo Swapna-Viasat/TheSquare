@@ -19,11 +19,13 @@ public class JobDetailsPagerAdapter extends FragmentPagerAdapter {
     private static final int NUM = 4;
     private int jobId;
     private Context context;
+    private int type;
 
     public JobDetailsPagerAdapter(Context context,
                                   FragmentManager fragmentManager,
-                                  int id) {
+                                  int id, int adapterType) {
         super(fragmentManager);
+        this.type = adapterType;
         this.context = context;
         this.jobId = id;
     }
@@ -53,13 +55,21 @@ public class JobDetailsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return WorkerListFragment.newInstance(WorkerListFragment.WORKERS_BOOKED, jobId);
+                return WorkerListFragment
+                        .newInstance(WorkerListFragment.WORKERS_BOOKED,
+                                        jobId, type);
             case 1:
-                return WorkerListFragment.newInstance(WorkerListFragment.WORKERS_OFFERS, jobId);
+                return WorkerListFragment
+                        .newInstance(WorkerListFragment.WORKERS_OFFERS,
+                                        jobId, type);
             case 2:
-                return WorkerListFragment.newInstance(WorkerListFragment.WORKERS_MATCHED, jobId);
+                return WorkerListFragment
+                        .newInstance(WorkerListFragment.WORKERS_MATCHED,
+                                        jobId, type);
             case 3:
-                return WorkerListFragment.newInstance(WorkerListFragment.WORKERS_DECLINED, jobId);
+                return WorkerListFragment
+                        .newInstance(WorkerListFragment.WORKERS_DECLINED,
+                                        jobId, type);
             default:
                 return null;
         }

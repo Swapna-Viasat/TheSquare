@@ -17,7 +17,9 @@ import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,14 +84,14 @@ public class SelectWorkerInfoFragment extends Fragment {
     TextInputLayout firstNameInput;
     @BindView(R.id.last_name_input)
     TextInputLayout lastNameInput;
-    @BindView(R.id.zip_layout)
-    TextInputLayout zipLayout;
     @BindView(R.id.password_layout)
     TextInputLayout passwordLayout;
     @BindView(R.id.password2_layout)
     TextInputLayout password2Layout;
     @BindView(R.id.avatar)
     CircleImageView avatar;
+    @BindView(R.id.zip)
+    TextView zipLayout;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_IMAGE_SELECTION = 2;
@@ -166,8 +169,8 @@ public class SelectWorkerInfoFragment extends Fragment {
 
             firstNameInput.getEditText().setText(currentWorker.firstName);
             lastNameInput.getEditText().setText(currentWorker.lastName);
-            zipLayout.getEditText().setText(currentWorker.zip);
-
+            zipLayout.setText(currentWorker.zip);
+            zip = currentWorker.zip;
             showProfileImage();
         } catch (Exception e) {
             CrashLogHelper.logException(e);
@@ -187,7 +190,7 @@ public class SelectWorkerInfoFragment extends Fragment {
 
     }
 
-    @OnClick({R.id.avatar, R.id.next, R.id.zipSearch})
+    @OnClick({R.id.avatar, R.id.next, R.id.zip})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar:
@@ -196,8 +199,8 @@ public class SelectWorkerInfoFragment extends Fragment {
             case R.id.next:
                 if (validate()) patchWorker();
                 break;
-            case R.id.zipSearch:
-                validateZip(true);
+            case R.id.zip:
+                showAddressDialog();
         }
     }
 
@@ -340,11 +343,11 @@ public class SelectWorkerInfoFragment extends Fragment {
                 .equals(password2Layout.getEditText().getText().toString())))) {
             password2Layout.setError(getString(R.string.validate_password_match));
             result = false;
-        } else if ((TextUtils.isEmpty(zipLayout.getEditText().getText().toString()))) {
+        } else if ((TextUtils.isEmpty(zipLayout.getText().toString()))) {
             zipLayout.setError(getString(R.string.validate_zip));
             result = false;
         } else if (TextUtils.isEmpty(address)) {
-            DialogBuilder.showStandardDialog(getContext(), "Error", "Please select your address by clicking on the magnifying glass");
+            DialogBuilder.showStandardDialog(getContext(), "Error", "Please select your full address by clicking on your postcode");
             result = false;
         }
 
@@ -353,53 +356,136 @@ public class SelectWorkerInfoFragment extends Fragment {
         return result;
     }
 
-    private void validateZip(final boolean showAddresses) {
-        zip = zipLayout.getEditText().getText().toString().trim();
-        // Api call to validate postal code
-        final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
+    private void showAddressDialog() {
+        if (getActivity() == null || !isAdded()) return;
 
-        ZipCodeVerifier.getInstance()
-                .api()
-                .verify(zip, ZipCodeVerifier.API_KEY)
-                .enqueue(new Callback<ZipResponse>() {
-                    @Override
-                    public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
-                        DialogBuilder.cancelDialog(dialog);
+        try {
+            final Dialog dialog = new Dialog(getContext());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.autocomplete_worker_location);
+            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    getResources().getDisplayMetrics().heightPixels * 8 / 12);
+            ((TextView) dialog.findViewById(R.id.autocomplete_title))
+                    .setText(getString(R.string.worker_postcode));
+            ((TextView) dialog.findViewById(R.id.autocomplete_title2)).setText("Address");
 
-                        if (null != response.body()) {
-                            if (null != response.body().message) {
-                                if (response.body().message.equals(ZipCodeVerifier.BAD_REQUEST)) {
-                                    new AlertDialog.Builder(getContext())
-                                            .setMessage(getString(R.string.validate_zip))
-                                            .show();
-                                } else {
-                                    new AlertDialog.Builder(getContext())
-                                            .setMessage(getString(R.string.validate_zip))
-                                            .show();
+            final ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
+            final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
+            final EditText addressText = (EditText) dialog.findViewById(R.id.autocomplete_search2);
+
+            search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(final Editable s) {
+                    ZipCodeVerifier.getInstance()
+                            .api()
+                            .verify(s.toString(), ZipCodeVerifier.API_KEY)
+                            .enqueue(new Callback<ZipResponse>() {
+                                @Override
+                                public void onResponse(Call<ZipResponse> call, final Response<ZipResponse> response) {
+
+                                    if (null != response.body()) {
+                                        if (null == response.body().message) {
+                                            if (!CollectionUtils.isEmpty(response.body().addresses)) {
+                                                zip = s.toString().trim();
+                                                final List<String> addresses = new ArrayList<>();
+                                                for (String s : response.body().addresses) {
+                                                    if (s != null)
+                                                        addresses.add(s.replace(", , , ,", ", "));
+                                                }
+                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, addresses);
+                                                listView.setAdapter(adapter);
+                                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                    @Override
+                                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                        addressText.setText(addresses.get(position));
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
                                 }
-                            } else if (showAddresses) {
-                                if (!CollectionUtils.isEmpty(response.body().addresses)) {
-                                    showAddressDialog(response.body().addresses);
+
+                                @Override
+                                public void onFailure(Call<ZipResponse> call, Throwable t) {
+                                    //DialogBuilder.cancelDialog(dialog);
                                 }
-                            }// else patchWorker();
-                        } else {
-                            // response body null
-                            new AlertDialog.Builder(getContext())
-                                    .setMessage(getString(R.string.validate_zip))
-                                    .show();
-                        }
-                    }
+                            });
+                }
+            });
 
-                    @Override
-                    public void onFailure(Call<ZipResponse> call, Throwable t) {
-                        DialogBuilder.cancelDialog(dialog);
-                    }
-                });
+            search.setText(zip);
+            addressText.setText(address);
 
+            dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ZipCodeVerifier.getInstance()
+                            .api()
+                            .verify(search.getText().toString(), ZipCodeVerifier.API_KEY)
+                            .enqueue(new Callback<ZipResponse>() {
+                                @Override
+                                public void onResponse(Call<ZipResponse> call, Response<ZipResponse> response) {
+
+
+                                    if (null != response.body()) {
+                                        if (null != response.body().message) {
+                                            if (response.body().message.equals(ZipCodeVerifier.BAD_REQUEST)) {
+                                                new AlertDialog.Builder(getContext())
+                                                        .setMessage(getString(R.string.validate_zip))
+                                                        .show();
+                                            } else {
+                                                new AlertDialog.Builder(getContext())
+                                                        .setMessage(getString(R.string.validate_zip))
+                                                        .show();
+                                            }
+                                        } else {
+                                            // all good
+                                            if (!TextUtils.isEmpty(addressText.getText().toString())) {
+                                                address = addressText.getText().toString();
+                                                zip = search.getText().toString().trim();
+                                                zipLayout.setText(address + ", " + zip);
+                                                dialog.dismiss();
+                                            } else
+                                                DialogBuilder.showStandardDialog(getContext(), "", "Please select an address!");
+                                        }
+                                    } else {
+                                        // response body null
+                                        new AlertDialog.Builder(getContext())
+                                                .setMessage(getString(R.string.validate_zip))
+                                                .show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ZipResponse> call, Throwable t) {
+                                }
+                            });
+                }
+            });
+            dialog.show();
+        } catch (Exception e) {
+            CrashLogHelper.logException(e);
+        }
     }
 
     private void patchWorker() {
-        if (address != null) zipLayout.getEditText().setText(address.replace(", , , ,", ", ") + ", " + zip);
+        if (address != null) zipLayout.setText(address + ", " + zip);
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
 
         HashMap<String, Object> request = new HashMap<>();
@@ -408,7 +494,7 @@ public class SelectWorkerInfoFragment extends Fragment {
         request.put("post_code", zip);
         request.put("first_name", firstNameInput.getEditText().getText().toString());
         request.put("last_name", lastNameInput.getEditText().getText().toString());
-        request.put("address", zipLayout.getEditText().getText().toString());
+        request.put("address", zipLayout.getText().toString());
         HttpRestServiceConsumer.getBaseApiClient()
                 .patchWorker(workerId, request)
                 .enqueue(new Callback<ResponseObject<Worker>>() {
@@ -418,7 +504,11 @@ public class SelectWorkerInfoFragment extends Fragment {
                         DialogBuilder.cancelDialog(dialog);
                         if (response.isSuccessful()) {
 
-                            proceed(response.body().getResponse());
+                            try {
+                                proceed(response.body().getResponse());
+                            } catch (Exception e) {
+                                CrashLogHelper.logException(e);
+                            }
 
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
@@ -459,7 +549,6 @@ public class SelectWorkerInfoFragment extends Fragment {
                 TextTools.resetInputLayout(passwordLayout);
                 TextTools.resetInputLayout(lastNameInput);
                 TextTools.resetInputLayout(firstNameInput);
-                TextTools.resetInputLayout(zipLayout);
             } catch (Exception e) {
                 CrashLogHelper.logException(e);
             }
@@ -495,56 +584,12 @@ public class SelectWorkerInfoFragment extends Fragment {
             currentWorker.firstName = firstNameInput.getEditText().getText().toString();
             currentWorker.lastName = lastNameInput.getEditText().getText().toString();
             currentWorker.zip = zip;
-            currentWorker.address = zipLayout.getEditText().getText().toString();
+            currentWorker.address = zipLayout.getText().toString();
         }
 
         getActivity().getSharedPreferences(Constants.WORKER_ONBOARDING_FLOW, Context.MODE_PRIVATE)
                 .edit()
                 .putString(Constants.KEY_PERSISTED_WORKER, GsonConfig.buildDefault().toJson(currentWorker))
                 .apply();
-    }
-
-    private void showAddressDialog(final List<String> result) {
-        if (getActivity() == null || !isAdded()) return;
-
-        try {
-            final Dialog dialog = new Dialog(getContext());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.autocomplete);
-            dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                    getResources().getDisplayMetrics().heightPixels * 8 / 12);
-            ((TextView) dialog.findViewById(R.id.autocomplete_title))
-                    .setText(getString(R.string.create_job_address));
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, result);
-            ListView listView = (ListView) dialog.findViewById(R.id.autocomplete_rv);
-            final EditText search = (EditText) dialog.findViewById(R.id.autocomplete_search);
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    search.setText(result.get(position));
-                }
-            });
-
-            dialog.findViewById(R.id.autocomple_cancel).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.findViewById(R.id.autocomple_done).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // all good
-                    address = search.getText().toString();
-                    zipLayout.getEditText().setText(address.replace(", , , ,", ", ") + ", " + zip);
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
-        } catch (Exception e) {
-            CrashLogHelper.logException(e);
-        }
     }
 }

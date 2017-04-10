@@ -31,6 +31,7 @@ import butterknife.OnEditorAction;
 import construction.thesquare.R;
 import construction.thesquare.employer.createjob.CreateRequest;
 import construction.thesquare.employer.createjob.adapter.RolesAdapter;
+import construction.thesquare.employer.createjob.dialog.RoleDialog;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
@@ -355,6 +356,20 @@ public class SelectRoleFragment extends Fragment
     @OnClick(R.id.clear_filter)
     public void clear() {
         filter.setText("");
+    }
+
+    //New feature
+    @OnClick(R.id.suggest_role)
+    public void suggestRole() {
+        RoleDialog roleDialog = RoleDialog.newInstance(new RoleDialog.RoleListener() {
+            @Override
+            public void onResult(boolean success) {
+                if (success) {
+                    DialogBuilder.showStandardDialog(getContext(), "", getResources().getString(R.string.suggest_role_thanks));
+                }
+            }
+        });
+        roleDialog.show(getChildFragmentManager(), "");
     }
 
 //    @OnEditorAction(R.id.filter)
