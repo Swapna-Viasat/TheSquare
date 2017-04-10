@@ -3,6 +3,7 @@ package construction.thesquare.worker.myjobs.adapter;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.utils.CrashLogHelper;
+import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
 import construction.thesquare.worker.jobmatches.model.Job;
@@ -107,11 +109,17 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
             }
 
             DateTime dateTime = new DateTime(job.startTime);
-            holder.startDate
-                    .setText(String.format(context.getString(R.string.item_match_format_starts),
-                            String.valueOf(dateTime.getMonthOfYear()
-                                    + "." + dateTime.getDayOfMonth()
-                                    + "." + dateTime.getYear())));
+
+            if (job.isConnect) {
+                if (!TextUtils.isEmpty(job.startTime)) {
+                    holder.startDate.setText(String.format(context.getString(R.string.employer_jobs_app_deadline), DateUtils.formatDateDayAndMonth(job.startTime, true)));
+                }
+            } else {
+                if (!TextUtils.isEmpty(job.startTime)) {
+                    holder.startDate.setText(String.format(context.getString(R.string.item_match_format_starts),
+                            DateUtils.formatDateDayAndMonth(job.startTime, true)));
+                }
+            }
 
             setLiked(job.liked, holder.liked);
             // holder.actionBlock.setVisibility(View.VISIBLE);

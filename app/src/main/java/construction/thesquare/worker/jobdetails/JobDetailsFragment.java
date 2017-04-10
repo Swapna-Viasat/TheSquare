@@ -107,6 +107,14 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
     JosefinSansTextView experienceTypes;
     @BindView(R.id.acceptOfferBtn)
     Button acceptOfferButton;
+    @BindView(R.id.contactEmailView)
+    TextView contactEmailTextView;
+    @BindView(R.id.dateToArriveLabel)
+    TextView dateToArriveLabel;
+    @BindView(R.id.addressToArriveLabel)
+    TextView addressToArriveLabel;
+    @BindView(R.id.bookedHint)
+    TextView bookedHint;
 
     private static final String TAG = "JobDetailsFragment";
     private static final String KEY_JOB = "KEY_JOB";
@@ -202,11 +210,17 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
 
             jobId.setText("Job ref ID: " + currentJob.jobRef);
 
-            if (!TextUtils.isEmpty(currentJob.startTime)) {
-                startDate.setText(String.format(getString(R.string.item_match_format_starts),
-                        DateUtils.formatDateDayAndMonth(currentJob.startTime, true)));
+            if (currentJob.isConnect) {
+                if (!TextUtils.isEmpty(currentJob.startTime)) {
+                    startDate.setText(String.format(getString(R.string.employer_jobs_app_deadline),
+                            DateUtils.formatDateDayAndMonth(currentJob.startTime, true)));
+                }
+            } else {
+                if (!TextUtils.isEmpty(currentJob.startTime)) {
+                    startDate.setText(String.format(getString(R.string.item_match_format_starts),
+                            DateUtils.formatDateDayAndMonth(currentJob.startTime, true)));
+                }
             }
-
             try {
                 description.setText(currentJob.description);
                 skills.setText(TextTools.toBulletList(currentJob.getSkillsList(), true));
@@ -231,15 +245,6 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
             if (currentJob.payOvertime) {
                 overtime.setText(String.format(getString(R.string.job_details_overtime_text),
                         (int) currentJob.payOvertimeValue));
-            }
-
-            if (getCurrentAppStatus() == ApplicationStatus.STATUS_APPROVED) {
-                elseToNoteTextView.setText(currentJob.extraNotes);
-                dateToArriveTextView.setText(DateUtils
-                        .formatDateMonthDayAndTime(currentJob.startTime));
-                reportingToTextView.append(currentJob.contactName);
-                reportingToPhoneTextView.append(currentJob.contactPhone);
-                reportingToAddressTextView.append(currentJob.address);
             }
 
             if (currentJob.status != null) {
@@ -303,28 +308,80 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
                 cancelBooking();
             }
         });
+        elseToNoteTextView.setText(currentJob.extraNotes);
+        reportingToTextView.setText(currentJob.contactName);
+        reportingToPhoneTextView.setText(currentJob.contactPhone);
+
+        if (currentJob.isConnect) {
+            bookedHint.setText("Boom! You're now connected with " + currentJob.contactName +
+                    "\nAll the details are available below.\n" +
+                    "\nGood luck.");
+
+            if (!TextUtils.isEmpty(currentJob.connectEmail)) {
+                contactEmailTextView.setVisibility(View.VISIBLE);
+                contactEmailTextView.setText(currentJob.connectEmail);
+            }
+            dateToArriveTextView.setVisibility(View.GONE);
+            dateToArriveLabel.setVisibility(View.GONE);
+            addressToArriveLabel.setVisibility(View.GONE);
+            reportingToAddressTextView.setVisibility(View.GONE);
+        } else {
+            bookedHint.setText(getString(R.string.job_details_success_message));
+            dateToArriveTextView.setVisibility(View.VISIBLE);
+            dateToArriveLabel.setVisibility(View.VISIBLE);
+            addressToArriveLabel.setVisibility(View.VISIBLE);
+            reportingToAddressTextView.setVisibility(View.VISIBLE);
+            reportingToAddressTextView.setText(currentJob.address);
+            contactEmailTextView.setVisibility(View.GONE);
+            dateToArriveTextView.setText(DateUtils
+                    .formatDateMonthDayAndTime(currentJob.startTime));
+        }
     }
 
     private void onOffered() {
-        appliedHeaderView.setText("You've been offered the job! You can now accept or reject the offer.");
-        acceptOfferButton.setVisibility(View.VISIBLE);
-        acceptOfferButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getCurrentApplication() != null) {
-                    acceptOffer(getCurrentApplication().id);
+        if (currentJob.isConnect) {
+            appliedHeaderView.setText("You've been offered the job! " +
+                    "You can now accept or reject the connection with employer.");
+            acceptOfferButton.setVisibility(View.VISIBLE);
+            acceptOfferButton.setText("Accept connection");
+            acceptOfferButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getCurrentApplication() != null) {
+                        acceptOffer(getCurrentApplication().id);
+                    }
                 }
-            }
-        });
-        ctaButton.setText("Reject offer");
-        ctaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getCurrentApplication() != null) {
-                    showDeclineOfferDialog(getCurrentApplication().id);
+            });
+            ctaButton.setText("Reject connection");
+            ctaButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getCurrentApplication() != null) {
+                        showDeclineOfferDialog(getCurrentApplication().id);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            appliedHeaderView.setText("You've been offered the job! You can now accept or reject the offer.");
+            acceptOfferButton.setVisibility(View.VISIBLE);
+            acceptOfferButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getCurrentApplication() != null) {
+                        acceptOffer(getCurrentApplication().id);
+                    }
+                }
+            });
+            ctaButton.setText("Reject offer");
+            ctaButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getCurrentApplication() != null) {
+                        showDeclineOfferDialog(getCurrentApplication().id);
+                    }
+                }
+            });
+        }
     }
 
     private void onApplicationNull() {
