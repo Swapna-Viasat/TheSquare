@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.DateTime;
-
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.shared.utils.CrashLogHelper;
+import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.jobmatches.model.ApplicationStatus;
 import construction.thesquare.worker.jobmatches.model.Job;
@@ -111,12 +110,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
                 holder.location.setText(job.locationName);
             }
 
-            DateTime dateTime = new DateTime(job.startTime);
             holder.startDate
                     .setText(String.format(context.getString(R.string.item_match_format_starts),
-                            String.valueOf(dateTime.getMonthOfYear()
-                                    + "." + dateTime.getDayOfMonth()
-                                    + "." + dateTime.getYear())));
+                            DateUtils.getFormattedJobDate(job.startTime)));
 
             setLiked(job.liked, holder.liked);
             // holder.actionBlock.setVisibility(View.VISIBLE);

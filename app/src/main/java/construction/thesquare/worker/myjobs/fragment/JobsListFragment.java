@@ -159,6 +159,7 @@ public class JobsListFragment extends Fragment
                 noMatches.setVisibility(View.VISIBLE);
             } else {
                 noMatches.setVisibility(View.GONE);
+                profileLink.setVisibility(View.GONE);
             }
         }
     };

@@ -10,10 +10,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -81,16 +78,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
         if (null != job.start) {
             try {
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat simpleDateFormat =
-                        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                Date date = simpleDateFormat.parse(job.start);
-                calendar.setTime(date);
-                String startString = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) +
-                        DateUtils.suffix(calendar.get(Calendar.DAY_OF_MONTH)) + " " +
-                        DateUtils.monthShort(calendar.get(Calendar.MONTH));
+
                 holder.starts.setText(String.format(holder.itemView.getResources()
-                        .getString(R.string.employer_jobs_starts), startString));
+                        .getString(R.string.employer_jobs_starts), DateUtils.getFormattedJobDate(job.start)));
 
             } catch (Exception e) {
                 CrashLogHelper.logException(e);
