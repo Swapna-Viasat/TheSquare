@@ -751,7 +751,7 @@ public class SelectDetailsFragment extends Fragment
             }
         }
 
-        if (request.isConnect) {
+        if (isConnect) {
             if (connectPhone.getText().toString().isEmpty()) {
                 connectPhone.setError("Please enter a Phone no.");
                 result = false;
