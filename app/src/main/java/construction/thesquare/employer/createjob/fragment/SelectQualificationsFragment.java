@@ -294,6 +294,8 @@ public class SelectQualificationsFragment extends Fragment
         filter.setText("");
     }
 
+
+
     @Override
     public void onQualification(Qualification qualification) {
         selected = 0;
@@ -327,5 +329,19 @@ public class SelectQualificationsFragment extends Fragment
         }
 
         TextTools.log(TAG, String.valueOf(selected));
+    }
+
+    //New feature
+    @OnClick(R.id.suggest_role)
+    public void suggestRole() {
+        construction.thesquare.worker.onboarding.dialog.RoleDialog roleDialog = construction.thesquare.worker.onboarding.dialog.RoleDialog.newInstance(new construction.thesquare.worker.onboarding.dialog.RoleDialog.RoleListener() {
+            @Override
+            public void onResult(boolean success) {
+                if (success) {
+                    DialogBuilder.showStandardDialog(getContext(), "", getResources().getString(R.string.suggest_qual_thanks));
+                }
+            }
+        });
+        roleDialog.show(getChildFragmentManager(), "");
     }
 }

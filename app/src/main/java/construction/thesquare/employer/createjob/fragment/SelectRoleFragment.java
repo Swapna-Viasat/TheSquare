@@ -361,7 +361,7 @@ public class SelectRoleFragment extends Fragment
     //New feature
     @OnClick(R.id.suggest_role)
     public void suggestRole() {
-        RoleDialog roleDialog = RoleDialog.newInstance(new RoleDialog.RoleListener() {
+        construction.thesquare.worker.onboarding.dialog.RoleDialog roleDialog = construction.thesquare.worker.onboarding.dialog.RoleDialog.newInstance(new construction.thesquare.worker.onboarding.dialog.RoleDialog.RoleListener() {
             @Override
             public void onResult(boolean success) {
                 if (success) {

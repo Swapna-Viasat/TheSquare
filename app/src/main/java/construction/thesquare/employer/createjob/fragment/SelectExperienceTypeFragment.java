@@ -333,4 +333,18 @@ public class SelectExperienceTypeFragment extends Fragment
             adapter.notifyDataSetChanged();
         }
     }
+
+    //New feature
+    @OnClick(R.id.suggest_role)
+    public void suggestRole() {
+        construction.thesquare.worker.onboarding.dialog.RoleDialog roleDialog = construction.thesquare.worker.onboarding.dialog.RoleDialog.newInstance(new construction.thesquare.worker.onboarding.dialog.RoleDialog.RoleListener() {
+            @Override
+            public void onResult(boolean success) {
+                if (success) {
+                    DialogBuilder.showStandardDialog(getContext(), "", getResources().getString(R.string.suggest_experience_thanks));
+                }
+            }
+        });
+        roleDialog.show(getChildFragmentManager(), "");
+    }
 }
