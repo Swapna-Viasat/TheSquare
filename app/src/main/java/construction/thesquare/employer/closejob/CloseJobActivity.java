@@ -17,4 +17,5 @@ public class CloseJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_close_job);
         ButterKnife.bind(this);
     }
+
 }
