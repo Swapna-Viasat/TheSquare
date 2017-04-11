@@ -1255,8 +1255,8 @@
         payments are non-refundable and we do not provide refunds or
         credits for any partial-month subscription periods or unused
         Booking Credits.</font></string>
-    
-    <!-- New feature Connect --> 
+
+    <!-- New feature Connect -->
     <string name="connect_header">Do you want to interview/connect with
                 matched workers or do you just want to book?</string>
     <string name="connect_connect_yes">I want to speak with them before hiring</string>
@@ -1281,7 +1281,7 @@
     <string name="connect_worker_connected">Cool! %s is now a connection.</string>
     <string name="connect_worker_connected_more">Get in touch with %s to
                                 confirm next steps.</string>
-  
+
     <!-- New feature Suggest Role -->
     <string name="suggest_role">Role not listed?</string>
     <string name="suggest_qual">Qualification not listed?</string>

@@ -286,6 +286,7 @@ public interface BaseApiInterface {
     @GET("/jobs/")
     Call<MatchesResponse> getJobMatches(@Query("ordering") Ordering ordering,
                                         @Query("filter_commute_time") Integer commuteTime);
+
     @POST("/jobs/{pk}/workers_quantity/")
     Call<ResponseBody> updateWorkerQuantity(@Path("pk") int id,
                                             @Body HashMap<String, Objects> body);
