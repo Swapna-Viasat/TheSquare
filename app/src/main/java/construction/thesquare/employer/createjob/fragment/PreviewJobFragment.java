@@ -71,6 +71,10 @@ public class PreviewJobFragment extends Fragment
 
     public static final String TAG = "PreviewJobFragment";
 
+    // action buttons
+    @BindView(R.id.draft) TextView saveAsDraftButton;
+    //
+
     @BindViews({
             R.id.preview_occupation,
             R.id.preview_experience,
@@ -159,6 +163,10 @@ public class PreviewJobFragment extends Fragment
         } else {
             reportingTo.setVisibility(View.VISIBLE);
             connectContact.setVisibility(View.GONE);
+        }
+
+        if (createRequest.isLive) {
+            saveAsDraftButton.setVisibility(View.GONE);
         }
 
         fromViewMore = getArguments().getBoolean("from_view_more");
