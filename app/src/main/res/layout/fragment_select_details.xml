@@ -698,12 +698,11 @@
                         <construction.thesquare.shared.view.widget.JosefinSansEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
+                            android:minLines="2"
                             android:imeOptions="actionDone"
                             android:id="@+id/address"
-                            android:hint="@string/address_turn_up"
-                            style="@style/square_edit_text"
-                            android:inputType="textCapSentences" />
+                            android:textColor="@android:color/darker_gray"
+                            android:text="@string/address_turn_up_new" />
                     </android.support.design.widget.TextInputLayout>
 
 

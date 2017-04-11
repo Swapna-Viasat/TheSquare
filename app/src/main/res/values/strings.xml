@@ -300,6 +300,7 @@
     <string name="contact_person">Contact Person</string>
     <string name="key_contact_mobile_number">Key contact mobile no.</string>
     <string name="address_turn_up">Address to turn up at</string>
+    <string name="address_turn_up_new">To be confirmed - \nspeak to the key contact for more information</string>
     <string name="post_job">Post job</string>
 
     <string name="search">Search</string>
