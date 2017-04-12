@@ -6,6 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public class CRNDialog extends DialogFragment {
     public static CRNDialog newInstance(CRNListener crnListener) {
         CRNDialog dialog = new CRNDialog();
         dialog.setCancelable(false);
+        //dialog.setStyle();
         dialog.listener = crnListener;
         return dialog;
     }
@@ -58,6 +60,10 @@ public class CRNDialog extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //
+        // have to make this call otherwise shows blank white space in the title area
+        if (getDialog() != null && getDialog().getWindow() != null)
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         //
     }
 
