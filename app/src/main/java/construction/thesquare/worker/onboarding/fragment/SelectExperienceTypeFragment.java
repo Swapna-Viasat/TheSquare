@@ -350,7 +350,7 @@ public class SelectExperienceTypeFragment extends Fragment
     //New feature
     @OnClick(R.id.suggest_role)
     public void suggestRole() {
-        RoleDialog roleDialog = RoleDialog.newInstance(new RoleDialog.RoleListener() {
+        RoleDialog roleDialog = RoleDialog.newInstance(getResources().getString(R.string.suggest_experience_title), new RoleDialog.RoleListener() {
             @Override
             public void onResult(boolean success) {
                 if (success) {

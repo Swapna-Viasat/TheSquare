@@ -16,6 +16,7 @@ import construction.thesquare.shared.suggestions.Suggestion;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.JosefinSansEditText;
+import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,19 +28,23 @@ import retrofit2.Response;
 
 public class RoleDialog extends DialogFragment {
     public static final String TAG = "RoleDialog";
+    private static String titlenew;
 
     @BindView(R.id.dialog_role_input)
     JosefinSansEditText in;
+    @BindView(R.id.suggest_title)
+    JosefinSansTextView title_role;
     private RoleListener listener;
 
     public interface RoleListener {
         void onResult(boolean success);
     }
 
-    public static RoleDialog newInstance(RoleListener crnListener) {
+    public static RoleDialog newInstance(String title, RoleListener crnListener) {
         RoleDialog dialog = new RoleDialog();
         dialog.setCancelable(false);
         dialog.listener = crnListener;
+        titlenew = title;
         return dialog;
     }
 
@@ -55,7 +60,7 @@ public class RoleDialog extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //
+        title_role.setText(titlenew);
     }
 
 

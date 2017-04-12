@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <construction.thesquare.shared.view.widget.JosefinSansTextView
-            android:text="@string/suggest_role_title"
+            android:id="@+id/suggest_title"
             android:textSize="22sp"
             app:josefin_style="italic"
             android:layout_gravity="center"
