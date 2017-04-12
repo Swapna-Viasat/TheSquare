@@ -17,6 +17,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Map;
 
 import construction.thesquare.R;
+import construction.thesquare.employer.closejob.CloseJobActivity;
 import construction.thesquare.employer.mygraftrs.WorkerDetailsActivity;
 import construction.thesquare.employer.myjobs.activity.ViewWorkerProfileActivity;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
@@ -102,6 +103,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                                     sendDeepLinkNotificationEmployer((null != body.get("message")) ?
                                             body.get("message") : "",
                                             Integer.valueOf(body.get("worker_id")),
+                                            Integer.valueOf(body.get("job_id")));
+                                    //
+                                } else if (null != body.get("job_id") && null != body.get("confirm_close")) {
+                                    //
+                                    confirmClosingJob((null != body.get("message")) ?
+                                            body.get("message") : "",
                                             Integer.valueOf(body.get("job_id")));
                                     //
                                 } else {
@@ -223,6 +230,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentIntent(pendingIntent);
         NotificationManager notificationManager = (NotificationManager)
                 getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+
+    private void confirmClosingJob(String messageBody,
+                                   int jobId) {
+        Intent intent = new Intent(this, CloseJobActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent
+                .getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this)
+                .setContentTitle("The Square Construction")
+                .setContentText(messageBody)
+                .setAutoCancel(true)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_big_notification))
+                .setSmallIcon(R.drawable.ic_action_the_square_sq)
+                .setColor(Color.RED)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
     }
 }

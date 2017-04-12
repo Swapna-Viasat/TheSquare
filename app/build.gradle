@@ -11,8 +11,8 @@ android {
         applicationId "construction.thesquare"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 39
-        versionName "1.1.9"
+        versionCode 40
+        versionName "1.2.0"
         multiDexEnabled true
     }
     signingConfigs {
@@ -71,6 +71,10 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
+    compile('io.branch.sdk.android:library:2.+') {
+        exclude module: 'answers-shim'
+    }
+
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -97,26 +101,19 @@ dependencies {
     compile 'com.stripe:stripe-android:2.0.2'
     compile 'com.hbb20:ccp:1.7.1'
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
-    compile ('io.branch.sdk.android:library:2.+') {
-        exclude module: 'answers-shim'
-    }
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
-
-    // testing
+    compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.google.dagger:dagger:2.9'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.+'
     testCompile 'org.assertj:assertj-core:1.+'
     testCompile 'org.robolectric:robolectric:3.1.2'
     testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
-
-    // butter knife
-    compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
-    // dagger
-    compile "com.google.dagger:dagger:2.9"
-    annotationProcessor "com.google.dagger:dagger-compiler:2.9"
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     provided 'javax.annotation:jsr250-api:1.0'
 }
+
 
 apply plugin: 'com.google.gms.google-services'
