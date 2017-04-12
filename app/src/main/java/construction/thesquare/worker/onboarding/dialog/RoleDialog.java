@@ -29,7 +29,7 @@ import retrofit2.Response;
 public class RoleDialog extends DialogFragment {
     public static final String TAG = "RoleDialog";
     private static String titlenew;
-
+    private static String rolenew;
     @BindView(R.id.dialog_role_input)
     JosefinSansEditText in;
     @BindView(R.id.suggest_title)
@@ -40,11 +40,12 @@ public class RoleDialog extends DialogFragment {
         void onResult(boolean success);
     }
 
-    public static RoleDialog newInstance(String title, RoleListener crnListener) {
+    public static RoleDialog newInstance(String title, String role,  RoleListener crnListener) {
         RoleDialog dialog = new RoleDialog();
         dialog.setCancelable(false);
         dialog.listener = crnListener;
         titlenew = title;
+        rolenew = role;
         return dialog;
     }
 
@@ -67,7 +68,7 @@ public class RoleDialog extends DialogFragment {
     public void onDone() {
         if (validate()) {
             Suggestion suggestion = new Suggestion();
-            suggestion.category = suggestion.SELECTED_ROLE_SUGGESTION;
+            suggestion.category = rolenew;
             suggestion.description = in.getText().toString();
             final Dialog dialog = DialogBuilder.showCustomDialog(getActivity());
             HttpRestServiceConsumer.getBaseApiClient()
