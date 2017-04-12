@@ -337,7 +337,7 @@ public class SelectSkillsFragment extends Fragment
     //New feature
     @OnClick(R.id.suggest_role)
     public void suggestRole() {
-        construction.thesquare.worker.onboarding.dialog.RoleDialog roleDialog = construction.thesquare.worker.onboarding.dialog.RoleDialog.newInstance(getResources().getString(R.string.suggest_skill_title), new construction.thesquare.worker.onboarding.dialog.RoleDialog.RoleListener() {
+        construction.thesquare.worker.onboarding.dialog.RoleDialog roleDialog = construction.thesquare.worker.onboarding.dialog.RoleDialog.newInstance(getResources().getString(R.string.suggest_skill_title), Constants.SELECTED_SKILL_SUGGESTION,new construction.thesquare.worker.onboarding.dialog.RoleDialog.RoleListener() {
             @Override
             public void onResult(boolean success) {
                 if (success) {
