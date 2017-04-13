@@ -6,6 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,10 +41,10 @@ public class RoleDialog extends DialogFragment {
         void onResult(boolean success);
     }
 
-    public static RoleDialog newInstance(String title, String role,  RoleListener crnListener) {
+    public static RoleDialog newInstance(String title, String role,  RoleListener roleListener) {
         RoleDialog dialog = new RoleDialog();
         dialog.setCancelable(false);
-        dialog.listener = crnListener;
+        dialog.listener = roleListener;
         titlenew = title;
         rolenew = role;
         return dialog;
@@ -62,6 +63,8 @@ public class RoleDialog extends DialogFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         title_role.setText(titlenew);
+        if (getDialog() != null && getDialog().getWindow() != null)
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
     }
 
 
