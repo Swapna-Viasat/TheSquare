@@ -22,7 +22,8 @@
 
             <construction.thesquare.shared.view.widget.JosefinSansTextView
                 android:id="@+id/question"
-                android:textSize="16dp"
+                android:textSize="20dp"
+                android:lineSpacingExtra="10dp"
                 android:textColor="@color/blackSquareColor"
                 app:josefin_style="italic"
                 android:layout_marginTop="14dp"
@@ -38,14 +39,22 @@
                 android:layout_height="wrap_content">
 
                 <construction.thesquare.shared.view.widget.JosefinSansTextView
-                    style="@style/UnderstandingBody"
+                    android:layout_margin="5dp"
                     android:textColor="@color/blackSquareColor"
                      android:id="@+id/answer"
                     app:josefin_style="light"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
+                    android:lineSpacingExtra="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:tint="@color/redSquareColor"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ic_close" />
             </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 
         </LinearLayout>
