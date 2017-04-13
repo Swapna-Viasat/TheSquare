@@ -79,7 +79,7 @@
                     android:layout_below="@+id/item_job_company_name"
                     android:layout_marginLeft="14dp"
                     android:layout_marginTop="14dp"
-                    android:background="@color/black_overlay"
+                    android:background="@color/whiteSquareColor"
                     android:scaleType="centerCrop" />
 
                 <!-- Occupation + experience -->
