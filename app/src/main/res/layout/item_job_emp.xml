@@ -76,10 +76,10 @@
                     android:id="@+id/item_job_logo"
                     android:layout_width="78dp"
                     android:layout_height="42dp"
-                    android:layout_below="@+id/item_job_company_name"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/black_overlay"
+                    android:layout_below="@+id/item_job_company_name" 
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@color/whiteSquareColor" 
                     android:scaleType="centerCrop" />
 
                 <!-- Occupation + experience -->

@@ -27,7 +27,7 @@
             layout="@layout/include_filter"/>
 
         <construction.thesquare.shared.view.widget.JosefinSansTextView
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:josefin_style="italic"
             android:id="@+id/suggest_role"
             android:layout_marginTop="6dp"

@@ -175,6 +175,12 @@ public class JobDetailsFragment extends Fragment
         try {
             final CreateRequest result = new CreateRequest();
             //
+            if (null != job.status) {
+                if (job.status.id == 2) {
+                    result.isLive = true;
+                }
+            }
+
             if (null != job.connectEmail) {
                 TextTools.log(TAG, "connect_email not null");
                 result.connectEmail = job.connectEmail;
@@ -349,6 +355,7 @@ public class JobDetailsFragment extends Fragment
                         }
                     });
         } catch (Exception e) {
+            e.printStackTrace();
             CrashLogHelper.logException(e);
         }
     }

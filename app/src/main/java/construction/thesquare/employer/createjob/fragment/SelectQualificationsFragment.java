@@ -162,14 +162,16 @@ public class SelectQualificationsFragment extends Fragment
         }
 
         if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
-            for (Qualification qualification : data) {
-                for (int i : request.qualifications) {
-                    if (qualification.id == i) {
-                        qualification.selected = true;
+            if (null != request.qualifications) {
+                for (Qualification qualification : data) {
+                    for (int i : request.qualifications) {
+                        if (qualification.id == i) {
+                            qualification.selected = true;
+                        }
                     }
                 }
+                adapter.notifyDataSetChanged();
             }
-            adapter.notifyDataSetChanged();
         }
     }
 
@@ -294,6 +296,8 @@ public class SelectQualificationsFragment extends Fragment
         filter.setText("");
     }
 
+
+
     @Override
     public void onQualification(Qualification qualification) {
         selected = 0;
@@ -327,5 +331,19 @@ public class SelectQualificationsFragment extends Fragment
         }
 
         TextTools.log(TAG, String.valueOf(selected));
+    }
+
+    //New feature
+    @OnClick(R.id.suggest_role)
+    public void suggestRole() {
+        construction.thesquare.worker.onboarding.dialog.RoleDialog roleDialog = construction.thesquare.worker.onboarding.dialog.RoleDialog.newInstance(getResources().getString(R.string.suggest_qual_title),Constants.SELECTED_QUALIFICATION_SUGGESTION, new construction.thesquare.worker.onboarding.dialog.RoleDialog.RoleListener() {
+            @Override
+            public void onResult(boolean success) {
+                if (success) {
+                    DialogBuilder.showStandardDialog(getContext(), "", getResources().getString(R.string.suggest_qual_thanks));
+                }
+            }
+        });
+        roleDialog.show(getChildFragmentManager(), "");
     }
 }
