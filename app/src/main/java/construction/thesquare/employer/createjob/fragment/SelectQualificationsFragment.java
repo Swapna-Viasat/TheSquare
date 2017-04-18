@@ -162,14 +162,16 @@ public class SelectQualificationsFragment extends Fragment
         }
 
         if (getArguments().getBoolean(Constants.KEY_SINGLE_EDIT)) {
-            for (Qualification qualification : data) {
-                for (int i : request.qualifications) {
-                    if (qualification.id == i) {
-                        qualification.selected = true;
+            if (null != request.qualifications) {
+                for (Qualification qualification : data) {
+                    for (int i : request.qualifications) {
+                        if (qualification.id == i) {
+                            qualification.selected = true;
+                        }
                     }
                 }
+                adapter.notifyDataSetChanged();
             }
-            adapter.notifyDataSetChanged();
         }
     }
 

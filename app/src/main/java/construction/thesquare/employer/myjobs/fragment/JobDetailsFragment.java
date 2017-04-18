@@ -355,6 +355,7 @@ public class JobDetailsFragment extends Fragment
                         }
                     });
         } catch (Exception e) {
+            e.printStackTrace();
             CrashLogHelper.logException(e);
         }
     }

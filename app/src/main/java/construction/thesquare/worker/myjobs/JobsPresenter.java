@@ -30,7 +30,8 @@ public class JobsPresenter implements JobsContract.UserActionsListener {
     public void init(int jobType) {
         switch (jobType) {
             case Job.TYPE_BOOKED:
-                fetchJobs(Application.STATUS_APPROVED, null, false, false);
+                // 2 = Live job
+                fetchJobs(Application.STATUS_APPROVED, 2, false, false);
                 break;
             case Job.TYPE_OFFER:
                 fetchJobs(Application.STATUS_PENDING, null, false, false);
