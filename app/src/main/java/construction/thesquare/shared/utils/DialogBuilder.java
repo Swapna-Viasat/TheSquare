@@ -1,7 +1,6 @@
 package construction.thesquare.shared.utils;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import construction.thesquare.R;
+import construction.thesquare.shared.view.widget.LoadingDialog;
 import construction.thesquare.worker.onboarding.OnLanguagesSelectedListener;
 
 public class
@@ -42,8 +42,8 @@ DialogBuilder {
     }
 
     public static Dialog showCustomDialog(Context context) {
-        Dialog dialog = ProgressDialog.show(context, null, null);
-        dialog.setContentView(R.layout.loader);
+        Dialog dialog = new LoadingDialog(context);
+        dialog.show();
         if (dialog.getWindow() != null) {
             dialog.getWindow()
                     .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
