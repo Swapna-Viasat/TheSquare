@@ -22,13 +22,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import construction.thesquare.BuildConfig;
 import construction.thesquare.R;
 import construction.thesquare.shared.view.widget.LoadingDialog;
 import construction.thesquare.worker.onboarding.OnLanguagesSelectedListener;
 
-public class
-DialogBuilder {
+public class DialogBuilder {
 
     public interface OnClickStandardDialog {
         void onOKClickStandardDialog(Context context);

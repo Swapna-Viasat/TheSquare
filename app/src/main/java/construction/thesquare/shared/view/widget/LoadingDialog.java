@@ -11,30 +11,25 @@ import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.graphics.drawable.VectorDrawableCompat;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
-import com.crashlytics.android.Crashlytics;
-
 import construction.thesquare.R;
+import construction.thesquare.shared.utils.CrashLogHelper;
 
 public class LoadingDialog extends Dialog {
 
     public LoadingDialog(@NonNull Context context) {
         super(context);
-        init(context);
+        init();
     }
 
-    private void init(Context context) {
+    private void init() {
         setContentView(R.layout.loader);
 
         try {
 
-            VectorDrawableCompat vector = VectorDrawableCompat.create(context.getResources(),
-                    R.drawable.the_square_spinner_plain, null);
             ImageView image = (ImageView) findViewById(R.id.progressImage);
-            image.setBackground(vector);
 
             final ObjectAnimator verticalAnimator = ObjectAnimator.ofFloat(image, "rotationY", 0.0f, 180f);
             verticalAnimator.setDuration(600);
@@ -95,7 +90,7 @@ public class LoadingDialog extends Dialog {
             horizontalAnimator.start();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CrashLogHelper.logException(e);
         }
     }
 }
