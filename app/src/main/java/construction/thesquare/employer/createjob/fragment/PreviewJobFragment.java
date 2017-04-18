@@ -350,13 +350,15 @@ public class PreviewJobFragment extends Fragment
 
             // overtime
             if (createRequest.overtime) {
+                Log.d(TAG, String.valueOf(createRequest.overtimeValue));
                 overtime.setText(String.format(getString(R.string.job_details_overtime_text),
-                        createRequest.overtimeValue));
+                        String.valueOf(createRequest.overtimeValue)));
             } else {
                 overtime.setText("n/a");
             }
             // english level
             if (null != createRequest.englishLevelString) {
+                Log.d(TAG, String.valueOf(createRequest.englishLevelString));
                 englishLevel.setText(createRequest.englishLevelString);
             }
             // description
