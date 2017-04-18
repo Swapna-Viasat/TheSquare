@@ -67,7 +67,10 @@ import construction.thesquare.shared.utils.MediaTools;
 import construction.thesquare.shared.utils.TextTools;
 import construction.thesquare.shared.view.widget.RatingView;
 import construction.thesquare.worker.myaccount.ui.dialog.EditAccountDetailsDialog;
+import construction.thesquare.worker.myaccount.ui.dialog.EditBirthDateDialog;
 import construction.thesquare.worker.myaccount.ui.dialog.EditCscsDetailsDialog;
+import construction.thesquare.worker.myaccount.ui.dialog.EditNationalityDialog;
+import construction.thesquare.worker.myaccount.ui.dialog.EditNisDialog;
 import construction.thesquare.worker.onboarding.SingleEditActivity;
 import construction.thesquare.worker.reviews.activity.ReviewActivity;
 import construction.thesquare.worker.settings.ui.dialog.EditNameDialog;
@@ -85,7 +88,8 @@ import retrofit2.Response;
  */
 
 public class MyAccountViewProfileFragment extends Fragment implements EditAccountDetailsDialog.InputFinishedListener,
-        EditCscsDetailsDialog.OnCscsDetailsUpdatedListener, View.OnClickListener {
+        EditCscsDetailsDialog.OnCscsDetailsUpdatedListener, View.OnClickListener,
+        EditNationalityDialog.ChangeDetailsListener {
 
     private static final int REQUEST_EDIT_PROFILE = 100;
 
@@ -701,11 +705,19 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
         editProfile(Constants.KEY_STEP_REQUIREMENTS);
     }
 
-    @OnClick({R.id.worker_profile_nationality_edit,
-            R.id.worker_profile_birthday_edit,
-            R.id.worker_profile_nis_edit})
+    @OnClick(R.id.worker_profile_nationality_edit)
     void openExperienceFragment() {
-        editProfile(Constants.KEY_ONBOARDING_EXPERIENCE);
+        EditNationalityDialog.newInstance(this).show(getActivity().getSupportFragmentManager(), "");
+    }
+
+    @OnClick(R.id.worker_profile_birthday_edit)
+    void editBirthDate() {
+        EditBirthDateDialog.newInstance(this).show(getActivity().getSupportFragmentManager(), "");
+    }
+
+    @OnClick(R.id.worker_profile_nis_edit)
+    void editNis() {
+        EditNisDialog.newInstance(this).show(getActivity().getSupportFragmentManager(), "");
     }
 
     @OnClick(R.id.worker_profile_passport_edit)
@@ -973,5 +985,10 @@ public class MyAccountViewProfileFragment extends Fragment implements EditAccoun
     public void onClick(View v) {
         if (v.getId() == R.id.cscs_status)
             EditCscsDetailsDialog.newInstance(worker.lastName, this).show(getActivity().getSupportFragmentManager(), "");
+    }
+
+    @Override
+    public void onDataChanged() {
+        fetchWorker();
     }
 }
