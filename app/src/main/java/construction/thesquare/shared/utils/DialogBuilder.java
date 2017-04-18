@@ -1,10 +1,12 @@
 package construction.thesquare.shared.utils;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import construction.thesquare.BuildConfig;
 import construction.thesquare.R;
 import construction.thesquare.shared.view.widget.LoadingDialog;
 import construction.thesquare.worker.onboarding.OnLanguagesSelectedListener;
@@ -42,13 +45,23 @@ DialogBuilder {
     }
 
     public static Dialog showCustomDialog(Context context) {
-        Dialog dialog = new LoadingDialog(context);
-        dialog.show();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow()
-                    .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        if (Build.VERSION.SDK_INT > 19) {
+            Dialog dialog = new LoadingDialog(context);
+            dialog.show();
+            if (dialog.getWindow() != null) {
+                dialog.getWindow()
+                        .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            }
+            return dialog;
+        } else {
+            Dialog dialog = ProgressDialog.show(context, null, null);
+            dialog.setContentView(R.layout.loader);
+            if (dialog.getWindow() != null) {
+                dialog.getWindow()
+                        .setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            }
+            return dialog;
         }
-        return dialog;
     }
 
     public static void cancelDialog(Dialog dialog) {

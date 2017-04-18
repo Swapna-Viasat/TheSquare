@@ -15,6 +15,8 @@ import android.support.graphics.drawable.VectorDrawableCompat;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
+import com.crashlytics.android.Crashlytics;
+
 import construction.thesquare.R;
 
 public class LoadingDialog extends Dialog {
@@ -27,67 +29,73 @@ public class LoadingDialog extends Dialog {
     private void init(Context context) {
         setContentView(R.layout.loader);
 
-        VectorDrawableCompat vector = VectorDrawableCompat.create(context.getResources(),
-                R.drawable.the_square_spinner_plain, null);
-        ImageView image = (ImageView) findViewById(R.id.progressImage);
-        image.setBackground(vector);
+        try {
 
-        final ObjectAnimator verticalAnimator = ObjectAnimator.ofFloat(image, "rotationY", 0.0f, 180f);
-        verticalAnimator.setDuration(600);
-        verticalAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            VectorDrawableCompat vector = VectorDrawableCompat.create(context.getResources(),
+                    R.drawable.the_square_spinner_plain, null);
+            ImageView image = (ImageView) findViewById(R.id.progressImage);
+            image.setBackground(vector);
 
-        final ObjectAnimator horizontalAnimator = ObjectAnimator.ofFloat(image, "rotationX", 180f, 0.0f);
-        horizontalAnimator.setDuration(600);
-        horizontalAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            final ObjectAnimator verticalAnimator = ObjectAnimator.ofFloat(image, "rotationY", 0.0f, 180f);
+            verticalAnimator.setDuration(600);
+            verticalAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 
-        verticalAnimator.addListener(new AnimatorListenerAdapter() {
-            boolean cancelled;
+            final ObjectAnimator horizontalAnimator = ObjectAnimator.ofFloat(image, "rotationX", 180f, 0.0f);
+            horizontalAnimator.setDuration(600);
+            horizontalAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                super.onAnimationCancel(animation);
-                cancelled = true;
-            }
+            verticalAnimator.addListener(new AnimatorListenerAdapter() {
+                boolean cancelled;
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-
-                if (!cancelled) {
-                    horizontalAnimator.start();
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    super.onAnimationCancel(animation);
+                    cancelled = true;
                 }
-            }
 
-            @Override
-            public void onAnimationStart(Animator animation) {
-                cancelled = false;
-            }
-        });
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
 
-        horizontalAnimator.addListener(new AnimatorListenerAdapter() {
-            boolean cancelled;
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                super.onAnimationCancel(animation);
-                cancelled = true;
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-
-                if (!cancelled) {
-                    verticalAnimator.start();
+                    if (!cancelled) {
+                        horizontalAnimator.start();
+                    }
                 }
-            }
 
-            @Override
-            public void onAnimationStart(Animator animation) {
-                cancelled = false;
-            }
-        });
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    cancelled = false;
+                }
+            });
 
-        horizontalAnimator.start();
+            horizontalAnimator.addListener(new AnimatorListenerAdapter() {
+                boolean cancelled;
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    super.onAnimationCancel(animation);
+                    cancelled = true;
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+
+                    if (!cancelled) {
+                        verticalAnimator.start();
+                    }
+                }
+
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    cancelled = false;
+                }
+            });
+
+            horizontalAnimator.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
