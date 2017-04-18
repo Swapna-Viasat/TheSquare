@@ -2,6 +2,7 @@ package construction.thesquare.shared.data;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import construction.thesquare.employer.signup.model.Employer;
 import construction.thesquare.employer.signup.model.EmployerVerify;
@@ -285,6 +286,10 @@ public interface BaseApiInterface {
     @GET("/jobs/")
     Call<MatchesResponse> getJobMatches(@Query("ordering") Ordering ordering,
                                         @Query("filter_commute_time") Integer commuteTime);
+
+    @POST("/jobs/{pk}/workers_quantity/")
+    Call<ResponseBody> updateWorkerQuantity(@Path("pk") int id,
+                                            @Body HashMap<String, Objects> body);
 
     @POST("applications/{pk}/accept/")
     Call<ResponseBody> acceptApplication(@Path("pk") int id);

@@ -117,7 +117,7 @@ public class JobsListFragment extends Fragment
     @Override
     public void onViewDraft(Job job) {
         Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
-        intent.putExtra("request", prepareDraftDetails(job));
+        intent.putExtra("request", prepareDraftDetails(job, false));
         startActivity(intent);
     }
 
@@ -134,7 +134,7 @@ public class JobsListFragment extends Fragment
                 break;
             case JobsAdapter.ACTION_REPUBLISH:
                 Intent intent = new Intent(getActivity(), PreviewJobActivity.class);
-                intent.putExtra("request", prepareDraftDetails(job));
+                intent.putExtra("request", prepareDraftDetails(job, true));
                 startActivity(intent);
                 break;
         }
@@ -176,12 +176,16 @@ public class JobsListFragment extends Fragment
         }
     };
 
-    private CreateRequest prepareDraftDetails(Job job) {
+    private CreateRequest prepareDraftDetails(Job job, boolean republish) {
         TextTools.log(TAG, "preparing draft details");
         CreateRequest result = new CreateRequest();
         try {
 
-            result.id = job.id;
+            if (republish) {
+                //
+            } else {
+                result.id = job.id;
+            }
 
             result.roleName = job.role.name;
             result.role = job.role.id;

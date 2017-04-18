@@ -74,4 +74,9 @@ public class Constants {
     public static final int ADAPTER_FOR_CONNECT = 222;
     public static final int ADAPTER_FOR_BOOK = 223;
 
+    public static final String SELECTED_ROLE_SUGGESTION = "Role";
+    public static final String SELECTED_QUALIFICATION_SUGGESTION = "Qualifications";
+    public static final String SELECTED_SKILL_SUGGESTION = "Skill";
+    public static final String SELECTED_EXPERIENCE_SUGGESTION = "Experience";
+
 }

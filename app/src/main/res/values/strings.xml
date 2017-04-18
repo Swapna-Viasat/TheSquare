@@ -300,6 +300,8 @@
     <string name="contact_person">Contact Person</string>
     <string name="key_contact_mobile_number">Key contact mobile no.</string>
     <string name="address_turn_up">Address to turn up at</string>
+    <string name="address_turn_up_new">To be confirmed -
+        \nspeak to the key contact for more information</string>
     <string name="post_job">Post job</string>
 
     <string name="search">Search</string>
@@ -432,7 +434,7 @@
     <string name="job_details_experience">Experience </string>
     <string name="job_details_english_level">Level of English</string>
     <string name="job_details_overtime">Overtime</string>
-    <string name="job_details_overtime_text">£%d per hour</string>
+    <string name="job_details_overtime_text">£%s per hour</string>
     <string name="job_details_mandatory_requirements">Requirements </string>
     <string name="job_details_qualifications">Qualifications </string>
     <string name="job_details_experience_types">Types of experience </string>
@@ -1253,8 +1255,8 @@
         payments are non-refundable and we do not provide refunds or
         credits for any partial-month subscription periods or unused
         Booking Credits.</font></string>
-    
-    <!-- New feature Connect --> 
+
+    <!-- New feature Connect -->
     <string name="connect_header">Do you want to interview/connect with
                 matched workers or do you just want to book?</string>
     <string name="connect_connect_yes">I want to speak with them before hiring</string>
@@ -1279,11 +1281,20 @@
     <string name="connect_worker_connected">Cool! %s is now a connection.</string>
     <string name="connect_worker_connected_more">Get in touch with %s to
                                 confirm next steps.</string>
-  
+
     <!-- New feature Suggest Role -->
     <string name="suggest_role">Role not listed?</string>
+    <string name="suggest_qual">Qualification not listed?</string>
+    <string name="suggest_skill">Skill not listed?</string>
+    <string name="suggest_experience">Experience  not listed?</string>
     <string name="suggest_role_title">Please suggest a role which is not listed</string>
-    <string name="suggest_role_thanks">Thanks for suggesting this new role We\'ll be adding it to the list very soon...</string>
+    <string name="suggest_qual_title">Please suggest a qualification which is not listed</string>
+    <string name="suggest_skill_title">Please suggest a skill which is not listed</string>
+    <string name="suggest_experience_title">Please suggest a experience which is not listed</string>
+    <string name="suggest_role_thanks">Thanks for suggesting this new role. We\'ll be adding it to the list very soon...</string>
+    <string name="suggest_qual_thanks">Thanks for suggesting this new qualification. We\'ll be adding it to the list very soon...</string>
+    <string name="suggest_skill_thanks">Thanks for suggesting this new skill. We\'ll be adding it to the list very soon...</string>
+    <string name="suggest_experience_thanks">Thanks for suggesting this new experience. We\'ll be adding it to the list very soon...</string>
 
 
 </resources>
