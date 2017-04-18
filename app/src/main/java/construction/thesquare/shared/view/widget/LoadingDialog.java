@@ -12,7 +12,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.graphics.drawable.VectorDrawableCompat;
-import android.view.animation.LinearInterpolator;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import construction.thesquare.R;
@@ -32,13 +32,13 @@ public class LoadingDialog extends Dialog {
         ImageView image = (ImageView) findViewById(R.id.progressImage);
         image.setBackground(vector);
 
-        final ObjectAnimator verticalAnimator = ObjectAnimator.ofFloat(image, "rotationY", 0.0f, 360f);
-        verticalAnimator.setDuration(1500);
-        verticalAnimator.setInterpolator(new LinearInterpolator());
+        final ObjectAnimator verticalAnimator = ObjectAnimator.ofFloat(image, "rotationY", 0.0f, 180f);
+        verticalAnimator.setDuration(600);
+        verticalAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 
-        final ObjectAnimator horizontalAnimator = ObjectAnimator.ofFloat(image, "rotationX", 0.0f, 360f);
-        horizontalAnimator.setDuration(1500);
-        horizontalAnimator.setInterpolator(new LinearInterpolator());
+        final ObjectAnimator horizontalAnimator = ObjectAnimator.ofFloat(image, "rotationX", 180f, 0.0f);
+        horizontalAnimator.setDuration(600);
+        horizontalAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 
         verticalAnimator.addListener(new AnimatorListenerAdapter() {
             boolean cancelled;
@@ -88,6 +88,6 @@ public class LoadingDialog extends Dialog {
             }
         });
 
-        verticalAnimator.start();
+        horizontalAnimator.start();
     }
 }
