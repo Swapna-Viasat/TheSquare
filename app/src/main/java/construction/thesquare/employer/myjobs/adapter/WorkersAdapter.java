@@ -155,8 +155,13 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
                         }
                         break;
                     case Application.STATUS_APPROVED:
-                        workerHolder.workerLabel.setImageDrawable(ContextCompat
-                                .getDrawable(context, R.drawable.workers_booked));
+                        if (type == Constants.ADAPTER_FOR_CONNECT) {
+                            workerHolder.workerLabel.setImageDrawable(ContextCompat
+                                    .getDrawable(context, R.drawable.worker_connected));
+                        } else {
+                            workerHolder.workerLabel.setImageDrawable(ContextCompat
+                                    .getDrawable(context, R.drawable.workers_booked));
+                        }
                         break;
                     case Application.STATUS_CANCELLED:
                         workerHolder.workerLabel.setImageDrawable(ContextCompat

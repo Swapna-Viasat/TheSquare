@@ -158,9 +158,11 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
     private int getBannerImage(Job job) {
         int result = 0;
         if (job.application != null) {
-            if (job.application.get(0).status.id == ApplicationStatus.STATUS_APPROVED)
-                result = R.drawable.workers_booked;
-            else if (job.application.get(0).status.id == ApplicationStatus.STATUS_PENDING) {
+            if (job.application.get(0).status.id == ApplicationStatus.STATUS_APPROVED) {
+                if (job.isConnect) result = R.drawable.worker_connected;
+                else
+                    result = R.drawable.workers_booked;
+            } else if (job.application.get(0).status.id == ApplicationStatus.STATUS_PENDING) {
                 if (job.application.get(0).isOffer)
                     result = R.drawable.workers_offered;
                 else result = R.drawable.workers_applied;
