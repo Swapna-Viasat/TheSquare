@@ -57,12 +57,20 @@ public class SharedPreferencesManager {
 
     //WORKER
 
-    public void persistSessionInfoWorker(String userToken, User user, String countryCode, String phone, String name) {
+    public void persistSessionInfoWorker(String userToken,
+                                         User user,
+                                         String countryCode,
+                                         String phone,
+                                         String name) {
         persistSessionInfoWorker(userToken, user.getId(), countryCode, phone, user.getEmail(), name);
     }
 
-    public void persistSessionInfoWorker(String userToken, int worker_id, String country_code,
-                                         String phone_number, String email, String name) {
+    public void persistSessionInfoWorker(String userToken,
+                                         int worker_id,
+                                         String country_code,
+                                         String phone_number,
+                                         String email,
+                                         String name) {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putInt(WORKER_ID, worker_id);
         edit.putString(COUNTRY_CODE_WORKER, country_code);

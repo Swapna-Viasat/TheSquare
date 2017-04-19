@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        
 
         if (TextUtils.isEmpty(SharedPreferencesManager.getInstance(this).getToken())) {
             startActivity(new Intent(this, StartActivity.class));

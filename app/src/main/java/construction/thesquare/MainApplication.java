@@ -9,6 +9,7 @@ import com.google.android.gms.analytics.Tracker;
 
 import javax.inject.Singleton;
 
+import construction.thesquare.shared.analytics.AnalyticStorage;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.login.LoginModule;
 import construction.thesquare.shared.login.controller.EmailLoginFragment;
@@ -47,6 +48,9 @@ public class MainApplication extends MultiDexApplication {
         mTracker = getDefaultTracker();
         mTracker.enableAutoActivityTracking(true);
         context = getApplicationContext();
+
+        String clientId = mTracker.get("&cid");
+        AnalyticStorage.persistGAClientId(this, clientId);
 
         SharedPreferencesManager.saveDeviceId(this);
 
