@@ -434,7 +434,7 @@
     <string name="job_details_experience">Experience </string>
     <string name="job_details_english_level">Level of English</string>
     <string name="job_details_overtime">Overtime</string>
-    <string name="job_details_overtime_text">£%d per hour</string>
+    <string name="job_details_overtime_text">£%s per hour</string>
     <string name="job_details_mandatory_requirements">Requirements </string>
     <string name="job_details_qualifications">Qualifications </string>
     <string name="job_details_experience_types">Types of experience </string>
@@ -1269,7 +1269,7 @@
     <string name="connect_email">Email address</string>
     <string name="connect_number">Contact number</string>
     <string name="connect_person">Contact person</string>
-    <string name="employer_jobs_app_deadline">Application \ndeadline %s</string>
+    <string name="employer_jobs_app_deadline">Application \ndeadline \n%s</string>
     <string name="connect_connected">Connected</string>
     <string name="connect_prompt_book">Are you sure you\'d
                     like to offer this job to %s ?</string>

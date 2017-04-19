@@ -83,8 +83,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobHolder> {
 
                 if (job.isConnect) {
                     holder.starts.setText(String.format(holder.itemView.getResources()
-                            .getString(R.string.employer_jobs_app_deadline,
-                                    DateUtils.getFormattedJobDate(job.start))));
+                            .getString(R.string.employer_jobs_app_deadline),
+                                    DateUtils.getFormattedJobDate(job.start)));
                 } else {
                     holder.starts.setText(String.format(holder.itemView.getResources()
                             .getString(R.string.employer_jobs_starts), DateUtils.getFormattedJobDate(job.start)));

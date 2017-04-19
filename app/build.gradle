@@ -10,9 +10,9 @@ android {
     defaultConfig {
         applicationId "construction.thesquare"
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 40
-        versionName "1.2.0"
+        targetSdkVersion 25 
+        versionCode 41
+        versionName "1.2.1"
         multiDexEnabled true
     }
     signingConfigs {
