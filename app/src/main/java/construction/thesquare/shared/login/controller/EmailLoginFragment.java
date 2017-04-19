@@ -20,6 +20,7 @@ import construction.thesquare.MainApplication;
 import construction.thesquare.R;
 import construction.thesquare.employer.MainEmployerActivity;
 import construction.thesquare.employer.onboarding.OnboardingEmployerActivity;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.LoginUser;
 import construction.thesquare.shared.data.model.ResponseObject;
@@ -28,6 +29,7 @@ import construction.thesquare.shared.login.model.AccountValidator;
 import construction.thesquare.shared.login.presenter.LoginPresenter;
 import construction.thesquare.shared.login.view.LoginForm;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -75,6 +77,8 @@ public class EmailLoginFragment extends Fragment
         ((MainApplication) getActivity().getApplication()).component()
                 .inject(this);
         loginPresenter.register(this);
+
+        Analytics.recordCurrentScreen(getActivity(), ConstantsAnalytics.SCREEN_LOGIN);
     }
 
     @Nullable

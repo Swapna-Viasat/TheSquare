@@ -9,12 +9,14 @@ import android.util.Log;
 import construction.thesquare.employer.MainEmployerActivity;
 import construction.thesquare.employer.onboarding.OnboardingEmployerActivity;
 import construction.thesquare.employer.signup.model.Employer;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.start.activity.StartActivity;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
 import construction.thesquare.worker.onboarding.OnboardingWorkerActivity;
@@ -63,7 +65,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        
+        Analytics.recordCurrentScreen(this, ConstantsAnalytics.SCREEN_LAUNCH);
 
         if (TextUtils.isEmpty(SharedPreferencesManager.getInstance(this).getToken())) {
             startActivity(new Intent(this, StartActivity.class));
