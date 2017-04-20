@@ -49,7 +49,7 @@ public class JobsFragment extends Fragment
     @BindView(R.id.view_pager) ViewPager viewPager;
 
     private CreateJobDialog dialog;
-
+    private MenuItem menuItem;
     public static JobsFragment getInstance() {
         JobsFragment fragment = new JobsFragment();
         return fragment;
@@ -99,6 +99,13 @@ public class JobsFragment extends Fragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_toolbar_employer, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        menuItem = menu.findItem(R.id.createEmployerJob);
+        menuItem.getActionView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
     }
 
     @Override
