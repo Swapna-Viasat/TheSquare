@@ -25,8 +25,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.payments.adapter.PaymentsAdapter;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -63,6 +65,9 @@ public class SubscriptionFragment extends Fragment {
         if (getArguments() != null) {
             //
         }
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_EMPLOYER_CHOOSE_PLAN);
     }
 
     @Override

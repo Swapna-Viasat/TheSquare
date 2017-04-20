@@ -21,11 +21,13 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
 import construction.thesquare.worker.main.ui.MainWorkerActivity;
@@ -57,6 +59,14 @@ public class SelectAvailabilityFragment extends Fragment {
         bundle.putBoolean(Constants.KEY_SINGLE_EDIT, singleEdition);
         selectAvailabilityFragment.setArguments(bundle);
         return selectAvailabilityFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_WORKER_ONBOARDING_AVAILABILITY);
     }
 
     @Override
@@ -131,6 +141,11 @@ public class SelectAvailabilityFragment extends Fragment {
             getActivity().finish();
             return;
         }
+
+        Analytics.recordEvent(getActivity(),
+                ConstantsAnalytics.EVENT_CATEGORY_ONBOARDING,
+                ConstantsAnalytics.EVENT_WORKER_ONBOARDED);
+
         Intent intent = new Intent(getActivity(), MainWorkerActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

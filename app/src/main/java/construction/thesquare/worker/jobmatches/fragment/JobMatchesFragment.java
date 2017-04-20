@@ -21,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.analytics.Analytics;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.view.widget.JosefinSansTextView;
 import construction.thesquare.worker.jobmatches.JobMatchesFilterListener;
@@ -60,6 +62,8 @@ public class JobMatchesFragment extends Fragment
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mUserActionsListener = new MatchesPresenter(this);
+
+        Analytics.recordCurrentScreen(getActivity(), ConstantsAnalytics.SCREEN_WORKER_MATCHES);
     }
 
     @Override

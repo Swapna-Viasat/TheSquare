@@ -28,10 +28,12 @@ import construction.thesquare.employer.createjob.CreateRequest;
 import construction.thesquare.employer.createjob.PreviewJobActivity;
 import construction.thesquare.employer.myjobs.adapter.JobsPagerAdapter;
 import construction.thesquare.employer.myjobs.dialog.CreateJobDialog;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.response.EmployerJobResponse;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.models.Qualification;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -59,6 +61,10 @@ public class JobsFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_EMPLOYER_JOBS);
     }
 
     @Override

@@ -17,6 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
 import construction.thesquare.employer.mygraftrs.adapter.MyGraftrsEmployerPagerAdapter;
+import construction.thesquare.shared.analytics.Analytics;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 
 public class MyGraftrsEmployerFragment extends Fragment {
@@ -25,6 +27,14 @@ public class MyGraftrsEmployerFragment extends Fragment {
     TabLayout tabLayout;
     @BindView(R.id.viewPagerFragmentMyGraftrs)
     ViewPager viewPager;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_EMPLOYER_WORKERS);
+    }
 
     @Nullable
     @Override

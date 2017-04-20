@@ -1,6 +1,7 @@
 package construction.thesquare.shared.analytics;
 
 import android.content.Context;
+import android.os.Build;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -38,7 +39,11 @@ public class Analytics {
         body.put("application_id", "construction.thesquare");
         body.put("application_version", String.valueOf(BuildConfig.VERSION_NAME));
         body.put("data_source", "app");
-        body.put("user_agent", "Android");
+        body.put("user_agent",
+                String.valueOf("") + " " + " Android API Version: " +
+                        String.valueOf(Build.VERSION.SDK_INT));
+        body.put("campaign_name", AnalyticStorage.getCampaignName(c));
+        body.put("google_ads_id", AnalyticStorage.getAdsId(c));
         HttpRestServiceConsumer.getBaseApiClient()
                 .track(body)
                 .enqueue(new Callback<ResponseBody>() {
@@ -70,7 +75,11 @@ public class Analytics {
         body.put("application_id", "construction.thesquare");
         body.put("application_version", String.valueOf(BuildConfig.VERSION_NAME));
         body.put("data_source", "app");
-        body.put("user_agent", "Android");
+        body.put("user_agent",
+                String.valueOf("") + " " + " Android API Version: " +
+                String.valueOf(Build.VERSION.SDK_INT));
+        body.put("campaign_name", AnalyticStorage.getCampaignName(c));
+        body.put("google_ads_id", AnalyticStorage.getAdsId(c));
         HttpRestServiceConsumer.getBaseApiClient()
                 .track(body)
                 .enqueue(new Callback<ResponseBody>() {

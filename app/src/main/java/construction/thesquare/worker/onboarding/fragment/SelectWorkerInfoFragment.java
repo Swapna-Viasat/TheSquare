@@ -45,6 +45,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.ZipCodeVerifier;
 import construction.thesquare.shared.data.model.ResponseObject;
@@ -53,6 +54,7 @@ import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -144,6 +146,14 @@ public class SelectWorkerInfoFragment extends Fragment {
         bundle.putSerializable(Constants.KEY_CURRENT_WORKER, worker);
         selectInfoFragment.setArguments(bundle);
         return selectInfoFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_WORKER_ONBOARDING_INTRO);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

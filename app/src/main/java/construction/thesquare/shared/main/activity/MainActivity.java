@@ -9,6 +9,7 @@ import android.util.Log;
 import construction.thesquare.employer.MainEmployerActivity;
 import construction.thesquare.employer.onboarding.OnboardingEmployerActivity;
 import construction.thesquare.employer.signup.model.Employer;
+import construction.thesquare.shared.analytics.AnalyticStorage;
 import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
@@ -50,6 +51,9 @@ public class MainActivity extends Activity {
                 Log.d(TAG, "on init finished");
                 //
                 if (error == null) {
+                    //
+                    AnalyticStorage.persistCampaignName(MainActivity.this,
+                            String.valueOf(linkProperties.getCampaign()));
                     //
                     Log.d(TAG, "no errors");
                 } else {

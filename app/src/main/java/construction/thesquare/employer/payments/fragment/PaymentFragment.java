@@ -30,10 +30,12 @@ import construction.thesquare.R;
 import construction.thesquare.employer.MainEmployerActivity;
 import construction.thesquare.employer.subscription.model.CreateCardRequest;
 import construction.thesquare.employer.subscription.model.CreateCardResponse;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.response.PricePlanResponse;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -79,6 +81,9 @@ public class PaymentFragment extends Fragment {
         if (getArguments() != null) {
             //
         }
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_EMPLOYER_PAYMENT_INFO);
     }
 
     @Override
@@ -185,6 +190,9 @@ public class PaymentFragment extends Fragment {
                         // TODO:
                         if (response.isSuccessful()) {
                             if (draftJobInLimbo) {
+                                Analytics.recordEvent(getActivity(),
+                                        ConstantsAnalytics.EVENT_CATEGORY_BILLING,
+                                        ConstantsAnalytics.EVENT_EMPLOYER_SUBSCRIBED);
                                 //
                                 resultDialog.show();
                                 //Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();

@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
@@ -34,6 +35,7 @@ import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -57,6 +59,14 @@ public class SelectRequirementsFragment extends Fragment implements ExperienceAd
     private List<ExperienceQualification> qualifications = new ArrayList<>();
     private Worker currentWorker;
     private List<ExperienceQualification> selected = new ArrayList<>();
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_WORKER_ONBOARDING_QUALIFICATIONS);
+    }
 
     public static SelectRequirementsFragment newInstance(boolean singleEdition) {
         SelectRequirementsFragment selectRequirementsFragment = new SelectRequirementsFragment();

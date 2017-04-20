@@ -19,10 +19,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
 import construction.thesquare.employer.MainEmployerActivity;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Employer;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -139,6 +141,10 @@ public class SelectEmployerInfoFragment extends Fragment {
     }
 
     private void proceed() {
+        Analytics.recordEvent(getActivity(),
+                ConstantsAnalytics.EVENT_CATEGORY_ONBOARDING,
+                ConstantsAnalytics.EVENT_EMPLOYER_ONBOARDED);
+
         startActivity(new Intent(getActivity(), MainEmployerActivity.class));
     }
 
