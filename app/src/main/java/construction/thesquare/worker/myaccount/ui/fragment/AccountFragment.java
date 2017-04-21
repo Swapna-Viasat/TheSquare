@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.FlavorSettings;
 import construction.thesquare.R;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.Invoice;
 import construction.thesquare.shared.data.model.ResponseObject;
@@ -38,6 +39,7 @@ import construction.thesquare.shared.data.model.TimesheetUnit;
 import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -100,6 +102,8 @@ public class AccountFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        Analytics.recordCurrentScreen(getActivity(), ConstantsAnalytics.SCREEN_WORKER_ACCOUNT);
     }
 
     @Override

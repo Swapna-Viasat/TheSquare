@@ -43,7 +43,7 @@ public class DialogBuilder {
     }
 
     public static Dialog showCustomDialog(Context context) {
-        if (Build.VERSION.SDK_INT > 19) {
+        if (Build.VERSION.SDK_INT > 14) {
             Dialog dialog = new LoadingDialog(context);
             dialog.show();
             if (dialog.getWindow() != null) {

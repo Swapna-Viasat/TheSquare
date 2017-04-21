@@ -43,9 +43,11 @@ import construction.thesquare.employer.createjob.dialog.CRNDialog;
 import construction.thesquare.employer.payments.fragment.PricePlanFragment;
 import construction.thesquare.employer.reviews.ReviewsActivity;
 import construction.thesquare.employer.settings.EmployerSettingsActivity;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Employer;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -89,6 +91,8 @@ public class AccountFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        Analytics.recordCurrentScreen(getActivity(), ConstantsAnalytics.SCREEN_EMPLOYER_ACCOUNT);
     }
 
     @Override

@@ -59,12 +59,14 @@ import construction.thesquare.employer.createjob.dialog.JobNameDialog;
 import construction.thesquare.employer.createjob.listener.ConnectCheckListener;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
 import construction.thesquare.employer.myjobs.fragment.JobDetailsFragment;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Job;
 import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.redirects.PaymentRedirect;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -170,6 +172,14 @@ public class SelectDetailsFragment extends Fragment
         bundle.putBoolean(Constants.KEY_SINGLE_EDIT, singleEdit);
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_EMPLOYER_CREATE_JOB_DETAILS);
     }
 
     public View onCreateView(LayoutInflater inflater,

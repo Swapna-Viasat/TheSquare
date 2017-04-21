@@ -40,6 +40,7 @@ import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import construction.thesquare.R;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
@@ -51,6 +52,7 @@ import construction.thesquare.shared.models.Qualification;
 import construction.thesquare.shared.models.Worker;
 import construction.thesquare.shared.utils.CollectionUtils;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -137,6 +139,14 @@ public class SelectExperienceFragment extends Fragment
         bundle.putBoolean(Constants.KEY_SINGLE_EDIT, singleEdition);
         selectExperienceFragment.setArguments(bundle);
         return selectExperienceFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_WORKER_ONBOARDING_INFO);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

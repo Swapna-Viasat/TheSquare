@@ -34,7 +34,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DateUtils;
 import construction.thesquare.shared.utils.DialogBuilder;
@@ -143,6 +145,10 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract {
         super.onCreate(savedInstanceState);
         currentJobId = getArguments().getInt(KEY_JOB);
         presenter = new JobDetailsPresenter(this);
+
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_WORKER_JOB_DETAILS);
     }
 
     @Nullable

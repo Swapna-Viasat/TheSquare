@@ -26,11 +26,13 @@ import construction.thesquare.R;
 import construction.thesquare.employer.createjob.CreateRequest;
 import construction.thesquare.employer.createjob.adapter.TradesAdapter;
 import construction.thesquare.employer.createjob.persistence.GsonConfig;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.models.Role;
 import construction.thesquare.shared.models.Trade;
 import construction.thesquare.shared.utils.Constants;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.utils.CrashLogHelper;
 import construction.thesquare.shared.utils.DialogBuilder;
 import construction.thesquare.shared.utils.HandleErrors;
@@ -78,6 +80,9 @@ public class SelectTradeFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        Analytics.recordCurrentScreen(getActivity(),
+                ConstantsAnalytics.SCREEN_EMPLOYER_CREATE_JOB_TRADE);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

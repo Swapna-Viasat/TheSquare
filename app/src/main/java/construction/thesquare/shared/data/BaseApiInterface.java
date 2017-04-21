@@ -412,6 +412,24 @@ public interface BaseApiInterface {
     @POST("/employers/toggle_notification/")
     Call<ResponseBody> toggleEmployerNotification(@Body SingleNotificationPreference body);
 
+
+    /**
+     * Suggestions endpoint
+     *
+     * @param suggestion
+     * @return
+     */
     @POST("/data/suggest/")
     Call<ResponseBody> suggestRole(@Body Suggestion suggestion);
+
+
+    /**
+     * Tracking endpoint
+     *
+     * @param body a HashMap containing all the key-value
+     *             pairs to be recorded for tracking purposes
+     * @return
+     */
+    @POST("/tracking/record/")
+    Call<ResponseBody> track(@Body HashMap<String, Object> body);
 }

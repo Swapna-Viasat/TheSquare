@@ -20,6 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import construction.thesquare.R;
+import construction.thesquare.shared.analytics.Analytics;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.veriphone.VerifyPhoneActivity;
 import construction.thesquare.shared.start.ActionBarViewHolder;
 import construction.thesquare.shared.start.fragment.TutorialFragmentStep;
@@ -55,6 +57,8 @@ public class StartEmployerActivity extends AppCompatActivity {
         updateIndicators(0);
 
         setActionBar();
+
+        Analytics.recordCurrentScreen(this, ConstantsAnalytics.SCREEN_TUTORIAL_EMPLOYER);
     }
 
     private List<Fragment> getFragments() {

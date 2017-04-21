@@ -34,10 +34,12 @@ import construction.thesquare.R;
 import construction.thesquare.employer.MainEmployerActivity;
 import construction.thesquare.employer.onboarding.OnboardingEmployerActivity;
 import construction.thesquare.employer.signup.model.EmployerVerify;
+import construction.thesquare.shared.analytics.Analytics;
 import construction.thesquare.shared.data.HttpRestServiceConsumer;
 import construction.thesquare.shared.data.model.ResponseObject;
 import construction.thesquare.shared.data.model.SMSSent;
 import construction.thesquare.shared.data.persistence.SharedPreferencesManager;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.shared.veriphone.OnSmsReceivedListener;
 import construction.thesquare.shared.veriphone.SmsInterceptor;
 import construction.thesquare.shared.login.controller.EmailLoginFragment;
@@ -193,6 +195,12 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                             response.body().getResponse()
                                                     .getUser().getLast_name();
 
+                                    Analytics.recordCurrentScreen(getActivity(),
+                                            ConstantsAnalytics.SCREEN_REGISTER_EMPLOYER);
+                                    Analytics.recordEvent(getActivity(),
+                                            ConstantsAnalytics.EVENT_CATEGORY_REGISTRATION,
+                                            ConstantsAnalytics.EVENT_EMPLOYER_REGISTERED);
+
                                     SharedPreferencesManager.getInstance(getContext())
                                             .persistSessionInfoEmployer2(response.body().getResponse().getToken(),
                                                     response.body().getResponse().getUser(),
@@ -239,6 +247,12 @@ public class EnterCodeFragment extends Fragment implements OnSmsReceivedListener
                                             .getUser().getFirst_name() + " " +
                                             response.body().getResponse()
                                                     .getUser().getLast_name();
+
+                                    Analytics.recordCurrentScreen(getActivity(),
+                                            ConstantsAnalytics.SCREEN_REGISTER_WORKER);
+                                    Analytics.recordEvent(getActivity(),
+                                            ConstantsAnalytics.EVENT_CATEGORY_REGISTRATION,
+                                            ConstantsAnalytics.EVENT_WORKER_REGISTERED);
 
                                     SharedPreferencesManager.getInstance(getContext())
                                             .persistSessionInfoWorker(response.body().getResponse().getToken(),

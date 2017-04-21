@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import construction.thesquare.R;
+import construction.thesquare.shared.analytics.Analytics;
+import construction.thesquare.shared.utils.ConstantsAnalytics;
 import construction.thesquare.worker.myjobs.adapter.JobsPagerAdapter;
 
 /**
@@ -35,6 +37,8 @@ public class JobsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         jobsPagerAdapter = new JobsPagerAdapter(getActivity(), getChildFragmentManager());
+
+        Analytics.recordCurrentScreen(getActivity(), ConstantsAnalytics.SCREEN_WORKER_JOBS);
     }
 
     @Override

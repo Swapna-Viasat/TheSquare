@@ -282,15 +282,15 @@
             </intent-filter>
         </activity>
 
-        <!-- Used for Google Play Store Campaign Measurement -->
-        <receiver
-            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
+        <!--&lt;!&ndash; Used for Google Play Store Campaign Measurement &ndash;&gt;-->
+        <!--<receiver-->
+            <!--android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <service
             android:name="com.google.android.gms.analytics.CampaignTrackingService"
