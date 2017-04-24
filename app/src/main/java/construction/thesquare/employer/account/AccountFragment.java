@@ -360,6 +360,11 @@ public class AccountFragment extends Fragment {
             } else if (requestCode == LOGO_PICK_GALLERY) {
                 try {
                     Uri uri = data.getData();
+
+                    // the following only works on some phones -
+                    // on others such as htc it doesnt
+                    // but the one below it seems to work on all for now
+
 //                    Bitmap bitmap = BitmapFactory
 //                            .decodeFile(MediaTools.getPath(getActivity(), uri));
 

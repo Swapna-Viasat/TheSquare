@@ -16,6 +16,6 @@ public interface JobsContract {
     }
 
     interface UserActionsListener {
-        void fetchJobs();
+        void fetchJobs(int status);
     }
 }

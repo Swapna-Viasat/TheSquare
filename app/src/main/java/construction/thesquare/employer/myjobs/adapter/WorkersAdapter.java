@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -98,11 +99,17 @@ public class WorkersAdapter extends RecyclerView.Adapter<WorkersAdapter.WorkerHo
         holder.workerRating.setRating((int) worker.rating);
 
         if (null != worker.picture) {
+            holder.avatar.setImageDrawable(ContextCompat
+                    .getDrawable(context, R.drawable.bob));
             Picasso.with(context)
                     .load(worker.picture)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .fit()
                     .centerCrop()
                     .into(holder.avatar);
+        } else {
+            holder.avatar.setImageDrawable(ContextCompat
+                    .getDrawable(context, R.drawable.bob));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

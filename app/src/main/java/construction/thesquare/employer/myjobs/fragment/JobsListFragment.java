@@ -95,7 +95,7 @@ public class JobsListFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        mUserActionsListener.fetchJobs();
+        mUserActionsListener.fetchJobs(getArguments().getInt(Constants.KEY_EMPLOYER_JOB_TAB));
     }
 
     @OnClick(R.id.no_matches)
@@ -343,7 +343,8 @@ public class JobsListFragment extends Fragment
                         if (response.isSuccessful()) {
                             DialogBuilder.cancelDialog(dialog);
                             //
-                            mUserActionsListener.fetchJobs();
+                            mUserActionsListener
+                                    .fetchJobs(getArguments().getInt(Constants.KEY_EMPLOYER_JOB_TAB));
                             //
                         } else {
                             HandleErrors.parseError(getContext(), dialog, response);
