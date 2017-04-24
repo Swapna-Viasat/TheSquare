@@ -3,6 +3,7 @@ package construction.thesquare.shared.data.model.response;
 
 import java.util.List;
 
+import construction.thesquare.shared.models.Pagination;
 import construction.thesquare.shared.models.Worker;
 
 /**
@@ -10,5 +11,7 @@ import construction.thesquare.shared.models.Worker;
  */
 
 public class JobWorkersResponse {
+
+    public Pagination pagination; 
     public List<Worker> response;
 }
