@@ -255,7 +255,10 @@ public interface BaseApiInterface {
     Call<ResponseObject<Job[]>> getJobList(@Query("page") int page);
 
     @GET("/jobs/")
-    Call<EmployerJobResponse> fetchJobs();
+    Call<EmployerJobResponse> fetchJobs(@Query("status") int status);
+
+    @GET("/jobs/")
+    Call<EmployerJobResponse> fetchAllJobs();
 
     @DELETE("/jobs/{pk}/")
     Call<ResponseObject<Job>> deleteJob(@Path("pk") int id);

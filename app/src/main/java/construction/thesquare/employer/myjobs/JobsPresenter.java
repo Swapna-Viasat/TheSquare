@@ -29,11 +29,11 @@ public class JobsPresenter implements JobsContract.UserActionsListener {
     }
 
     @Override
-    public void fetchJobs() {
+    public void fetchJobs(int status) {
         final Dialog dialog = DialogBuilder.showCustomDialog(context);
 
         HttpRestServiceConsumer.getBaseApiClient()
-                .fetchJobs()
+                .fetchJobs(status)
                 .enqueue(new Callback<EmployerJobResponse>() {
                     @Override
                     public void onResponse(Call<EmployerJobResponse> call,

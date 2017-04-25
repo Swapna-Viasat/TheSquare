@@ -15,6 +15,7 @@ public class ConstantsAnalytics {
     public static final String EVENT_EMPLOYER_ONBOARDED = "Onboarded Employer";
     public static final String EVENT_WORKER_REGISTERED = "Registered Worker";
     public static final String EVENT_WORKER_ONBOARDED = "Onboarded Worker";
+    public static final String EVENT_WORKER_ROLE_ENTERED = "Worker Registration - Role Entered";
 
 
     public static final String SCREEN_LAUNCH = "screen_launch";

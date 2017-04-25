@@ -330,7 +330,7 @@ public class JobsFragment extends Fragment
     private void fetchJobs() {
         final Dialog dialog = DialogBuilder.showCustomDialog(getContext());
         HttpRestServiceConsumer.getBaseApiClient()
-                .fetchJobs()
+                .fetchAllJobs()
                 .enqueue(new Callback<EmployerJobResponse>() {
                     @Override
                     public void onResponse(Call<EmployerJobResponse> call,

@@ -52,8 +52,13 @@ public class MainActivity extends Activity {
                 //
                 if (error == null) {
                     //
-                    AnalyticStorage.persistCampaignName(MainActivity.this,
-                            String.valueOf(linkProperties.getCampaign()));
+                    try {
+                        AnalyticStorage.persistCampaignName(MainActivity.this,
+                                String.valueOf((null != linkProperties)
+                                        ? linkProperties.getCampaign() : ""));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     //
                     Log.d(TAG, "no errors");
                 } else {

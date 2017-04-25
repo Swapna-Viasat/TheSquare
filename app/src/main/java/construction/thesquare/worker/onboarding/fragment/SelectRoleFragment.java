@@ -204,6 +204,11 @@ public class SelectRoleFragment extends Fragment
                                            Response<ResponseObject<Worker>> response) {
                         //
                         DialogBuilder.cancelDialog(dialog);
+
+                        Analytics.recordEvent(getActivity(),
+                                ConstantsAnalytics.EVENT_CATEGORY_ONBOARDING,
+                                ConstantsAnalytics.EVENT_WORKER_ROLE_ENTERED);
+                        //
                         if (response.isSuccessful()) {
                             proceed();
                         } else {
